@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
@@ -80,8 +81,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             ),
                             alignment: Alignment(0, 0),
                             child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                await signInWithGoogle(context);
                               },
                               text: 'Continue with google',
                               iconData: Icons.electrical_services_rounded,
@@ -123,8 +124,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             ),
                             alignment: Alignment(0, 0),
                             child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                await signInWithGoogle(context);
                               },
                               text: 'Continue with apple',
                               iconData: Icons.do_disturb_off_rounded,
