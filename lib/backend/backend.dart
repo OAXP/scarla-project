@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:built_value/serializer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,7 +61,7 @@ Future maybeCreateUser(User user) async {
   final about = '';
   final id = user.uid;
   final name = user.displayName;
-  final photoUrl = user.photoUrl;
+  final photoUrl = user.photoURL;
 
   final userData = createUsersRecordData(
     about: about,

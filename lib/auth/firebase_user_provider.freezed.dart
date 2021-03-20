@@ -38,30 +38,30 @@ const $ScarlaFirebaseUser = _$ScarlaFirebaseUserTearOff();
 /// @nodoc
 mixin _$ScarlaFirebaseUser {
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result user(User user),
-    @required Result loggedOut(),
-    @required Result initial(),
+  TResult when<TResult extends Object>({
+    @required TResult user(User user),
+    @required TResult loggedOut(),
+    @required TResult initial(),
   });
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result user(User user),
-    Result loggedOut(),
-    Result initial(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult user(User user),
+    TResult loggedOut(),
+    TResult initial(),
+    @required TResult orElse(),
   });
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result user(_User value),
-    @required Result loggedOut(_LoggedOut value),
-    @required Result initial(_Initial value),
+  TResult map<TResult extends Object>({
+    @required TResult user(_User value),
+    @required TResult loggedOut(_LoggedOut value),
+    @required TResult initial(_Initial value),
   });
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result user(_User value),
-    Result loggedOut(_LoggedOut value),
-    Result initial(_Initial value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult user(_User value),
+    TResult loggedOut(_LoggedOut value),
+    TResult initial(_Initial value),
+    @required TResult orElse(),
   });
 }
 
@@ -132,16 +132,17 @@ class _$_User implements _User {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(user);
 
+  @JsonKey(ignore: true)
   @override
   _$UserCopyWith<_User> get copyWith =>
       __$UserCopyWithImpl<_User>(this, _$identity);
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result user(User user),
-    @required Result loggedOut(),
-    @required Result initial(),
+  TResult when<TResult extends Object>({
+    @required TResult user(User user),
+    @required TResult loggedOut(),
+    @required TResult initial(),
   }) {
     assert(user != null);
     assert(loggedOut != null);
@@ -151,11 +152,11 @@ class _$_User implements _User {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result user(User user),
-    Result loggedOut(),
-    Result initial(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult user(User user),
+    TResult loggedOut(),
+    TResult initial(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (user != null) {
@@ -166,10 +167,10 @@ class _$_User implements _User {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result user(_User value),
-    @required Result loggedOut(_LoggedOut value),
-    @required Result initial(_Initial value),
+  TResult map<TResult extends Object>({
+    @required TResult user(_User value),
+    @required TResult loggedOut(_LoggedOut value),
+    @required TResult initial(_Initial value),
   }) {
     assert(user != null);
     assert(loggedOut != null);
@@ -179,11 +180,11 @@ class _$_User implements _User {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result user(_User value),
-    Result loggedOut(_LoggedOut value),
-    Result initial(_Initial value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult user(_User value),
+    TResult loggedOut(_LoggedOut value),
+    TResult initial(_Initial value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (user != null) {
@@ -197,6 +198,7 @@ abstract class _User implements ScarlaFirebaseUser {
   factory _User(User user) = _$_User;
 
   User get user;
+  @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith;
 }
 
@@ -237,10 +239,10 @@ class _$_LoggedOut implements _LoggedOut {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result user(User user),
-    @required Result loggedOut(),
-    @required Result initial(),
+  TResult when<TResult extends Object>({
+    @required TResult user(User user),
+    @required TResult loggedOut(),
+    @required TResult initial(),
   }) {
     assert(user != null);
     assert(loggedOut != null);
@@ -250,11 +252,11 @@ class _$_LoggedOut implements _LoggedOut {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result user(User user),
-    Result loggedOut(),
-    Result initial(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult user(User user),
+    TResult loggedOut(),
+    TResult initial(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loggedOut != null) {
@@ -265,10 +267,10 @@ class _$_LoggedOut implements _LoggedOut {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result user(_User value),
-    @required Result loggedOut(_LoggedOut value),
-    @required Result initial(_Initial value),
+  TResult map<TResult extends Object>({
+    @required TResult user(_User value),
+    @required TResult loggedOut(_LoggedOut value),
+    @required TResult initial(_Initial value),
   }) {
     assert(user != null);
     assert(loggedOut != null);
@@ -278,11 +280,11 @@ class _$_LoggedOut implements _LoggedOut {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result user(_User value),
-    Result loggedOut(_LoggedOut value),
-    Result initial(_Initial value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult user(_User value),
+    TResult loggedOut(_LoggedOut value),
+    TResult initial(_Initial value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (loggedOut != null) {
@@ -332,10 +334,10 @@ class _$_Initial implements _Initial {
 
   @override
   @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result user(User user),
-    @required Result loggedOut(),
-    @required Result initial(),
+  TResult when<TResult extends Object>({
+    @required TResult user(User user),
+    @required TResult loggedOut(),
+    @required TResult initial(),
   }) {
     assert(user != null);
     assert(loggedOut != null);
@@ -345,11 +347,11 @@ class _$_Initial implements _Initial {
 
   @override
   @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result user(User user),
-    Result loggedOut(),
-    Result initial(),
-    @required Result orElse(),
+  TResult maybeWhen<TResult extends Object>({
+    TResult user(User user),
+    TResult loggedOut(),
+    TResult initial(),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (initial != null) {
@@ -360,10 +362,10 @@ class _$_Initial implements _Initial {
 
   @override
   @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result user(_User value),
-    @required Result loggedOut(_LoggedOut value),
-    @required Result initial(_Initial value),
+  TResult map<TResult extends Object>({
+    @required TResult user(_User value),
+    @required TResult loggedOut(_LoggedOut value),
+    @required TResult initial(_Initial value),
   }) {
     assert(user != null);
     assert(loggedOut != null);
@@ -373,11 +375,11 @@ class _$_Initial implements _Initial {
 
   @override
   @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result user(_User value),
-    Result loggedOut(_LoggedOut value),
-    Result initial(_Initial value),
-    @required Result orElse(),
+  TResult maybeMap<TResult extends Object>({
+    TResult user(_User value),
+    TResult loggedOut(_LoggedOut value),
+    TResult initial(_Initial value),
+    @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (initial != null) {
