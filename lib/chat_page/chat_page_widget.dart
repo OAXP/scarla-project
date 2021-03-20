@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChatPageWidget extends StatefulWidget {
-  ChatPageWidget({Key key}) : super(key: key);
+  ChatPageWidget({Key key, this.groupName}) : super(key: key);
+
+  final String groupName;
 
   @override
   _ChatPageWidgetState createState() => _ChatPageWidgetState();
@@ -49,7 +51,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(65, 0, 0, 0),
                     child: Text(
-                      'Group Name',
+                      widget.groupName,
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
