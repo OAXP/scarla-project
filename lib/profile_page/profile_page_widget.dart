@@ -96,7 +96,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                             image: DecorationImage(
                               image:
                                   NetworkImage(profilePageUsersRecord.photoUrl),
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                             ),
                           ),
                         ),
@@ -149,7 +149,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         image: DecorationImage(
                                           image: NetworkImage(
                                               'https://pbs.twimg.com/profile_images/1291867974790295552/AFRVxzDT_400x400.jpg'),
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
                                     ),
@@ -236,6 +236,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     alignment: Alignment(0, 0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
                                       children: [
                                         Container(
                                           width: 100,
@@ -246,12 +250,13 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                               image: NetworkImage(
                                                   gridViewGroupsRecord
                                                       .gPhotoUrl),
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.contain,
                                             ),
                                           ),
                                         ),
                                         Text(
                                           gridViewGroupsRecord.gName,
+                                          textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.bodyText1
                                               .override(
                                             fontFamily: 'Poppins',
