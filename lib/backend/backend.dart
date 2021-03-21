@@ -60,7 +60,7 @@ Future maybeCreateUser(User user) async {
   final about = '';
   final id = user.uid;
   final name = user.displayName;
-  final photoUrl = user.photoUrl;
+  final photoUrl = user.photoURL;
 
   final userData = createUsersRecordData(
     about: about,

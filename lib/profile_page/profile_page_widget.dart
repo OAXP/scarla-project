@@ -68,7 +68,11 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SettingsPageWidget(),
+                              builder: (context) => SettingsPageWidget(
+                                photoUrl: profilePageUsersRecord.photoUrl,
+                                user: profilePageUsersRecord.reference,
+                                name: profilePageUsersRecord.name,
+                              ),
                             ),
                           );
                         },
@@ -183,9 +187,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                         ),
                       ),
                       StreamBuilder<List<Groups>>(
-                        stream: queryGroups(
-                          limit: 8,
-                        ),
+                        stream: queryGroups(),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -196,7 +198,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                           if (snapshot.data.isEmpty) {
                             // return Container();
                             // For now, we'll just include some dummy data.
-                            gridViewGroupsList = createDummyGroups(count: 8);
+                            gridViewGroupsList = createDummyGroups(count: 4);
                           }
                           return Padding(
                             padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
