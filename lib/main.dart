@@ -88,10 +88,10 @@ class _NavBarHolderState extends State<NavBarHolder> {
             label: 'Profile',
           )
         ],
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0x00FFFFFF),
         currentIndex: _currentIndex,
-        selectedItemColor: Color(0x90FF0004),
-        unselectedItemColor: Color(0xC5FFFFFF),
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Color(0xFFA9A9A9),
         onTap: (i) => setState(() => _currentIndex = i),
         showSelectedLabels: false,
         showUnselectedLabels: false,
