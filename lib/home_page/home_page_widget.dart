@@ -99,6 +99,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ),
                                     child: ListView(
                                       padding: EdgeInsets.zero,
+                                      primary: false,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       children: [
