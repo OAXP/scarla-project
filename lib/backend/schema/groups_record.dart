@@ -6,10 +6,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'schema_util.dart';
 import 'serializers.dart';
 
-part 'groups.g.dart';
+part 'groups_record.g.dart';
 
-abstract class Groups implements Built<Groups, GroupsBuilder> {
-  static Serializer<Groups> get serializer => _$groupsSerializer;
+abstract class GroupsRecord
+    implements Built<GroupsRecord, GroupsRecordBuilder> {
+  static Serializer<GroupsRecord> get serializer => _$groupsRecordSerializer;
 
   @nullable
   @BuiltValueField(wireName: 'g_id')
@@ -34,7 +35,7 @@ abstract class Groups implements Built<Groups, GroupsBuilder> {
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(GroupsBuilder builder) => builder
+  static void _initializeBuilder(GroupsRecordBuilder builder) => builder
     ..gId = ''
     ..gName = ''
     ..gPhotoUrl = ''
@@ -43,12 +44,13 @@ abstract class Groups implements Built<Groups, GroupsBuilder> {
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('groups');
 
-  static Stream<Groups> getDocument(DocumentReference ref) => ref
+  static Stream<GroupsRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
-  Groups._();
-  factory Groups([void Function(GroupsBuilder) updates]) = _$Groups;
+  GroupsRecord._();
+  factory GroupsRecord([void Function(GroupsRecordBuilder) updates]) =
+      _$GroupsRecord;
 }
 
 Map<String, dynamic> createGroupsRecordData({
@@ -59,16 +61,16 @@ Map<String, dynamic> createGroupsRecordData({
   DocumentReference messages,
 }) =>
     serializers.serializeWith(
-        Groups.serializer,
-        Groups((g) => g
+        GroupsRecord.serializer,
+        GroupsRecord((g) => g
           ..gId = gId
           ..gName = gName
           ..gPhotoUrl = gPhotoUrl
           ..lastMessage = lastMessage
           ..messages = messages));
 
-Groups get dummyGroups {
-  final builder = GroupsBuilder()
+GroupsRecord get dummyGroupsRecord {
+  final builder = GroupsRecordBuilder()
     ..gId = dummyString
     ..gName = dummyString
     ..gPhotoUrl = dummyImagePath
@@ -76,5 +78,5 @@ Groups get dummyGroups {
   return builder.build();
 }
 
-List<Groups> createDummyGroups({int count}) =>
-    List.generate(count, (_) => dummyGroups);
+List<GroupsRecord> createDummyGroupsRecord({int count}) =>
+    List.generate(count, (_) => dummyGroupsRecord);

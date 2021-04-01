@@ -4,6 +4,7 @@ import '../chat_page/chat_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../settings_page/settings_page_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,9 +20,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Users>>(
-      stream: queryUsers(
-        queryBuilder: (users) => users.where('id', isEqualTo: currentUserUid),
+    return StreamBuilder<List<UsersRecord>>(
+      stream: queryUsersRecord(
+        queryBuilder: (usersRecord) =>
+            usersRecord.where('id', isEqualTo: currentUserUid),
         singleRecord: true,
       ),
       builder: (context, snapshot) {
@@ -29,14 +31,14 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         }
-        List<Users> profilePageUsersList = snapshot.data;
+        List<UsersRecord> profilePageUsersRecordList = snapshot.data;
         // Customize what your widget looks like with no query results.
         if (snapshot.data.isEmpty) {
           // return Container();
           // For now, we'll just include some dummy data.
-          profilePageUsersList = createDummyUsers(count: 1);
+          profilePageUsersRecordList = createDummyUsersRecord(count: 1);
         }
-        final profilePageUsersRecord = profilePageUsersList.first;
+        final profilePageUsersRecord = profilePageUsersRecordList.first;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: Colors.black,
@@ -65,8 +67,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                       color: Color(0xFFB7B7B7),
                     ),
                     alignment: Alignment(0, 0),
-                    child: Image.network(
-                      profilePageUsersRecord.bgProfile,
+                    child: CachedNetworkImage(
+                      imageUrl: profilePageUsersRecord.bgProfile,
                       width: MediaQuery.of(context).size.width * 1,
                       height: MediaQuery.of(context).size.height * 1,
                       fit: BoxFit.cover,
@@ -118,13 +120,13 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                               child: Container(
                                 width: 100,
                                 height: 100,
+                                clipBehavior: Clip.antiAlias,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                        profilePageUsersRecord.photoUrl),
-                                    fit: BoxFit.contain,
-                                  ),
+                                ),
+                                child: Image.network(
+                                  profilePageUsersRecord.photoUrl,
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ),
@@ -161,30 +163,32 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 ),
                               ),
                             ),
-                            StreamBuilder<List<Users>>(
-                              stream: queryUsers(),
+                            StreamBuilder<List<UsersRecord>>(
+                              stream: queryUsersRecord(),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
                                   return Center(
                                       child: CircularProgressIndicator());
                                 }
-                                List<Users> rowUsersList = snapshot.data;
+                                List<UsersRecord> rowUsersRecordList =
+                                    snapshot.data;
                                 // Customize what your widget looks like with no query results.
                                 if (snapshot.data.isEmpty) {
                                   // return Container();
                                   // For now, we'll just include some dummy data.
-                                  rowUsersList = createDummyUsers(count: 4);
+                                  rowUsersRecordList =
+                                      createDummyUsersRecord(count: 4);
                                 }
                                 return Padding(
-                                  padding: EdgeInsets.fromLTRB(2, 2, 0, 7),
+                                  padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: List.generate(rowUsersList.length,
-                                        (rowIndex) {
+                                    children: List.generate(
+                                        rowUsersRecordList.length, (rowIndex) {
                                       final rowUsersRecord =
-                                          rowUsersList[rowIndex];
+                                          rowUsersRecordList[rowIndex];
                                       return Padding(
                                         padding:
                                             EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -196,13 +200,14 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           child: Container(
                                             width: 30,
                                             height: 30,
+                                            clipBehavior: Clip.antiAlias,
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                    'https://pbs.twimg.com/profile_images/1291867974790295552/AFRVxzDT_400x400.jpg'),
-                                                fit: BoxFit.contain,
-                                              ),
+                                            ),
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  'https://pbs.twimg.com/profile_images/1291867974790295552/AFRVxzDT_400x400.jpg',
+                                              fit: BoxFit.contain,
                                             ),
                                           ),
                                         ),
@@ -223,21 +228,22 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 ),
                               ),
                             ),
-                            StreamBuilder<List<Groups>>(
-                              stream: queryGroups(),
+                            StreamBuilder<List<GroupsRecord>>(
+                              stream: queryGroupsRecord(),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
                                   return Center(
                                       child: CircularProgressIndicator());
                                 }
-                                List<Groups> gridViewGroupsList = snapshot.data;
+                                List<GroupsRecord> gridViewGroupsRecordList =
+                                    snapshot.data;
                                 // Customize what your widget looks like with no query results.
                                 if (snapshot.data.isEmpty) {
                                   // return Container();
                                   // For now, we'll just include some dummy data.
-                                  gridViewGroupsList =
-                                      createDummyGroups(count: 4);
+                                  gridViewGroupsRecordList =
+                                      createDummyGroupsRecord(count: 4);
                                 }
                                 return Padding(
                                   padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -253,10 +259,11 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     primary: false,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
-                                    itemCount: gridViewGroupsList.length,
+                                    itemCount: gridViewGroupsRecordList.length,
                                     itemBuilder: (context, gridViewIndex) {
                                       final gridViewGroupsRecord =
-                                          gridViewGroupsList[gridViewIndex];
+                                          gridViewGroupsRecordList[
+                                              gridViewIndex];
                                       return InkWell(
                                         onTap: () async {
                                           await Navigator.push(
@@ -287,14 +294,14 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                               Container(
                                                 width: 100,
                                                 height: 100,
+                                                clipBehavior: Clip.antiAlias,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        gridViewGroupsRecord
-                                                            .gPhotoUrl),
-                                                    fit: BoxFit.contain,
-                                                  ),
+                                                ),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: gridViewGroupsRecord
+                                                      .gPhotoUrl,
+                                                  fit: BoxFit.contain,
                                                 ),
                                               ),
                                               Text(

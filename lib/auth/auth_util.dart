@@ -40,4 +40,4 @@ String get currentUserPhoto =>
     currentUser.maybeWhen(user: (user) => user.photoURL, orElse: () => '');
 
 DocumentReference get currentUserReference => currentUser.maybeWhen(
-    user: (user) => Users.collection.doc(user.uid), orElse: () => null);
+    user: (user) => UsersRecord.collection.doc(user.uid), orElse: () => null);

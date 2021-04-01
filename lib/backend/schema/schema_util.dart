@@ -15,5 +15,7 @@ String get dummyString => [
     ][random.nextInt(4)];
 String get dummyImagePath =>
     "https://picsum.photos/seed/${random.nextInt(1000)}/400";
+String get dummyVideoPath => 'https://assets.mixkit.co/videos/preview/'
+    'mixkit-forest-stream-in-the-sunlight-529-large.mp4';
 Timestamp get dummyTimestamp => Timestamp.fromMillisecondsSinceEpoch(
     1612302574000 - (random.nextDouble() * 8000000000).round());

@@ -2,8 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'auth/firebase_user_provider.dart';
 import 'package:scarla/login_page/login_page_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'home_page/home_page_widget.dart';
+import 'games_select/games_select_widget.dart';
+import 'group_list_page/group_list_page_widget.dart';
 import 'profile_page/profile_page_widget.dart';
 
 void main() async {
@@ -63,14 +66,14 @@ class _NavBarHolderState extends State<NavBarHolder> {
 
   @override
   Widget build(BuildContext context) {
+    final tabs = [
+      HomePageWidget(),
+      GamesSelectWidget(),
+      GroupListPageWidget(),
+      ProfilePageWidget(),
+    ];
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: [
-          HomePageWidget(),
-          ProfilePageWidget(),
-        ],
-      ),
+      body: tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -81,6 +84,20 @@ class _NavBarHolderState extends State<NavBarHolder> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.gamepad,
+              size: 24,
+            ),
+            label: 'Games',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat,
+              size: 24,
+            ),
+            label: 'Squads',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(
               Icons.person_outline_sharp,
               size: 24,
@@ -88,7 +105,7 @@ class _NavBarHolderState extends State<NavBarHolder> {
             label: 'Profile',
           )
         ],
-        backgroundColor: Color(0x00FFFFFF),
+        backgroundColor: Colors.white,
         currentIndex: _currentIndex,
         selectedItemColor: Colors.black,
         unselectedItemColor: Color(0xFFA9A9A9),

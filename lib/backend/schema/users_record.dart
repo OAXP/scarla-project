@@ -6,10 +6,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'schema_util.dart';
 import 'serializers.dart';
 
-part 'users.g.dart';
+part 'users_record.g.dart';
 
-abstract class Users implements Built<Users, UsersBuilder> {
-  static Serializer<Users> get serializer => _$usersSerializer;
+abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
+  static Serializer<UsersRecord> get serializer => _$usersRecordSerializer;
 
   @nullable
   String get about;
@@ -31,7 +31,7 @@ abstract class Users implements Built<Users, UsersBuilder> {
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(UsersBuilder builder) => builder
+  static void _initializeBuilder(UsersRecordBuilder builder) => builder
     ..about = ''
     ..id = ''
     ..name = ''
@@ -41,12 +41,13 @@ abstract class Users implements Built<Users, UsersBuilder> {
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
 
-  static Stream<Users> getDocument(DocumentReference ref) => ref
+  static Stream<UsersRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
-  Users._();
-  factory Users([void Function(UsersBuilder) updates]) = _$Users;
+  UsersRecord._();
+  factory UsersRecord([void Function(UsersRecordBuilder) updates]) =
+      _$UsersRecord;
 }
 
 Map<String, dynamic> createUsersRecordData({
@@ -57,16 +58,16 @@ Map<String, dynamic> createUsersRecordData({
   String bgProfile,
 }) =>
     serializers.serializeWith(
-        Users.serializer,
-        Users((u) => u
+        UsersRecord.serializer,
+        UsersRecord((u) => u
           ..about = about
           ..id = id
           ..name = name
           ..photoUrl = photoUrl
           ..bgProfile = bgProfile));
 
-Users get dummyUsers {
-  final builder = UsersBuilder()
+UsersRecord get dummyUsersRecord {
+  final builder = UsersRecordBuilder()
     ..about = dummyString
     ..id = dummyString
     ..name = dummyString
@@ -75,5 +76,5 @@ Users get dummyUsers {
   return builder.build();
 }
 
-List<Users> createDummyUsers({int count}) =>
-    List.generate(count, (_) => dummyUsers);
+List<UsersRecord> createDummyUsersRecord({int count}) =>
+    List.generate(count, (_) => dummyUsersRecord);

@@ -3,18 +3,20 @@ import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'users.dart';
-import 'groups.dart';
-import 'g_messages.dart';
+import 'users_record.dart';
+import 'groups_record.dart';
+import 'g_messages_record.dart';
+import 'feed_record.dart';
 
 part 'serializers.g.dart';
 
 const kDocumentReferenceField = 'Document__Reference__Field';
 
 @SerializersFor(const [
-  Users,
-  Groups,
-  GMessages,
+  UsersRecord,
+  GroupsRecord,
+  GMessagesRecord,
+  FeedRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

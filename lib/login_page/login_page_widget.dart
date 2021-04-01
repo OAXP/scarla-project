@@ -53,12 +53,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       Container(
                         width: 120,
                         height: 120,
+                        clipBehavior: Clip.antiAlias,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image:
-                                AssetImage('assets/images/controller--v1.png'),
-                          ),
+                        ),
+                        child: Image.asset(
+                          'assets/images/controller--v1.png',
                         ),
                       )
                     ],
