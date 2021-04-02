@@ -3,9 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class FlutterFlowTheme {
-  static const Color primaryColor = Color(0xFF3474E0);
-  static const Color secondaryColor = Color(0xFFEE8B60);
-  static const Color tertiaryColor = Color(0xFFFFFFFF);
+  static const Color primaryColor = Color(0xFF25263E);
+  static const Color secondaryColor = Color(0xFFFF89AC);
+  static const Color tertiaryColor = Color(0xFF252854);
 
   String primaryFontFamily = 'Poppins';
   String secondaryFontFamily = 'Roboto';
@@ -59,9 +59,13 @@ extension TextStyleHelper on TextStyle {
           {String fontFamily,
           Color color,
           double fontSize,
-          FontWeight fontWeight}) =>
-      GoogleFonts.getFont(fontFamily,
-          color: color ?? this.color,
-          fontSize: fontSize ?? this.fontSize,
-          fontWeight: fontWeight ?? this.fontWeight);
+          FontWeight fontWeight,
+          FontStyle fontStyle}) =>
+      GoogleFonts.getFont(
+        fontFamily,
+        color: color ?? this.color,
+        fontSize: fontSize ?? this.fontSize,
+        fontWeight: fontWeight ?? this.fontWeight,
+        fontStyle: fontStyle ?? this.fontStyle,
+      );
 }

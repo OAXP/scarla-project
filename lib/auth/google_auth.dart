@@ -6,7 +6,7 @@ import 'auth_util.dart';
 
 final _googleSignIn = GoogleSignIn();
 
-Future signInWithGoogle(BuildContext context) async {
+Future<User> signInWithGoogle(BuildContext context) async {
   final signInFunc = () async {
     await signOutWithGoogle().catchError((_) => null);
     final auth = await (await _googleSignIn.signIn())?.authentication;

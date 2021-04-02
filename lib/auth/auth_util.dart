@@ -9,20 +9,20 @@ export 'email_auth.dart';
 export 'google_auth.dart';
 
 /// Tries to sign in or create an account using Firebase Auth.
-/// Returns whether the sign in/createAccount action was successful.
-Future<bool> signInOrCreateAccount(
+/// Returns the User object if sign in was successful.
+Future<User> signInOrCreateAccount(
     BuildContext context, Future<UserCredential> Function() signInFunc) async {
   try {
-    final user = await signInFunc();
-    await maybeCreateUser(user.user);
+    final userCredential = await signInFunc();
+    await maybeCreateUser(userCredential.user);
+    return userCredential.user;
   } on FirebaseAuthException catch (e) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Error: ${e.message}')),
     );
-    return false;
+    return null;
   }
-  return true;
 }
 
 Future signOut() => FirebaseAuth.instance.signOut();

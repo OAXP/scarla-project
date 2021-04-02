@@ -7,7 +7,7 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'home_page/home_page_widget.dart';
 import 'games_select/games_select_widget.dart';
 import 'group_list_page/group_list_page_widget.dart';
-import 'profile_page/profile_page_widget.dart';
+import 'my_profile_page/my_profile_page_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,7 +70,7 @@ class _NavBarHolderState extends State<NavBarHolder> {
       HomePageWidget(),
       GamesSelectWidget(),
       GroupListPageWidget(),
-      ProfilePageWidget(),
+      MyProfilePageWidget(),
     ];
     return Scaffold(
       body: tabs[_currentIndex],
@@ -105,10 +105,10 @@ class _NavBarHolderState extends State<NavBarHolder> {
             label: 'Profile',
           )
         ],
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF373856),
         currentIndex: _currentIndex,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Color(0xFFA9A9A9),
+        selectedItemColor: Color(0xFF22CD4F),
+        unselectedItemColor: Color(0xFF4D5078),
         onTap: (i) => setState(() => _currentIndex = i),
         showSelectedLabels: false,
         showUnselectedLabels: false,

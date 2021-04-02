@@ -34,15 +34,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
             width: MediaQuery.of(context).size.width * 1,
             height: MediaQuery.of(context).size.height * 1,
             decoration: BoxDecoration(
-              color: Color(0xFFEEEEEE),
+              color: FlutterFlowTheme.primaryColor,
             ),
             alignment: Alignment(0, 0),
-            child: Image.asset(
-              'assets/images/Monte_Carlo.png',
-              width: MediaQuery.of(context).size.width * 1,
-              height: MediaQuery.of(context).size.height * 1,
-              fit: BoxFit.cover,
-            ),
           ),
           Stack(
             children: [
@@ -70,7 +64,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                               },
                               child: Icon(
                                 Icons.arrow_back_ios,
-                                color: FlutterFlowTheme.tertiaryColor,
+                                color: Color(0xFF535480),
                                 size: 24,
                               ),
                             ),
@@ -82,7 +76,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.bodyText1.override(
                                 fontFamily: 'Poppins',
-                                color: FlutterFlowTheme.tertiaryColor,
+                                color: Color(0xFF535480),
                                 fontSize: 26,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -123,6 +117,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                       child: CachedNetworkImage(
                                         imageUrl:
                                             'https://media.discordapp.net/attachments/530418694841565186/822596864578551828/lessIknowBetter.gif',
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                     Text(
@@ -130,6 +125,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
                                         fontFamily: 'Poppins',
+                                        color: Color(0xFF535480),
                                         fontSize: 10,
                                       ),
                                     )
@@ -187,6 +183,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                       child: CachedNetworkImage(
                                         imageUrl:
                                             'https://media.discordapp.net/attachments/530418694841565186/822596864578551828/lessIknowBetter.gif',
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                     Text(
@@ -194,6 +191,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
                                         fontFamily: 'Poppins',
+                                        color: Color(0xFF535480),
                                         fontSize: 10,
                                       ),
                                     )

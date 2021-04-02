@@ -29,11 +29,13 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
               alignment: Alignment(0, 0),
               child: Stack(
                 children: [
-                  Image.asset(
-                    'assets/images/Monte_Carlo.png',
+                  Container(
                     width: MediaQuery.of(context).size.width * 1,
                     height: MediaQuery.of(context).size.height * 1,
-                    fit: BoxFit.cover,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.primaryColor,
+                    ),
+                    alignment: Alignment(0, 0),
                   ),
                   Column(
                     mainAxisSize: MainAxisSize.max,
@@ -69,7 +71,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.title1.override(
                               fontFamily: 'Poppins',
-                              color: Color(0xFF454242),
+                              color: Colors.white,
                               fontWeight: FontWeight.w600,
                             ),
                           )
@@ -84,7 +86,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                             children: [
                               Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Color(0xFFF5F5F5),
+                                color: Color(0x00F5F5F5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -129,7 +131,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                               ),
                               Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Color(0xFFF5F5F5),
+                                color: Color(0x00F5F5F5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -173,7 +175,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                               ),
                               Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Color(0xFFF5F5F5),
+                                color: Color(0x00F5F5F5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -217,7 +219,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                               ),
                               Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Color(0xFFF5F5F5),
+                                color: Color(0x00F5F5F5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -261,7 +263,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                               ),
                               Card(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Color(0xFFF5F5F5),
+                                color: Color(0x00F5F5F5),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),

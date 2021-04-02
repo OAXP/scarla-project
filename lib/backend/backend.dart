@@ -66,16 +66,10 @@ Future maybeCreateUser(User user) async {
     return;
   }
 
-  final about = '';
-  final id = user.uid;
-  final name = user.displayName;
-  final photoUrl = user.photoURL;
-
   final userData = createUsersRecordData(
-    about: about,
-    id: id,
-    name: name,
-    photoUrl: photoUrl,
+    email: user.email,
+    displayName: user.displayName,
+    profilePicUrl: user.photoURL,
   );
 
   await userRecord.set(userData);

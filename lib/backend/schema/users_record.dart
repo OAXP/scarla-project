@@ -28,6 +28,13 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get bgProfile;
 
   @nullable
+  String get email;
+
+  @nullable
+  @BuiltValueField(wireName: 'display_name')
+  String get displayName;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -36,7 +43,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..id = ''
     ..name = ''
     ..photoUrl = ''
-    ..bgProfile = '';
+    ..bgProfile = ''
+    ..email = ''
+    ..displayName = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -56,6 +65,8 @@ Map<String, dynamic> createUsersRecordData({
   String name,
   String photoUrl,
   String bgProfile,
+  String email,
+  String displayName,
 }) =>
     serializers.serializeWith(
         UsersRecord.serializer,
@@ -64,7 +75,9 @@ Map<String, dynamic> createUsersRecordData({
           ..id = id
           ..name = name
           ..photoUrl = photoUrl
-          ..bgProfile = bgProfile));
+          ..bgProfile = bgProfile
+          ..email = email
+          ..displayName = displayName));
 
 UsersRecord get dummyUsersRecord {
   final builder = UsersRecordBuilder()
@@ -72,7 +85,9 @@ UsersRecord get dummyUsersRecord {
     ..id = dummyString
     ..name = dummyString
     ..photoUrl = dummyImagePath
-    ..bgProfile = dummyImagePath;
+    ..bgProfile = dummyImagePath
+    ..email = dummyString
+    ..displayName = dummyString;
   return builder.build();
 }
 

@@ -51,54 +51,56 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
             width: MediaQuery.of(context).size.width * 1,
             height: MediaQuery.of(context).size.height * 1,
             decoration: BoxDecoration(
-              color: Color(0xFFEEEEEE),
+              color: FlutterFlowTheme.primaryColor,
             ),
             alignment: Alignment(0, 0),
-            child: Image.asset(
-              'assets/images/Monte_Carlo.png',
-              width: MediaQuery.of(context).size.width * 1,
-              height: MediaQuery.of(context).size.height * 1,
-              fit: BoxFit.cover,
-            ),
           ),
           Stack(
             children: [
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                          child: InkWell(
-                            onTap: () async {
-                              Navigator.pop(context);
-                            },
-                            child: Icon(
-                              Icons.arrow_back_ios_sharp,
-                              color: FlutterFlowTheme.tertiaryColor,
-                              size: 24,
+                  Container(
+                    width: MediaQuery.of(context).size.width * 1,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    ),
+                    alignment: Alignment(0, 0),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: InkWell(
+                              onTap: () async {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                Icons.arrow_back_ios_sharp,
+                                color: Color(0xFF535480),
+                                size: 24,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(100, 0, 0, 0),
-                          child: Text(
-                            'Settings',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: FlutterFlowTheme.tertiaryColor,
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold,
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(100, 0, 0, 0),
+                            child: Text(
+                              'Settings',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Poppins',
+                                color: Color(0xFF444771),
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(

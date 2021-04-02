@@ -29,11 +29,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             alignment: Alignment(0, 0),
             child: Stack(
               children: [
-                Image.asset(
-                  'assets/images/Monte_Carlo.png',
+                Container(
                   width: MediaQuery.of(context).size.width * 1,
                   height: MediaQuery.of(context).size.height * 1,
-                  fit: BoxFit.cover,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.primaryColor,
+                  ),
+                  alignment: Alignment(0, 0),
                 ),
                 Align(
                   alignment: Alignment(0, 0),
@@ -92,8 +94,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                                   child: Card(
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: Color(0xFFF5F5F5),
-                                    elevation: 10,
+                                    color: FlutterFlowTheme.tertiaryColor,
+                                    elevation: 5,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(0),
                                     ),
@@ -115,7 +117,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             children: [
                                               Container(
                                                 decoration: BoxDecoration(
-                                                  color: Color(0xFFEEEEEE),
+                                                  color: Color(0x00EEEEEE),
                                                 ),
                                                 alignment: Alignment(0, 0),
                                                 child: Row(
@@ -148,6 +150,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             .bodyText1
                                                             .override(
                                                           fontFamily: 'Poppins',
+                                                          color: Colors.white,
                                                           fontSize: 12,
                                                         ),
                                                       ),
@@ -164,7 +167,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   },
                                                   icon: Icon(
                                                     Icons.keyboard_control,
-                                                    color: Colors.black,
+                                                    color: Colors.white,
                                                     size: 15,
                                                   ),
                                                   iconSize: 15,
@@ -205,7 +208,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               },
                                               icon: Icon(
                                                 Icons.star,
-                                                color: Colors.black,
+                                                color: Color(0xFF444771),
                                                 size: 20,
                                               ),
                                               iconSize: 20,
@@ -216,7 +219,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               },
                                               icon: Icon(
                                                 Icons.repeat,
-                                                color: Colors.black,
+                                                color: Color(0xFF444771),
                                                 size: 20,
                                               ),
                                               iconSize: 20,
