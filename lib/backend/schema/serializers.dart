@@ -7,6 +7,7 @@ import 'users_record.dart';
 import 'groups_record.dart';
 import 'g_messages_record.dart';
 import 'feed_record.dart';
+import 'friends_record.dart';
 
 part 'serializers.g.dart';
 
@@ -17,6 +18,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   GroupsRecord,
   GMessagesRecord,
   FeedRecord,
+  FriendsRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

@@ -8,12 +8,14 @@ import 'schema/users_record.dart';
 import 'schema/groups_record.dart';
 import 'schema/g_messages_record.dart';
 import 'schema/feed_record.dart';
+import 'schema/friends_record.dart';
 import 'schema/serializers.dart';
 
 export 'schema/users_record.dart';
 export 'schema/groups_record.dart';
 export 'schema/g_messages_record.dart';
 export 'schema/feed_record.dart';
+export 'schema/friends_record.dart';
 
 Stream<List<UsersRecord>> queryUsersRecord(
         {Query Function(Query) queryBuilder,
@@ -43,6 +45,13 @@ Stream<List<FeedRecord>> queryFeedRecord(
     queryCollection(FeedRecord.collection, FeedRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
+Stream<List<FriendsRecord>> queryFriendsRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(FriendsRecord.collection, FriendsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
 Stream<List<T>> queryCollection<T>(
     CollectionReference collection, Serializer<T> serializer,
     {Query Function(Query) queryBuilder,
@@ -69,7 +78,7 @@ Future maybeCreateUser(User user) async {
   final userData = createUsersRecordData(
     email: user.email,
     displayName: user.displayName,
-    profilePicUrl: user.photoURL,
+    photoUrl: user.photoURL,
   );
 
   await userRecord.set(userData);

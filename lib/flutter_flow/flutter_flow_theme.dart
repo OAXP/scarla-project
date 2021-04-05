@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 // ignore: avoid_classes_with_only_static_members
 class FlutterFlowTheme {
   static const Color primaryColor = Color(0xFF25263E);
-  static const Color secondaryColor = Color(0xFFFF89AC);
+  static const Color secondaryColor = Color(0xFF22CD4F);
   static const Color tertiaryColor = Color(0xFF252854);
 
   String primaryFontFamily = 'Poppins';

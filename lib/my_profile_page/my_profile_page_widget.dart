@@ -122,20 +122,40 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(100, 5, 100, 0),
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
+                            Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment(0, -45.5),
+                                  child: Container(
+                                    width: 104,
+                                    height: 104,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFEEEEEE),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    alignment: Alignment(0, 0),
+                                  ),
                                 ),
-                                child: CachedNetworkImage(
-                                  imageUrl: myProfilePageUsersRecord.photoUrl,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
+                                Align(
+                                  alignment: Alignment(0, -1.3),
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
+                                    child: Container(
+                                      width: 100,
+                                      height: 100,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            myProfilePageUsersRecord.photoUrl,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 5, 0, 0),

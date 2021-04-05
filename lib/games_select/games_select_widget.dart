@@ -1,4 +1,5 @@
 import '../flutter_flow/flutter_flow_theme.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,26 +41,14 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                   Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(1, 30, 0, 0),
-                              child: Container(
-                                width: 120,
-                                height: 120,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Image.asset(
-                                  'assets/images/controller--v1.png',
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                        child: Image.asset(
+                          'assets/images/controller--v1.png',
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,

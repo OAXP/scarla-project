@@ -8,6 +8,7 @@ import 'home_page/home_page_widget.dart';
 import 'games_select/games_select_widget.dart';
 import 'group_list_page/group_list_page_widget.dart';
 import 'my_profile_page/my_profile_page_widget.dart';
+import 'friends_page/friends_page_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,6 +72,7 @@ class _NavBarHolderState extends State<NavBarHolder> {
       GamesSelectWidget(),
       GroupListPageWidget(),
       MyProfilePageWidget(),
+      FriendsPageWidget(),
     ];
     return Scaffold(
       body: tabs[_currentIndex],
@@ -92,7 +94,7 @@ class _NavBarHolderState extends State<NavBarHolder> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.chat,
+              Icons.chat_outlined,
               size: 24,
             ),
             label: 'Squads',
@@ -103,11 +105,18 @@ class _NavBarHolderState extends State<NavBarHolder> {
               size: 24,
             ),
             label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.contacts_outlined,
+              size: 24,
+            ),
+            label: 'Home',
           )
         ],
         backgroundColor: Color(0xFF373856),
         currentIndex: _currentIndex,
-        selectedItemColor: Color(0xFF22CD4F),
+        selectedItemColor: Color(0xFFFF4553),
         unselectedItemColor: Color(0xFF4D5078),
         onTap: (i) => setState(() => _currentIndex = i),
         showSelectedLabels: false,
