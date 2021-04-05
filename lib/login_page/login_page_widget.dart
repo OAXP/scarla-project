@@ -57,26 +57,62 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       color: Color(0x00EEEEEE),
                     ),
                     alignment: Alignment(0, 0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        await signInWithGoogle(context);
-                      },
-                      text: 'Continue with google',
-                      iconData: Icons.electrical_services_rounded,
-                      options: FFButtonOptions(
+                    child: Align(
+                      alignment: Alignment(0, 0),
+                      child: Container(
                         width: double.infinity,
-                        height: 100,
-                        color: Colors.white,
-                        textStyle: FlutterFlowTheme.subtitle2.override(
-                          fontFamily: 'Poppins',
+                        height: 44,
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment(0, 0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  await signInWithGoogle(context);
+                                },
+                                text: 'Sign in with Google',
+                                iconData: Icons.add,
+                                options: FFButtonOptions(
+                                  width: double.infinity,
+                                  height: 44,
+                                  color: Colors.white,
+                                  textStyle: GoogleFonts.getFont(
+                                    'Roboto',
+                                    color: Color(0xFF606060),
+                                    fontSize: 17,
+                                  ),
+                                  elevation: 4,
+                                  iconSize: 20,
+                                  iconColor: Colors.transparent,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 0,
+                                  ),
+                                  borderRadius: 30,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment(-0.83, 0),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(65, 0, 0, 0),
+                                child: Container(
+                                  width: 22,
+                                  height: 22,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
-                        iconSize: 15,
-                        iconColor: Colors.black,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: 30,
                       ),
                     ),
                   ),
@@ -91,24 +127,26 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     ),
                     alignment: Alignment(0, 0),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        await signInWithGoogle(context);
+                      onPressed: () {
+                        print('Button pressed ...');
                       },
-                      text: 'Continue with apple',
+                      text: 'Sign in with Apple',
                       iconData: Icons.do_disturb_off_rounded,
                       options: FFButtonOptions(
                         width: double.infinity,
-                        height: double.infinity,
+                        height: 44,
                         color: Colors.black,
-                        textStyle: FlutterFlowTheme.subtitle2.override(
-                          fontFamily: 'Poppins',
+                        textStyle: GoogleFonts.getFont(
+                          'Roboto',
                           color: Colors.white,
+                          fontSize: 17,
                         ),
-                        iconSize: 15,
+                        elevation: 4,
+                        iconSize: 20,
                         iconColor: Colors.white,
                         borderSide: BorderSide(
                           color: Colors.transparent,
-                          width: 1,
+                          width: 0,
                         ),
                         borderRadius: 30,
                       ),
