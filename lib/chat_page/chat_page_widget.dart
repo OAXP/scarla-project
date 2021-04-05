@@ -143,6 +143,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                   children: [
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Container(
                                           width: 40,
@@ -158,7 +160,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                           ),
                                         ),
                                         Text(
-                                          'OAXP',
+                                          listViewGMessagesRecord.authorName,
                                           style: FlutterFlowTheme.bodyText1
                                               .override(
                                             fontFamily: 'Poppins',
@@ -227,14 +229,15 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                               controller: textController,
                               obscureText: false,
                               decoration: InputDecoration(
+                                isDense: true,
                                 hintText: 'Send a chat',
                                 hintStyle: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Poppins',
                                 ),
-                                enabledBorder: UnderlineInputBorder(
+                                enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
-                                    width: 100,
+                                    width: 35,
                                   ),
                                   borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(30),
