@@ -22,13 +22,21 @@ abstract class GMessagesRecord
   DocumentReference get groupRef;
 
   @nullable
-  int get timestamp;
-
-  @nullable
   int get type;
 
   @nullable
   String get value;
+
+  @nullable
+  @BuiltValueField(wireName: 'author_name')
+  String get authorName;
+
+  @nullable
+  @BuiltValueField(wireName: 'author_pf')
+  String get authorPf;
+
+  @nullable
+  Timestamp get timestamp;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -36,9 +44,10 @@ abstract class GMessagesRecord
 
   static void _initializeBuilder(GMessagesRecordBuilder builder) => builder
     ..authorId = ''
-    ..timestamp = 0
     ..type = 0
-    ..value = '';
+    ..value = ''
+    ..authorName = ''
+    ..authorPf = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('g_messages');
@@ -55,25 +64,31 @@ abstract class GMessagesRecord
 Map<String, dynamic> createGMessagesRecordData({
   String authorId,
   DocumentReference groupRef,
-  int timestamp,
   int type,
   String value,
+  String authorName,
+  String authorPf,
+  Timestamp timestamp,
 }) =>
     serializers.serializeWith(
         GMessagesRecord.serializer,
         GMessagesRecord((g) => g
           ..authorId = authorId
           ..groupRef = groupRef
-          ..timestamp = timestamp
           ..type = type
-          ..value = value));
+          ..value = value
+          ..authorName = authorName
+          ..authorPf = authorPf
+          ..timestamp = timestamp));
 
 GMessagesRecord get dummyGMessagesRecord {
   final builder = GMessagesRecordBuilder()
     ..authorId = dummyString
-    ..timestamp = dummyInteger
     ..type = dummyInteger
-    ..value = dummyString;
+    ..value = dummyString
+    ..authorName = dummyString
+    ..authorPf = dummyImagePath
+    ..timestamp = dummyTimestamp;
   return builder.build();
 }
 

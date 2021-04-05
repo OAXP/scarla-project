@@ -1,5 +1,7 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -57,6 +59,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                       padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
@@ -72,18 +75,26 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(65, 0, 0, 0),
-                            child: Text(
-                              widget.groupName,
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF535480),
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          Text(
+                            widget.groupName,
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFF535480),
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
                             ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              print('IconButton pressed ...');
+                            },
+                            icon: Icon(
+                              Icons.settings,
+                              color: Color(0xFF535480),
+                              size: 30,
+                            ),
+                            iconSize: 30,
                           )
                         ],
                       ),
@@ -93,7 +104,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                     child: StreamBuilder<List<GMessagesRecord>>(
                       stream: queryGMessagesRecord(
                         queryBuilder: (gMessagesRecord) => gMessagesRecord
-                            .where('group_ref', isEqualTo: widget.groupRef),
+                            .where('group_ref', isEqualTo: widget.groupRef)
+                            .orderBy('timestamp'),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -140,8 +152,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                             shape: BoxShape.circle,
                                           ),
                                           child: CachedNetworkImage(
-                                            imageUrl:
-                                                'https://media.discordapp.net/attachments/530418694841565186/822596864578551828/lessIknowBetter.gif',
+                                            imageUrl: listViewGMessagesRecord
+                                                .authorPf,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -244,8 +256,29 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                           Padding(
                             padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                             child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
+                              onPressed: () async {
+                                final authorId = currentUserUid;
+                                final groupRef = widget.groupRef;
+                                final timestamp = getCurrentTimestamp;
+                                final type = 0;
+                                final value = textController.text;
+                                final authorName = currentUserDisplayName;
+                                final authorPf = currentUserPhoto;
+
+                                final gMessagesRecordData =
+                                    createGMessagesRecordData(
+                                  authorId: authorId,
+                                  groupRef: groupRef,
+                                  timestamp: timestamp,
+                                  type: type,
+                                  value: value,
+                                  authorName: authorName,
+                                  authorPf: authorPf,
+                                );
+
+                                await GMessagesRecord.collection
+                                    .doc()
+                                    .set(gMessagesRecordData);
                               },
                               text: 'SEND',
                               options: FFButtonOptions(
