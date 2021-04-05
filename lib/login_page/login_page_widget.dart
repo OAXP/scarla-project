@@ -61,7 +61,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       alignment: Alignment(0, 0),
                       child: Container(
                         width: double.infinity,
-                        height: 44,
+                        height: double.infinity,
                         child: Stack(
                           children: [
                             Align(
@@ -74,7 +74,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 iconData: Icons.add,
                                 options: FFButtonOptions(
                                   width: double.infinity,
-                                  height: 44,
+                                  height: double.infinity,
                                   color: Colors.white,
                                   textStyle: GoogleFonts.getFont(
                                     'Roboto',
@@ -134,7 +134,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       iconData: Icons.do_disturb_off_rounded,
                       options: FFButtonOptions(
                         width: double.infinity,
-                        height: 44,
+                        height: double.infinity,
                         color: Colors.black,
                         textStyle: GoogleFonts.getFont(
                           'Roboto',
