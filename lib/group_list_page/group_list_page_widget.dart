@@ -71,6 +71,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                                 MaterialPageRoute(
                                   builder: (context) => ChatPageWidget(
                                     groupName: listViewGroupsRecord.gName,
+                                    groupRef: listViewGroupsRecord.reference,
                                   ),
                                 ),
                               );

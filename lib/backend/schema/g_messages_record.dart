@@ -14,15 +14,31 @@ abstract class GMessagesRecord
       _$gMessagesRecordSerializer;
 
   @nullable
-  @BuiltValueField(wireName: 'g_id')
-  int get gId;
+  @BuiltValueField(wireName: 'author_id')
+  String get authorId;
+
+  @nullable
+  @BuiltValueField(wireName: 'group_ref')
+  DocumentReference get groupRef;
+
+  @nullable
+  int get timestamp;
+
+  @nullable
+  int get type;
+
+  @nullable
+  String get value;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(GMessagesRecordBuilder builder) =>
-      builder..gId = 0;
+  static void _initializeBuilder(GMessagesRecordBuilder builder) => builder
+    ..authorId = ''
+    ..timestamp = 0
+    ..type = 0
+    ..value = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('g_messages');
@@ -37,13 +53,27 @@ abstract class GMessagesRecord
 }
 
 Map<String, dynamic> createGMessagesRecordData({
-  int gId,
+  String authorId,
+  DocumentReference groupRef,
+  int timestamp,
+  int type,
+  String value,
 }) =>
     serializers.serializeWith(
-        GMessagesRecord.serializer, GMessagesRecord((g) => g..gId = gId));
+        GMessagesRecord.serializer,
+        GMessagesRecord((g) => g
+          ..authorId = authorId
+          ..groupRef = groupRef
+          ..timestamp = timestamp
+          ..type = type
+          ..value = value));
 
 GMessagesRecord get dummyGMessagesRecord {
-  final builder = GMessagesRecordBuilder()..gId = dummyInteger;
+  final builder = GMessagesRecordBuilder()
+    ..authorId = dummyString
+    ..timestamp = dummyInteger
+    ..type = dummyInteger
+    ..value = dummyString;
   return builder.build();
 }
 
