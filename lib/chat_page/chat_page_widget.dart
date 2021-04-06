@@ -139,13 +139,24 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                 alignment: Alignment(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       children: [
+                                        Text(
+                                          listViewGMessagesRecord.authorName,
+                                          style: FlutterFlowTheme.bodyText1
+                                              .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF535480),
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
                                         Container(
                                           width: 40,
                                           height: 40,
@@ -158,39 +169,25 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                 .authorPf,
                                             fit: BoxFit.cover,
                                           ),
-                                        ),
-                                        Text(
-                                          listViewGMessagesRecord.authorName,
-                                          style: FlutterFlowTheme.bodyText1
-                                              .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFF535480),
-                                            fontSize: 10,
-                                          ),
                                         )
                                       ],
                                     ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                      child: Container(
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFFEEEEEE),
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        alignment: Alignment(0, 0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                          child: Text(
-                                            listViewGMessagesRecord.value,
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
-                                              fontFamily: 'Poppins',
-                                            ),
+                                    Container(
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFEEEEEE),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      alignment: Alignment(0, 0),
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                        child: Text(
+                                          listViewGMessagesRecord.value,
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.bodyText1
+                                              .override(
+                                            fontFamily: 'Poppins',
                                           ),
                                         ),
                                       ),
