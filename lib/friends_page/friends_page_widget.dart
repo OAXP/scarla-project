@@ -120,6 +120,18 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                                 topRight: Radius.circular(30),
                               ),
                             ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                                width: 100,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(30),
+                                bottomRight: Radius.circular(30),
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30),
+                              ),
+                            ),
                             contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                           ),
                           style: FlutterFlowTheme.bodyText1.override(

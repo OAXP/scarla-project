@@ -5,6 +5,7 @@ import '../backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_user_provider.dart';
 
+export 'apple_auth.dart';
 export 'email_auth.dart';
 export 'google_auth.dart';
 

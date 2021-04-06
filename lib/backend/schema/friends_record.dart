@@ -25,12 +25,16 @@ abstract class FriendsRecord
   int get timestemp;
 
   @nullable
+  int get status;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(FriendsRecordBuilder builder) => builder
     ..id = ''
-    ..timestemp = 0;
+    ..timestemp = 0
+    ..status = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('friends');
@@ -49,6 +53,7 @@ Map<String, dynamic> createFriendsRecordData({
   DocumentReference friendA,
   DocumentReference friendB,
   int timestemp,
+  int status,
 }) =>
     serializers.serializeWith(
         FriendsRecord.serializer,
@@ -56,12 +61,14 @@ Map<String, dynamic> createFriendsRecordData({
           ..id = id
           ..friendA = friendA
           ..friendB = friendB
-          ..timestemp = timestemp));
+          ..timestemp = timestemp
+          ..status = status));
 
 FriendsRecord get dummyFriendsRecord {
   final builder = FriendsRecordBuilder()
     ..id = dummyString
-    ..timestemp = dummyInteger;
+    ..timestemp = dummyInteger
+    ..status = dummyInteger;
   return builder.build();
 }
 

@@ -206,103 +206,132 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 0.07,
+                    height: MediaQuery.of(context).size.height * 0.09,
                     decoration: BoxDecoration(
                       color: Color(0x83FFFFFF),
                     ),
                     alignment: Alignment(0, 0),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                            child: Icon(
-                              Icons.image,
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 26,
-                            ),
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                              controller: textController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                hintText: 'Send a chat',
-                                hintStyle: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Poppins',
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                child: Icon(
+                                  Icons.image,
+                                  color: FlutterFlowTheme.primaryColor,
+                                  size: 26,
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 35,
+                              ),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: textController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'Send a chat',
+                                    hintStyle:
+                                        FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.white,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(30),
+                                        bottomRight: Radius.circular(30),
+                                        topLeft: Radius.circular(30),
+                                        topRight: Radius.circular(30),
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.white,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(30),
+                                        bottomRight: Radius.circular(30),
+                                        topLeft: Radius.circular(30),
+                                        topRight: Radius.circular(30),
+                                      ),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    contentPadding:
+                                        EdgeInsets.fromLTRB(10, 10, 10, 10),
                                   ),
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(30),
-                                    bottomRight: Radius.circular(30),
-                                    topLeft: Radius.circular(30),
-                                    topRight: Radius.circular(30),
+                                  style: FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                  ),
+                                  textAlign: TextAlign.start,
+                                  maxLines: 1,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    final authorId = currentUserUid;
+                                    final groupRef = widget.groupRef;
+                                    final timestamp = getCurrentTimestamp;
+                                    final type = 0;
+                                    final value = textController.text;
+                                    final authorName = currentUserDisplayName;
+                                    final authorPf = currentUserPhoto;
+
+                                    final gMessagesRecordData =
+                                        createGMessagesRecordData(
+                                      authorId: authorId,
+                                      groupRef: groupRef,
+                                      timestamp: timestamp,
+                                      type: type,
+                                      value: value,
+                                      authorName: authorName,
+                                      authorPf: authorPf,
+                                    );
+
+                                    await GMessagesRecord.collection
+                                        .doc()
+                                        .set(gMessagesRecordData);
+                                    final lastMessage = textController.text;
+
+                                    final groupsRecordData =
+                                        createGroupsRecordData(
+                                      lastMessage: lastMessage,
+                                    );
+
+                                    await widget.groupRef
+                                        .update(groupsRecordData);
+                                  },
+                                  text: 'SEND',
+                                  options: FFButtonOptions(
+                                    width: 75,
+                                    height: 40,
+                                    color: FlutterFlowTheme.primaryColor,
+                                    textStyle:
+                                        FlutterFlowTheme.subtitle2.override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: 30,
                                   ),
                                 ),
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(10, 10, 10, 10),
-                              ),
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Poppins',
-                              ),
-                              textAlign: TextAlign.start,
-                              maxLines: 1,
-                            ),
+                              )
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                final authorId = currentUserUid;
-                                final groupRef = widget.groupRef;
-                                final timestamp = getCurrentTimestamp;
-                                final type = 0;
-                                final value = textController.text;
-                                final authorName = currentUserDisplayName;
-                                final authorPf = currentUserPhoto;
-
-                                final gMessagesRecordData =
-                                    createGMessagesRecordData(
-                                  authorId: authorId,
-                                  groupRef: groupRef,
-                                  timestamp: timestamp,
-                                  type: type,
-                                  value: value,
-                                  authorName: authorName,
-                                  authorPf: authorPf,
-                                );
-
-                                await GMessagesRecord.collection
-                                    .doc()
-                                    .set(gMessagesRecordData);
-                              },
-                              text: 'SEND',
-                              options: FFButtonOptions(
-                                width: 75,
-                                height: 40,
-                                color: FlutterFlowTheme.primaryColor,
-                                textStyle: FlutterFlowTheme.subtitle2.override(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: 30,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   )
                 ],

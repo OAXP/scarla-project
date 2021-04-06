@@ -172,6 +172,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 fontWeight: FontWeight.w500,
                               ),
                               enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
                             ),
                             style: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Poppins',
@@ -270,6 +271,17 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                 topRight: Radius.circular(4.0),
                                               ),
                                             ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
                                           ),
                                           style: FlutterFlowTheme.bodyText1
                                               .override(
@@ -324,6 +336,17 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                               color: Colors.white,
                                             ),
                                             enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
@@ -398,6 +421,17 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                 topRight: Radius.circular(4.0),
                                               ),
                                             ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
                                           ),
                                           style: FlutterFlowTheme.bodyText1
                                               .override(
@@ -452,6 +486,17 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                               color: Colors.white,
                                             ),
                                             enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
@@ -526,6 +571,17 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                 topRight: Radius.circular(4.0),
                                               ),
                                             ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
                                           ),
                                           style: FlutterFlowTheme.bodyText1
                                               .override(
@@ -580,6 +636,17 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                               color: Colors.white,
                                             ),
                                             enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,

@@ -127,8 +127,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     ),
                     alignment: Alignment(0, 0),
                     child: FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
+                      onPressed: () async {
+                        await signInWithApple(context);
                       },
                       text: 'Sign in with Apple',
                       iconData: Icons.do_disturb_off_rounded,
