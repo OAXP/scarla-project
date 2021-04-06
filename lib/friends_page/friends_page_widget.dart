@@ -104,7 +104,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                           controller: textController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            hintText: 'Find friend...',
+                            hintText: 'Find friends...',
                             hintStyle: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Poppins',
                             ),

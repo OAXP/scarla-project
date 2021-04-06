@@ -173,13 +173,14 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                      padding:
+                                          EdgeInsets.fromLTRB(10, 15, 10, 15),
                                       child: Container(
-                                        height: 30,
                                         decoration: BoxDecoration(
                                           color: Color(0xFFEEEEEE),
                                           borderRadius:
                                               BorderRadius.circular(15),
+                                          shape: BoxShape.rectangle,
                                         ),
                                         alignment: Alignment(0, 0),
                                         child: Padding(
