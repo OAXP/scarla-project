@@ -172,22 +172,26 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                         )
                                       ],
                                     ),
-                                    Container(
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFEEEEEE),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      alignment: Alignment(0, 0),
-                                      child: Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                        child: Text(
-                                          listViewGMessagesRecord.value,
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.bodyText1
-                                              .override(
-                                            fontFamily: 'Poppins',
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                      child: Container(
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFEEEEEE),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        alignment: Alignment(0, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                          child: Text(
+                                            listViewGMessagesRecord.value,
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.bodyText1
+                                                .override(
+                                              fontFamily: 'Poppins',
+                                            ),
                                           ),
                                         ),
                                       ),
