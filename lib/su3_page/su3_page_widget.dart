@@ -291,33 +291,13 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 )
                               ],
                             ),
-                          ),
-                          SwitchListTile(
-                            value: true,
-                            onChanged: (newValue) {
-                              // Consider setting the state here.
-                            },
-                            title: Text(
-                              'Title',
-                              style: FlutterFlowTheme.title3.override(
-                                fontFamily: 'Poppins',
-                              ),
-                            ),
-                            subtitle: Text(
-                              'Subtitle',
-                              style: FlutterFlowTheme.subtitle2.override(
-                                fontFamily: 'Poppins',
-                              ),
-                            ),
-                            tileColor: Color(0xFFF5F5F5),
-                            dense: false,
                           )
                         ],
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 34.5),
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,

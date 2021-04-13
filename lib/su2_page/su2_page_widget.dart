@@ -64,108 +64,116 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    child: Stack(
+                  Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
                       children: [
-                        Align(
-                          alignment: Alignment(0, 0),
-                          child: InkWell(
-                            onTap: () async {
-                              await launchURL(
-                                  'https://www.youtube.com/watch?v=o5z1WTfxps4');
-                            },
-                            child: Container(
-                              width: 100,
-                              height: 100,
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    'https://frc.research.vub.be/sites/default/files/styles/large/public/thumbnails/image/basic-profile-picture_5.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment(0, 0),
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(65, 0, 0, 0),
-                            child: Container(
-                              width: 25,
-                              height: 25,
-                              decoration: BoxDecoration(
-                                color: Color(0xAEC1C1C1),
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(
-                                  color: Color(0x9CCBCBCB),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment(0, 0),
+                                child: InkWell(
+                                  onTap: () async {
+                                    await launchURL(
+                                        'https://www.youtube.com/watch?v=o5z1WTfxps4');
+                                  },
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          'https://frc.research.vub.be/sites/default/files/styles/large/public/thumbnails/image/basic-profile-picture_5.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
                               ),
-                              alignment: Alignment(0, 0),
-                              child: FaIcon(
-                                FontAwesomeIcons.pen,
+                              Align(
+                                alignment: Alignment(0, 0),
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(65, 0, 0, 0),
+                                  child: Container(
+                                    width: 25,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xAEC1C1C1),
+                                      borderRadius: BorderRadius.circular(100),
+                                      border: Border.all(
+                                        color: Color(0x9CCBCBCB),
+                                      ),
+                                    ),
+                                    alignment: Alignment(0, 0),
+                                    child: FaIcon(
+                                      FontAwesomeIcons.pen,
+                                      color: Colors.black,
+                                      size: 12,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                          child: TextFormField(
+                            controller: textController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              hintText: 'My description ...',
+                              hintStyle: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Poppins',
                                 color: Colors.black,
-                                size: 12,
+                                fontWeight: FontWeight.normal,
                               ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20),
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20),
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
                             ),
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Colors.black,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            textAlign: TextAlign.start,
+                            maxLines: 3,
                           ),
                         )
                       ],
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    child: TextFormField(
-                      controller: textController,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'My description ...',
-                        hintStyle: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.black,
-                          fontWeight: FontWeight.normal,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Colors.black,
-                        fontWeight: FontWeight.normal,
-                      ),
-                      textAlign: TextAlign.start,
-                      maxLines: 3,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 312.5, 0, 0),
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
