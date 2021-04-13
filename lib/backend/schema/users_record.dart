@@ -35,6 +35,36 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get displayName;
 
   @nullable
+  @BuiltValueField(wireName: 'TAG')
+  String get tag;
+
+  @nullable
+  int get sexe;
+
+  @nullable
+  bool get isAdult;
+
+  @nullable
+  bool get isCompetitive;
+
+  @nullable
+  bool get isToxic;
+
+  @nullable
+  DocumentReference get ranksRef;
+
+  @nullable
+  @BuiltValueField(wireName: 'created_time')
+  Timestamp get createdTime;
+
+  @nullable
+  String get uid;
+
+  @nullable
+  @BuiltValueField(wireName: 'selected_games')
+  BuiltList<bool> get selectedGames;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -45,7 +75,14 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..photoUrl = ''
     ..bgProfile = ''
     ..email = ''
-    ..displayName = '';
+    ..displayName = ''
+    ..tag = ''
+    ..sexe = 0
+    ..isAdult = false
+    ..isCompetitive = false
+    ..isToxic = false
+    ..uid = ''
+    ..selectedGames = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -67,6 +104,14 @@ Map<String, dynamic> createUsersRecordData({
   String bgProfile,
   String email,
   String displayName,
+  String tag,
+  int sexe,
+  bool isAdult,
+  bool isCompetitive,
+  bool isToxic,
+  DocumentReference ranksRef,
+  Timestamp createdTime,
+  String uid,
 }) =>
     serializers.serializeWith(
         UsersRecord.serializer,
@@ -77,7 +122,15 @@ Map<String, dynamic> createUsersRecordData({
           ..photoUrl = photoUrl
           ..bgProfile = bgProfile
           ..email = email
-          ..displayName = displayName));
+          ..displayName = displayName
+          ..tag = tag
+          ..sexe = sexe
+          ..isAdult = isAdult
+          ..isCompetitive = isCompetitive
+          ..isToxic = isToxic
+          ..ranksRef = ranksRef
+          ..createdTime = createdTime
+          ..uid = uid));
 
 UsersRecord get dummyUsersRecord {
   final builder = UsersRecordBuilder()
@@ -87,7 +140,15 @@ UsersRecord get dummyUsersRecord {
     ..photoUrl = dummyImagePath
     ..bgProfile = dummyImagePath
     ..email = dummyString
-    ..displayName = dummyString;
+    ..displayName = dummyString
+    ..tag = dummyString
+    ..sexe = dummyInteger
+    ..isAdult = dummyBoolean
+    ..isCompetitive = dummyBoolean
+    ..isToxic = dummyBoolean
+    ..createdTime = dummyTimestamp
+    ..uid = dummyString
+    ..selectedGames = ListBuilder([dummyBoolean, dummyBoolean]);
   return builder.build();
 }
 

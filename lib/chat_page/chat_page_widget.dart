@@ -105,6 +105,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                       stream: queryGMessagesRecord(
                         queryBuilder: (gMessagesRecord) => gMessagesRecord
                             .where('group_ref', isEqualTo: widget.groupRef)
+                            .where('type', isEqualTo: 0)
                             .orderBy('timestamp'),
                       ),
                       builder: (context, snapshot) {

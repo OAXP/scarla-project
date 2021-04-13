@@ -9,6 +9,7 @@ import 'schema/groups_record.dart';
 import 'schema/g_messages_record.dart';
 import 'schema/feed_record.dart';
 import 'schema/friends_record.dart';
+import 'schema/games_ranks_record.dart';
 import 'schema/serializers.dart';
 
 export 'schema/users_record.dart';
@@ -16,6 +17,7 @@ export 'schema/groups_record.dart';
 export 'schema/g_messages_record.dart';
 export 'schema/feed_record.dart';
 export 'schema/friends_record.dart';
+export 'schema/games_ranks_record.dart';
 
 Stream<List<UsersRecord>> queryUsersRecord(
         {Query Function(Query) queryBuilder,
@@ -52,6 +54,13 @@ Stream<List<FriendsRecord>> queryFriendsRecord(
     queryCollection(FriendsRecord.collection, FriendsRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
+Stream<List<GamesRanksRecord>> queryGamesRanksRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(GamesRanksRecord.collection, GamesRanksRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
 Stream<List<T>> queryCollection<T>(
     CollectionReference collection, Serializer<T> serializer,
     {Query Function(Query) queryBuilder,
@@ -65,21 +74,4 @@ Stream<List<T>> queryCollection<T>(
   return query.snapshots().map((s) => s.docs
       .map((d) => serializers.deserializeWith(serializer, serializedData(d)))
       .toList());
-}
-
-// Creates a Firestore record representing the logged in user if it doesn't yet exist
-Future maybeCreateUser(User user) async {
-  final userRecord = UsersRecord.collection.doc(user.uid);
-  final userExists = await userRecord.get().then((u) => u.exists);
-  if (userExists) {
-    return;
-  }
-
-  final userData = createUsersRecordData(
-    email: user.email,
-    displayName: user.displayName,
-    photoUrl: user.photoURL,
-  );
-
-  await userRecord.set(userData);
 }

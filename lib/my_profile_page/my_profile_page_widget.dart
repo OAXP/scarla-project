@@ -159,13 +159,37 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                             ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                              child: Text(
-                                myProfilePageUsersRecord.name,
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    myProfilePageUsersRecord.name,
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(2, 0, 1, 0),
+                                    child: Text(
+                                      '#',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFFB2B2B2),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    myProfilePageUsersRecord.tag,
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFFB2B2B2),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                             Padding(
@@ -208,7 +232,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                       createDummyUsersRecord(count: 4);
                                 }
                                 return Padding(
-                                  padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
+                                  padding: EdgeInsets.fromLTRB(20, 2, 20, 2),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -256,7 +280,11 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                               ),
                             ),
                             StreamBuilder<List<GroupsRecord>>(
-                              stream: queryGroupsRecord(),
+                              stream: queryGroupsRecord(
+                                queryBuilder: (groupsRecord) =>
+                                    groupsRecord.where('members_id',
+                                        arrayContains: currentUserUid),
+                              ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {

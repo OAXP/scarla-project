@@ -32,6 +32,10 @@ abstract class GroupsRecord
   DocumentReference get messages;
 
   @nullable
+  @BuiltValueField(wireName: 'members_id')
+  BuiltList<String> get membersId;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -39,7 +43,8 @@ abstract class GroupsRecord
     ..gId = ''
     ..gName = ''
     ..gPhotoUrl = ''
-    ..lastMessage = '';
+    ..lastMessage = ''
+    ..membersId = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('groups');
@@ -74,7 +79,8 @@ GroupsRecord get dummyGroupsRecord {
     ..gId = dummyString
     ..gName = dummyString
     ..gPhotoUrl = dummyImagePath
-    ..lastMessage = dummyString;
+    ..lastMessage = dummyString
+    ..membersId = ListBuilder([dummyString, dummyString]);
   return builder.build();
 }
 

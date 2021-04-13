@@ -80,9 +80,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 Navigator.pop(context);
                               },
                               child: Icon(
-                                Icons.arrow_back_ios_sharp,
+                                Icons.close,
                                 color: Color(0xFF535480),
-                                size: 24,
+                                size: 27,
                               ),
                             ),
                           ),

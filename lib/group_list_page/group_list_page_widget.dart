@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../chat_page/chat_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -39,7 +40,10 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
               ),
               alignment: Alignment(0, 0),
               child: StreamBuilder<List<GroupsRecord>>(
-                stream: queryGroupsRecord(),
+                stream: queryGroupsRecord(
+                  queryBuilder: (groupsRecord) => groupsRecord
+                      .where('members_id', arrayContains: currentUserUid),
+                ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
@@ -119,14 +123,22 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        Text(
-                                          listViewGroupsRecord.lastMessage,
-                                          textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.bodyText1
-                                              .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFF535480),
-                                            fontSize: 12,
+                                        Container(
+                                          width: 200,
+                                          height: 20,
+                                          decoration: BoxDecoration(
+                                            color: Color(0x00EEEEEE),
+                                          ),
+                                          alignment: Alignment(-1, 0),
+                                          child: Text(
+                                            listViewGroupsRecord.lastMessage,
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.bodyText1
+                                                .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0xFF535480),
+                                              fontSize: 12,
+                                            ),
                                           ),
                                         )
                                       ],

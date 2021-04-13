@@ -1,6 +1,7 @@
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../su1_page/su1_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -128,7 +129,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     alignment: Alignment(0, 0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        await signInWithApple(context);
+                        await Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Su1PageWidget(),
+                          ),
+                        );
                       },
                       text: 'Sign in with Apple',
                       iconData: Icons.do_disturb_off_rounded,

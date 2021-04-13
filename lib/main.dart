@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'auth/firebase_user_provider.dart';
-import 'package:scarla/login_page/login_page_widget.dart';
+import 'package:scarla/newlogintest/newlogintest_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'home_page/home_page_widget.dart';
-import 'games_select/games_select_widget.dart';
 import 'group_list_page/group_list_page_widget.dart';
+import 'games_select/games_select_widget.dart';
 import 'my_profile_page/my_profile_page_widget.dart';
 import 'friends_page/friends_page_widget.dart';
 
@@ -39,7 +39,7 @@ class ScarlaHomePage extends StatelessWidget {
       builder: (context, snapshot) {
         return snapshot.data.when(
           user: (_) => NavBarHolder(),
-          loggedOut: () => LoginPageWidget(),
+          loggedOut: () => NewlogintestWidget(),
           initial: () => Container(
             color: Colors.white,
             child: const Center(
@@ -69,8 +69,8 @@ class _NavBarHolderState extends State<NavBarHolder> {
   Widget build(BuildContext context) {
     final tabs = [
       HomePageWidget(),
-      GamesSelectWidget(),
       GroupListPageWidget(),
+      GamesSelectWidget(),
       MyProfilePageWidget(),
       FriendsPageWidget(),
     ];
@@ -86,18 +86,18 @@ class _NavBarHolderState extends State<NavBarHolder> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.gamepad,
-              size: 24,
-            ),
-            label: 'Games',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(
               Icons.chat_outlined,
               size: 24,
             ),
             label: 'Squads',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.gamepad,
+              size: 24,
+            ),
+            label: 'Games',
           ),
           BottomNavigationBarItem(
             icon: Icon(
