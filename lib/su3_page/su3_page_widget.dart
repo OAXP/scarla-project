@@ -1,4 +1,5 @@
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_util.dart';
 import '../su4_page/su4_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,8 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              Navigator.pop(context);
+                              await launchURL(
+                                  'https://www.youtube.com/watch?v=B69GfSqEZEs');
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -115,181 +117,206 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                               ),
                             ),
                           ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0x00F5F5F5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        'https://images.daznservices.com/di/library/sporting_news/d6/fd/valorant-art-040720-ftr_1f6xrhqbk1od21tfx6ujumubn2.jpeg?t=1524781985&quality=100&w=1280&h=720',
-                                    width:
-                                        MediaQuery.of(context).size.width * 1,
-                                    height: 100,
-                                    fit: BoxFit.cover,
+                          InkWell(
+                            onTap: () async {
+                              await launchURL(
+                                  'https://www.youtube.com/watch?v=ckXtZrTzJbM');
+                            },
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Color(0x00F5F5F5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          'https://images.daznservices.com/di/library/sporting_news/d6/fd/valorant-art-040720-ftr_1f6xrhqbk1od21tfx6ujumubn2.jpeg?t=1524781985&quality=100&w=1280&h=720',
+                                      width:
+                                          MediaQuery.of(context).size.width * 1,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'Valorant',
-                                          textAlign: TextAlign.center,
-                                          style:
-                                              FlutterFlowTheme.title1.override(
-                                            fontFamily: 'Roboto',
-                                            color: Colors.white,
-                                            fontSize: 30,
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Valorant',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.title1
+                                                .override(
+                                              fontFamily: 'Roboto',
+                                              color: Colors.white,
+                                              fontSize: 30,
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0x00F5F5F5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        'https://cdn.mos.cms.futurecdn.net/ZbXQ28h5XuqBss7sGnVFsm.jpg',
-                                    width:
-                                        MediaQuery.of(context).size.width * 1,
-                                    height: 100,
-                                    fit: BoxFit.cover,
+                          InkWell(
+                            onTap: () async {
+                              await launchURL(
+                                  'https://www.youtube.com/watch?v=b0pRwslck9Q');
+                            },
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Color(0x00F5F5F5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          'https://cdn.mos.cms.futurecdn.net/ZbXQ28h5XuqBss7sGnVFsm.jpg',
+                                      width:
+                                          MediaQuery.of(context).size.width * 1,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'Call of duty MW',
-                                          textAlign: TextAlign.center,
-                                          style:
-                                              FlutterFlowTheme.title1.override(
-                                            fontFamily: 'Roboto',
-                                            color: Colors.white,
-                                            fontSize: 30,
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Call of duty MW',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.title1
+                                                .override(
+                                              fontFamily: 'Roboto',
+                                              color: Colors.white,
+                                              fontSize: 30,
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0x00F5F5F5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        'https://bnetcmsus-a.akamaihd.net/cms/blog_header/7v/7VU5EACDYG1R1572644146214.jpg',
-                                    width:
-                                        MediaQuery.of(context).size.width * 1,
-                                    height: 100,
-                                    fit: BoxFit.cover,
+                          InkWell(
+                            onTap: () async {
+                              await launchURL(
+                                  'https://www.youtube.com/watch?v=tn0Whz60apg');
+                            },
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Color(0x00F5F5F5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          'https://bnetcmsus-a.akamaihd.net/cms/blog_header/7v/7VU5EACDYG1R1572644146214.jpg',
+                                      width:
+                                          MediaQuery.of(context).size.width * 1,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'Overwatch',
-                                          textAlign: TextAlign.center,
-                                          style:
-                                              FlutterFlowTheme.title1.override(
-                                            fontFamily: 'Roboto',
-                                            color: Colors.white,
-                                            fontSize: 30,
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Overwatch',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.title1
+                                                .override(
+                                              fontFamily: 'Roboto',
+                                              color: Colors.white,
+                                              fontSize: 30,
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0x00F5F5F5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        'https://rocketleague.media.zestyio.com/rl_s2_core_1920x1080_no-logos.d4899f96e1858d7c1e61787a9f72ea96.BJsA4N3qP.jpg',
-                                    width:
-                                        MediaQuery.of(context).size.width * 1,
-                                    height: 100,
-                                    fit: BoxFit.cover,
+                          InkWell(
+                            onTap: () async {
+                              await launchURL(
+                                  'https://www.youtube.com/watch?v=87K5Uh3AML0');
+                            },
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Color(0x00F5F5F5),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          'https://rocketleague.media.zestyio.com/rl_s2_core_1920x1080_no-logos.d4899f96e1858d7c1e61787a9f72ea96.BJsA4N3qP.jpg',
+                                      width:
+                                          MediaQuery.of(context).size.width * 1,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'Rocket league\n',
-                                          textAlign: TextAlign.center,
-                                          style:
-                                              FlutterFlowTheme.title1.override(
-                                            fontFamily: 'Roboto',
-                                            color: Colors.white,
-                                            fontSize: 30,
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'Rocket league\n',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.title1
+                                                .override(
+                                              fontFamily: 'Roboto',
+                                              color: Colors.white,
+                                              fontSize: 30,
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],
