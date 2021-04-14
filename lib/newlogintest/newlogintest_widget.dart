@@ -2,7 +2,6 @@ import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../sign_up_page/sign_up_page_widget.dart';
-import '../su1_page/su1_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,7 +64,7 @@ class _NewlogintestWidgetState extends State<NewlogintestWidget> {
                       padding: EdgeInsets.fromLTRB(0, 60, 0, 60),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Align(
                             alignment: Alignment(0, -0.65),
@@ -298,47 +297,6 @@ class _NewlogintestWidgetState extends State<NewlogintestWidget> {
                                           ),
                                         )
                                       ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-                                child: Container(
-                                  width: 300,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: Color(0x00EEEEEE),
-                                  ),
-                                  alignment: Alignment(0, 0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      await Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Su1PageWidget(),
-                                        ),
-                                      );
-                                    },
-                                    text: 'Sign in with Apple',
-                                    iconData: Icons.do_disturb_off_rounded,
-                                    options: FFButtonOptions(
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      color: Colors.black,
-                                      textStyle: GoogleFonts.getFont(
-                                        'Roboto',
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                      ),
-                                      elevation: 4,
-                                      iconSize: 20,
-                                      iconColor: Colors.white,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 0,
-                                      ),
-                                      borderRadius: 30,
                                     ),
                                   ),
                                 ),
