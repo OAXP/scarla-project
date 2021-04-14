@@ -90,6 +90,16 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            InkWell(
+                              onTap: () async {
+                                await signOut();
+                              },
+                              child: Icon(
+                                Icons.login_outlined,
+                                color: Colors.white,
+                                size: 26,
+                              ),
+                            ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                               child: InkWell(

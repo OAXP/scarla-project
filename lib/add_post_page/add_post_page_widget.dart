@@ -132,8 +132,8 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                      onPressed: () {
-                        print('IconButton pressed ...');
+                      onPressed: () async {
+                        Navigator.pop(context);
                       },
                       icon: Icon(
                         Icons.cancel_presentation,
