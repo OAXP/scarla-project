@@ -84,268 +84,275 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                           ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(4, 0, 0, 20),
-                                  child: Container(
-                                    width: 300,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFE0E0E0),
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    alignment: Alignment(0, 0),
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                      child: TextFormField(
-                                        controller: emailTextController,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          hintText: 'Email',
-                                          hintStyle: GoogleFonts.getFont(
-                                            'Open Sans',
-                                            color: Color(0xFF455A64),
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                        ),
-                                        style: GoogleFonts.getFont(
-                                          'Open Sans',
-                                          color: Color(0xFF455A64),
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(4, 0, 4, 20),
-                                  child: Container(
-                                    width: 300,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFE0E0E0),
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    alignment: Alignment(0, 0),
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                      child: TextFormField(
-                                        controller: passwordTextController,
-                                        obscureText: true,
-                                        decoration: InputDecoration(
-                                          hintText: 'Password',
-                                          hintStyle: GoogleFonts.getFont(
-                                            'Open Sans',
-                                            color: Color(0xFF455A64),
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                        ),
-                                        style: GoogleFonts.getFont(
-                                          'Open Sans',
-                                          color: Color(0xFF455A64),
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(4, 0, 4, 20),
-                                  child: Container(
-                                    width: 300,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFE0E0E0),
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    alignment: Alignment(0, 0),
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                      child: TextFormField(
-                                        controller:
-                                            confirmPasswordTextController,
-                                        obscureText: true,
-                                        decoration: InputDecoration(
-                                          hintText: 'Confirm Password',
-                                          hintStyle: GoogleFonts.getFont(
-                                            'Open Sans',
-                                            color: Color(0xFF455A64),
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                        ),
-                                        style: GoogleFonts.getFont(
-                                          'Open Sans',
-                                          color: Color(0xFF455A64),
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      if (passwordTextController.text !=
-                                          confirmPasswordTextController.text) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              "Passwords don't match!",
-                                            ),
-                                          ),
-                                        );
-                                        return;
-                                      }
-
-                                      final user = await createAccountWithEmail(
-                                        context,
-                                        emailTextController.text,
-                                        passwordTextController.text,
-                                      );
-                                      if (user == null) {
-                                        return;
-                                      }
-
-                                      if (mounted &&
-                                          Navigator.of(context).canPop()) {
-                                        Navigator.of(context).pop();
-                                      }
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Su1PageWidget(),
-                                        ),
-                                      );
-                                    },
-                                    text: 'Sign Up',
-                                    options: FFButtonOptions(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(4, 0, 0, 20),
+                                    child: Container(
                                       width: 300,
                                       height: 50,
-                                      color: Color(0xFF111329),
-                                      textStyle: GoogleFonts.getFont(
-                                        'Open Sans',
-                                        color: Color(0xFFDEDEDE),
-                                        fontSize: 16,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFE0E0E0),
+                                        borderRadius: BorderRadius.circular(25),
                                       ),
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 0,
-                                      ),
-                                      borderRadius: 25,
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                      child: Text(
-                                        'Already have an account?',
-                                        style: GoogleFonts.getFont(
-                                          'Open Sans',
-                                          color: Color(0xFFADADAD),
-                                          fontSize: 14,
+                                      alignment: Alignment(0, 0),
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                        child: TextFormField(
+                                          controller: emailTextController,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            hintText: 'Email',
+                                            hintStyle: GoogleFonts.getFont(
+                                              'Open Sans',
+                                              color: Color(0xFF455A64),
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                          ),
+                                          style: GoogleFonts.getFont(
+                                            'Open Sans',
+                                            color: Color(0xFF455A64),
+                                            fontWeight: FontWeight.normal,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    InkWell(
-                                      onTap: () async {
-                                        await Navigator.pushReplacement(
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(4, 0, 4, 20),
+                                    child: Container(
+                                      width: 300,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFE0E0E0),
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      alignment: Alignment(0, 0),
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                        child: TextFormField(
+                                          controller: passwordTextController,
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                            hintText: 'Password',
+                                            hintStyle: GoogleFonts.getFont(
+                                              'Open Sans',
+                                              color: Color(0xFF455A64),
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                          ),
+                                          style: GoogleFonts.getFont(
+                                            'Open Sans',
+                                            color: Color(0xFF455A64),
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(4, 0, 4, 20),
+                                    child: Container(
+                                      width: 300,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFE0E0E0),
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      alignment: Alignment(0, 0),
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                        child: TextFormField(
+                                          controller:
+                                              confirmPasswordTextController,
+                                          obscureText: true,
+                                          decoration: InputDecoration(
+                                            hintText: 'Confirm Password',
+                                            hintStyle: GoogleFonts.getFont(
+                                              'Open Sans',
+                                              color: Color(0xFF455A64),
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                          ),
+                                          style: GoogleFonts.getFont(
+                                            'Open Sans',
+                                            color: Color(0xFF455A64),
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        if (passwordTextController.text !=
+                                            confirmPasswordTextController
+                                                .text) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                "Passwords don't match!",
+                                              ),
+                                            ),
+                                          );
+                                          return;
+                                        }
+
+                                        final user =
+                                            await createAccountWithEmail(
+                                          context,
+                                          emailTextController.text,
+                                          passwordTextController.text,
+                                        );
+                                        if (user == null) {
+                                          return;
+                                        }
+
+                                        if (mounted &&
+                                            Navigator.of(context).canPop()) {
+                                          Navigator.of(context).pop();
+                                        }
+                                        await Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                NewlogintestWidget(),
+                                                Su1PageWidget(),
                                           ),
                                         );
                                       },
-                                      child: Text(
-                                        'Sign In',
-                                        style: GoogleFonts.getFont(
+                                      text: 'Sign Up',
+                                      options: FFButtonOptions(
+                                        width: 300,
+                                        height: 50,
+                                        color: Color(0xFF111329),
+                                        textStyle: GoogleFonts.getFont(
                                           'Open Sans',
-                                          color: Color(0xFFFF4553),
-                                          fontSize: 14,
+                                          color: Color(0xFFDEDEDE),
+                                          fontSize: 16,
+                                        ),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 0,
+                                        ),
+                                        borderRadius: 25,
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                        child: Text(
+                                          'Already have an account?',
+                                          style: GoogleFonts.getFont(
+                                            'Open Sans',
+                                            color: Color(0xFFADADAD),
+                                            fontSize: 14,
+                                          ),
                                         ),
                                       ),
-                                    )
-                                  ],
-                                )
-                              ],
+                                      InkWell(
+                                        onTap: () async {
+                                          await Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  NewlogintestWidget(),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          'Sign In',
+                                          style: GoogleFonts.getFont(
+                                            'Open Sans',
+                                            color: Color(0xFFFF4553),
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],
