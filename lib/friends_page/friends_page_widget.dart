@@ -150,10 +150,8 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                 child: StreamBuilder<List<FriendsRecord>>(
                   stream: queryFriendsRecord(
                     queryBuilder: (friendsRecord) => friendsRecord
-                        .where('friendA',
-                            isGreaterThanOrEqualTo: currentUserReference)
-                        .where('friendB',
-                            isGreaterThanOrEqualTo: currentUserReference)
+                        .where('friendA', isEqualTo: currentUserReference)
+                        .where('friendB', isEqualTo: currentUserReference)
                         .orderBy('status'),
                   ),
                   builder: (context, snapshot) {
