@@ -28,7 +28,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       body: Stack(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * 1,
+            width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
             decoration: BoxDecoration(
               color: Color(0xFFEEEEEE),
@@ -37,7 +37,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             child: Stack(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 1,
+                  width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 1,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.primaryColor,
@@ -219,9 +219,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             imageUrl:
                                                 'https://media1.tenor.com/images/66880eefc5d3881b5aaa7ca4287b12bd/tenor.gif?itemid=17177195',
                                             width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                1,
+                                                .size
+                                                .width,
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *

@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../su1_page/su1_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPageWidget extends StatefulWidget {
@@ -23,7 +24,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       body: Stack(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * 1,
+            width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
             decoration: BoxDecoration(
               color: Color(0xFFEEEEEE),
@@ -31,7 +32,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             alignment: Alignment(0, 0),
             child: Image.asset(
               'assets/images/Monte_Carlo.png',
-              width: MediaQuery.of(context).size.width * 1,
+              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 1,
               fit: BoxFit.cover,
             ),
@@ -137,7 +138,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         );
                       },
                       text: 'Sign in with Apple',
-                      iconData: Icons.do_disturb_off_rounded,
+                      iconData: FontAwesomeIcons.apple,
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: double.infinity,

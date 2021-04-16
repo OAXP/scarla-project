@@ -37,7 +37,7 @@ class _NewlogintestWidgetState extends State<NewlogintestWidget> {
               imageUrl:
                   'https://media1.giphy.com/media/3oEjHYlwvUK5p9AIbm/giphy.gif',
               width: double.infinity,
-              height: 260,
+              height: 230,
               fit: BoxFit.cover,
             ),
           ),
@@ -46,7 +46,7 @@ class _NewlogintestWidgetState extends State<NewlogintestWidget> {
             children: [
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 230, 0, 0),
+                  padding: EdgeInsets.fromLTRB(0, 190, 0, 0),
                   child: Container(
                     width: double.infinity,
                     height: 100,

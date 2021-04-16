@@ -30,7 +30,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
           Align(
             alignment: Alignment(0, 0),
             child: Container(
-              width: MediaQuery.of(context).size.width * 1,
+              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 1,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.primaryColor,
@@ -84,8 +84,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                     child: CachedNetworkImage(
                                       imageUrl:
                                           'https://specials-images.forbesimg.com/imageserve/5ff876c60777630771bbe35a/960x0.jpg?fit=scale',
-                                      width:
-                                          MediaQuery.of(context).size.width * 1,
+                                      width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
                                     ),
@@ -135,8 +134,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                     child: CachedNetworkImage(
                                       imageUrl:
                                           'https://images.daznservices.com/di/library/sporting_news/d6/fd/valorant-art-040720-ftr_1f6xrhqbk1od21tfx6ujumubn2.jpeg?t=1524781985&quality=100&w=1280&h=720',
-                                      width:
-                                          MediaQuery.of(context).size.width * 1,
+                                      width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
                                     ),
@@ -185,8 +183,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                     child: CachedNetworkImage(
                                       imageUrl:
                                           'https://cdn.mos.cms.futurecdn.net/ZbXQ28h5XuqBss7sGnVFsm.jpg',
-                                      width:
-                                          MediaQuery.of(context).size.width * 1,
+                                      width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
                                     ),
@@ -235,8 +232,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                     child: CachedNetworkImage(
                                       imageUrl:
                                           'https://bnetcmsus-a.akamaihd.net/cms/blog_header/7v/7VU5EACDYG1R1572644146214.jpg',
-                                      width:
-                                          MediaQuery.of(context).size.width * 1,
+                                      width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
                                     ),
@@ -285,8 +281,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                     child: CachedNetworkImage(
                                       imageUrl:
                                           'https://rocketleague.media.zestyio.com/rl_s2_core_1920x1080_no-logos.d4899f96e1858d7c1e61787a9f72ea96.BJsA4N3qP.jpg',
-                                      width:
-                                          MediaQuery.of(context).size.width * 1,
+                                      width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
                                     ),

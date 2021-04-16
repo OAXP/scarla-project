@@ -23,7 +23,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
       body: Stack(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * 1,
+            width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.primaryColor,
@@ -33,7 +33,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
           Align(
             alignment: Alignment(0, 0),
             child: Container(
-              width: MediaQuery.of(context).size.width * 1,
+              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 1,
               decoration: BoxDecoration(
                 color: Color(0x00EEEEEE),

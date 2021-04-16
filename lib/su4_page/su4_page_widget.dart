@@ -31,7 +31,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
           Stack(
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 1,
+                width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 1,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.primaryColor,
@@ -41,7 +41,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
               Stack(
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 1,
+                    width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.17,
                     decoration: BoxDecoration(
                       color: Color(0xFFB7B7B7),
@@ -50,13 +50,13 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                     child: CachedNetworkImage(
                       imageUrl:
                           'https://media.discordapp.net/attachments/530418694841565186/819976832321454160/wonderEggSniper.gif',
-                      width: MediaQuery.of(context).size.width * 1,
+                      width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 1,
                       fit: BoxFit.cover,
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 1,
+                    width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.17,
                     decoration: BoxDecoration(
                       color: Color(0x81000000),

@@ -48,7 +48,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
       body: Stack(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width * 1,
+            width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 1,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.primaryColor,
@@ -61,7 +61,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 1,
+                    width: MediaQuery.of(context).size.width,
                     height: 100,
                     decoration: BoxDecoration(
                       color: Colors.transparent,

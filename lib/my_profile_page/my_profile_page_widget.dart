@@ -47,7 +47,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
               Stack(
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 1,
+                    width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 1,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.primaryColor,
@@ -57,7 +57,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                   Stack(
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width * 1,
+                        width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 0.17,
                         decoration: BoxDecoration(
                           color: Color(0xFFB7B7B7),
@@ -65,13 +65,13 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                         alignment: Alignment(0, 0),
                         child: CachedNetworkImage(
                           imageUrl: myProfilePageUsersRecord.bgProfile,
-                          width: MediaQuery.of(context).size.width * 1,
+                          width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 1,
                           fit: BoxFit.cover,
                         ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 1,
+                        width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 0.17,
                         decoration: BoxDecoration(
                           color: Color(0x81000000),
@@ -90,14 +90,17 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            InkWell(
-                              onTap: () async {
-                                await signOut();
-                              },
-                              child: Icon(
-                                Icons.login_outlined,
-                                color: Colors.white,
-                                size: 26,
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                              child: InkWell(
+                                onTap: () async {
+                                  await signOut();
+                                },
+                                child: Icon(
+                                  Icons.login_outlined,
+                                  color: Colors.white,
+                                  size: 26,
+                                ),
                               ),
                             ),
                             Padding(
@@ -200,6 +203,18 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     ),
                                   )
                                 ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(45, 5, 45, 5),
+                              child: Text(
+                                myProfilePageUsersRecord.about,
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.bodyText1.override(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFF979797),
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                             Padding(

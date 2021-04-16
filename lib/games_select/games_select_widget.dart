@@ -22,7 +22,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
           Align(
             alignment: Alignment(0, 0),
             child: Container(
-              width: MediaQuery.of(context).size.width * 1,
+              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 1,
               decoration: BoxDecoration(
                 color: Color(0xFFEEEEEE),
@@ -31,7 +31,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
               child: Stack(
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 1,
+                    width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 1,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.primaryColor,
@@ -86,8 +86,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                                       child: Image.asset(
                                         'assets/images/13d11d702dbad5dca33f0e22abf4b3978381b5e7_league-of-legends-hero-splash.jpg',
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                1,
+                                            MediaQuery.of(context).size.width,
                                         height: 100,
                                         fit: BoxFit.cover,
                                       ),
@@ -131,8 +130,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                                       child: Image.asset(
                                         'assets/images/article-esports-valorant-what-is-meta-hero.jpg',
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                1,
+                                            MediaQuery.of(context).size.width,
                                         height: 100,
                                         fit: BoxFit.cover,
                                       ),
@@ -175,8 +173,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                                       child: Image.asset(
                                         'assets/images/hbhfrvbjyiai7jt7hs8c.jpg',
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                1,
+                                            MediaQuery.of(context).size.width,
                                         height: 100,
                                         fit: BoxFit.cover,
                                       ),
@@ -219,8 +216,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                                       child: Image.asset(
                                         'assets/images/share.jpg',
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                1,
+                                            MediaQuery.of(context).size.width,
                                         height: 100,
                                         fit: BoxFit.cover,
                                       ),
@@ -263,8 +259,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                                       child: Image.asset(
                                         'assets/images/rl_home_f2p-launch_shop_10367.jpg',
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                1,
+                                            MediaQuery.of(context).size.width,
                                         height: 100,
                                         fit: BoxFit.cover,
                                       ),

@@ -35,7 +35,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
           Align(
             alignment: Alignment(0, 0),
             child: Container(
-              width: MediaQuery.of(context).size.width * 1,
+              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 1,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.primaryColor,
@@ -238,9 +238,8 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                   builder: (context) => Su3PageWidget(
                                     username: widget.username,
                                     tag: widget.tag,
-                                    photoUrl:
-                                        'blob:https://mega.nz/c10ab808-2ef6-426b-8413-f187529351e5',
-                                    about: 'About me',
+                                    photoUrl: '',
+                                    about: textController.text,
                                   ),
                                 ),
                               );

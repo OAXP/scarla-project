@@ -32,7 +32,7 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
           Align(
             alignment: Alignment(0, 0),
             child: Container(
-              width: MediaQuery.of(context).size.width * 1,
+              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 1,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.primaryColor,
@@ -243,8 +243,8 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => Su2PageWidget(
-                                    username: 'OAXP',
-                                    tag: 'uwu',
+                                    username: usernameFieldController.text,
+                                    tag: tagFieldController.text,
                                   ),
                                 ),
                               );

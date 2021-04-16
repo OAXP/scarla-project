@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -31,7 +32,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
           Align(
             alignment: Alignment(0, 0),
             child: Container(
-              width: MediaQuery.of(context).size.width * 1,
+              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 1,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.primaryColor,
@@ -43,7 +44,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 1,
+                width: MediaQuery.of(context).size.width,
                 height: 100,
                 decoration: BoxDecoration(
                   color: Color(0xA2000000),
@@ -147,7 +148,14 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
               ),
               Expanded(
                 child: StreamBuilder<List<FriendsRecord>>(
-                  stream: queryFriendsRecord(),
+                  stream: queryFriendsRecord(
+                    queryBuilder: (friendsRecord) => friendsRecord
+                        .where('friendA',
+                            isGreaterThanOrEqualTo: currentUserReference)
+                        .where('friendB',
+                            isGreaterThanOrEqualTo: currentUserReference)
+                        .orderBy('status'),
+                  ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
