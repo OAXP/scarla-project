@@ -64,7 +64,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                     ),
                     alignment: Alignment(0, 0),
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 60, 0, 60),
+                      padding: EdgeInsets.fromLTRB(0, 60, 0, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.start,
