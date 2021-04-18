@@ -56,7 +56,8 @@ Map<String, dynamic> createFriendsRecordData({
         FriendsRecord((f) => f
           ..id = id
           ..timestemp = timestemp
-          ..status = status));
+          ..status = status
+          ..friends = null));
 
 FriendsRecord get dummyFriendsRecord {
   final builder = FriendsRecordBuilder()

@@ -130,7 +130,8 @@ Map<String, dynamic> createUsersRecordData({
           ..isToxic = isToxic
           ..ranksRef = ranksRef
           ..createdTime = createdTime
-          ..uid = uid));
+          ..uid = uid
+          ..selectedGames = null));
 
 UsersRecord get dummyUsersRecord {
   final builder = UsersRecordBuilder()

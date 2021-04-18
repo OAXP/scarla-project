@@ -14,30 +14,17 @@ abstract class GamesRanksRecord
       _$gamesRanksRecordSerializer;
 
   @nullable
-  @BuiltValueField(wireName: 'RL')
-  int get rl;
-
-  @nullable
-  int get lol;
-
-  @nullable
-  int get overwatch;
-
-  @nullable
-  int get valorant;
-
-  @nullable
   DocumentReference get userRef;
+
+  @nullable
+  BuiltList<int> get ranks;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(GamesRanksRecordBuilder builder) => builder
-    ..rl = 0
-    ..lol = 0
-    ..overwatch = 0
-    ..valorant = 0;
+  static void _initializeBuilder(GamesRanksRecordBuilder builder) =>
+      builder..ranks = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('games_ranks');
@@ -52,27 +39,17 @@ abstract class GamesRanksRecord
 }
 
 Map<String, dynamic> createGamesRanksRecordData({
-  int rl,
-  int lol,
-  int overwatch,
-  int valorant,
   DocumentReference userRef,
 }) =>
     serializers.serializeWith(
         GamesRanksRecord.serializer,
         GamesRanksRecord((g) => g
-          ..rl = rl
-          ..lol = lol
-          ..overwatch = overwatch
-          ..valorant = valorant
-          ..userRef = userRef));
+          ..userRef = userRef
+          ..ranks = null));
 
 GamesRanksRecord get dummyGamesRanksRecord {
   final builder = GamesRanksRecordBuilder()
-    ..rl = dummyInteger
-    ..lol = dummyInteger
-    ..overwatch = dummyInteger
-    ..valorant = dummyInteger;
+    ..ranks = ListBuilder([dummyInteger, dummyInteger]);
   return builder.build();
 }
 

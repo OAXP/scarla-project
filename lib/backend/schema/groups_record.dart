@@ -72,7 +72,8 @@ Map<String, dynamic> createGroupsRecordData({
           ..gName = gName
           ..gPhotoUrl = gPhotoUrl
           ..lastMessage = lastMessage
-          ..messages = messages));
+          ..messages = messages
+          ..membersId = null));
 
 GroupsRecord get dummyGroupsRecord {
   final builder = GroupsRecordBuilder()

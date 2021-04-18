@@ -2,7 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../chat_page/chat_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
+import '../rank_page/rank_page_widget.dart';
 import '../settings_page/settings_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -270,8 +270,21 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                             EdgeInsets.fromLTRB(10, 0, 0, 0),
                                         child: InkWell(
                                           onTap: () async {
-                                            await launchURL(
-                                                'https://www.youtube.com/watch?v=xVSjcrwBI1Y');
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    RankPageWidget(
+                                                  username:
+                                                      myProfilePageUsersRecord
+                                                          .name,
+                                                  game: 'Valorant',
+                                                  userRef:
+                                                      myProfilePageUsersRecord
+                                                          .reference,
+                                                ),
+                                              ),
+                                            );
                                           },
                                           child: Container(
                                             width: 30,

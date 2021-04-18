@@ -160,6 +160,18 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                           ),
                         ),
                         Padding(
+                          padding: EdgeInsets.fromLTRB(45, 5, 45, 5),
+                          child: Text(
+                            widget.about,
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFF979797),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        Padding(
                           padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                           child: Container(
                             width: 100,
@@ -173,7 +185,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                         Padding(
                           padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                           child: Text(
-                            'My Games',
+                            'Games',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Poppins',

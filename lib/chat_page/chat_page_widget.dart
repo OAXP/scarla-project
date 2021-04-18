@@ -133,7 +133,6 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                               padding: EdgeInsets.fromLTRB(10, 4, 10, 0),
                               child: Container(
                                 width: 100,
-                                height: 60,
                                 decoration: BoxDecoration(
                                   color: Color(0x00FFFFFF),
                                 ),
@@ -175,7 +174,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                     ),
                                     Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(10, 15, 10, 15),
+                                          EdgeInsets.fromLTRB(10, 20, 10, 1),
                                       child: Container(
                                         decoration: BoxDecoration(
                                           color: Color(0xFFEEEEEE),
@@ -188,7 +187,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                           padding:
                                               EdgeInsets.fromLTRB(5, 0, 5, 0),
                                           child: Text(
-                                            listViewGMessagesRecord.value,
+                                            'This is something really long, but I\'m not sure if it works or not.',
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.bodyText1
                                                 .override(

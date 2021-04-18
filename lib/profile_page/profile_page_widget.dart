@@ -1,6 +1,6 @@
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
+import '../rank_page/rank_page_widget.dart';
 import '../settings_page/settings_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -76,9 +76,17 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                         padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                            ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                               child: InkWell(
@@ -245,8 +253,19 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             EdgeInsets.fromLTRB(10, 0, 0, 0),
                                         child: InkWell(
                                           onTap: () async {
-                                            await launchURL(
-                                                'https://www.youtube.com/watch?v=xVSjcrwBI1Y');
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    RankPageWidget(
+                                                  username:
+                                                      profilePageUsersRecord
+                                                          .name,
+                                                  game: 'Valorant',
+                                                  userRef: widget.userRef,
+                                                ),
+                                              ),
+                                            );
                                           },
                                           child: Container(
                                             width: 30,
