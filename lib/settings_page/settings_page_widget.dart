@@ -71,34 +71,38 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                       padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: InkWell(
-                              onTap: () async {
-                                Navigator.pop(context);
-                              },
-                              child: Icon(
-                                Icons.close,
-                                color: Color(0xFF535480),
-                                size: 27,
+                          Expanded(
+                            flex: 1,
+                            child: Align(
+                              alignment: Alignment(-1, 0),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                child: InkWell(
+                                  onTap: () async {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Icon(
+                                    Icons.close,
+                                    color: Color(0xFF535480),
+                                    size: 27,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(100, 0, 0, 0),
-                            child: Text(
-                              'Settings',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Poppins',
-                                color: Color(0xFF444771),
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          Text(
+                            'Settings',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFF535480),
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
                             ),
-                          )
+                          ),
+                          Spacer()
                         ],
                       ),
                     ),

@@ -51,11 +51,15 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                   }
                   List<GroupsRecord> listViewGroupsRecordList = snapshot.data;
                   // Customize what your widget looks like with no query results.
-                  if (snapshot.data.isEmpty) {
-                    // return Container();
-                    // For now, we'll just include some dummy data.
-                    listViewGroupsRecordList =
-                        createDummyGroupsRecord(count: 4);
+                  if (listViewGroupsRecordList.isEmpty) {
+                    return Center(
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            'https://image.flaticon.com/icons/png/512/2831/2831136.png',
+                        width: 100,
+                        height: 100,
+                      ),
+                    );
                   }
                   return Padding(
                     padding: EdgeInsets.fromLTRB(0, 65, 0, 0),

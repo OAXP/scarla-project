@@ -1,7 +1,7 @@
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../newlogintest/newlogintest_widget.dart';
+import '../login_page/login_page_widget.dart';
 import '../su1_page/su1_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -329,7 +329,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                NewlogintestWidget(),
+                                                LoginPageWidget(),
                                           ),
                                         );
                                       },

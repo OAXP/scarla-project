@@ -183,15 +183,21 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                           shape: BoxShape.rectangle,
                                         ),
                                         alignment: Alignment(0, 0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                          child: Text(
-                                            'This is something really long, but I\'m not sure if it works or not.',
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
-                                              fontFamily: 'Poppins',
+                                        child: LimitedBox(
+                                          maxWidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.75,
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                            child: Text(
+                                              listViewGMessagesRecord.value,
+                                              textAlign: TextAlign.start,
+                                              style: FlutterFlowTheme.bodyText1
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                              ),
                                             ),
                                           ),
                                         ),

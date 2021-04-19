@@ -54,30 +54,40 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                   padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'Friends',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Color(0xFF535480),
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
+                      Spacer(),
+                      Align(
+                        alignment: Alignment(0, 0),
+                        child: Text(
+                          'Friends',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFF535480),
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(100, 0, 11, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            await launchURL(
-                                'https://i.pinimg.com/originals/78/fc/df/78fcdf41fbc27797e92a4429c276e2f6.gif');
-                          },
-                          child: Icon(
-                            Icons.person_add_alt_1_rounded,
-                            color: Color(0xFF535480),
-                            size: 24,
+                      Expanded(
+                        flex: 1,
+                        child: Align(
+                          alignment: Alignment(1, 0),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 11, 0),
+                            child: InkWell(
+                              onTap: () async {
+                                await launchURL(
+                                    'https://i.pinimg.com/originals/78/fc/df/78fcdf41fbc27797e92a4429c276e2f6.gif');
+                              },
+                              child: Icon(
+                                Icons.person_add_alt_1_rounded,
+                                color: Color(0xFF535480),
+                                size: 24,
+                              ),
+                            ),
                           ),
                         ),
                       )

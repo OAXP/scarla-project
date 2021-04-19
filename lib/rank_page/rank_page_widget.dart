@@ -117,7 +117,7 @@ class _RankPageWidgetState extends State<RankPageWidget> {
                           alignment: Alignment(0, 0),
                           child: CachedNetworkImage(
                             imageUrl:
-                                'https://static.wikia.nocookie.net/valorant/images/2/24/TX_CompetitiveTier_Large_24.png/revision/latest/scale-to-width-down/185?cb=20200623203621',
+                                'https://static.wikia.nocookie.net/valorant/images/d/d3/TX_CompetitiveTier_Large_15.png/revision/latest/scale-to-width-down/185?cb=20200623203419',
                             width: MediaQuery.of(context).size.width * 0.5,
                             height: MediaQuery.of(context).size.height * 1,
                             fit: BoxFit.contain,

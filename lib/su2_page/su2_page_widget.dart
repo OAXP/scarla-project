@@ -1,5 +1,8 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/upload_media.dart';
 import '../su3_page/su3_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,7 @@ class Su2PageWidget extends StatefulWidget {
 }
 
 class _Su2PageWidgetState extends State<Su2PageWidget> {
+  String uploadedFileUrl;
   TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -65,111 +69,288 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                     ),
                   ),
                   Expanded(
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment(0, 0),
-                                child: InkWell(
-                                  onTap: () async {
-                                    await launchURL(
-                                        'https://www.youtube.com/watch?v=o5z1WTfxps4');
-                                  },
-                                  child: Container(
-                                    width: 100,
-                                    height: 100,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
+                    child: StreamBuilder<UsersRecord>(
+                      stream: UsersRecord.getDocument(currentUserReference),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        final listViewUsersRecord = snapshot.data;
+                        return ListView(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.vertical,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () async {
+                                      final selectedMedia = await selectMedia();
+                                      if (selectedMedia != null &&
+                                          validateFileFormat(
+                                              selectedMedia.storagePath,
+                                              context)) {
+                                        showUploadMessage(
+                                            context, 'Uploading file...',
+                                            showLoading: true);
+                                        final downloadUrl = await uploadData(
+                                            selectedMedia.storagePath,
+                                            selectedMedia.bytes);
+                                        ScaffoldMessenger.of(context)
+                                            .hideCurrentSnackBar();
+                                        if (downloadUrl != null) {
+                                          setState(() =>
+                                              uploadedFileUrl = downloadUrl);
+                                          showUploadMessage(
+                                              context, 'Success!');
+                                        } else {
+                                          showUploadMessage(context,
+                                              'Failed to upload media');
+                                        }
+                                      }
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment(0, 0),
+                                          child: Container(
+                                            width: 100,
+                                            height: 100,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  'https://frc.research.vub.be/sites/default/files/styles/large/public/thumbnails/image/basic-profile-picture_5.jpg',
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment(0, 0),
+                                          child: Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                65, 0, 0, 0),
+                                            child: Container(
+                                              width: 25,
+                                              height: 25,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xAEC1C1C1),
+                                                borderRadius:
+                                                    BorderRadius.circular(100),
+                                                border: Border.all(
+                                                  color: Color(0x9CCBCBCB),
+                                                ),
+                                              ),
+                                              alignment: Alignment(0, 0),
+                                              child: FaIcon(
+                                                FontAwesomeIcons.pen,
+                                                color: Colors.black,
+                                                size: 12,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          'https://frc.research.vub.be/sites/default/files/styles/large/public/thumbnails/image/basic-profile-picture_5.jpg',
-                                      fit: BoxFit.cover,
+                                  )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                              child: TextFormField(
+                                controller: textController,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  hintText: 'My description ...',
+                                  hintStyle:
+                                      FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
                                     ),
                                   ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
                                 ),
+                                style: FlutterFlowTheme.bodyText1.override(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                textAlign: TextAlign.start,
+                                maxLines: 3,
                               ),
-                              Align(
-                                alignment: Alignment(0, 0),
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(65, 0, 0, 0),
-                                  child: Container(
-                                    width: 25,
-                                    height: 25,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xAEC1C1C1),
-                                      borderRadius: BorderRadius.circular(100),
-                                      border: Border.all(
-                                        color: Color(0x9CCBCBCB),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: GridView(
+                                padding: EdgeInsets.zero,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 5,
+                                  mainAxisSpacing: 10,
+                                  childAspectRatio: 1,
+                                ),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Adult',
+                                        style:
+                                            FlutterFlowTheme.bodyText1.override(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.white,
+                                        ),
                                       ),
-                                    ),
-                                    alignment: Alignment(0, 0),
-                                    child: FaIcon(
-                                      FontAwesomeIcons.pen,
-                                      color: Colors.black,
-                                      size: 12,
-                                    ),
+                                      ToggleIcon(
+                                        onPressed: () {
+                                          final isAdult =
+                                              !listViewUsersRecord.isAdult;
+
+                                          final usersRecordData =
+                                              createUsersRecordData(
+                                            isAdult: isAdult,
+                                          );
+
+                                          await listViewUsersRecord.reference
+                                              .update(usersRecordData);
+                                        },
+                                        value: listViewUsersRecord.isAdult,
+                                        onIcon: Icon(
+                                          Icons.check_box,
+                                          color: Color(0xFF535480),
+                                          size: 25,
+                                        ),
+                                        offIcon: Icon(
+                                          Icons.check_box_outline_blank,
+                                          color: Color(0xFF535480),
+                                          size: 25,
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                          child: TextFormField(
-                            controller: textController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              hintText: 'My description ...',
-                              hintStyle: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Poppins',
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Competitive',
+                                        style:
+                                            FlutterFlowTheme.bodyText1.override(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      ToggleIcon(
+                                        onPressed: () {
+                                          final isCompetitive =
+                                              !listViewUsersRecord
+                                                  .isCompetitive;
+
+                                          final usersRecordData =
+                                              createUsersRecordData(
+                                            isCompetitive: isCompetitive,
+                                          );
+
+                                          await listViewUsersRecord.reference
+                                              .update(usersRecordData);
+                                        },
+                                        value:
+                                            listViewUsersRecord.isCompetitive,
+                                        onIcon: Icon(
+                                          Icons.check_box,
+                                          color: Color(0xFF535480),
+                                          size: 25,
+                                        ),
+                                        offIcon: Icon(
+                                          Icons.check_box_outline_blank,
+                                          color: Color(0xFF535480),
+                                          size: 25,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Toxic',
+                                        style:
+                                            FlutterFlowTheme.bodyText1.override(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      ToggleIcon(
+                                        onPressed: () {
+                                          final isToxic =
+                                              !listViewUsersRecord.isToxic;
+
+                                          final usersRecordData =
+                                              createUsersRecordData(
+                                            isToxic: isToxic,
+                                          );
+
+                                          await listViewUsersRecord.reference
+                                              .update(usersRecordData);
+                                        },
+                                        value: listViewUsersRecord.isToxic,
+                                        onIcon: Icon(
+                                          Icons.check_box,
+                                          color: Color(0xFF535480),
+                                          size: 25,
+                                        ),
+                                        offIcon: Icon(
+                                          Icons.check_box_outline_blank,
+                                          color: Color(0xFF535480),
+                                          size: 25,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20),
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20),
-                                ),
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                            ),
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            textAlign: TextAlign.start,
-                            maxLines: 3,
-                          ),
-                        )
-                      ],
+                            )
+                          ],
+                        );
+                      },
                     ),
                   ),
                   Padding(
@@ -238,7 +419,8 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                   builder: (context) => Su3PageWidget(
                                     username: widget.username,
                                     tag: widget.tag,
-                                    photoUrl: '',
+                                    photoUrl:
+                                        'https://media1.tenor.com/images/5fe8472849d4408271c2cfdbb35fd3f6/tenor.gif?itemid=20768761',
                                     about: textController.text,
                                   ),
                                 ),

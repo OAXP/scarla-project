@@ -1,4 +1,5 @@
 import '../add_post_page/add_post_page_widget.dart';
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -246,16 +247,48 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            IconButton(
-                                              onPressed: () {
-                                                print('IconButton pressed ...');
+                                            StreamBuilder<UsersRecord>(
+                                              stream: UsersRecord.getDocument(
+                                                  currentUserReference),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                      child:
+                                                          CircularProgressIndicator());
+                                                }
+                                                final toggleIconUsersRecord =
+                                                    snapshot.data;
+                                                return ToggleIcon(
+                                                  onPressed: () {
+                                                    final isAdult =
+                                                        !toggleIconUsersRecord
+                                                            .isAdult;
+
+                                                    final usersRecordData =
+                                                        createUsersRecordData(
+                                                      isAdult: isAdult,
+                                                    );
+
+                                                    await toggleIconUsersRecord
+                                                        .reference
+                                                        .update(
+                                                            usersRecordData);
+                                                  },
+                                                  value: toggleIconUsersRecord
+                                                      .isAdult,
+                                                  onIcon: Icon(
+                                                    Icons.star,
+                                                    color: Color(0xFF444771),
+                                                    size: 25,
+                                                  ),
+                                                  offIcon: Icon(
+                                                    Icons.star_border,
+                                                    color: Color(0xFF444771),
+                                                    size: 25,
+                                                  ),
+                                                );
                                               },
-                                              icon: Icon(
-                                                Icons.star,
-                                                color: Color(0xFF444771),
-                                                size: 20,
-                                              ),
-                                              iconSize: 20,
                                             ),
                                             IconButton(
                                               onPressed: () {

@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'auth/firebase_user_provider.dart';
-import 'package:scarla/newlogintest/newlogintest_widget.dart';
+import 'package:scarla/login_page/login_page_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'home_page/home_page_widget.dart';
@@ -39,7 +39,7 @@ class ScarlaHomePage extends StatelessWidget {
       builder: (context, snapshot) {
         return snapshot.data.when(
           user: (_) => NavBarHolder(),
-          loggedOut: () => NewlogintestWidget(),
+          loggedOut: () => LoginPageWidget(),
           initial: () => Container(
             color: Colors.white,
             child: const Center(
