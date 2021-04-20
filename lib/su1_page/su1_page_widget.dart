@@ -181,7 +181,7 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
