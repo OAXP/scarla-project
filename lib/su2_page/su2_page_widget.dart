@@ -276,12 +276,12 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Competitive',
+                                        'Comp',
                                         style:
                                             FlutterFlowTheme.bodyText1.override(
                                           fontFamily: 'Poppins',
                                           color: Colors.white,
-                                          fontSize: 12,
+                                          fontSize: 14,
                                         ),
                                       ),
                                       ToggleIcon(
