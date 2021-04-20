@@ -29,14 +29,14 @@ abstract class FeedRecord implements Built<FeedRecord, FeedRecordBuilder> {
   String get id;
 
   @nullable
-  int get timestamp;
-
-  @nullable
   int get type;
 
   @nullable
   @BuiltValueField(wireName: 'author_photo_url')
   String get authorPhotoUrl;
+
+  @nullable
+  Timestamp get timestamp;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -48,7 +48,6 @@ abstract class FeedRecord implements Built<FeedRecord, FeedRecordBuilder> {
     ..content = ''
     ..game = ''
     ..id = ''
-    ..timestamp = 0
     ..type = 0
     ..authorPhotoUrl = '';
 
@@ -69,9 +68,9 @@ Map<String, dynamic> createFeedRecordData({
   String content,
   String game,
   String id,
-  int timestamp,
   int type,
   String authorPhotoUrl,
+  Timestamp timestamp,
 }) =>
     serializers.serializeWith(
         FeedRecord.serializer,
@@ -81,9 +80,9 @@ Map<String, dynamic> createFeedRecordData({
           ..content = content
           ..game = game
           ..id = id
-          ..timestamp = timestamp
           ..type = type
-          ..authorPhotoUrl = authorPhotoUrl));
+          ..authorPhotoUrl = authorPhotoUrl
+          ..timestamp = timestamp));
 
 FeedRecord get dummyFeedRecord {
   final builder = FeedRecordBuilder()
@@ -92,9 +91,9 @@ FeedRecord get dummyFeedRecord {
     ..content = dummyString
     ..game = dummyString
     ..id = dummyString
-    ..timestamp = dummyInteger
     ..type = dummyInteger
-    ..authorPhotoUrl = dummyImagePath;
+    ..authorPhotoUrl = dummyImagePath
+    ..timestamp = dummyTimestamp;
   return builder.build();
 }
 

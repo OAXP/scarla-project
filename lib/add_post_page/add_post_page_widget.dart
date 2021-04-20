@@ -180,7 +180,10 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                   final content = textController.text;
                                   final game = 'valorant';
                                   final type = 0;
-                                  final authorPhotoUrl = currentUserPhoto;
+                                  final authorPhotoUrl =
+                                      addPostPageUsersRecord.photoUrl;
+                                  final id = '';
+                                  final timestamp = getCurrentTimestamp;
 
                                   final feedRecordData = createFeedRecordData(
                                     authorId: authorId,
@@ -189,6 +192,8 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                     game: game,
                                     type: type,
                                     authorPhotoUrl: authorPhotoUrl,
+                                    id: id,
+                                    timestamp: timestamp,
                                   );
 
                                   await FeedRecord.collection
