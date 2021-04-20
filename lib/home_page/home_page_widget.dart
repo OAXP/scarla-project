@@ -58,7 +58,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => AddPostPageWidget(),
+                                builder: (context) => AddPostPageWidget(
+                                  userRef: currentUserReference,
+                                ),
                               ),
                             );
                           },
