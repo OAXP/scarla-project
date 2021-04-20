@@ -119,7 +119,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   Align(
                                     alignment: Alignment(0, 0),
                                     child: SwitchListTile(
-                                      value: lolSwitch ?? true,
+                                      value: lolSwitch ?? false,
                                       onChanged: (newValue) =>
                                           setState(() => lolSwitch = newValue),
                                       title: Text(
@@ -196,7 +196,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   Align(
                                     alignment: Alignment(0, 0),
                                     child: SwitchListTile(
-                                      value: valSwitch ?? true,
+                                      value: valSwitch ?? false,
                                       onChanged: (newValue) =>
                                           setState(() => valSwitch = newValue),
                                       title: Text(
@@ -273,7 +273,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   Align(
                                     alignment: Alignment(0, 0),
                                     child: SwitchListTile(
-                                      value: codSwitch ?? true,
+                                      value: codSwitch ?? false,
                                       onChanged: (newValue) =>
                                           setState(() => codSwitch = newValue),
                                       title: Text(
@@ -350,7 +350,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   Align(
                                     alignment: Alignment(0, 0),
                                     child: SwitchListTile(
-                                      value: owSwitch ?? true,
+                                      value: owSwitch ?? false,
                                       onChanged: (newValue) =>
                                           setState(() => owSwitch = newValue),
                                       title: Text(
@@ -429,7 +429,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   Align(
                                     alignment: Alignment(0, 0),
                                     child: SwitchListTile(
-                                      value: rlSwitch ?? true,
+                                      value: rlSwitch ?? false,
                                       onChanged: (newValue) =>
                                           setState(() => rlSwitch = newValue),
                                       title: Text(
@@ -530,6 +530,10 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                     photoUrl: widget.photoUrl,
                                     about: widget.about,
                                     isLol: lolSwitch,
+                                    isVal: valSwitch,
+                                    isCod: codSwitch,
+                                    isOw: owSwitch,
+                                    isRl: rlSwitch,
                                   ),
                                 ),
                               );
