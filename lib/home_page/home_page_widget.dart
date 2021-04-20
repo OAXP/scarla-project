@@ -220,7 +220,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Container(
                                             constraints: BoxConstraints(
                                               maxWidth: 300,
-                                              maxHeight: 1,
+                                              maxHeight: 100,
                                             ),
                                             decoration: BoxDecoration(
                                               color: Color(0x00EEEEEE),
