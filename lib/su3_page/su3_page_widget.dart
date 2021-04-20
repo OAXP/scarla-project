@@ -35,7 +35,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.primaryColor,
               ),
-              alignment: Alignment(0, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -343,7 +342,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 decoration: BoxDecoration(
                                   color: Color(0x00EEEEEE),
                                 ),
-                                alignment: Alignment(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -402,7 +400,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 decoration: BoxDecoration(
                                   color: Color(0xFF4D5078),
                                 ),
-                                alignment: Alignment(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,

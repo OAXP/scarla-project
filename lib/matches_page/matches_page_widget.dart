@@ -24,7 +24,6 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
             decoration: BoxDecoration(
               color: FlutterFlowTheme.primaryColor,
             ),
-            alignment: Alignment(0, 0),
           ),
           Column(
             mainAxisSize: MainAxisSize.max,
@@ -35,7 +34,6 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                 decoration: BoxDecoration(
                   color: Color(0xA2000000),
                 ),
-                alignment: Alignment(0, 0),
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
                   child: Row(

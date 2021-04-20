@@ -62,7 +62,6 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                         topRight: Radius.circular(30),
                       ),
                     ),
-                    alignment: Alignment(0, 0),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -95,7 +94,6 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                       color: Color(0xFFE0E0E0),
                                       borderRadius: BorderRadius.circular(25),
                                     ),
-                                    alignment: Alignment(0, 0),
                                     child: Padding(
                                       padding:
                                           EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -150,7 +148,6 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                       color: Color(0xFFE0E0E0),
                                       borderRadius: BorderRadius.circular(25),
                                     ),
-                                    alignment: Alignment(0, 0),
                                     child: Padding(
                                       padding:
                                           EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -205,7 +202,6 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                       color: Color(0xFFE0E0E0),
                                       borderRadius: BorderRadius.circular(25),
                                     ),
-                                    alignment: Alignment(0, 0),
                                     child: Padding(
                                       padding:
                                           EdgeInsets.fromLTRB(20, 0, 20, 0),

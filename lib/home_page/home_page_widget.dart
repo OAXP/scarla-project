@@ -2,6 +2,7 @@ import '../add_post_page/add_post_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,7 +35,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             decoration: BoxDecoration(
               color: Color(0xFFEEEEEE),
             ),
-            alignment: Alignment(0, 0),
             child: Stack(
               children: [
                 Container(
@@ -43,7 +43,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.primaryColor,
                   ),
-                  alignment: Alignment(0, 0),
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
@@ -152,7 +151,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 decoration: BoxDecoration(
                                                   color: Color(0x00EEEEEE),
                                                 ),
-                                                alignment: Alignment(0, 0),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -228,7 +226,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           decoration: BoxDecoration(
                                             color: Color(0x00EEEEEE),
                                           ),
-                                          alignment: Alignment(0, 0),
                                           child: CachedNetworkImage(
                                             imageUrl:
                                                 'https://media1.tenor.com/images/66880eefc5d3881b5aaa7ca4287b12bd/tenor.gif?itemid=17177195',
@@ -260,7 +257,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 final toggleIconUsersRecord =
                                                     snapshot.data;
                                                 return ToggleIcon(
-                                                  onPressed: () {
+                                                  onPressed: () async {
                                                     final isAdult =
                                                         !toggleIconUsersRecord
                                                             .isAdult;

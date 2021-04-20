@@ -41,7 +41,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.primaryColor,
                     ),
-                    alignment: Alignment(0, 0),
                   ),
                   Stack(
                     children: [
@@ -51,7 +50,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                         decoration: BoxDecoration(
                           color: Color(0xFFB7B7B7),
                         ),
-                        alignment: Alignment(0, 0),
                         child: CachedNetworkImage(
                           imageUrl: profilePageUsersRecord.bgProfile,
                           width: MediaQuery.of(context).size.width,
@@ -65,7 +63,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                         decoration: BoxDecoration(
                           color: Color(0x81000000),
                         ),
-                        alignment: Alignment(0, 0),
                       )
                     ],
                   ),
@@ -129,7 +126,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       color: Color(0xFFEEEEEE),
                                       shape: BoxShape.circle,
                                     ),
-                                    alignment: Alignment(0, 0),
                                   ),
                                 ),
                                 Align(
@@ -208,7 +204,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 decoration: BoxDecoration(
                                   color: Color(0xFF626262),
                                 ),
-                                alignment: Alignment(0, 0),
                               ),
                             ),
                             Padding(

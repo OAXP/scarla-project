@@ -37,7 +37,6 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.primaryColor,
               ),
-              alignment: Alignment(0, 0),
             ),
           ),
           Column(
@@ -49,7 +48,6 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                 decoration: BoxDecoration(
                   color: Color(0xA2000000),
                 ),
-                alignment: Alignment(0, 0),
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
                   child: Row(

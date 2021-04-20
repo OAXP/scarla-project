@@ -59,7 +59,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         topRight: Radius.circular(30),
                       ),
                     ),
-                    alignment: Alignment(0, 0),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(0, 60, 0, 60),
                       child: SingleChildScrollView(
@@ -93,7 +92,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       color: Color(0xFFE0E0E0),
                                       borderRadius: BorderRadius.circular(25),
                                     ),
-                                    alignment: Alignment(0, 0),
                                     child: Padding(
                                       padding:
                                           EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -148,7 +146,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       color: Color(0xFFE0E0E0),
                                       borderRadius: BorderRadius.circular(25),
                                     ),
-                                    alignment: Alignment(0, 0),
                                     child: Padding(
                                       padding:
                                           EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -249,7 +246,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     decoration: BoxDecoration(
                                       color: Color(0x00EEEEEE),
                                     ),
-                                    alignment: Alignment(0, 0),
                                     child: Align(
                                       alignment: Alignment(0, 0),
                                       child: Container(

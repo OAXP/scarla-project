@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/upload_media.dart';
 import '../su3_page/su3_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -44,7 +45,6 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.primaryColor,
               ),
-              alignment: Alignment(0, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -148,7 +148,6 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                                   color: Color(0x9CCBCBCB),
                                                 ),
                                               ),
-                                              alignment: Alignment(0, 0),
                                               child: FaIcon(
                                                 FontAwesomeIcons.pen,
                                                 color: Colors.black,
@@ -239,7 +238,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                         ),
                                       ),
                                       ToggleIcon(
-                                        onPressed: () {
+                                        onPressed: () async {
                                           final isAdult =
                                               !listViewUsersRecord.isAdult;
 
@@ -278,7 +277,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                         ),
                                       ),
                                       ToggleIcon(
-                                        onPressed: () {
+                                        onPressed: () async {
                                           final isCompetitive =
                                               !listViewUsersRecord
                                                   .isCompetitive;
@@ -319,7 +318,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                         ),
                                       ),
                                       ToggleIcon(
-                                        onPressed: () {
+                                        onPressed: () async {
                                           final isToxic =
                                               !listViewUsersRecord.isToxic;
 
@@ -378,7 +377,6 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                 decoration: BoxDecoration(
                                   color: Color(0x00EEEEEE),
                                 ),
-                                alignment: Alignment(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -438,7 +436,6 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                 decoration: BoxDecoration(
                                   color: Color(0xFF4D5078),
                                 ),
-                                alignment: Alignment(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,

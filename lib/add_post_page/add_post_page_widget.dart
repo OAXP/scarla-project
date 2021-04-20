@@ -46,7 +46,6 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                   decoration: BoxDecoration(
                     color: Color(0x00EEEEEE),
                   ),
-                  alignment: Alignment(0, 0),
                 ),
               ),
               Card(
@@ -73,7 +72,6 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                             decoration: BoxDecoration(
                               color: Color(0x00EEEEEE),
                             ),
-                            alignment: Alignment(0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -126,7 +124,6 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                       decoration: BoxDecoration(
                         color: Color(0x00EEEEEE),
                       ),
-                      alignment: Alignment(0, 0),
                       child: TextFormField(
                         controller: textController,
                         obscureText: false,

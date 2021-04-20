@@ -53,7 +53,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
             decoration: BoxDecoration(
               color: FlutterFlowTheme.primaryColor,
             ),
-            alignment: Alignment(0, 0),
           ),
           Stack(
             children: [
@@ -66,7 +65,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                     decoration: BoxDecoration(
                       color: Colors.transparent,
                     ),
-                    alignment: Alignment(0, 0),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
                       child: Row(
@@ -151,7 +149,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         color: Color(0x9CCBCBCB),
                                       ),
                                     ),
-                                    alignment: Alignment(0, 0),
                                     child: FaIcon(
                                       FontAwesomeIcons.pen,
                                       color: Colors.black,
@@ -191,7 +188,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                           decoration: BoxDecoration(
                             color: Color(0x97593939),
                           ),
-                          alignment: Alignment(0, 0),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(0, 75, 0, 0),
                             child: Text(
@@ -209,7 +205,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                           decoration: BoxDecoration(
                             color: Color(0x97593939),
                           ),
-                          alignment: Alignment(0, 0),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
                             child: GridView(

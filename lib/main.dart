@@ -20,31 +20,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My Flutter App',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: ScarlaHomePage(),
-    );
-  }
-}
-
-class ScarlaHomePage extends StatelessWidget {
-  const ScarlaHomePage({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
     return StreamBuilder<ScarlaFirebaseUser>(
       stream: scarlaFirebaseUser,
       initialData: scarlaFirebaseUser.value,
       builder: (context, snapshot) {
-        return snapshot.data.when(
-          user: (_) => NavBarHolder(),
-          loggedOut: () => LoginPageWidget(),
-          initial: () => Container(
-            color: Colors.white,
-            child: const Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xff4b39ef)),
+        return MaterialApp(
+          title: 'Scarla',
+          theme: ThemeData(primarySwatch: Colors.blue),
+          home: snapshot.data.when(
+            user: (_) => NavBarHolder(),
+            loggedOut: () => LoginPageWidget(),
+            initial: () => Container(
+              color: Colors.white,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xff4b39ef)),
+                ),
               ),
             ),
           ),

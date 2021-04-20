@@ -41,7 +41,6 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
             decoration: BoxDecoration(
               color: FlutterFlowTheme.primaryColor,
             ),
-            alignment: Alignment(0, 0),
           ),
           Stack(
             children: [
@@ -54,7 +53,6 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                     decoration: BoxDecoration(
                       color: Color(0xA2000000),
                     ),
-                    alignment: Alignment(0, 0),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
                       child: Row(
@@ -136,7 +134,6 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                 decoration: BoxDecoration(
                                   color: Color(0x00FFFFFF),
                                 ),
-                                alignment: Alignment(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -176,28 +173,27 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                       padding:
                                           EdgeInsets.fromLTRB(10, 20, 10, 1),
                                       child: Container(
+                                        constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.75,
+                                        ),
                                         decoration: BoxDecoration(
                                           color: Color(0xFFEEEEEE),
                                           borderRadius:
                                               BorderRadius.circular(15),
                                           shape: BoxShape.rectangle,
                                         ),
-                                        alignment: Alignment(0, 0),
-                                        child: LimitedBox(
-                                          maxWidth: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.75,
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                            child: Text(
-                                              listViewGMessagesRecord.value,
-                                              textAlign: TextAlign.start,
-                                              style: FlutterFlowTheme.bodyText1
-                                                  .override(
-                                                fontFamily: 'Poppins',
-                                              ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                          child: Text(
+                                            listViewGMessagesRecord.value,
+                                            textAlign: TextAlign.start,
+                                            style: FlutterFlowTheme.bodyText1
+                                                .override(
+                                              fontFamily: 'Poppins',
                                             ),
                                           ),
                                         ),
@@ -218,7 +214,6 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                     decoration: BoxDecoration(
                       color: Color(0x83FFFFFF),
                     ),
-                    alignment: Alignment(0, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [

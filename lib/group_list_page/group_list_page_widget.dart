@@ -28,7 +28,6 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
             decoration: BoxDecoration(
               color: FlutterFlowTheme.primaryColor,
             ),
-            alignment: Alignment(0, 0),
           ),
           Align(
             alignment: Alignment(0, 0),
@@ -38,7 +37,6 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
               decoration: BoxDecoration(
                 color: Color(0x00EEEEEE),
               ),
-              alignment: Alignment(0, 0),
               child: StreamBuilder<List<GroupsRecord>>(
                 stream: queryGroupsRecord(
                   queryBuilder: (groupsRecord) => groupsRecord

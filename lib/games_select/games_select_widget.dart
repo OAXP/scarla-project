@@ -27,7 +27,6 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
               decoration: BoxDecoration(
                 color: Color(0xFFEEEEEE),
               ),
-              alignment: Alignment(0, 0),
               child: Stack(
                 children: [
                   Container(
@@ -36,7 +35,6 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.primaryColor,
                     ),
-                    alignment: Alignment(0, 0),
                   ),
                   Column(
                     mainAxisSize: MainAxisSize.max,

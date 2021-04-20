@@ -61,7 +61,6 @@ class _RankPageWidgetState extends State<RankPageWidget> {
                       decoration: BoxDecoration(
                         color: Color(0x00EEEEEE),
                       ),
-                      alignment: Alignment(0, 0),
                     ),
                   ),
                   Card(
@@ -114,7 +113,6 @@ class _RankPageWidgetState extends State<RankPageWidget> {
                           decoration: BoxDecoration(
                             color: Color(0x00EEEEEE),
                           ),
-                          alignment: Alignment(0, 0),
                           child: CachedNetworkImage(
                             imageUrl:
                                 'https://static.wikia.nocookie.net/valorant/images/d/d3/TX_CompetitiveTier_Large_15.png/revision/latest/scale-to-width-down/185?cb=20200623203419',

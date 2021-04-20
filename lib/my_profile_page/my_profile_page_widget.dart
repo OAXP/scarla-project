@@ -52,7 +52,6 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.primaryColor,
                     ),
-                    alignment: Alignment(0, 0),
                   ),
                   Stack(
                     children: [
@@ -62,7 +61,6 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                         decoration: BoxDecoration(
                           color: Color(0xFFB7B7B7),
                         ),
-                        alignment: Alignment(0, 0),
                         child: CachedNetworkImage(
                           imageUrl: myProfilePageUsersRecord.bgProfile,
                           width: MediaQuery.of(context).size.width,
@@ -76,7 +74,6 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                         decoration: BoxDecoration(
                           color: Color(0x81000000),
                         ),
-                        alignment: Alignment(0, 0),
                       )
                     ],
                   ),
@@ -146,7 +143,6 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                       color: Color(0xFFEEEEEE),
                                       shape: BoxShape.circle,
                                     ),
-                                    alignment: Alignment(0, 0),
                                   ),
                                 ),
                                 Align(
@@ -225,7 +221,6 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 decoration: BoxDecoration(
                                   color: Color(0xFF626262),
                                 ),
-                                alignment: Alignment(0, 0),
                               ),
                             ),
                             Padding(
@@ -376,7 +371,6 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                           decoration: BoxDecoration(
                                             color: Color(0x00EEEEEE),
                                           ),
-                                          alignment: Alignment(0, 0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:

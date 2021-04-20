@@ -36,7 +36,6 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.primaryColor,
                 ),
-                alignment: Alignment(0, 0),
               ),
               Stack(
                 children: [
@@ -46,7 +45,6 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                     decoration: BoxDecoration(
                       color: Color(0xFFB7B7B7),
                     ),
-                    alignment: Alignment(0, 0),
                     child: CachedNetworkImage(
                       imageUrl:
                           'https://media.discordapp.net/attachments/530418694841565186/819976832321454160/wonderEggSniper.gif',
@@ -61,7 +59,6 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                     decoration: BoxDecoration(
                       color: Color(0x81000000),
                     ),
-                    alignment: Alignment(0, 0),
                   )
                 ],
               ),
@@ -102,7 +99,6 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                   color: Color(0xFFEEEEEE),
                                   shape: BoxShape.circle,
                                 ),
-                                alignment: Alignment(0, 0),
                               ),
                             ),
                             Align(
@@ -179,7 +175,6 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                             decoration: BoxDecoration(
                               color: Color(0xFF626262),
                             ),
-                            alignment: Alignment(0, 0),
                           ),
                         ),
                         Padding(
@@ -273,7 +268,6 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                 decoration: BoxDecoration(
                                   color: Color(0x00EEEEEE),
                                 ),
-                                alignment: Alignment(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -325,7 +319,6 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                 decoration: BoxDecoration(
                                   color: Color(0xFF4D5078),
                                 ),
-                                alignment: Alignment(0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
