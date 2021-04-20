@@ -8,9 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddPostPageWidget extends StatefulWidget {
-  AddPostPageWidget({Key key, this.userRef}) : super(key: key);
+  AddPostPageWidget({Key key, this.userRef, this.initValue}) : super(key: key);
 
   final DocumentReference userRef;
+  final String initValue;
 
   @override
   _AddPostPageWidgetState createState() => _AddPostPageWidgetState();
@@ -23,7 +24,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    textController = TextEditingController(text: widget.initValue);
   }
 
   @override

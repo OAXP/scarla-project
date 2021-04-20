@@ -60,6 +60,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               MaterialPageRoute(
                                 builder: (context) => AddPostPageWidget(
                                   userRef: currentUserReference,
+                                  initValue: '',
                                 ),
                               ),
                             );
@@ -294,8 +295,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               },
                                             ),
                                             IconButton(
-                                              onPressed: () {
-                                                print('IconButton pressed ...');
+                                              onPressed: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddPostPageWidget(
+                                                      userRef:
+                                                          currentUserReference,
+                                                      initValue:
+                                                          listViewFeedRecord
+                                                              .content,
+                                                    ),
+                                                  ),
+                                                );
                                               },
                                               icon: Icon(
                                                 Icons.repeat,
