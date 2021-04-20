@@ -19,6 +19,11 @@ class Su3PageWidget extends StatefulWidget {
 }
 
 class _Su3PageWidgetState extends State<Su3PageWidget> {
+  bool codSwitch;
+  bool lolSwitch;
+  bool valSwitch;
+  bool owSwitch;
+  bool rlSwitch;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -110,6 +115,34 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                         )
                                       ],
                                     ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(0, 0),
+                                    child: SwitchListTile(
+                                      value: lolSwitch ?? true,
+                                      onChanged: (newValue) =>
+                                          setState(() => lolSwitch = newValue),
+                                      title: Text(
+                                        '1\n2',
+                                        style: FlutterFlowTheme.title3.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0x00303030),
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        '1',
+                                        style:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0x00616161),
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      tileColor: Color(0x00F5F5F5),
+                                      dense: false,
+                                      contentPadding:
+                                          EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                    ),
                                   )
                                 ],
                               ),
@@ -158,6 +191,34 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                           ),
                                         )
                                       ],
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(0, 0),
+                                    child: SwitchListTile(
+                                      value: valSwitch ?? true,
+                                      onChanged: (newValue) =>
+                                          setState(() => valSwitch = newValue),
+                                      title: Text(
+                                        '1\n2',
+                                        style: FlutterFlowTheme.title3.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0x00303030),
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        '1',
+                                        style:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0x00616161),
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      tileColor: Color(0x00F5F5F5),
+                                      dense: false,
+                                      contentPadding:
+                                          EdgeInsets.fromLTRB(0, 15, 0, 0),
                                     ),
                                   )
                                 ],
@@ -208,6 +269,34 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                         )
                                       ],
                                     ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(0, 0),
+                                    child: SwitchListTile(
+                                      value: codSwitch ?? true,
+                                      onChanged: (newValue) =>
+                                          setState(() => codSwitch = newValue),
+                                      title: Text(
+                                        '1\n2',
+                                        style: FlutterFlowTheme.title3.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0x00303030),
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        '1',
+                                        style:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0x00616161),
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      tileColor: Color(0x00F5F5F5),
+                                      dense: false,
+                                      contentPadding:
+                                          EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                    ),
                                   )
                                 ],
                               ),
@@ -256,6 +345,34 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                           ),
                                         )
                                       ],
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(0, 0),
+                                    child: SwitchListTile(
+                                      value: owSwitch ?? true,
+                                      onChanged: (newValue) =>
+                                          setState(() => owSwitch = newValue),
+                                      title: Text(
+                                        '1\n2',
+                                        style: FlutterFlowTheme.title3.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0x00303030),
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        '1',
+                                        style:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0x00616161),
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      tileColor: Color(0x00F5F5F5),
+                                      dense: false,
+                                      contentPadding:
+                                          EdgeInsets.fromLTRB(0, 15, 0, 0),
                                     ),
                                   )
                                 ],
@@ -307,6 +424,34 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                           ),
                                         )
                                       ],
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(0, 0),
+                                    child: SwitchListTile(
+                                      value: rlSwitch ?? true,
+                                      onChanged: (newValue) =>
+                                          setState(() => rlSwitch = newValue),
+                                      title: Text(
+                                        '1\n2',
+                                        style: FlutterFlowTheme.title3.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0x00303030),
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        '1',
+                                        style:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0x00616161),
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                      tileColor: Color(0x00F5F5F5),
+                                      dense: false,
+                                      contentPadding:
+                                          EdgeInsets.fromLTRB(0, 15, 0, 0),
                                     ),
                                   )
                                 ],
@@ -384,6 +529,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                     tag: widget.tag,
                                     photoUrl: widget.photoUrl,
                                     about: widget.about,
+                                    isLol: lolSwitch,
                                   ),
                                 ),
                               );

@@ -217,13 +217,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                          child: Text(
-                                            listViewFeedRecord.content,
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFFB2B2B2),
-                                              fontSize: 14,
+                                          child: Container(
+                                            constraints: BoxConstraints(
+                                              maxWidth: 300,
+                                              maxHeight: 1,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Color(0x00EEEEEE),
+                                            ),
+                                            child: Text(
+                                              listViewFeedRecord.content,
+                                              style: FlutterFlowTheme.bodyText1
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFFB2B2B2),
+                                                fontSize: 14,
+                                              ),
                                             ),
                                           ),
                                         ),

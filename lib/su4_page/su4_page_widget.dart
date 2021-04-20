@@ -10,13 +10,28 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Su4PageWidget extends StatefulWidget {
-  Su4PageWidget({Key key, this.username, this.tag, this.photoUrl, this.about})
+  Su4PageWidget(
+      {Key key,
+      this.username,
+      this.tag,
+      this.photoUrl,
+      this.about,
+      this.isLol,
+      this.isVal,
+      this.isCod,
+      this.isOw,
+      this.isRl})
       : super(key: key);
 
   final String username;
   final String tag;
   final String photoUrl;
   final String about;
+  final bool isLol;
+  final bool isVal;
+  final bool isCod;
+  final bool isOw;
+  final bool isRl;
 
   @override
   _Su4PageWidgetState createState() => _Su4PageWidgetState();
@@ -314,15 +329,19 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                               final tag = widget.tag;
                               final sexe = 0;
 
-                              final usersRecordData = createUsersRecordData(
-                                about: about,
-                                id: id,
-                                name: name,
-                                photoUrl: photoUrl,
-                                bgProfile: bgProfile,
-                                tag: tag,
-                                sexe: sexe,
-                              );
+                              final usersRecordData = {
+                                ...createUsersRecordData(
+                                  about: about,
+                                  id: id,
+                                  name: name,
+                                  photoUrl: photoUrl,
+                                  bgProfile: bgProfile,
+                                  tag: tag,
+                                  sexe: sexe,
+                                ),
+                                'selected_games':
+                                    FieldValue.arrayUnion([widget.isLol]),
+                              };
 
                               await currentUserReference
                                   .update(usersRecordData);
