@@ -114,11 +114,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                         List<GMessagesRecord> listViewGMessagesRecordList =
                             snapshot.data;
                         // Customize what your widget looks like with no query results.
-                        if (snapshot.data.isEmpty) {
-                          // return Container();
-                          // For now, we'll just include some dummy data.
-                          listViewGMessagesRecordList =
-                              createDummyGMessagesRecord(count: 4);
+                        if (listViewGMessagesRecordList.isEmpty) {
+                          return Center(
+                            child: Image.network(
+                              '',
+                            ),
+                          );
                         }
                         return ListView.builder(
                           padding: EdgeInsets.zero,

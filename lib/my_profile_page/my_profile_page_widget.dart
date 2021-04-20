@@ -327,11 +327,12 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 List<GroupsRecord> gridViewGroupsRecordList =
                                     snapshot.data;
                                 // Customize what your widget looks like with no query results.
-                                if (snapshot.data.isEmpty) {
-                                  // return Container();
-                                  // For now, we'll just include some dummy data.
-                                  gridViewGroupsRecordList =
-                                      createDummyGroupsRecord(count: 4);
+                                if (gridViewGroupsRecordList.isEmpty) {
+                                  return Center(
+                                    child: Image.network(
+                                      '',
+                                    ),
+                                  );
                                 }
                                 return Padding(
                                   padding: EdgeInsets.fromLTRB(0, 20, 0, 0),

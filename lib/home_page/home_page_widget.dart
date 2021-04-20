@@ -100,8 +100,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       Expanded(
                         child: StreamBuilder<List<FeedRecord>>(
                           stream: queryFeedRecord(
-                            queryBuilder: (feedRecord) =>
-                                feedRecord.orderBy('timestamp'),
+                            queryBuilder: (feedRecord) => feedRecord
+                                .orderBy('timestamp', descending: true),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -111,11 +111,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             List<FeedRecord> listViewFeedRecordList =
                                 snapshot.data;
                             // Customize what your widget looks like with no query results.
-                            if (snapshot.data.isEmpty) {
-                              // return Container();
-                              // For now, we'll just include some dummy data.
-                              listViewFeedRecordList =
-                                  createDummyFeedRecord(count: 4);
+                            if (listViewFeedRecordList.isEmpty) {
+                              return Center(
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://i.pinimg.com/originals/65/ba/48/65ba488626025cff82f091336fbf94bb.gif',
+                                  width: 200,
+                                  height: 200,
+                                ),
+                              );
                             }
                             return ListView.builder(
                               padding: EdgeInsets.zero,

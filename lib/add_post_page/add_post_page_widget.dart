@@ -176,7 +176,8 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                               IconButton(
                                 onPressed: () async {
                                   final authorId = currentUserUid;
-                                  final authorName = currentUserDisplayName;
+                                  final authorName =
+                                      addPostPageUsersRecord.name;
                                   final content = textController.text;
                                   final game = 'valorant';
                                   final type = 0;

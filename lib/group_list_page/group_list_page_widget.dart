@@ -53,7 +53,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                     return Center(
                       child: CachedNetworkImage(
                         imageUrl:
-                            'https://image.flaticon.com/icons/png/512/2831/2831136.png',
+                            'https://img.icons8.com/dotty/2x/nothing-found.png',
                         width: 100,
                         height: 100,
                       ),
