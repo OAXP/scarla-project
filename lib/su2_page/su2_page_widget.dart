@@ -148,10 +148,17 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                                   color: Color(0x9CCBCBCB),
                                                 ),
                                               ),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.pen,
-                                                color: Colors.black,
-                                                size: 12,
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  FaIcon(
+                                                    FontAwesomeIcons.pen,
+                                                    color: Colors.black,
+                                                    size: 18,
+                                                  )
+                                                ],
                                               ),
                                             ),
                                           ),
@@ -218,8 +225,8 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 3,
-                                  crossAxisSpacing: 5,
-                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 1,
                                   childAspectRatio: 1,
                                 ),
                                 shrinkWrap: true,
@@ -274,6 +281,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                             FlutterFlowTheme.bodyText1.override(
                                           fontFamily: 'Poppins',
                                           color: Colors.white,
+                                          fontSize: 12,
                                         ),
                                       ),
                                       ToggleIcon(
@@ -295,12 +303,12 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                         onIcon: Icon(
                                           Icons.check_box,
                                           color: Color(0xFF535480),
-                                          size: 25,
+                                          size: 23,
                                         ),
                                         offIcon: Icon(
                                           Icons.check_box_outline_blank,
                                           color: Color(0xFF535480),
-                                          size: 25,
+                                          size: 23,
                                         ),
                                       )
                                     ],

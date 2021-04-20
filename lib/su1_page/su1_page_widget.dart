@@ -189,6 +189,7 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                           padding: EdgeInsets.fromLTRB(6, 1, 0, 0),
                           child: InkWell(
                             onTap: () async {
+                              Navigator.pop(context);
                               await signOut();
                             },
                             child: Card(

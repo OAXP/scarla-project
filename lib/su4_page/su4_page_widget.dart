@@ -1,7 +1,10 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../home_page/home_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -302,10 +305,33 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                           padding: EdgeInsets.fromLTRB(70, 1, 6, 0),
                           child: InkWell(
                             onTap: () async {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              Navigator.pop(context);
+                              final about = widget.about;
+                              final id = currentUserUid;
+                              final name = widget.username;
+                              final photoUrl = widget.photoUrl;
+                              final bgProfile =
+                                  'https://media.discordapp.net/attachments/530418694841565186/819976832321454160/wonderEggSniper.gif';
+                              final tag = widget.tag;
+                              final sexe = 0;
+
+                              final usersRecordData = createUsersRecordData(
+                                about: about,
+                                id: id,
+                                name: name,
+                                photoUrl: photoUrl,
+                                bgProfile: bgProfile,
+                                tag: tag,
+                                sexe: sexe,
+                              );
+
+                              await currentUserReference
+                                  .update(usersRecordData);
+                              await Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomePageWidget(),
+                                ),
+                              );
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
