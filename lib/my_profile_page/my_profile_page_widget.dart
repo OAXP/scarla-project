@@ -45,19 +45,19 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
           backgroundColor: Colors.black,
           body: Stack(
             children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 1,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.primaryColor,
+                ),
+              ),
               SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Stack(
                       children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 1,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.primaryColor,
-                          ),
-                        ),
                         Stack(
                           children: [
                             Container(
