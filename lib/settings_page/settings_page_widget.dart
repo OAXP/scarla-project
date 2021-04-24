@@ -318,105 +318,92 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              child: GridView(
-                                padding: EdgeInsets.zero,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 50,
-                                  mainAxisSpacing: 100,
-                                  childAspectRatio: 1,
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Competitive',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    ToggleIcon(
+                                      onPressed: () async {
+                                        final isCompetitive =
+                                            !settingsPageUsersRecord
+                                                .isCompetitive;
+
+                                        final usersRecordData =
+                                            createUsersRecordData(
+                                          isCompetitive: isCompetitive,
+                                        );
+
+                                        await settingsPageUsersRecord.reference
+                                            .update(usersRecordData);
+                                      },
+                                      value:
+                                          settingsPageUsersRecord.isCompetitive,
+                                      onIcon: Icon(
+                                        Icons.check_box,
+                                        color: Color(0xFF535480),
+                                        size: 23,
+                                      ),
+                                      offIcon: Icon(
+                                        Icons.check_box_outline_blank,
+                                        color: Color(0xFF535480),
+                                        size: 23,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Competitive',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                        ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Chill',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
                                       ),
-                                      ToggleIcon(
-                                        onPressed: () async {
-                                          final isCompetitive =
-                                              !settingsPageUsersRecord
-                                                  .isCompetitive;
+                                    ),
+                                    ToggleIcon(
+                                      onPressed: () async {
+                                        final isToxic =
+                                            !settingsPageUsersRecord.isToxic;
 
-                                          final usersRecordData =
-                                              createUsersRecordData(
-                                            isCompetitive: isCompetitive,
-                                          );
+                                        final usersRecordData =
+                                            createUsersRecordData(
+                                          isToxic: isToxic,
+                                        );
 
-                                          await settingsPageUsersRecord
-                                              .reference
-                                              .update(usersRecordData);
-                                        },
-                                        value: settingsPageUsersRecord
-                                            .isCompetitive,
-                                        onIcon: Icon(
-                                          Icons.check_box,
-                                          color: Color(0xFF535480),
-                                          size: 23,
-                                        ),
-                                        offIcon: Icon(
-                                          Icons.check_box_outline_blank,
-                                          color: Color(0xFF535480),
-                                          size: 23,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Chill',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
+                                        await settingsPageUsersRecord.reference
+                                            .update(usersRecordData);
+                                      },
+                                      value: settingsPageUsersRecord.isToxic,
+                                      onIcon: Icon(
+                                        Icons.check_box,
+                                        color: Color(0xFF535480),
+                                        size: 25,
                                       ),
-                                      ToggleIcon(
-                                        onPressed: () async {
-                                          final isToxic =
-                                              !settingsPageUsersRecord.isToxic;
-
-                                          final usersRecordData =
-                                              createUsersRecordData(
-                                            isToxic: isToxic,
-                                          );
-
-                                          await settingsPageUsersRecord
-                                              .reference
-                                              .update(usersRecordData);
-                                        },
-                                        value: settingsPageUsersRecord.isToxic,
-                                        onIcon: Icon(
-                                          Icons.check_box,
-                                          color: Color(0xFF535480),
-                                          size: 25,
-                                        ),
-                                        offIcon: Icon(
-                                          Icons.check_box_outline_blank,
-                                          color: Color(0xFF535480),
-                                          size: 25,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
+                                      offIcon: Icon(
+                                        Icons.check_box_outline_blank,
+                                        color: Color(0xFF535480),
+                                        size: 25,
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
                             ),
                             Container(
                               decoration: BoxDecoration(),
