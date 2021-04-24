@@ -15,9 +15,6 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get about;
 
   @nullable
-  String get id;
-
-  @nullable
   String get name;
 
   @nullable
@@ -39,12 +36,6 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get tag;
 
   @nullable
-  int get sexe;
-
-  @nullable
-  bool get isAdult;
-
-  @nullable
   bool get isCompetitive;
 
   @nullable
@@ -62,7 +53,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   @nullable
   @BuiltValueField(wireName: 'selected_games')
-  BuiltList<bool> get selectedGames;
+  BuiltList<String> get selectedGames;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -70,15 +61,12 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   static void _initializeBuilder(UsersRecordBuilder builder) => builder
     ..about = ''
-    ..id = ''
     ..name = ''
     ..photoUrl = ''
     ..bgProfile = ''
     ..email = ''
     ..displayName = ''
     ..tag = ''
-    ..sexe = 0
-    ..isAdult = false
     ..isCompetitive = false
     ..isToxic = false
     ..uid = ''
@@ -98,15 +86,12 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
 Map<String, dynamic> createUsersRecordData({
   String about,
-  String id,
   String name,
   String photoUrl,
   String bgProfile,
   String email,
   String displayName,
   String tag,
-  int sexe,
-  bool isAdult,
   bool isCompetitive,
   bool isToxic,
   DocumentReference ranksRef,
@@ -117,15 +102,12 @@ Map<String, dynamic> createUsersRecordData({
         UsersRecord.serializer,
         UsersRecord((u) => u
           ..about = about
-          ..id = id
           ..name = name
           ..photoUrl = photoUrl
           ..bgProfile = bgProfile
           ..email = email
           ..displayName = displayName
           ..tag = tag
-          ..sexe = sexe
-          ..isAdult = isAdult
           ..isCompetitive = isCompetitive
           ..isToxic = isToxic
           ..ranksRef = ranksRef
@@ -136,20 +118,17 @@ Map<String, dynamic> createUsersRecordData({
 UsersRecord get dummyUsersRecord {
   final builder = UsersRecordBuilder()
     ..about = dummyString
-    ..id = dummyString
     ..name = dummyString
     ..photoUrl = dummyImagePath
     ..bgProfile = dummyImagePath
     ..email = dummyString
     ..displayName = dummyString
     ..tag = dummyString
-    ..sexe = dummyInteger
-    ..isAdult = dummyBoolean
     ..isCompetitive = dummyBoolean
     ..isToxic = dummyBoolean
     ..createdTime = dummyTimestamp
     ..uid = dummyString
-    ..selectedGames = ListBuilder([dummyBoolean, dummyBoolean]);
+    ..selectedGames = ListBuilder([dummyString, dummyString]);
   return builder.build();
 }
 

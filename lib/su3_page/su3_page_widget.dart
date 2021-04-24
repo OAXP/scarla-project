@@ -1,7 +1,10 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../su4_page/su4_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,11 +22,6 @@ class Su3PageWidget extends StatefulWidget {
 }
 
 class _Su3PageWidgetState extends State<Su3PageWidget> {
-  bool codSwitch;
-  bool lolSwitch;
-  bool valSwitch;
-  bool owSwitch;
-  bool rlSwitch;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -72,8 +70,14 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              await launchURL(
-                                  'https://www.youtube.com/watch?v=B69GfSqEZEs');
+                              final usersRecordData = {
+                                ...createUsersRecordData(),
+                                'selected_games':
+                                    FieldValue.arrayUnion(['lol']),
+                              };
+
+                              await currentUserReference
+                                  .update(usersRecordData);
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -85,9 +89,8 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          'https://specials-images.forbesimg.com/imageserve/5ff876c60777630771bbe35a/960x0.jpg?fit=scale',
+                                    child: Image.asset(
+                                      'assets/images/3.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -115,34 +118,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                         )
                                       ],
                                     ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment(0, 0),
-                                    child: SwitchListTile(
-                                      value: lolSwitch ?? false,
-                                      onChanged: (newValue) =>
-                                          setState(() => lolSwitch = newValue),
-                                      title: Text(
-                                        '1\n2',
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0x00303030),
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        '1',
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0x00616161),
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      tileColor: Color(0x00F5F5F5),
-                                      dense: false,
-                                      contentPadding:
-                                          EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                    ),
                                   )
                                 ],
                               ),
@@ -150,8 +125,14 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           ),
                           InkWell(
                             onTap: () async {
-                              await launchURL(
-                                  'https://www.youtube.com/watch?v=ckXtZrTzJbM');
+                              final usersRecordData = {
+                                ...createUsersRecordData(),
+                                'selected_games':
+                                    FieldValue.arrayUnion(['valorant']),
+                              };
+
+                              await currentUserReference
+                                  .update(usersRecordData);
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -163,9 +144,8 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          'https://images.daznservices.com/di/library/sporting_news/d6/fd/valorant-art-040720-ftr_1f6xrhqbk1od21tfx6ujumubn2.jpeg?t=1524781985&quality=100&w=1280&h=720',
+                                    child: Image.asset(
+                                      'assets/images/3.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -192,34 +172,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                         )
                                       ],
                                     ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment(0, 0),
-                                    child: SwitchListTile(
-                                      value: valSwitch ?? false,
-                                      onChanged: (newValue) =>
-                                          setState(() => valSwitch = newValue),
-                                      title: Text(
-                                        '1\n2',
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0x00303030),
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        '1',
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0x00616161),
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      tileColor: Color(0x00F5F5F5),
-                                      dense: false,
-                                      contentPadding:
-                                          EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                    ),
                                   )
                                 ],
                               ),
@@ -227,8 +179,13 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           ),
                           InkWell(
                             onTap: () async {
-                              await launchURL(
-                                  'https://www.youtube.com/watch?v=b0pRwslck9Q');
+                              final usersRecordData = {
+                                ...createUsersRecordData(),
+                                'selected_games': FieldValue.arrayUnion(['mw']),
+                              };
+
+                              await currentUserReference
+                                  .update(usersRecordData);
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -240,9 +197,8 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          'https://cdn.mos.cms.futurecdn.net/ZbXQ28h5XuqBss7sGnVFsm.jpg',
+                                    child: Image.asset(
+                                      'assets/images/3.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -269,34 +225,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                         )
                                       ],
                                     ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment(0, 0),
-                                    child: SwitchListTile(
-                                      value: codSwitch ?? false,
-                                      onChanged: (newValue) =>
-                                          setState(() => codSwitch = newValue),
-                                      title: Text(
-                                        '1\n2',
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0x00303030),
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        '1',
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0x00616161),
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      tileColor: Color(0x00F5F5F5),
-                                      dense: false,
-                                      contentPadding:
-                                          EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                    ),
                                   )
                                 ],
                               ),
@@ -304,8 +232,13 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           ),
                           InkWell(
                             onTap: () async {
-                              await launchURL(
-                                  'https://www.youtube.com/watch?v=tn0Whz60apg');
+                              final usersRecordData = {
+                                ...createUsersRecordData(),
+                                'selected_games': FieldValue.arrayUnion(['ow']),
+                              };
+
+                              await currentUserReference
+                                  .update(usersRecordData);
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -317,9 +250,8 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          'https://bnetcmsus-a.akamaihd.net/cms/blog_header/7v/7VU5EACDYG1R1572644146214.jpg',
+                                    child: Image.asset(
+                                      'assets/images/3.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -346,34 +278,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                         )
                                       ],
                                     ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment(0, 0),
-                                    child: SwitchListTile(
-                                      value: owSwitch ?? false,
-                                      onChanged: (newValue) =>
-                                          setState(() => owSwitch = newValue),
-                                      title: Text(
-                                        '1\n2',
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0x00303030),
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        '1',
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0x00616161),
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      tileColor: Color(0x00F5F5F5),
-                                      dense: false,
-                                      contentPadding:
-                                          EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                    ),
                                   )
                                 ],
                               ),
@@ -381,8 +285,13 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           ),
                           InkWell(
                             onTap: () async {
-                              await launchURL(
-                                  'https://www.youtube.com/watch?v=87K5Uh3AML0');
+                              final usersRecordData = {
+                                ...createUsersRecordData(),
+                                'selected_games': FieldValue.arrayUnion(['rl']),
+                              };
+
+                              await currentUserReference
+                                  .update(usersRecordData);
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -394,9 +303,8 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          'https://rocketleague.media.zestyio.com/rl_s2_core_1920x1080_no-logos.d4899f96e1858d7c1e61787a9f72ea96.BJsA4N3qP.jpg',
+                                    child: Image.asset(
+                                      'assets/images/3.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -424,34 +332,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                           ),
                                         )
                                       ],
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment(0, 0),
-                                    child: SwitchListTile(
-                                      value: rlSwitch ?? false,
-                                      onChanged: (newValue) =>
-                                          setState(() => rlSwitch = newValue),
-                                      title: Text(
-                                        '1\n2',
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0x00303030),
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        '1',
-                                        style:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Color(0x00616161),
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      tileColor: Color(0x00F5F5F5),
-                                      dense: false,
-                                      contentPadding:
-                                          EdgeInsets.fromLTRB(0, 15, 0, 0),
                                     ),
                                   )
                                 ],
@@ -529,11 +409,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                     tag: widget.tag,
                                     photoUrl: widget.photoUrl,
                                     about: widget.about,
-                                    isLol: lolSwitch,
-                                    isVal: valSwitch,
-                                    isCod: codSwitch,
-                                    isOw: owSwitch,
-                                    isRl: rlSwitch,
                                   ),
                                 ),
                               );

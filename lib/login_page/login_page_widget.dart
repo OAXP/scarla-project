@@ -1,6 +1,7 @@
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import '../sign_up_page/sign_up_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -204,10 +205,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         return;
                                       }
 
-                                      if (mounted &&
-                                          Navigator.of(context).canPop()) {
-                                        Navigator.of(context).pop();
-                                      }
+                                      await Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => NavBarPage(
+                                              initialPage: 'HomePage'),
+                                        ),
+                                        (r) => false,
+                                      );
                                     },
                                     text: 'Sign in',
                                     options: FFButtonOptions(
@@ -257,8 +262,23 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                               alignment: Alignment(0, 0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
-                                                  await signInWithGoogle(
-                                                      context);
+                                                  final user =
+                                                      await signInWithGoogle(
+                                                          context);
+                                                  if (user == null) {
+                                                    return;
+                                                  }
+                                                  await Navigator
+                                                      .pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          NavBarPage(
+                                                              initialPage:
+                                                                  'HomePage'),
+                                                    ),
+                                                    (r) => false,
+                                                  );
                                                 },
                                                 text: 'Sign in with Google',
                                                 iconData: Icons.add,
@@ -331,12 +351,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       ),
                                       InkWell(
                                         onTap: () async {
-                                          await Navigator.pushReplacement(
+                                          await Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   SignUpPageWidget(),
                                             ),
+                                            (r) => false,
                                           );
                                         },
                                         child: Text(

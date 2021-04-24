@@ -127,7 +127,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                             ),
                                             child: CachedNetworkImage(
                                               imageUrl:
-                                                  'https://frc.research.vub.be/sites/default/files/styles/large/public/thumbnails/image/basic-profile-picture_5.jpg',
+                                                  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -156,7 +156,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                                   FaIcon(
                                                     FontAwesomeIcons.pen,
                                                     color: Colors.black,
-                                                    size: 18,
+                                                    size: 12,
                                                   )
                                                 ],
                                               ),
@@ -179,7 +179,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                   hintStyle:
                                       FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Poppins',
-                                    color: Colors.black,
+                                    color: Color(0xFFAAAAAA),
                                     fontWeight: FontWeight.normal,
                                   ),
                                   enabledBorder: OutlineInputBorder(
@@ -207,153 +207,142 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                     ),
                                   ),
                                   filled: true,
-                                  fillColor: Colors.white,
+                                  fillColor: Color(0xFF4D5078),
                                 ),
                                 style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Poppins',
-                                  color: Colors.black,
+                                  color: Color(0xFFAAAAAA),
                                   fontWeight: FontWeight.normal,
                                 ),
                                 textAlign: TextAlign.start,
                                 maxLines: 3,
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                              child: GridView(
-                                padding: EdgeInsets.zero,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 1,
-                                  childAspectRatio: 1,
+                            Stack(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                  child: GridView(
+                                    padding: EdgeInsets.zero,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10,
+                                      childAspectRatio: 1,
+                                    ),
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Competitive',
+                                            style: FlutterFlowTheme.bodyText1
+                                                .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          ToggleIcon(
+                                            onPressed: () async {
+                                              final isCompetitive =
+                                                  !listViewUsersRecord
+                                                      .isCompetitive;
+
+                                              final usersRecordData =
+                                                  createUsersRecordData(
+                                                isCompetitive: isCompetitive,
+                                              );
+
+                                              await listViewUsersRecord
+                                                  .reference
+                                                  .update(usersRecordData);
+                                            },
+                                            value: listViewUsersRecord
+                                                .isCompetitive,
+                                            onIcon: Icon(
+                                              Icons.check_box,
+                                              color: Color(0xFF535480),
+                                              size: 23,
+                                            ),
+                                            offIcon: Icon(
+                                              Icons.check_box_outline_blank,
+                                              color: Color(0xFF535480),
+                                              size: 23,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Chill',
+                                            style: FlutterFlowTheme.bodyText1
+                                                .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          ToggleIcon(
+                                            onPressed: () async {
+                                              final isToxic =
+                                                  !listViewUsersRecord.isToxic;
+
+                                              final usersRecordData =
+                                                  createUsersRecordData(
+                                                isToxic: isToxic,
+                                              );
+
+                                              await listViewUsersRecord
+                                                  .reference
+                                                  .update(usersRecordData);
+                                            },
+                                            value: listViewUsersRecord.isToxic,
+                                            onIcon: Icon(
+                                              Icons.check_box,
+                                              color: Color(0xFF535480),
+                                              size: 25,
+                                            ),
+                                            offIcon: Icon(
+                                              Icons.check_box_outline_blank,
+                                              color: Color(0xFF535480),
+                                              size: 25,
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                children: [
-                                  Row(
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                  child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Adult',
+                                        'Are you..',
+                                        textAlign: TextAlign.center,
                                         style:
                                             FlutterFlowTheme.bodyText1.override(
                                           fontFamily: 'Poppins',
                                           color: Colors.white,
-                                        ),
-                                      ),
-                                      ToggleIcon(
-                                        onPressed: () async {
-                                          final isAdult =
-                                              !listViewUsersRecord.isAdult;
-
-                                          final usersRecordData =
-                                              createUsersRecordData(
-                                            isAdult: isAdult,
-                                          );
-
-                                          await listViewUsersRecord.reference
-                                              .update(usersRecordData);
-                                        },
-                                        value: listViewUsersRecord.isAdult,
-                                        onIcon: Icon(
-                                          Icons.check_box,
-                                          color: Color(0xFF535480),
-                                          size: 25,
-                                        ),
-                                        offIcon: Icon(
-                                          Icons.check_box_outline_blank,
-                                          color: Color(0xFF535480),
-                                          size: 25,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       )
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Comp',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      ToggleIcon(
-                                        onPressed: () async {
-                                          final isCompetitive =
-                                              !listViewUsersRecord
-                                                  .isCompetitive;
-
-                                          final usersRecordData =
-                                              createUsersRecordData(
-                                            isCompetitive: isCompetitive,
-                                          );
-
-                                          await listViewUsersRecord.reference
-                                              .update(usersRecordData);
-                                        },
-                                        value:
-                                            listViewUsersRecord.isCompetitive,
-                                        onIcon: Icon(
-                                          Icons.check_box,
-                                          color: Color(0xFF535480),
-                                          size: 23,
-                                        ),
-                                        offIcon: Icon(
-                                          Icons.check_box_outline_blank,
-                                          color: Color(0xFF535480),
-                                          size: 23,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Toxic',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      ToggleIcon(
-                                        onPressed: () async {
-                                          final isToxic =
-                                              !listViewUsersRecord.isToxic;
-
-                                          final usersRecordData =
-                                              createUsersRecordData(
-                                            isToxic: isToxic,
-                                          );
-
-                                          await listViewUsersRecord.reference
-                                              .update(usersRecordData);
-                                        },
-                                        value: listViewUsersRecord.isToxic,
-                                        onIcon: Icon(
-                                          Icons.check_box,
-                                          color: Color(0xFF535480),
-                                          size: 25,
-                                        ),
-                                        offIcon: Icon(
-                                          Icons.check_box_outline_blank,
-                                          color: Color(0xFF535480),
-                                          size: 25,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
+                                )
+                              ],
                             )
                           ],
                         );

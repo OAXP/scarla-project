@@ -114,9 +114,8 @@ class _RankPageWidgetState extends State<RankPageWidget> {
                             decoration: BoxDecoration(
                               color: Color(0x00EEEEEE),
                             ),
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  'https://static.wikia.nocookie.net/valorant/images/d/d3/TX_CompetitiveTier_Large_15.png/revision/latest/scale-to-width-down/185?cb=20200623203419',
+                            child: Image.asset(
+                              'assets/images/OwIcon.png',
                               width: MediaQuery.of(context).size.width * 0.5,
                               height: MediaQuery.of(context).size.height * 1,
                               fit: BoxFit.contain,

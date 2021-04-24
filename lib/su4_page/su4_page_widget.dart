@@ -2,7 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../home_page/home_page_widget.dart';
+import '../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -16,22 +16,14 @@ class Su4PageWidget extends StatefulWidget {
       this.tag,
       this.photoUrl,
       this.about,
-      this.isLol,
-      this.isVal,
-      this.isCod,
-      this.isOw,
-      this.isRl})
+      this.bgProfile})
       : super(key: key);
 
   final String username;
   final String tag;
   final String photoUrl;
   final String about;
-  final bool isLol;
-  final bool isVal;
-  final bool isCod;
-  final bool isOw;
-  final bool isRl;
+  final String bgProfile;
 
   @override
   _Su4PageWidgetState createState() => _Su4PageWidgetState();
@@ -68,8 +60,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                             color: Color(0xFFB7B7B7),
                           ),
                           child: CachedNetworkImage(
-                            imageUrl:
-                                'https://media.discordapp.net/attachments/530418694841565186/819976832321454160/wonderEggSniper.gif',
+                            imageUrl: widget.bgProfile,
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 1,
                             fit: BoxFit.cover,
@@ -341,34 +332,28 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                       child: InkWell(
                         onTap: () async {
                           final about = widget.about;
-                          final id = currentUserUid;
                           final name = widget.username;
                           final photoUrl = widget.photoUrl;
                           final bgProfile =
                               'https://media.discordapp.net/attachments/530418694841565186/819976832321454160/wonderEggSniper.gif';
                           final tag = widget.tag;
-                          final sexe = 0;
 
-                          final usersRecordData = {
-                            ...createUsersRecordData(
-                              about: about,
-                              id: id,
-                              name: name,
-                              photoUrl: photoUrl,
-                              bgProfile: bgProfile,
-                              tag: tag,
-                              sexe: sexe,
-                            ),
-                            'selected_games':
-                                FieldValue.arrayUnion([widget.isLol]),
-                          };
+                          final usersRecordData = createUsersRecordData(
+                            about: about,
+                            name: name,
+                            photoUrl: photoUrl,
+                            bgProfile: bgProfile,
+                            tag: tag,
+                          );
 
                           await currentUserReference.update(usersRecordData);
-                          await Navigator.pushReplacement(
+                          await Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomePageWidget(),
+                              builder: (context) =>
+                                  NavBarPage(initialPage: 'HomePage'),
                             ),
+                            (r) => false,
                           );
                         },
                         child: Card(

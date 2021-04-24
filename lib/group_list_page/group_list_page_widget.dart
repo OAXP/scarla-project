@@ -84,7 +84,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: Color(0xFF22CD4F),
+                              color: Color(0xFFFF4553),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -138,7 +138,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                                             style: FlutterFlowTheme.bodyText1
                                                 .override(
                                               fontFamily: 'Poppins',
-                                              color: Color(0xFF535480),
+                                              color: Color(0xFFC1C1C1),
                                               fontSize: 12,
                                             ),
                                           ),

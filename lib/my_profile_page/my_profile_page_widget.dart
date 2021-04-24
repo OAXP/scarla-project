@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../chat_page/chat_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../login_page/login_page_widget.dart';
 import '../rank_page/rank_page_widget.dart';
 import '../settings_page/settings_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -23,7 +24,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
     return StreamBuilder<List<UsersRecord>>(
       stream: queryUsersRecord(
         queryBuilder: (usersRecord) =>
-            usersRecord.where('id', isEqualTo: currentUserUid),
+            usersRecord.where('uid', isEqualTo: currentUserUid),
         singleRecord: true,
       ),
       builder: (context, snapshot) {
@@ -96,6 +97,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     child: InkWell(
                                       onTap: () async {
                                         await signOut();
+                                        await Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                LoginPageWidget(),
+                                          ),
+                                          (r) => false,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.login_outlined,
@@ -346,8 +355,11 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     // Customize what your widget looks like with no query results.
                                     if (gridViewGroupsRecordList.isEmpty) {
                                       return Center(
-                                        child: Image.network(
-                                          '',
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              'https://img.icons8.com/color/452/nothing-found.png',
+                                          width: 100,
+                                          height: 100,
                                         ),
                                       );
                                     }

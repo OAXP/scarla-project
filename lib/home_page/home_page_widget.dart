@@ -21,12 +21,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      drawer: Container(
-        width: MediaQuery.of(context).size.width * 0.27,
-        child: Drawer(
-          elevation: 0,
-        ),
-      ),
       body: Stack(
         children: [
           Container(
@@ -274,13 +268,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     snapshot.data;
                                                 return ToggleIcon(
                                                   onPressed: () async {
-                                                    final isAdult =
+                                                    final isCompetitive =
                                                         !toggleIconUsersRecord
-                                                            .isAdult;
+                                                            .isCompetitive;
 
                                                     final usersRecordData =
                                                         createUsersRecordData(
-                                                      isAdult: isAdult,
+                                                      isCompetitive:
+                                                          isCompetitive,
                                                     );
 
                                                     await toggleIconUsersRecord
@@ -289,7 +284,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             usersRecordData);
                                                   },
                                                   value: toggleIconUsersRecord
-                                                      .isAdult,
+                                                      .isCompetitive,
                                                   onIcon: Icon(
                                                     Icons.star,
                                                     color: Color(0xFF444771),

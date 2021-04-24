@@ -274,10 +274,6 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                         return;
                                       }
 
-                                      if (mounted &&
-                                          Navigator.of(context).canPop()) {
-                                        Navigator.of(context).pop();
-                                      }
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -321,12 +317,13 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        await Navigator.pushReplacement(
+                                        await Navigator.pushAndRemoveUntil(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 LoginPageWidget(),
                                           ),
+                                          (r) => false,
                                         );
                                       },
                                       child: Text(

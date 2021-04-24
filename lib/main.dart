@@ -16,57 +16,71 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
   @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Stream<ScarlaFirebaseUser> userStream;
+  ScarlaFirebaseUser initialUser;
+
+  @override
+  void initState() {
+    super.initState();
+    userStream = scarlaFirebaseUserStream()
+      ..listen((user) => initialUser ?? setState(() => initialUser = user));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return StreamBuilder<ScarlaFirebaseUser>(
-      stream: scarlaFirebaseUser,
-      initialData: scarlaFirebaseUser.value,
-      builder: (context, snapshot) {
-        return MaterialApp(
-          title: 'Scarla',
-          theme: ThemeData(primarySwatch: Colors.blue),
-          home: snapshot.data.when(
-            user: (_) => NavBarHolder(),
-            loggedOut: () => LoginPageWidget(),
-            initial: () => Container(
-              color: Colors.white,
-              child: const Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xff4b39ef)),
-                ),
+    return MaterialApp(
+      title: 'Scarla',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: initialUser == null
+          ? const Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xff4b39ef)),
               ),
-            ),
-          ),
-        );
-      },
+            )
+          : currentUser.loggedIn
+              ? NavBarPage()
+              : LoginPageWidget(),
     );
   }
 }
 
-class NavBarHolder extends StatefulWidget {
-  NavBarHolder({Key key}) : super(key: key);
+class NavBarPage extends StatefulWidget {
+  NavBarPage({Key key, this.initialPage}) : super(key: key);
+
+  final String initialPage;
 
   @override
-  _NavBarHolderState createState() => _NavBarHolderState();
+  _NavBarPageState createState() => _NavBarPageState();
 }
 
-/// This is the private State class that goes with NavBarHolder.
-class _NavBarHolderState extends State<NavBarHolder> {
-  int _currentIndex = 0;
+/// This is the private State class that goes with NavBarPage.
+class _NavBarPageState extends State<NavBarPage> {
+  String _currentPage = 'HomePage';
+
+  @override
+  void initState() {
+    super.initState();
+    _currentPage = widget.initialPage ?? _currentPage;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final tabs = [
-      HomePageWidget(),
-      GroupListPageWidget(),
-      GamesSelectWidget(),
-      MyProfilePageWidget(),
-      FriendsPageWidget(),
-    ];
+    final tabs = {
+      'HomePage': HomePageWidget(),
+      'GroupListPage': GroupListPageWidget(),
+      'GamesSelect': GamesSelectWidget(),
+      'MyProfilePage': MyProfilePageWidget(),
+      'FriendsPage': FriendsPageWidget(),
+    };
     return Scaffold(
-      body: tabs[_currentIndex],
+      body: tabs[_currentPage],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -106,10 +120,10 @@ class _NavBarHolderState extends State<NavBarHolder> {
           )
         ],
         backgroundColor: Color(0xFF373856),
-        currentIndex: _currentIndex,
+        currentIndex: tabs.keys.toList().indexOf(_currentPage),
         selectedItemColor: Color(0xFFFF4553),
         unselectedItemColor: Color(0xFF4D5078),
-        onTap: (i) => setState(() => _currentIndex = i),
+        onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
