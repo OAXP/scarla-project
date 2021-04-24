@@ -10,12 +10,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SettingsPageWidget extends StatefulWidget {
-  SettingsPageWidget({Key key, this.photoUrl, this.user, this.name})
+  SettingsPageWidget({Key key, this.photoUrl, this.user, this.name, this.tag})
       : super(key: key);
 
   final String photoUrl;
   final DocumentReference user;
   final String name;
+  final String tag;
 
   @override
   _SettingsPageWidgetState createState() => _SettingsPageWidgetState();
@@ -29,8 +30,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
   @override
   void initState() {
     super.initState();
-    tagFieldController = TextEditingController();
-    usernameFieldController = TextEditingController();
+    tagFieldController = TextEditingController(text: widget.tag);
+    usernameFieldController = TextEditingController(text: widget.name);
   }
 
   @override

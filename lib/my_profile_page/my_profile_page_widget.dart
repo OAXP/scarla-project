@@ -21,29 +21,29 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<UsersRecord>>(
-      stream: queryUsersRecord(
-        queryBuilder: (usersRecord) =>
-            usersRecord.where('uid', isEqualTo: currentUserUid),
-        singleRecord: true,
-      ),
-      builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
-        if (!snapshot.hasData) {
-          return Center(child: CircularProgressIndicator());
-        }
-        List<UsersRecord> myProfilePageUsersRecordList = snapshot.data;
-        // Customize what your widget looks like with no query results.
-        if (snapshot.data.isEmpty) {
-          // return Container();
-          // For now, we'll just include some dummy data.
-          myProfilePageUsersRecordList = createDummyUsersRecord(count: 1);
-        }
-        final myProfilePageUsersRecord = myProfilePageUsersRecordList.first;
-        return Scaffold(
-          key: scaffoldKey,
-          backgroundColor: Colors.black,
-          body: Stack(
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.primaryColor,
+      body: StreamBuilder<List<UsersRecord>>(
+        stream: queryUsersRecord(
+          queryBuilder: (usersRecord) =>
+              usersRecord.where('uid', isEqualTo: currentUserUid),
+          singleRecord: true,
+        ),
+        builder: (context, snapshot) {
+          // Customize what your widget looks like when it's loading.
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+          List<UsersRecord> stackUsersRecordList = snapshot.data;
+          // Customize what your widget looks like with no query results.
+          if (snapshot.data.isEmpty) {
+            // return Container();
+            // For now, we'll just include some dummy data.
+            stackUsersRecordList = createDummyUsersRecord(count: 1);
+          }
+          final stackUsersRecord = stackUsersRecordList.first;
+          return Stack(
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -67,7 +67,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 color: Color(0xFFB7B7B7),
                               ),
                               child: CachedNetworkImage(
-                                imageUrl: myProfilePageUsersRecord.bgProfile,
+                                imageUrl: stackUsersRecord.bgProfile,
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.height * 1,
                                 fit: BoxFit.cover,
@@ -122,12 +122,11 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 SettingsPageWidget(
-                                              photoUrl: myProfilePageUsersRecord
-                                                  .photoUrl,
-                                              user: myProfilePageUsersRecord
-                                                  .reference,
-                                              name:
-                                                  myProfilePageUsersRecord.name,
+                                              photoUrl:
+                                                  stackUsersRecord.photoUrl,
+                                              user: stackUsersRecord.reference,
+                                              name: stackUsersRecord.name,
+                                              tag: stackUsersRecord.tag,
                                             ),
                                           ),
                                         );
@@ -171,8 +170,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                             shape: BoxShape.circle,
                                           ),
                                           child: CachedNetworkImage(
-                                            imageUrl: myProfilePageUsersRecord
-                                                .photoUrl,
+                                            imageUrl: stackUsersRecord.photoUrl,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -187,7 +185,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        myProfilePageUsersRecord.name,
+                                        stackUsersRecord.name,
                                         textAlign: TextAlign.center,
                                         style:
                                             FlutterFlowTheme.bodyText1.override(
@@ -208,7 +206,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                         ),
                                       ),
                                       Text(
-                                        myProfilePageUsersRecord.tag,
+                                        stackUsersRecord.tag,
                                         style:
                                             FlutterFlowTheme.bodyText1.override(
                                           fontFamily: 'Poppins',
@@ -229,7 +227,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(45, 5, 45, 5),
                                     child: Text(
-                                      myProfilePageUsersRecord.about,
+                                      stackUsersRecord.about,
                                       textAlign: TextAlign.center,
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
@@ -296,12 +294,10 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                     builder: (context) =>
                                                         RankPageWidget(
                                                       username:
-                                                          myProfilePageUsersRecord
-                                                              .name,
+                                                          stackUsersRecord.name,
                                                       game: 'Valorant',
-                                                      userRef:
-                                                          myProfilePageUsersRecord
-                                                              .reference,
+                                                      userRef: stackUsersRecord
+                                                          .reference,
                                                     ),
                                                   ),
                                                 );
@@ -457,9 +453,9 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                 ),
               )
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
