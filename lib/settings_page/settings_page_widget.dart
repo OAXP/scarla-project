@@ -61,7 +61,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
             },
             backgroundColor: Color(0xFF4D5078),
             elevation: 8,
-            child: Text(
+            label: Text(
               'Save',
               style: FlutterFlowTheme.bodyText1.override(
                 fontFamily: 'Poppins',
@@ -361,45 +361,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         Icons.check_box_outline_blank,
                                         color: Color(0xFF535480),
                                         size: 23,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Chill',
-                                      style:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    ToggleIcon(
-                                      onPressed: () async {
-                                        final isToxic =
-                                            !settingsPageUsersRecord.isToxic;
-
-                                        final usersRecordData =
-                                            createUsersRecordData(
-                                          isToxic: isToxic,
-                                        );
-
-                                        await settingsPageUsersRecord.reference
-                                            .update(usersRecordData);
-                                      },
-                                      value: settingsPageUsersRecord.isToxic,
-                                      onIcon: Icon(
-                                        Icons.check_box,
-                                        color: Color(0xFF535480),
-                                        size: 25,
-                                      ),
-                                      offIcon: Icon(
-                                        Icons.check_box_outline_blank,
-                                        color: Color(0xFF535480),
-                                        size: 25,
                                       ),
                                     )
                                   ],

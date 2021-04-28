@@ -145,7 +145,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.asset(
-                                      'assets/images/3.jpg',
+                                      'assets/images/article-esports-valorant-what-is-meta-hero.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -198,7 +198,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.asset(
-                                      'assets/images/3.jpg',
+                                      'assets/images/hbhfrvbjyiai7jt7hs8c.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -251,7 +251,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.asset(
-                                      'assets/images/3.jpg',
+                                      'assets/images/share.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,

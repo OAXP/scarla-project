@@ -280,45 +280,6 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                       ),
                                     )
                                   ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Chill',
-                                      style:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    ToggleIcon(
-                                      onPressed: () async {
-                                        final isToxic =
-                                            !listViewUsersRecord.isToxic;
-
-                                        final usersRecordData =
-                                            createUsersRecordData(
-                                          isToxic: isToxic,
-                                        );
-
-                                        await listViewUsersRecord.reference
-                                            .update(usersRecordData);
-                                      },
-                                      value: listViewUsersRecord.isToxic,
-                                      onIcon: Icon(
-                                        Icons.check_box,
-                                        color: Color(0xFF535480),
-                                        size: 25,
-                                      ),
-                                      offIcon: Icon(
-                                        Icons.check_box_outline_blank,
-                                        color: Color(0xFF535480),
-                                        size: 25,
-                                      ),
-                                    )
-                                  ],
                                 )
                               ],
                             )

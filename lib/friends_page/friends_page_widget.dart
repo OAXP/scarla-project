@@ -1,3 +1,4 @@
+import '../add_friend/add_friend_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -77,8 +78,12 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                             padding: EdgeInsets.fromLTRB(0, 0, 11, 0),
                             child: InkWell(
                               onTap: () async {
-                                await launchURL(
-                                    'https://i.pinimg.com/originals/78/fc/df/78fcdf41fbc27797e92a4429c276e2f6.gif');
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddFriendWidget(),
+                                  ),
+                                );
                               },
                               child: Icon(
                                 Icons.person_add_alt_1_rounded,

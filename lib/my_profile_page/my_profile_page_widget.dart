@@ -295,7 +295,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                         RankPageWidget(
                                                       username:
                                                           stackUsersRecord.name,
-                                                      game: 'Valorant',
+                                                      game: 'valorant',
                                                       userRef: stackUsersRecord
                                                           .reference,
                                                     ),

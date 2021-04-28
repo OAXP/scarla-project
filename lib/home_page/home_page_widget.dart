@@ -21,6 +21,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      drawer: Container(
+        width: 100,
+        child: Drawer(
+          elevation: 16,
+        ),
+      ),
       body: Stack(
         children: [
           Container(

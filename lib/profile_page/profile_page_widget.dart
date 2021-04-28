@@ -1,7 +1,6 @@
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../rank_page/rank_page_widget.dart';
-import '../settings_page/settings_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -91,26 +90,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                SettingsPageWidget(
-                                              photoUrl: profilePageUsersRecord
-                                                  .photoUrl,
-                                              user: widget.userRef,
-                                              name: profilePageUsersRecord.name,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.more_vert,
-                                        color: Colors.white,
-                                        size: 26,
-                                      ),
+                                    child: Icon(
+                                      Icons.more_vert,
+                                      color: Colors.white,
+                                      size: 26,
                                     ),
                                   )
                                 ],
@@ -272,7 +255,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                       username:
                                                           profilePageUsersRecord
                                                               .name,
-                                                      game: 'Valorant',
+                                                      game: 'valorant',
                                                       userRef: widget.userRef,
                                                     ),
                                                   ),
