@@ -13,7 +13,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SettingsPageWidget extends StatefulWidget {
   SettingsPageWidget(
-      {Key key, this.photoUrl, this.user, this.name, this.tag, this.bgProfile})
+      {Key key,
+      this.photoUrl,
+      this.user,
+      this.name,
+      this.tag,
+      this.bgProfile,
+      this.about})
       : super(key: key);
 
   final String photoUrl;
@@ -21,12 +27,14 @@ class SettingsPageWidget extends StatefulWidget {
   final String name;
   final String tag;
   final String bgProfile;
+  final String about;
 
   @override
   _SettingsPageWidgetState createState() => _SettingsPageWidgetState();
 }
 
 class _SettingsPageWidgetState extends State<SettingsPageWidget> {
+  TextEditingController aboutFieldController;
   TextEditingController tagFieldController;
   TextEditingController usernameFieldController;
   bool notificationSwitchSetting;
@@ -35,6 +43,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
   @override
   void initState() {
     super.initState();
+    aboutFieldController = TextEditingController();
     tagFieldController = TextEditingController(text: widget.tag);
     usernameFieldController = TextEditingController(text: widget.name);
   }
@@ -58,12 +67,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
               final tag = tagFieldController.text;
               final photoUrl = widget.photoUrl;
               final bgProfile = widget.bgProfile;
+              final about = aboutFieldController.text;
 
               final usersRecordData = createUsersRecordData(
                 name: name,
                 tag: tag,
                 photoUrl: photoUrl,
                 bgProfile: bgProfile,
+                about: about,
               );
 
               await settingsPageUsersRecord.reference.update(usersRecordData);
@@ -359,6 +370,55 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     ),
                                   )
                                 ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
+                              child: TextFormField(
+                                controller: aboutFieldController,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  hintText: 'My description ...',
+                                  hintStyle:
+                                      FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFFAAAAAA),
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: Color(0xFF4D5078),
+                                ),
+                                style: FlutterFlowTheme.bodyText1.override(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFFAAAAAA),
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                textAlign: TextAlign.start,
+                                maxLines: 3,
                               ),
                             ),
                             Column(

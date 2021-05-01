@@ -92,6 +92,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                   builder: (context) =>
                                       GroupsSettingsPageWidget(
                                     groupRef: widget.groupRef,
+                                    groupName: widget.groupName,
                                   ),
                                 ),
                               );
@@ -127,7 +128,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                           return Center(
                             child: CachedNetworkImage(
                               imageUrl:
-                                  'https://www.google.com/url?sa=i&url=https%3A%2F%2Ficonscout.com%2Ficon%2Fno-message-1442326&psig=AOvVaw1a--AONwPVAEBMg5fE3vrW&ust=1619991180440000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMDPoMm3qfACFQAAAAAdAAAAABAD',
+                                  'https://cdn.iconscout.com/icon/free/png-256/no-message-1442326-1218395.png',
                             ),
                           );
                         }

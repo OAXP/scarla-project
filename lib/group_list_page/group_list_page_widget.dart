@@ -131,6 +131,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                                           GroupsSettingsPageWidget(
                                         groupRef:
                                             listViewGroupsRecord.reference,
+                                        groupName: listViewGroupsRecord.gName,
                                       ),
                                     ),
                                   );

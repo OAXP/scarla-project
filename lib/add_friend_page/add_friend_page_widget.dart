@@ -1,4 +1,7 @@
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,13 +13,13 @@ class AddFriendPageWidget extends StatefulWidget {
 }
 
 class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
-  TextEditingController textController;
+  TextEditingController searchTextFieldController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    searchTextFieldController = TextEditingController();
   }
 
   @override
@@ -97,7 +100,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(10, 0, 40, 0),
                         child: TextFormField(
-                          controller: textController,
+                          controller: searchTextFieldController,
                           obscureText: false,
                           decoration: InputDecoration(
                             hintText: 'Find friends...',
@@ -139,6 +142,149 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                       ),
                     )
                   ],
+                ),
+              ),
+              Expanded(
+                child: StreamBuilder<List<UsersRecord>>(
+                  stream: queryUsersRecord(
+                    queryBuilder: (usersRecord) => usersRecord.where('name',
+                        isEqualTo: searchTextFieldController.text),
+                    limit: 10,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    List<UsersRecord> listViewUsersRecordList = snapshot.data;
+                    // Customize what your widget looks like with no query results.
+                    if (listViewUsersRecordList.isEmpty) {
+                      return Center(
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://img.icons8.com/dotty/2x/nothing-found.png',
+                          width: 100,
+                          height: 100,
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
+                      itemCount: listViewUsersRecordList.length,
+                      itemBuilder: (context, listViewIndex) {
+                        final listViewUsersRecord =
+                            listViewUsersRecordList[listViewIndex];
+                        return Padding(
+                          padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                          child: InkWell(
+                            onTap: () async {
+                              await launchURL(
+                                  'https://www.youtube.com/watch?v=K1PCl5D-IpU');
+                            },
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Color(0x85F5F5F5),
+                              elevation: 5,
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment(0, 0),
+                                    child: Padding(
+                                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Container(
+                                                width: 80,
+                                                height: 80,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      'https://i.imgur.com/JXZBBeX.gif',
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    5, 0, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Text(
+                                                      'Name',
+                                                      textAlign:
+                                                          TextAlign.justify,
+                                                      style: FlutterFlowTheme
+                                                          .bodyText1
+                                                          .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '#',
+                                                      textAlign:
+                                                          TextAlign.justify,
+                                                      style: FlutterFlowTheme
+                                                          .bodyText1
+                                                          .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'TAG',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: FlutterFlowTheme
+                                                          .bodyText1
+                                                          .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFF2C2C2C),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          IconButton(
+                                            onPressed: () async {
+                                              await launchURL(
+                                                  'https://youtu.be/ByrUgKNV42Q');
+                                            },
+                                            icon: Icon(
+                                              Icons.add_circle_outline,
+                                              color: Colors.black,
+                                              size: 30,
+                                            ),
+                                            iconSize: 30,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                 ),
               )
             ],

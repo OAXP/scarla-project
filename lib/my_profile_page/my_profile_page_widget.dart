@@ -129,6 +129,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                               tag: stackUsersRecord.tag,
                                               bgProfile:
                                                   stackUsersRecord.bgProfile,
+                                              about: stackUsersRecord.about,
                                             ),
                                           ),
                                         );
@@ -355,7 +356,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                       return Center(
                                         child: CachedNetworkImage(
                                           imageUrl:
-                                              'https://img.icons8.com/color/452/nothing-found.png',
+                                              'https://img.icons8.com/dotty/2x/nothing-found.png',
                                           width: 100,
                                           height: 100,
                                         ),

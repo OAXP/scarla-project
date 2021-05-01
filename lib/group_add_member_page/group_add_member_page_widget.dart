@@ -110,11 +110,13 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                           List<FriendsRecord> listViewFriendsRecordList =
                               snapshot.data;
                           // Customize what your widget looks like with no query results.
-                          if (snapshot.data.isEmpty) {
-                            // return Container();
-                            // For now, we'll just include some dummy data.
-                            listViewFriendsRecordList =
-                                createDummyFriendsRecord(count: 4);
+                          if (listViewFriendsRecordList.isEmpty) {
+                            return Center(
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    'https://static.thenounproject.com/png/655186-200.png',
+                              ),
+                            );
                           }
                           return Padding(
                             padding: EdgeInsets.fromLTRB(0, 10, 0, 0),

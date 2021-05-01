@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../group_add_member_page/group_add_member_page_widget.dart';
+import '../main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GroupsSettingsPageWidget extends StatefulWidget {
-  GroupsSettingsPageWidget({Key key, this.groupRef}) : super(key: key);
+  GroupsSettingsPageWidget({Key key, this.groupRef, this.groupName})
+      : super(key: key);
 
   final DocumentReference groupRef;
+  final String groupName;
 
   @override
   _GroupsSettingsPageWidgetState createState() =>
@@ -27,7 +30,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
   @override
   void initState() {
     super.initState();
-    groupNameFieldController = TextEditingController();
+    groupNameFieldController = TextEditingController(text: widget.groupName);
   }
 
   @override
@@ -253,7 +256,14 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   await widget.groupRef.delete();
-                                  Navigator.pop(context);
+                                  await Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => NavBarPage(
+                                          initialPage: 'GroupListPage'),
+                                    ),
+                                    (r) => false,
+                                  );
                                 },
                                 text: 'Delete Group',
                                 options: FFButtonOptions(
