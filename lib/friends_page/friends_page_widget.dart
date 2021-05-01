@@ -1,4 +1,4 @@
-import '../add_friend/add_friend_widget.dart';
+import '../add_friend_page/add_friend_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -28,6 +28,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
           Align(
@@ -81,7 +82,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => AddFriendWidget(),
+                                    builder: (context) => AddFriendPageWidget(),
                                   ),
                                 );
                               },

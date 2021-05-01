@@ -29,9 +29,6 @@ abstract class GroupsRecord
   String get lastMessage;
 
   @nullable
-  DocumentReference get messages;
-
-  @nullable
   @BuiltValueField(wireName: 'members_id')
   BuiltList<String> get membersId;
 
@@ -63,7 +60,6 @@ Map<String, dynamic> createGroupsRecordData({
   String gName,
   String gPhotoUrl,
   String lastMessage,
-  DocumentReference messages,
 }) =>
     serializers.serializeWith(
         GroupsRecord.serializer,
@@ -72,7 +68,6 @@ Map<String, dynamic> createGroupsRecordData({
           ..gName = gName
           ..gPhotoUrl = gPhotoUrl
           ..lastMessage = lastMessage
-          ..messages = messages
           ..membersId = null));
 
 GroupsRecord get dummyGroupsRecord {

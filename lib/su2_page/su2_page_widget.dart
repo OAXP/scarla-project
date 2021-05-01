@@ -35,6 +35,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
           Align(

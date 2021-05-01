@@ -27,6 +27,7 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
           Align(

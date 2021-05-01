@@ -17,6 +17,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
           Align(

@@ -36,6 +36,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
           SingleChildScrollView(

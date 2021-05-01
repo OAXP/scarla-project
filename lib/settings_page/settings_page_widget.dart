@@ -1,8 +1,10 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../edit_game_page/edit_game_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +12,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SettingsPageWidget extends StatefulWidget {
-  SettingsPageWidget({Key key, this.photoUrl, this.user, this.name, this.tag})
+  SettingsPageWidget(
+      {Key key, this.photoUrl, this.user, this.name, this.tag, this.bgProfile})
       : super(key: key);
 
   final String photoUrl;
   final DocumentReference user;
   final String name;
   final String tag;
+  final String bgProfile;
 
   @override
   _SettingsPageWidgetState createState() => _SettingsPageWidgetState();
@@ -25,6 +29,7 @@ class SettingsPageWidget extends StatefulWidget {
 class _SettingsPageWidgetState extends State<SettingsPageWidget> {
   TextEditingController tagFieldController;
   TextEditingController usernameFieldController;
+  bool notificationSwitchSetting;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -46,18 +51,23 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
         final settingsPageUsersRecord = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
-          backgroundColor: Colors.black,
+          backgroundColor: FlutterFlowTheme.primaryColor,
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () async {
               final name = usernameFieldController.text;
               final tag = tagFieldController.text;
+              final photoUrl = widget.photoUrl;
+              final bgProfile = widget.bgProfile;
 
               final usersRecordData = createUsersRecordData(
                 name: name,
                 tag: tag,
+                photoUrl: photoUrl,
+                bgProfile: bgProfile,
               );
 
               await settingsPageUsersRecord.reference.update(usersRecordData);
+              Navigator.pop(context);
             },
             backgroundColor: Color(0xFF4D5078),
             elevation: 8,
@@ -135,62 +145,122 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                           scrollDirection: Axis.vertical,
                           children: [
                             Padding(
-                              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment(0, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        await launchURL(
-                                            'https://www.youtube.com/watch?v=o5z1WTfxps4');
-                                      },
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment(0, 0),
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            'https://media1.tenor.com/images/e7be01a78bf105f0e28875233f6b94b0/tenor.gif?itemid=20697311',
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                1,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment(0, 0),
                                       child: Container(
-                                        width: 100,
-                                        height: 100,
-                                        clipBehavior: Clip.antiAlias,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                1,
                                         decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
+                                          color: Color(0x81000000),
                                         ),
-                                        child: CachedNetworkImage(
-                                          imageUrl: widget.photoUrl,
-                                          fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        await launchURL(
+                                            'https://www.youtube.com/watch?v=VIL_BGHqacw');
+                                      },
+                                      text: 'Modify',
+                                      options: FFButtonOptions(
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        color: Color(0x66252854),
+                                        textStyle:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.white,
                                         ),
+                                        elevation: 10,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: 0,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment(0, 0),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await launchURL(
+                                          'https://www.youtube.com/watch?v=o5z1WTfxps4');
+                                    },
+                                    child: Container(
+                                      width: 100,
+                                      height: 100,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: CachedNetworkImage(
+                                        imageUrl: widget.photoUrl,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment(0, 0),
-                                    child: Padding(
-                                      padding: EdgeInsets.fromLTRB(65, 0, 0, 0),
-                                      child: Container(
-                                        width: 25,
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xAEC1C1C1),
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          border: Border.all(
-                                            color: Color(0x9CCBCBCB),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            FaIcon(
-                                              FontAwesomeIcons.pen,
-                                              color: Colors.black,
-                                              size: 12,
-                                            )
-                                          ],
+                                ),
+                                Align(
+                                  alignment: Alignment(0, 0),
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(65, 0, 0, 0),
+                                    child: Container(
+                                      width: 25,
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xAEC1C1C1),
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        border: Border.all(
+                                          color: Color(0x9CCBCBCB),
                                         ),
                                       ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          FaIcon(
+                                            FontAwesomeIcons.pen,
+                                            color: Colors.black,
+                                            size: 12,
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  )
-                                ],
-                              ),
+                                  ),
+                                )
+                              ],
                             ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(30, 0, 30, 5),
@@ -304,193 +374,536 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 ],
                               ),
                             ),
-                            Container(
-                              decoration: BoxDecoration(),
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                child: Text(
-                                  'Are you..',
-                                  textAlign: TextAlign.center,
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(),
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                    child: Text(
+                                      'Game Preference',
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Competitive',
+                                          style: FlutterFlowTheme.bodyText1
+                                              .override(
+                                            fontFamily: 'Poppins',
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        ToggleIcon(
+                                          onPressed: () async {
+                                            final isCompetitive =
+                                                !settingsPageUsersRecord
+                                                    .isCompetitive;
+
+                                            final usersRecordData =
+                                                createUsersRecordData(
+                                              isCompetitive: isCompetitive,
+                                            );
+
+                                            await settingsPageUsersRecord
+                                                .reference
+                                                .update(usersRecordData);
+                                          },
+                                          value: settingsPageUsersRecord
+                                              .isCompetitive,
+                                          onIcon: Icon(
+                                            Icons.check_box,
+                                            color: Color(0xFF535480),
+                                            size: 23,
+                                          ),
+                                          offIcon: Icon(
+                                            Icons.check_box_outline_blank,
+                                            color: Color(0xFF535480),
+                                            size: 23,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'App Settings',
                                   style: FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Poppins',
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                      'Competitive',
+                                      'Primary Color',
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: '',
+                                            options: FFButtonOptions(
+                                              width: 25,
+                                              height: 25,
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              await launchURL(
+                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    2, 0, 2, 0),
+                                                child: Text(
+                                                  'Reset',
+                                                  style: FlutterFlowTheme
+                                                      .bodyText1
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Secondary Color',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        FFButtonWidget(
+                                          onPressed: () {
+                                            print('Button pressed ...');
+                                          },
+                                          text: '',
+                                          options: FFButtonOptions(
+                                            width: 25,
+                                            height: 25,
+                                            color:
+                                                FlutterFlowTheme.secondaryColor,
+                                            textStyle: FlutterFlowTheme
+                                                .subtitle2
+                                                .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                            ),
+                                            borderSide: BorderSide(
+                                              color: Colors.white,
+                                              width: 1,
+                                            ),
+                                            borderRadius: 12,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () async {
+                                            await launchURL(
+                                                'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                          },
+                                          child: Card(
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            color: Color(0xFFF5F5F5),
+                                            child: Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  2, 0, 2, 0),
+                                              child: Text(
+                                                'Reset',
+                                                style: FlutterFlowTheme
+                                                    .bodyText1
+                                                    .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Tertiary Color',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: '',
+                                            options: FFButtonOptions(
+                                              width: 25,
+                                              height: 25,
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              await launchURL(
+                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    2, 0, 2, 0),
+                                                child: Text(
+                                                  'Reset',
+                                                  style: FlutterFlowTheme
+                                                      .bodyText1
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(45, 0, 45, 0),
+                                  child: SwitchListTile(
+                                    value: notificationSwitchSetting ?? true,
+                                    onChanged: (newValue) => setState(() =>
+                                        notificationSwitchSetting = newValue),
+                                    title: Text(
+                                      'Notifications',
+                                      style: FlutterFlowTheme.title3.override(
                                         fontFamily: 'Poppins',
                                         color: Colors.white,
                                         fontSize: 14,
                                       ),
                                     ),
-                                    ToggleIcon(
-                                      onPressed: () async {
-                                        final isCompetitive =
-                                            !settingsPageUsersRecord
-                                                .isCompetitive;
-
-                                        final usersRecordData =
-                                            createUsersRecordData(
-                                          isCompetitive: isCompetitive,
-                                        );
-
-                                        await settingsPageUsersRecord.reference
-                                            .update(usersRecordData);
-                                      },
-                                      value:
-                                          settingsPageUsersRecord.isCompetitive,
-                                      onIcon: Icon(
-                                        Icons.check_box,
-                                        color: Color(0xFF535480),
-                                        size: 23,
-                                      ),
-                                      offIcon: Icon(
-                                        Icons.check_box_outline_blank,
-                                        color: Color(0xFF535480),
-                                        size: 23,
-                                      ),
-                                    )
-                                  ],
+                                    dense: false,
+                                  ),
                                 )
                               ],
                             ),
-                            Container(
-                              decoration: BoxDecoration(),
-                              child: Text(
-                                'Game Settings',
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(),
-                              child: GridView(
-                                padding: EdgeInsets.zero,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 10,
-                                  childAspectRatio: 1,
-                                ),
-                                primary: false,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 50,
-                                        height: 50,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.asset(
-                                          'assets/images/valorantIcon.jpg',
-                                          fit: BoxFit.contain,
-                                        ),
-                                      )
-                                    ],
+                                  Container(
+                                    decoration: BoxDecoration(),
+                                    child: Text(
+                                      'Game Settings',
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 50,
-                                        height: 50,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
+                                  Container(
+                                    decoration: BoxDecoration(),
+                                    child: GridView(
+                                      padding: EdgeInsets.zero,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: 10,
+                                        mainAxisSpacing: 10,
+                                        childAspectRatio: 1,
+                                      ),
+                                      primary: false,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EditGamePageWidget(
+                                                      game: 'valorant',
+                                                      user:
+                                                          settingsPageUsersRecord
+                                                              .reference,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                width: 50,
+                                                height: 50,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/images/valorantIcon.jpg',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                        child: Image.asset(
-                                          'assets/images/MWIcon.png',
-                                          fit: BoxFit.contain,
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EditGamePageWidget(
+                                                      game: 'mw',
+                                                      user:
+                                                          settingsPageUsersRecord
+                                                              .reference,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                width: 50,
+                                                height: 50,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/images/MWIcon.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 50,
-                                        height: 50,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EditGamePageWidget(
+                                                      game: 'rl',
+                                                      user:
+                                                          settingsPageUsersRecord
+                                                              .reference,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                width: 50,
+                                                height: 50,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/images/rlIcon.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                        child: Image.asset(
-                                          'assets/images/rlIcon.png',
-                                          fit: BoxFit.contain,
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EditGamePageWidget(
+                                                      game: 'ow',
+                                                      user:
+                                                          settingsPageUsersRecord
+                                                              .reference,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                width: 50,
+                                                height: 50,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/images/OwIcon.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 50,
-                                        height: 50,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.asset(
-                                          'assets/images/OwIcon.png',
-                                          fit: BoxFit.contain,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 50,
-                                        height: 50,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.asset(
-                                          'assets/images/LOLIcon.png',
-                                          fit: BoxFit.contain,
-                                        ),
-                                      )
-                                    ],
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        EditGamePageWidget(
+                                                      game: 'lol',
+                                                      user:
+                                                          settingsPageUsersRecord
+                                                              .reference,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                width: 50,
+                                                height: 50,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/images/LOLIcon.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),

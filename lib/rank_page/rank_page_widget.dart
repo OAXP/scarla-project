@@ -115,7 +115,7 @@ class _RankPageWidgetState extends State<RankPageWidget> {
                               color: Color(0x00EEEEEE),
                             ),
                             child: Image.asset(
-                              'assets/images/OwIcon.png',
+                              'assets/images/20.png',
                               width: MediaQuery.of(context).size.width * 0.5,
                               height: MediaQuery.of(context).size.height * 1,
                               fit: BoxFit.contain,

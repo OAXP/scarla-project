@@ -1,8 +1,9 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../chat_page/chat_page_widget.dart';
-import '../create_group/create_group_widget.dart';
+import '../create_group_page/create_group_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../groups_settings_page/groups_settings_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,13 +38,13 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                       await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CreateGroupWidget(),
+                          builder: (context) => CreateGroupPageWidget(),
                         ),
                       );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                      color: Color(0xFFFF4553),
+                      color: FlutterFlowTheme.secondaryColor,
                       elevation: 20,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -122,9 +123,21 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                                     ),
                                   );
                                 },
+                                onLongPress: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          GroupsSettingsPageWidget(
+                                        groupRef:
+                                            listViewGroupsRecord.reference,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 child: Card(
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  color: Color(0xFFFF4553),
+                                  color: FlutterFlowTheme.secondaryColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),

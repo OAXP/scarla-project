@@ -2,14 +2,14 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddFriendWidget extends StatefulWidget {
-  AddFriendWidget({Key key}) : super(key: key);
+class AddFriendPageWidget extends StatefulWidget {
+  AddFriendPageWidget({Key key}) : super(key: key);
 
   @override
-  _AddFriendWidgetState createState() => _AddFriendWidgetState();
+  _AddFriendPageWidgetState createState() => _AddFriendPageWidgetState();
 }
 
-class _AddFriendWidgetState extends State<AddFriendWidget> {
+class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
   TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -23,6 +23,7 @@ class _AddFriendWidgetState extends State<AddFriendWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
           Align(

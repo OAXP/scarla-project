@@ -127,6 +127,8 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                               user: stackUsersRecord.reference,
                                               name: stackUsersRecord.name,
                                               tag: stackUsersRecord.tag,
+                                              bgProfile:
+                                                  stackUsersRecord.bgProfile,
                                             ),
                                           ),
                                         );

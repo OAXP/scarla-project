@@ -15,21 +15,22 @@ class LoginPageWidget extends StatefulWidget {
 }
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
-  TextEditingController emailTextController;
-  TextEditingController passwordTextController;
+  TextEditingController emailFieldController;
+  TextEditingController passwordFieldController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    emailTextController = TextEditingController();
-    passwordTextController = TextEditingController();
+    emailFieldController = TextEditingController();
+    passwordFieldController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
           Align(
@@ -97,7 +98,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       padding:
                                           EdgeInsets.fromLTRB(20, 0, 20, 0),
                                       child: TextFormField(
-                                        controller: emailTextController,
+                                        controller: emailFieldController,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           hintText: 'Email',
@@ -151,7 +152,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       padding:
                                           EdgeInsets.fromLTRB(20, 0, 20, 0),
                                       child: TextFormField(
-                                        controller: passwordTextController,
+                                        controller: passwordFieldController,
                                         obscureText: true,
                                         decoration: InputDecoration(
                                           hintText: 'Password',
@@ -193,13 +194,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
                                   child: FFButtonWidget(
                                     onPressed: () async {
                                       final user = await signInWithEmail(
                                         context,
-                                        emailTextController.text,
-                                        passwordTextController.text,
+                                        emailFieldController.text,
+                                        passwordFieldController.text,
                                       );
                                       if (user == null) {
                                         return;
@@ -229,17 +230,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         width: 0,
                                       ),
                                       borderRadius: 25,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                  child: Text(
-                                    'Forgot password?',
-                                    style: GoogleFonts.getFont(
-                                      'Open Sans',
-                                      color: Colors.white,
-                                      fontSize: 14,
                                     ),
                                   ),
                                 ),
@@ -330,7 +320,18 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  child: Text(
+                                    'Forgot password?',
+                                    style: GoogleFonts.getFont(
+                                      'Open Sans',
+                                      color: Color(0xFFADADAD),
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -364,7 +365,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           'Sign Up',
                                           style: GoogleFonts.getFont(
                                             'Open Sans',
-                                            color: Color(0xFFFF4553),
+                                            color:
+                                                FlutterFlowTheme.secondaryColor,
                                             fontSize: 14,
                                           ),
                                         ),

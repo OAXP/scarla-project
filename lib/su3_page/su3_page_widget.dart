@@ -28,6 +28,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
           Align(
@@ -90,7 +91,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.asset(
-                                      'assets/images/3.jpg',
+                                      'assets/images/13d11d702dbad5dca33f0e22abf4b3978381b5e7_league-of-legends-hero-splash.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,

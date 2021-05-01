@@ -32,6 +32,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
           Align(
@@ -249,7 +250,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
                                   child: FFButtonWidget(
                                     onPressed: () async {
                                       if (passwordTextController.text !=
@@ -299,6 +300,88 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                     ),
                                   ),
                                 ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 5, 0, 10),
+                                  child: Container(
+                                    width: 300,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: Color(0x00EEEEEE),
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment(0, 0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        child: Stack(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment(0, 0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  final user =
+                                                      await signInWithGoogle(
+                                                          context);
+                                                  if (user == null) {
+                                                    return;
+                                                  }
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Su1PageWidget(),
+                                                    ),
+                                                  );
+                                                },
+                                                text: 'Sign up with Google',
+                                                iconData: Icons.add,
+                                                options: FFButtonOptions(
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                  color: Colors.white,
+                                                  textStyle:
+                                                      GoogleFonts.getFont(
+                                                    'Roboto',
+                                                    color: Color(0xFF606060),
+                                                    fontSize: 17,
+                                                  ),
+                                                  elevation: 4,
+                                                  iconSize: 20,
+                                                  iconColor: Colors.transparent,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 0,
+                                                  ),
+                                                  borderRadius: 30,
+                                                ),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment(-0.83, 0),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    40, 0, 0, 0),
+                                                child: Container(
+                                                  width: 22,
+                                                  height: 22,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -330,7 +413,8 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                         'Sign In',
                                         style: GoogleFonts.getFont(
                                           'Open Sans',
-                                          color: Color(0xFFFF4553),
+                                          color:
+                                              FlutterFlowTheme.secondaryColor,
                                           fontSize: 14,
                                         ),
                                       ),

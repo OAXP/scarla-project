@@ -2,7 +2,6 @@ import '../add_post_page/add_post_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,11 +20,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      drawer: Container(
-        width: 100,
-        child: Drawer(
-          elevation: 16,
-        ),
+      backgroundColor: FlutterFlowTheme.primaryColor,
+      drawer: Drawer(
+        elevation: 16,
       ),
       body: Stack(
         children: [
@@ -260,50 +257,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            StreamBuilder<UsersRecord>(
-                                              stream: UsersRecord.getDocument(
-                                                  currentUserReference),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                      child:
-                                                          CircularProgressIndicator());
-                                                }
-                                                final toggleIconUsersRecord =
-                                                    snapshot.data;
-                                                return ToggleIcon(
-                                                  onPressed: () async {
-                                                    final isCompetitive =
-                                                        !toggleIconUsersRecord
-                                                            .isCompetitive;
-
-                                                    final usersRecordData =
-                                                        createUsersRecordData(
-                                                      isCompetitive:
-                                                          isCompetitive,
-                                                    );
-
-                                                    await toggleIconUsersRecord
-                                                        .reference
-                                                        .update(
-                                                            usersRecordData);
-                                                  },
-                                                  value: toggleIconUsersRecord
-                                                      .isCompetitive,
-                                                  onIcon: Icon(
-                                                    Icons.star,
-                                                    color: Color(0xFF444771),
-                                                    size: 25,
-                                                  ),
-                                                  offIcon: Icon(
-                                                    Icons.star_border,
-                                                    color: Color(0xFF444771),
-                                                    size: 25,
-                                                  ),
-                                                );
-                                              },
-                                            ),
                                             IconButton(
                                               onPressed: () async {
                                                 await Navigator.push(
