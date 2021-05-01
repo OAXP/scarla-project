@@ -16,13 +16,13 @@ abstract class FriendsRecord
   String get id;
 
   @nullable
-  int get timestemp;
-
-  @nullable
   int get status;
 
   @nullable
   BuiltList<DocumentReference> get friends;
+
+  @nullable
+  Timestamp get timestamp;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -30,7 +30,6 @@ abstract class FriendsRecord
 
   static void _initializeBuilder(FriendsRecordBuilder builder) => builder
     ..id = ''
-    ..timestemp = 0
     ..status = 0
     ..friends = ListBuilder();
 
@@ -48,22 +47,22 @@ abstract class FriendsRecord
 
 Map<String, dynamic> createFriendsRecordData({
   String id,
-  int timestemp,
   int status,
+  Timestamp timestamp,
 }) =>
     serializers.serializeWith(
         FriendsRecord.serializer,
         FriendsRecord((f) => f
           ..id = id
-          ..timestemp = timestemp
           ..status = status
-          ..friends = null));
+          ..friends = null
+          ..timestamp = timestamp));
 
 FriendsRecord get dummyFriendsRecord {
   final builder = FriendsRecordBuilder()
     ..id = dummyString
-    ..timestemp = dummyInteger
-    ..status = dummyInteger;
+    ..status = dummyInteger
+    ..timestamp = dummyTimestamp;
   return builder.build();
 }
 

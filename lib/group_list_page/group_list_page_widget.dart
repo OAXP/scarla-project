@@ -45,7 +45,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                     child: Card(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       color: FlutterFlowTheme.secondaryColor,
-                      elevation: 20,
+                      elevation: 5,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),

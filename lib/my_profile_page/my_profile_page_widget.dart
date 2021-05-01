@@ -391,6 +391,9 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                     groupName:
                                                         gridViewGroupsRecord
                                                             .gName,
+                                                    groupRef:
+                                                        gridViewGroupsRecord
+                                                            .reference,
                                                   ),
                                                 ),
                                               );
@@ -420,7 +423,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                       imageUrl:
                                                           gridViewGroupsRecord
                                                               .gPhotoUrl,
-                                                      fit: BoxFit.contain,
+                                                      fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                   Text(

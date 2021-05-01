@@ -125,8 +125,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                         // Customize what your widget looks like with no query results.
                         if (listViewGMessagesRecordList.isEmpty) {
                           return Center(
-                            child: Image.network(
-                              '',
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  'https://www.google.com/url?sa=i&url=https%3A%2F%2Ficonscout.com%2Ficon%2Fno-message-1442326&psig=AOvVaw1a--AONwPVAEBMg5fE3vrW&ust=1619991180440000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMDPoMm3qfACFQAAAAAdAAAAABAD',
                             ),
                           );
                         }

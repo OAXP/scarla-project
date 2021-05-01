@@ -103,6 +103,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                 await GroupsRecord.collection
                                     .doc()
                                     .set(groupsRecordData);
+                                Navigator.pop(context);
                               },
                               icon: Icon(
                                 Icons.check_rounded,

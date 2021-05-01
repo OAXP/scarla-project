@@ -65,7 +65,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           child: Card(
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             color: FlutterFlowTheme.tertiaryColor,
-                            elevation: 20,
+                            elevation: 5,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),

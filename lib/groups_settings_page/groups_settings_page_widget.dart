@@ -1,5 +1,8 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import '../group_add_member_page/group_add_member_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,31 +32,31 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.primaryColor,
-      body: Stack(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 1,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.primaryColor,
-            ),
-          ),
-          Stack(
+    return StreamBuilder<GroupsRecord>(
+      stream: GroupsRecord.getDocument(widget.groupRef),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(child: CircularProgressIndicator());
+        }
+        final groupsSettingsPageGroupsRecord = snapshot.data;
+        return Scaffold(
+          key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.primaryColor,
+          body: Stack(
             children: [
-              Align(
-                alignment: Alignment(0, 0),
-                child: StreamBuilder<GroupsRecord>(
-                  stream: GroupsRecord.getDocument(widget.groupRef),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                    final columnGroupsRecord = snapshot.data;
-                    return Column(
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 1,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.primaryColor,
+                ),
+              ),
+              Stack(
+                children: [
+                  Align(
+                    alignment: Alignment(0, 0),
+                    child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Container(
@@ -90,8 +93,24 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: () {
-                                    print('IconButton pressed ...');
+                                  onPressed: () async {
+                                    final gName = groupNameFieldController.text;
+                                    final gPhotoUrl =
+                                        groupsSettingsPageGroupsRecord
+                                            .gPhotoUrl;
+
+                                    final groupsRecordData = {
+                                      ...createGroupsRecordData(
+                                        gName: gName,
+                                        gPhotoUrl: gPhotoUrl,
+                                      ),
+                                      'members_id': FieldValue.arrayUnion(
+                                          [currentUserUid]),
+                                    };
+
+                                    await widget.groupRef
+                                        .update(groupsRecordData);
+                                    Navigator.pop(context);
                                   },
                                   icon: Icon(
                                     Icons.check_rounded,
@@ -118,8 +137,8 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: CachedNetworkImage(
-                                    imageUrl:
-                                        'https://i.gyazo.com/be17e4932af4ee59c2b64a717b855f95.gif',
+                                    imageUrl: groupsSettingsPageGroupsRecord
+                                        .gPhotoUrl,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -204,6 +223,57 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                             ),
                             textAlign: TextAlign.center,
                           ),
+                        ),
+                        StreamBuilder<List<FriendsRecord>>(
+                          stream: queryFriendsRecord(
+                            queryBuilder: (friendsRecord) =>
+                                friendsRecord.where('friends',
+                                    arrayContains: currentUserReference),
+                            singleRecord: true,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            List<FriendsRecord>
+                                friendShipButtonFriendsRecordList =
+                                snapshot.data;
+                            // Customize what your widget looks like with no query results.
+                            if (snapshot.data.isEmpty) {
+                              // return Container();
+                              // For now, we'll just include some dummy data.
+                              friendShipButtonFriendsRecordList =
+                                  createDummyFriendsRecord(count: 1);
+                            }
+                            final friendShipButtonFriendsRecord =
+                                friendShipButtonFriendsRecordList.first;
+                            return Padding(
+                              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  await widget.groupRef.delete();
+                                  Navigator.pop(context);
+                                },
+                                text: 'Delete Group',
+                                options: FFButtonOptions(
+                                  width: 130,
+                                  height: 40,
+                                  color: FlutterFlowTheme.secondaryColor,
+                                  textStyle:
+                                      FlutterFlowTheme.subtitle2.override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: 12,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         Padding(
                           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -349,14 +419,14 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                           ),
                         )
                       ],
-                    );
-                  },
-                ),
+                    ),
+                  )
+                ],
               )
             ],
-          )
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 }

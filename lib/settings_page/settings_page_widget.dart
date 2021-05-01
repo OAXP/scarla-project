@@ -167,19 +167,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         fit: BoxFit.cover,
                                       ),
                                     ),
-                                    Align(
-                                      alignment: Alignment(0, 0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                1,
-                                        decoration: BoxDecoration(
-                                          color: Color(0x81000000),
-                                        ),
-                                      ),
-                                    ),
                                     FFButtonWidget(
                                       onPressed: () async {
                                         await launchURL(
@@ -195,7 +182,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           fontFamily: 'Poppins',
                                           color: Colors.white,
                                         ),
-                                        elevation: 10,
+                                        elevation: 2,
                                         borderSide: BorderSide(
                                           color: Colors.transparent,
                                           width: 1,
