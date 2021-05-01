@@ -210,8 +210,8 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      'https://i.imgur.com/JXZBBeX.gif',
+                                                  imageUrl: listViewUsersRecord
+                                                      .photoUrl,
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -223,7 +223,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                       MainAxisSize.min,
                                                   children: [
                                                     Text(
-                                                      'Name',
+                                                      listViewUsersRecord.name,
                                                       textAlign:
                                                           TextAlign.justify,
                                                       style: FlutterFlowTheme
@@ -245,7 +245,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      'TAG',
+                                                      listViewUsersRecord.tag,
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: FlutterFlowTheme
