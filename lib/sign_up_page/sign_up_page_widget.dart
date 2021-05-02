@@ -106,6 +106,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                           hintStyle: FlutterFlowTheme.bodyText2
                                               .override(
                                             fontFamily: 'Poppins',
+                                            color: Color(0xFF455A64),
                                           ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -133,6 +134,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                         style:
                                             FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
+                                          color: Color(0xFF455A64),
                                         ),
                                       ),
                                     ),
@@ -158,6 +160,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                           hintStyle: FlutterFlowTheme.bodyText2
                                               .override(
                                             fontFamily: 'Poppins',
+                                            color: Color(0xFF455A64),
                                           ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -185,6 +188,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                         style:
                                             FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
+                                          color: Color(0xFF455A64),
                                         ),
                                       ),
                                     ),
@@ -211,6 +215,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                           hintStyle: FlutterFlowTheme.bodyText2
                                               .override(
                                             fontFamily: 'Poppins',
+                                            color: Color(0xFF455A64),
                                           ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -238,6 +243,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                         style:
                                             FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
+                                          color: Color(0xFF455A64),
                                         ),
                                       ),
                                     ),
@@ -284,6 +290,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                       textStyle:
                                           FlutterFlowTheme.subtitle2.override(
                                         fontFamily: 'Poppins',
+                                        color: Color(0xFFDEDEDE),
                                       ),
                                       borderSide: BorderSide(
                                         color: Colors.transparent,
@@ -387,6 +394,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                         style:
                                             FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
+                                          color: Color(0xFFADADAD),
                                         ),
                                       ),
                                     ),

@@ -1112,7 +1112,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(45, 0, 45, 0),
+                                  padding: EdgeInsets.fromLTRB(35, 0, 35, 0),
                                   child: SwitchListTile(
                                     value: notificationSwitchSetting ?? true,
                                     onChanged: (newValue) => setState(() =>
@@ -1126,6 +1126,44 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     ),
                                     dense: false,
                                   ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          InkWell(
+                                            onTap: () async {
+                                              await launchURL(
+                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    2, 0, 2, 0),
+                                                child: Text(
+                                                  'Reset All',
+                                                  style: GoogleFonts.getFont(
+                                                    'Poppins',
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
                                 )
                               ],
                             ),

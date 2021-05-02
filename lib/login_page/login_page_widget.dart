@@ -106,6 +106,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           hintStyle: FlutterFlowTheme.bodyText2
                                               .override(
                                             fontFamily: 'Poppins',
+                                            color: Color(0xFF455A64),
                                           ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -133,6 +134,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         style:
                                             FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
+                                          color: Color(0xFF455A64),
                                         ),
                                       ),
                                     ),
@@ -158,6 +160,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           hintStyle: FlutterFlowTheme.bodyText2
                                               .override(
                                             fontFamily: 'Poppins',
+                                            color: Color(0xFF455A64),
                                           ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -185,6 +188,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         style:
                                             FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
+                                          color: Color(0xFF455A64),
                                         ),
                                       ),
                                     ),
@@ -220,6 +224,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       textStyle:
                                           FlutterFlowTheme.subtitle2.override(
                                         fontFamily: 'Poppins',
+                                        color: Color(0xFFDEDEDE),
                                       ),
                                       borderSide: BorderSide(
                                         color: Colors.transparent,
@@ -245,6 +250,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           style: FlutterFlowTheme.bodyText2
                                               .override(
                                             fontFamily: 'Poppins',
+                                            color: Color(0xFFADADAD),
                                           ),
                                         ),
                                       ),
@@ -373,6 +379,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           style: FlutterFlowTheme.bodyText2
                                               .override(
                                             fontFamily: 'Poppins',
+                                            color: Color(0xFFADADAD),
                                           ),
                                         ),
                                       ),

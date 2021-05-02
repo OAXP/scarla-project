@@ -103,6 +103,7 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                           hintStyle: FlutterFlowTheme.bodyText2
                                               .override(
                                             fontFamily: 'Poppins',
+                                            color: Color(0xFF455A64),
                                           ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -130,6 +131,7 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                         style:
                                             FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
+                                          color: Color(0xFF455A64),
                                         ),
                                       ),
                                     ),
@@ -164,6 +166,7 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                       textStyle:
                                           FlutterFlowTheme.subtitle2.override(
                                         fontFamily: 'Poppins',
+                                        color: Color(0xFFDEDEDE),
                                       ),
                                       borderSide: BorderSide(
                                         color: Colors.transparent,
@@ -189,6 +192,7 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                           style: FlutterFlowTheme.bodyText2
                                               .override(
                                             fontFamily: 'Poppins',
+                                            color: Color(0xFFADADAD),
                                           ),
                                         ),
                                       ),
