@@ -59,11 +59,8 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                         Text(
                           'Create your profile',
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.bodyText1.override(
+                          style: FlutterFlowTheme.title2.override(
                             fontFamily: 'Poppins',
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
                           ),
                         )
                       ],
@@ -178,10 +175,8 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                 decoration: InputDecoration(
                                   hintText: 'My description ...',
                                   hintStyle:
-                                      FlutterFlowTheme.bodyText1.override(
+                                      FlutterFlowTheme.bodyText2.override(
                                     fontFamily: 'Poppins',
-                                    color: Color(0xFFAAAAAA),
-                                    fontWeight: FontWeight.normal,
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -210,32 +205,11 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                   filled: true,
                                   fillColor: Color(0xFF4D5078),
                                 ),
-                                style: FlutterFlowTheme.bodyText1.override(
+                                style: FlutterFlowTheme.bodyText2.override(
                                   fontFamily: 'Poppins',
-                                  color: Color(0xFFAAAAAA),
-                                  fontWeight: FontWeight.normal,
                                 ),
                                 textAlign: TextAlign.start,
                                 maxLines: 3,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Are you..',
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  )
-                                ],
                               ),
                             ),
                             Row(
@@ -247,12 +221,10 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Competitive',
+                                      'Are you Competitive',
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
                                         fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                        fontSize: 14,
                                       ),
                                     ),
                                     ToggleIcon(
@@ -329,12 +301,8 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                       child: Text(
                                         'Back',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
+                                        style: FlutterFlowTheme.title2.override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     )
@@ -381,17 +349,13 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                       padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
                                       child: Text(
                                         'Next',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
+                                        style: FlutterFlowTheme.title2.override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
                                       child: Icon(
                                         Icons.arrow_forward,
                                         color: Colors.white,

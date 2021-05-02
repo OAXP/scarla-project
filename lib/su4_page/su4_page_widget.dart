@@ -160,7 +160,6 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.bodyText1.override(
                                       fontFamily: 'Poppins',
-                                      color: Colors.white,
                                     ),
                                   ),
                                   Padding(
@@ -168,17 +167,15 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                     child: Text(
                                       '#',
                                       style:
-                                          FlutterFlowTheme.bodyText1.override(
+                                          FlutterFlowTheme.bodyText2.override(
                                         fontFamily: 'Poppins',
-                                        color: Color(0xFFB2B2B2),
                                       ),
                                     ),
                                   ),
                                   Text(
                                     widget.tag,
-                                    style: FlutterFlowTheme.bodyText1.override(
+                                    style: FlutterFlowTheme.bodyText2.override(
                                       fontFamily: 'Poppins',
-                                      color: Color(0xFFB2B2B2),
                                     ),
                                   )
                                 ],
@@ -197,10 +194,8 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                 child: Text(
                                   widget.about,
                                   textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.bodyText1.override(
+                                  style: FlutterFlowTheme.bodyText2.override(
                                     fontFamily: 'Poppins',
-                                    color: Color(0xFF979797),
-                                    fontSize: 12,
                                   ),
                                 ),
                               ),
@@ -217,7 +212,6 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Poppins',
-                                  color: Colors.white,
                                 ),
                               ),
                             ),
@@ -329,11 +323,8 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                   padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Text(
                                     'Back',
-                                    style: FlutterFlowTheme.bodyText1.override(
+                                    style: FlutterFlowTheme.title2.override(
                                       fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 )
@@ -392,16 +383,13 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                   padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Text(
                                     'Finish',
-                                    style: FlutterFlowTheme.bodyText1.override(
+                                    style: FlutterFlowTheme.title2.override(
                                       fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(27, 0, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Icon(
                                     Icons.arrow_forward,
                                     color: Colors.white,

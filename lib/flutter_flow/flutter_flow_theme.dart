@@ -12,43 +12,43 @@ class FlutterFlowTheme {
 
   static TextStyle get title1 => GoogleFonts.getFont(
         'Poppins',
-        color: Color(0xFF303030),
-        fontWeight: FontWeight.w600,
-        fontSize: 24,
+        color: Color(0xFF535480),
+        fontWeight: FontWeight.bold,
+        fontSize: 26,
       );
   static TextStyle get title2 => GoogleFonts.getFont(
         'Poppins',
-        color: Color(0xFF303030),
-        fontWeight: FontWeight.w500,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
         fontSize: 22,
       );
   static TextStyle get title3 => GoogleFonts.getFont(
         'Poppins',
-        color: Color(0xFF303030),
+        color: Colors.white,
         fontWeight: FontWeight.w500,
         fontSize: 20,
       );
   static TextStyle get subtitle1 => GoogleFonts.getFont(
         'Poppins',
-        color: Color(0xFF757575),
-        fontWeight: FontWeight.w500,
-        fontSize: 18,
+        color: Colors.black,
+        fontWeight: FontWeight.normal,
+        fontSize: 14,
       );
   static TextStyle get subtitle2 => GoogleFonts.getFont(
         'Poppins',
-        color: Color(0xFF616161),
+        color: Colors.white,
         fontWeight: FontWeight.normal,
         fontSize: 16,
       );
   static TextStyle get bodyText1 => GoogleFonts.getFont(
         'Poppins',
-        color: Color(0xFF303030),
+        color: Colors.white,
         fontWeight: FontWeight.normal,
         fontSize: 14,
       );
   static TextStyle get bodyText2 => GoogleFonts.getFont(
         'Poppins',
-        color: Color(0xFF424242),
+        color: Color(0xFFB2B2B2),
         fontWeight: FontWeight.normal,
         fontSize: 14,
       );

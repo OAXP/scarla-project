@@ -63,11 +63,8 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                         child: Text(
                           'Friends',
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.bodyText1.override(
+                          style: FlutterFlowTheme.title1.override(
                             fontFamily: 'Poppins',
-                            color: Color(0xFF535480),
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -225,7 +222,6 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                                         style:
                                             FlutterFlowTheme.bodyText1.override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.white,
                                         ),
                                       ),
                                     )

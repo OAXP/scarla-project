@@ -90,7 +90,6 @@ class _EditGamePageWidgetState extends State<EditGamePageWidget> {
                                   widget.game,
                                   style: FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Poppins',
-                                    color: Colors.white,
                                   ),
                                 )
                               ],

@@ -2,6 +2,7 @@ import '../add_post_page/add_post_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../profile_page/profile_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -84,9 +85,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                   Text(
                                     'Make a post',
-                                    style: FlutterFlowTheme.bodyText1.override(
+                                    style: FlutterFlowTheme.subtitle2.override(
                                       fontFamily: 'Poppins',
-                                      color: Colors.white,
                                     ),
                                   )
                                 ],
@@ -159,19 +159,37 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
-                                                    Container(
-                                                      width: 25,
-                                                      height: 25,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: CachedNetworkImage(
-                                                        imageUrl:
-                                                            listViewFeedRecord
-                                                                .authorPhotoUrl,
-                                                        fit: BoxFit.cover,
+                                                    InkWell(
+                                                      onTap: () async {
+                                                        await Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ProfilePageWidget(
+                                                              userRef:
+                                                                  listViewFeedRecord
+                                                                      .authorRef,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        width: 25,
+                                                        height: 25,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          imageUrl:
+                                                              listViewFeedRecord
+                                                                  .authorPhotoUrl,
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       ),
                                                     ),
                                                     Padding(
@@ -185,8 +203,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             .bodyText1
                                                             .override(
                                                           fontFamily: 'Poppins',
-                                                          color: Colors.white,
-                                                          fontSize: 12,
                                                         ),
                                                       ),
                                                     )
@@ -224,11 +240,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             ),
                                             child: Text(
                                               listViewFeedRecord.content,
-                                              style: FlutterFlowTheme.bodyText1
+                                              style: FlutterFlowTheme.bodyText2
                                                   .override(
                                                 fontFamily: 'Poppins',
-                                                color: Color(0xFFB2B2B2),
-                                                fontSize: 14,
                                               ),
                                             ),
                                           ),

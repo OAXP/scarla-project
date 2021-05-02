@@ -193,7 +193,6 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                         style:
                                             FlutterFlowTheme.bodyText1.override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.white,
                                         ),
                                       ),
                                       Padding(
@@ -201,19 +200,17 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                             EdgeInsets.fromLTRB(2, 0, 1, 0),
                                         child: Text(
                                           '#',
-                                          style: FlutterFlowTheme.bodyText1
+                                          style: FlutterFlowTheme.bodyText2
                                               .override(
                                             fontFamily: 'Poppins',
-                                            color: Color(0xFFB2B2B2),
                                           ),
                                         ),
                                       ),
                                       Text(
                                         stackUsersRecord.tag,
                                         style:
-                                            FlutterFlowTheme.bodyText1.override(
+                                            FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
-                                          color: Color(0xFFB2B2B2),
                                         ),
                                       )
                                     ],
@@ -233,10 +230,8 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                       stackUsersRecord.about,
                                       textAlign: TextAlign.center,
                                       style:
-                                          FlutterFlowTheme.bodyText1.override(
+                                          FlutterFlowTheme.bodyText2.override(
                                         fontFamily: 'Poppins',
-                                        color: Color(0xFF979797),
-                                        fontSize: 12,
                                       ),
                                     ),
                                   ),
@@ -253,7 +248,6 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.bodyText1.override(
                                       fontFamily: 'Poppins',
-                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -332,7 +326,6 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.bodyText1.override(
                                       fontFamily: 'Poppins',
-                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -431,13 +424,9 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                     gridViewGroupsRecord.gName,
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme
-                                                        .bodyText1
+                                                        .bodyText2
                                                         .override(
                                                       fontFamily: 'Poppins',
-                                                      color: Colors.white,
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.bold,
                                                     ),
                                                   )
                                                 ],

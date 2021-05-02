@@ -65,7 +65,6 @@ class _YoutubePlayerPageWidgetState extends State<YoutubePlayerPageWidget> {
                               'Video Player',
                               style: FlutterFlowTheme.bodyText1.override(
                                 fontFamily: 'Poppins',
-                                color: Colors.white,
                               ),
                             )
                           ],
@@ -79,7 +78,7 @@ class _YoutubePlayerPageWidgetState extends State<YoutubePlayerPageWidget> {
                           url: widget.url,
                           width: MediaQuery.of(context).size.width,
                           height: 300,
-                          autoPlay: true,
+                          autoPlay: false,
                           looping: true,
                           mute: false,
                           showControls: true,

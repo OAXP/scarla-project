@@ -68,11 +68,8 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                             ),
                             Text(
                               'Friends list',
-                              style: FlutterFlowTheme.bodyText1.override(
+                              style: FlutterFlowTheme.title1.override(
                                 fontFamily: 'Poppins',
-                                color: Color(0xFF535480),
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             IconButton(
@@ -197,12 +194,10 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                                                                       .justify,
                                                               style:
                                                                   FlutterFlowTheme
-                                                                      .bodyText1
+                                                                      .subtitle1
                                                                       .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                color: Colors
-                                                                    .black,
                                                               ),
                                                             ),
                                                             Text(
@@ -212,12 +207,10 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                                                                       .justify,
                                                               style:
                                                                   FlutterFlowTheme
-                                                                      .bodyText1
+                                                                      .subtitle1
                                                                       .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                color: Colors
-                                                                    .black,
                                                               ),
                                                             ),
                                                             Text(
@@ -227,12 +220,10 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                                                                       .start,
                                                               style:
                                                                   FlutterFlowTheme
-                                                                      .bodyText1
+                                                                      .subtitle1
                                                                       .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                color: Color(
-                                                                    0xFF2C2C2C),
                                                               ),
                                                             )
                                                           ],

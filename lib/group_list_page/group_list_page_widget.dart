@@ -64,9 +64,8 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                             ),
                             Text(
                               'New Group',
-                              style: FlutterFlowTheme.bodyText1.override(
+                              style: FlutterFlowTheme.subtitle2.override(
                                 fontFamily: 'Poppins',
-                                color: Colors.white,
                               ),
                             )
                           ],
@@ -176,8 +175,6 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                                               style: FlutterFlowTheme.title2
                                                   .override(
                                                 fontFamily: 'Poppins',
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                             Container(
@@ -192,11 +189,9 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                                                     .lastMessage,
                                                 textAlign: TextAlign.start,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .bodyText2
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Color(0xFFC1C1C1),
-                                                  fontSize: 12,
                                                 ),
                                               ),
                                             )

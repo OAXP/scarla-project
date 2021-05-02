@@ -108,8 +108,6 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                           style: FlutterFlowTheme.bodyText1
                                               .override(
                                             fontFamily: 'Poppins',
-                                            color: Colors.white,
-                                            fontSize: 12,
                                           ),
                                         ),
                                       )
@@ -144,7 +142,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 hintText: 'Content..',
-                                hintStyle: FlutterFlowTheme.bodyText1.override(
+                                hintStyle: FlutterFlowTheme.bodyText2.override(
                                   fontFamily: 'Poppins',
                                 ),
                                 enabledBorder: InputBorder.none,
@@ -152,7 +150,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                 filled: true,
                                 fillColor: Colors.white,
                               ),
-                              style: FlutterFlowTheme.bodyText1.override(
+                              style: FlutterFlowTheme.bodyText2.override(
                                 fontFamily: 'Poppins',
                               ),
                               textAlign: TextAlign.start,
@@ -186,6 +184,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                       addPostPageUsersRecord.photoUrl;
                                   final id = '';
                                   final timestamp = getCurrentTimestamp;
+                                  final authorRef = widget.userRef;
 
                                   final feedRecordData = createFeedRecordData(
                                     authorId: authorId,
@@ -196,6 +195,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                     authorPhotoUrl: authorPhotoUrl,
                                     id: id,
                                     timestamp: timestamp,
+                                    authorRef: authorRef,
                                   );
 
                                   await FeedRecord.collection

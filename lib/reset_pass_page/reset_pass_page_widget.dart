@@ -100,10 +100,9 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           hintText: 'Email',
-                                          hintStyle: GoogleFonts.getFont(
-                                            'Open Sans',
-                                            color: Color(0xFF455A64),
-                                            fontWeight: FontWeight.normal,
+                                          hintStyle: FlutterFlowTheme.bodyText2
+                                              .override(
+                                            fontFamily: 'Poppins',
                                           ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -128,10 +127,9 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                             ),
                                           ),
                                         ),
-                                        style: GoogleFonts.getFont(
-                                          'Open Sans',
-                                          color: Color(0xFF455A64),
-                                          fontWeight: FontWeight.normal,
+                                        style:
+                                            FlutterFlowTheme.bodyText2.override(
+                                          fontFamily: 'Poppins',
                                         ),
                                       ),
                                     ),
@@ -163,10 +161,9 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                       width: 300,
                                       height: 50,
                                       color: Color(0xFF111329),
-                                      textStyle: GoogleFonts.getFont(
-                                        'Open Sans',
-                                        color: Color(0xFFDEDEDE),
-                                        fontSize: 16,
+                                      textStyle:
+                                          FlutterFlowTheme.subtitle2.override(
+                                        fontFamily: 'Poppins',
                                       ),
                                       borderSide: BorderSide(
                                         color: Colors.transparent,
@@ -189,10 +186,9 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                             EdgeInsets.fromLTRB(0, 0, 10, 0),
                                         child: Text(
                                           'Already have an account?',
-                                          style: GoogleFonts.getFont(
-                                            'Open Sans',
-                                            color: Color(0xFFADADAD),
-                                            fontSize: 14,
+                                          style: FlutterFlowTheme.bodyText2
+                                              .override(
+                                            fontFamily: 'Poppins',
                                           ),
                                         ),
                                       ),

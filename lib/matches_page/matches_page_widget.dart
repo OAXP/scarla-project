@@ -100,11 +100,8 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                 child: Text(
                                   'Players Found',
                                   textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.bodyText1.override(
+                                  style: FlutterFlowTheme.title1.override(
                                     fontFamily: 'Poppins',
-                                    color: Color(0xFF535480),
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
@@ -124,6 +121,126 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                               )
                             ],
                           ),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 100,
+                        decoration: BoxDecoration(),
+                        child: StreamBuilder<List<UsersRecord>>(
+                          stream: queryUsersRecord(
+                            limit: 5,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            List<UsersRecord> listViewUsersRecordList =
+                                snapshot.data;
+                            // Customize what your widget looks like with no query results.
+                            if (listViewUsersRecordList.isEmpty) {
+                              return Center(
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://cdn1.iconfinder.com/data/icons/general-9/500/add-512.png',
+                                  width: 50,
+                                  height: 50,
+                                ),
+                              );
+                            }
+                            return Padding(
+                              padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: listViewUsersRecordList.length,
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewUsersRecord =
+                                      listViewUsersRecordList[listViewIndex];
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  YoutubePlayerPageWidget(
+                                                url:
+                                                    'https://www.youtube.com/watch?v=1aYS2cn8Zio',
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.remove_circle,
+                                          color:
+                                              FlutterFlowTheme.secondaryColor,
+                                          size: 24,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl: listViewUsersRecord
+                                                    .photoUrl,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  2, 0, 0, 0),
+                                              child: Text(
+                                                listViewUsersRecord.name,
+                                                style: FlutterFlowTheme
+                                                    .bodyText1
+                                                    .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              '#',
+                                              style: FlutterFlowTheme.bodyText1
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFF838383),
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                            Text(
+                                              listViewUsersRecord.tag,
+                                              style: FlutterFlowTheme.bodyText1
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFF838383),
+                                                fontSize: 10,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                },
+                              ),
+                            );
+                          },
                         ),
                       ),
                       Expanded(
@@ -159,7 +276,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                   createDummyGamesRanksRecord(count: 4);
                             }
                             return Padding(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                               child: ListView.builder(
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.vertical,
@@ -247,12 +364,10 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                                                       .justify,
                                                               style:
                                                                   FlutterFlowTheme
-                                                                      .bodyText1
+                                                                      .subtitle1
                                                                       .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                color: Colors
-                                                                    .black,
                                                               ),
                                                             ),
                                                             Text(
@@ -262,12 +377,10 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                                                       .justify,
                                                               style:
                                                                   FlutterFlowTheme
-                                                                      .bodyText1
+                                                                      .subtitle1
                                                                       .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                color: Colors
-                                                                    .black,
                                                               ),
                                                             ),
                                                             Text(
@@ -278,12 +391,10 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                                                       .start,
                                                               style:
                                                                   FlutterFlowTheme
-                                                                      .bodyText1
+                                                                      .subtitle1
                                                                       .override(
                                                                 fontFamily:
                                                                     'Poppins',
-                                                                color: Color(
-                                                                    0xFF2C2C2C),
                                                               ),
                                                             )
                                                           ],
@@ -321,12 +432,10 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                                                     child: Text(
                                                                       'Rank : ',
                                                                       style: FlutterFlowTheme
-                                                                          .bodyText1
+                                                                          .subtitle1
                                                                           .override(
                                                                         fontFamily:
                                                                             'Poppins',
-                                                                        color: Colors
-                                                                            .black,
                                                                       ),
                                                                     ),
                                                                   ),

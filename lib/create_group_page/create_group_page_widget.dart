@@ -74,11 +74,8 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                             ),
                             Text(
                               'Create a Group',
-                              style: FlutterFlowTheme.bodyText1.override(
+                              style: FlutterFlowTheme.title1.override(
                                 fontFamily: 'Poppins',
-                                color: Color(0xFF535480),
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
                             IconButton(
@@ -178,9 +175,8 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'Group Name',
-                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                          hintStyle: FlutterFlowTheme.bodyText2.override(
                             fontFamily: 'Poppins',
-                            color: Color(0xFFAAAAAA),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -209,9 +205,8 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                           filled: true,
                           fillColor: Color(0xFF4D5078),
                         ),
-                        style: FlutterFlowTheme.bodyText1.override(
+                        style: FlutterFlowTheme.bodyText2.override(
                           fontFamily: 'Poppins',
-                          color: Color(0xFFAAAAAA),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -220,18 +215,9 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                       alignment: Alignment(0, 0),
                       child: Text(
                         'Add Members',
-                        style: FlutterFlowTheme.bodyText1.override(
+                        style: FlutterFlowTheme.title3.override(
                           fontFamily: 'Poppins',
-                          color: Color(0xFFAAAAAA),
-                          fontSize: 30,
                         ),
-                      ),
-                    ),
-                    Text(
-                      'Select profiles',
-                      style: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Color(0xFFAAAAAA),
                       ),
                     ),
                     Expanded(
@@ -278,30 +264,27 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                                 'Name',
                                                 textAlign: TextAlign.justify,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .subtitle1
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Colors.black,
                                                 ),
                                               ),
                                               Text(
                                                 '#',
                                                 textAlign: TextAlign.justify,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .subtitle1
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Colors.black,
                                                 ),
                                               ),
                                               Text(
                                                 'TAG',
                                                 textAlign: TextAlign.start,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .subtitle1
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Colors.black,
                                                 ),
                                               )
                                             ],
@@ -364,30 +347,27 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                                 'Name',
                                                 textAlign: TextAlign.justify,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .subtitle1
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Colors.black,
                                                 ),
                                               ),
                                               Text(
                                                 '#',
                                                 textAlign: TextAlign.justify,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .subtitle1
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Colors.black,
                                                 ),
                                               ),
                                               Text(
                                                 'TAG',
                                                 textAlign: TextAlign.start,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .subtitle1
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Colors.black,
                                                 ),
                                               )
                                             ],
@@ -450,30 +430,27 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                                 'Name',
                                                 textAlign: TextAlign.justify,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .subtitle1
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Colors.black,
                                                 ),
                                               ),
                                               Text(
                                                 '#',
                                                 textAlign: TextAlign.justify,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .subtitle1
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Colors.black,
                                                 ),
                                               ),
                                               Text(
                                                 'TAG',
                                                 textAlign: TextAlign.start,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .subtitle1
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Colors.black,
                                                 ),
                                               )
                                             ],

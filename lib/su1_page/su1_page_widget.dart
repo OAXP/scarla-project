@@ -52,11 +52,8 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                         Text(
                           'Create your profile',
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.bodyText1.override(
+                          style: FlutterFlowTheme.title2.override(
                             fontFamily: 'Poppins',
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
                           ),
                         )
                       ],
@@ -79,9 +76,8 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                   decoration: InputDecoration(
                                     hintText: 'Username',
                                     hintStyle:
-                                        FlutterFlowTheme.bodyText1.override(
+                                        FlutterFlowTheme.bodyText2.override(
                                       fontFamily: 'Poppins',
-                                      color: Colors.white,
                                     ),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -110,9 +106,8 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                     filled: true,
                                     fillColor: Color(0xFF4D5078),
                                   ),
-                                  style: FlutterFlowTheme.bodyText1.override(
+                                  style: FlutterFlowTheme.bodyText2.override(
                                     fontFamily: 'Poppins',
-                                    color: Colors.white,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -121,10 +116,8 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                 padding: EdgeInsets.fromLTRB(2, 0, 2, 0),
                                 child: Text(
                                   '#',
-                                  style: FlutterFlowTheme.bodyText1.override(
+                                  style: FlutterFlowTheme.subtitle2.override(
                                     fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                    fontSize: 20,
                                   ),
                                 ),
                               ),
@@ -135,9 +128,8 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                   decoration: InputDecoration(
                                     hintText: 'Tag',
                                     hintStyle:
-                                        FlutterFlowTheme.bodyText1.override(
+                                        FlutterFlowTheme.bodyText2.override(
                                       fontFamily: 'Poppins',
-                                      color: Colors.white,
                                     ),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -166,9 +158,8 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                     filled: true,
                                     fillColor: Color(0xFF4D5078),
                                   ),
-                                  style: FlutterFlowTheme.bodyText1.override(
+                                  style: FlutterFlowTheme.bodyText2.override(
                                     fontFamily: 'Poppins',
-                                    color: Colors.white,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -220,12 +211,8 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                       child: Text(
                                         'Back',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
+                                        style: FlutterFlowTheme.title2.override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     )
@@ -269,17 +256,13 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                       padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
                                       child: Text(
                                         'Next',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
+                                        style: FlutterFlowTheme.title2.override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
                                       child: Icon(
                                         Icons.arrow_forward,
                                         color: Colors.white,

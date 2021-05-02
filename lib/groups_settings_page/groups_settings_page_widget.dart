@@ -88,11 +88,8 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                 ),
                                 Text(
                                   'Group Settings',
-                                  style: FlutterFlowTheme.bodyText1.override(
+                                  style: FlutterFlowTheme.title1.override(
                                     fontFamily: 'Poppins',
-                                    color: Color(0xFF535480),
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 IconButton(
@@ -189,9 +186,8 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                             obscureText: false,
                             decoration: InputDecoration(
                               hintText: 'Group Name',
-                              hintStyle: FlutterFlowTheme.bodyText1.override(
+                              hintStyle: FlutterFlowTheme.bodyText2.override(
                                 fontFamily: 'Poppins',
-                                color: Color(0xFFAAAAAA),
                               ),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
@@ -220,38 +216,17 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                               filled: true,
                               fillColor: Color(0xFF4D5078),
                             ),
-                            style: FlutterFlowTheme.bodyText1.override(
+                            style: FlutterFlowTheme.bodyText2.override(
                               fontFamily: 'Poppins',
-                              color: Color(0xFFAAAAAA),
                             ),
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        StreamBuilder<List<FriendsRecord>>(
-                          stream: queryFriendsRecord(
-                            queryBuilder: (friendsRecord) =>
-                                friendsRecord.where('friends',
-                                    arrayContains: currentUserReference),
-                            singleRecord: true,
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(child: CircularProgressIndicator());
-                            }
-                            List<FriendsRecord>
-                                friendShipButtonFriendsRecordList =
-                                snapshot.data;
-                            // Customize what your widget looks like with no query results.
-                            if (snapshot.data.isEmpty) {
-                              // return Container();
-                              // For now, we'll just include some dummy data.
-                              friendShipButtonFriendsRecordList =
-                                  createDummyFriendsRecord(count: 1);
-                            }
-                            final friendShipButtonFriendsRecord =
-                                friendShipButtonFriendsRecordList.first;
-                            return Padding(
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Padding(
                               padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                               child: FFButtonWidget(
                                 onPressed: () async {
@@ -273,7 +248,6 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                   textStyle:
                                       FlutterFlowTheme.subtitle2.override(
                                     fontFamily: 'Poppins',
-                                    color: Colors.white,
                                   ),
                                   borderSide: BorderSide(
                                     color: Colors.transparent,
@@ -282,8 +256,45 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                   borderRadius: 12,
                                 ),
                               ),
-                            );
-                          },
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  final groupsRecordData = {
+                                    'members_id': FieldValue.arrayRemove(
+                                        [currentUserUid]),
+                                  };
+
+                                  await widget.groupRef
+                                      .update(groupsRecordData);
+                                  await Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => NavBarPage(
+                                          initialPage: 'GroupListPage'),
+                                    ),
+                                    (r) => false,
+                                  );
+                                },
+                                text: 'Leave Group',
+                                options: FFButtonOptions(
+                                  width: 130,
+                                  height: 40,
+                                  color: FlutterFlowTheme.secondaryColor,
+                                  textStyle:
+                                      FlutterFlowTheme.subtitle2.override(
+                                    fontFamily: 'Poppins',
+                                  ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: 12,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                         Padding(
                           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -300,10 +311,8 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                               Text(
                                 'Members',
                                 textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.bodyText1.override(
+                                style: FlutterFlowTheme.title3.override(
                                   fontFamily: 'Poppins',
-                                  color: Colors.white,
-                                  fontSize: 20,
                                 ),
                               ),
                               IconButton(
@@ -375,10 +384,9 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                       textAlign:
                                                           TextAlign.justify,
                                                       style: FlutterFlowTheme
-                                                          .bodyText1
+                                                          .subtitle1
                                                           .override(
                                                         fontFamily: 'Poppins',
-                                                        color: Colors.black,
                                                       ),
                                                     ),
                                                     Text(
@@ -386,10 +394,9 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                       textAlign:
                                                           TextAlign.justify,
                                                       style: FlutterFlowTheme
-                                                          .bodyText1
+                                                          .subtitle1
                                                           .override(
                                                         fontFamily: 'Poppins',
-                                                        color: Colors.black,
                                                       ),
                                                     ),
                                                     Text(
@@ -397,10 +404,9 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: FlutterFlowTheme
-                                                          .bodyText1
+                                                          .subtitle1
                                                           .override(
                                                         fontFamily: 'Poppins',
-                                                        color: Colors.black,
                                                       ),
                                                     )
                                                   ],

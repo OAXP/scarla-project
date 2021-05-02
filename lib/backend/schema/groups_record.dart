@@ -33,6 +33,9 @@ abstract class GroupsRecord
   BuiltList<String> get membersId;
 
   @nullable
+  DocumentReference get host;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -60,6 +63,7 @@ Map<String, dynamic> createGroupsRecordData({
   String gName,
   String gPhotoUrl,
   String lastMessage,
+  DocumentReference host,
 }) =>
     serializers.serializeWith(
         GroupsRecord.serializer,
@@ -68,7 +72,8 @@ Map<String, dynamic> createGroupsRecordData({
           ..gName = gName
           ..gPhotoUrl = gPhotoUrl
           ..lastMessage = lastMessage
-          ..membersId = null));
+          ..membersId = null
+          ..host = host));
 
 GroupsRecord get dummyGroupsRecord {
   final builder = GroupsRecordBuilder()

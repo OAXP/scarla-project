@@ -86,11 +86,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                               Text(
                                 widget.groupName,
                                 textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.bodyText1.override(
+                                style: FlutterFlowTheme.title1.override(
                                   fontFamily: 'Poppins',
-                                  color: Color(0xFF535480),
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               IconButton(
@@ -248,7 +245,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                                 listViewGMessagesRecord.value,
                                                 textAlign: TextAlign.start,
                                                 style: FlutterFlowTheme
-                                                    .bodyText1
+                                                    .subtitle1
                                                     .override(
                                                   fontFamily: 'Poppins',
                                                 ),
@@ -294,7 +291,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                       decoration: InputDecoration(
                                         hintText: 'Send a chat',
                                         hintStyle:
-                                            FlutterFlowTheme.bodyText1.override(
+                                            FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
                                         ),
                                         enabledBorder: OutlineInputBorder(
@@ -327,7 +324,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                             EdgeInsets.fromLTRB(10, 10, 10, 10),
                                       ),
                                       style:
-                                          FlutterFlowTheme.bodyText1.override(
+                                          FlutterFlowTheme.bodyText2.override(
                                         fontFamily: 'Poppins',
                                       ),
                                       textAlign: TextAlign.start,
@@ -376,8 +373,6 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                         textStyle:
                                             FlutterFlowTheme.subtitle2.override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
                                         ),
                                         borderSide: BorderSide(
                                           color: Colors.transparent,

@@ -39,6 +39,10 @@ abstract class FeedRecord implements Built<FeedRecord, FeedRecordBuilder> {
   Timestamp get timestamp;
 
   @nullable
+  @BuiltValueField(wireName: 'author_ref')
+  DocumentReference get authorRef;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -71,6 +75,7 @@ Map<String, dynamic> createFeedRecordData({
   int type,
   String authorPhotoUrl,
   Timestamp timestamp,
+  DocumentReference authorRef,
 }) =>
     serializers.serializeWith(
         FeedRecord.serializer,
@@ -82,7 +87,8 @@ Map<String, dynamic> createFeedRecordData({
           ..id = id
           ..type = type
           ..authorPhotoUrl = authorPhotoUrl
-          ..timestamp = timestamp));
+          ..timestamp = timestamp
+          ..authorRef = authorRef));
 
 FeedRecord get dummyFeedRecord {
   final builder = FeedRecordBuilder()

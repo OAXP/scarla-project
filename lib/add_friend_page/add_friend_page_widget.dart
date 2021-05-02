@@ -51,34 +51,36 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(12, 0, 0, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: Color(0xFF535480),
-                            size: 24,
+                      Expanded(
+                        flex: 1,
+                        child: Align(
+                          alignment: Alignment(-1, 0),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: InkWell(
+                              onTap: () async {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                color: Color(0xFF535480),
+                                size: 27,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(80, 0, 0, 0),
-                        child: Text(
-                          'Add a Friend',
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFF535480),
-                            fontSize: 25,
-                          ),
+                      Text(
+                        'Add a Friend',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.title1.override(
+                          fontFamily: 'Poppins',
                         ),
-                      )
+                      ),
+                      Spacer()
                     ],
                   ),
                 ),
@@ -234,10 +236,9 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                       textAlign:
                                                           TextAlign.justify,
                                                       style: FlutterFlowTheme
-                                                          .bodyText1
+                                                          .subtitle1
                                                           .override(
                                                         fontFamily: 'Poppins',
-                                                        color: Colors.black,
                                                       ),
                                                     ),
                                                     Text(
@@ -245,10 +246,9 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                       textAlign:
                                                           TextAlign.justify,
                                                       style: FlutterFlowTheme
-                                                          .bodyText1
+                                                          .subtitle1
                                                           .override(
                                                         fontFamily: 'Poppins',
-                                                        color: Colors.black,
                                                       ),
                                                     ),
                                                     Text(
@@ -256,11 +256,9 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: FlutterFlowTheme
-                                                          .bodyText1
+                                                          .subtitle1
                                                           .override(
                                                         fontFamily: 'Poppins',
-                                                        color:
-                                                            Color(0xFF2C2C2C),
                                                       ),
                                                     )
                                                   ],

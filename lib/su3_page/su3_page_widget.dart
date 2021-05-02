@@ -52,11 +52,8 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                         Text(
                           'Choose your games',
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.bodyText1.override(
+                          style: FlutterFlowTheme.title2.override(
                             fontFamily: 'Poppins',
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
                           ),
                         )
                       ],
@@ -378,12 +375,8 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                       child: Text(
                                         'Back',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
+                                        style: FlutterFlowTheme.title2.override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     )
@@ -429,17 +422,13 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                       padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
                                       child: Text(
                                         'Next',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
+                                        style: FlutterFlowTheme.title2.override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
                                       child: Icon(
                                         Icons.arrow_forward,
                                         color: Colors.white,

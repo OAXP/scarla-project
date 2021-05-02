@@ -88,21 +88,18 @@ class _RankPageWidgetState extends State<RankPageWidget> {
                                   widget.username,
                                   style: FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Poppins',
-                                    color: Colors.white,
                                   ),
                                 ),
                                 Text(
                                   '-',
                                   style: FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Poppins',
-                                    color: Color(0xD2FFFFFF),
                                   ),
                                 ),
                                 Text(
                                   widget.game,
                                   style: FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Poppins',
-                                    color: Colors.white,
                                   ),
                                 )
                               ],

@@ -57,10 +57,8 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                           Text(
                             'Games',
                             textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.title1.override(
+                            style: FlutterFlowTheme.title2.override(
                               fontFamily: 'Poppins',
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
                             ),
                           )
                         ],

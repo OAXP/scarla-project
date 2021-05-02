@@ -85,9 +85,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
             elevation: 8,
             label: Text(
               'Save',
-              style: FlutterFlowTheme.bodyText1.override(
+              style: FlutterFlowTheme.subtitle2.override(
                 fontFamily: 'Poppins',
-                color: Colors.white,
               ),
             ),
           ),
@@ -139,11 +138,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                               Text(
                                 'Settings',
                                 textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.bodyText1.override(
+                                style: FlutterFlowTheme.title1.override(
                                   fontFamily: 'Poppins',
-                                  color: Color(0xFF535480),
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Spacer()
@@ -169,8 +165,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     Align(
                                       alignment: Alignment(0, 0),
                                       child: CachedNetworkImage(
-                                        imageUrl:
-                                            'https://media1.tenor.com/images/e7be01a78bf105f0e28875233f6b94b0/tenor.gif?itemid=20697311',
+                                        imageUrl: widget.bgProfile,
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height:
@@ -200,7 +195,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         textStyle:
                                             FlutterFlowTheme.subtitle2.override(
                                           fontFamily: 'Poppins',
-                                          color: Colors.white,
                                         ),
                                         elevation: 2,
                                         borderSide: BorderSide(
@@ -289,9 +283,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       decoration: InputDecoration(
                                         hintText: 'Username',
                                         hintStyle:
-                                            FlutterFlowTheme.bodyText1.override(
+                                            FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
-                                          color: Color(0xFFAAAAAA),
                                         ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
@@ -321,9 +314,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         fillColor: Color(0xFF4D5078),
                                       ),
                                       style:
-                                          FlutterFlowTheme.bodyText1.override(
+                                          FlutterFlowTheme.bodyText2.override(
                                         fontFamily: 'Poppins',
-                                        color: Color(0xFFAAAAAA),
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
@@ -333,10 +325,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     child: Text(
                                       '#',
                                       style:
-                                          FlutterFlowTheme.bodyText1.override(
+                                          FlutterFlowTheme.subtitle2.override(
                                         fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                        fontSize: 20,
                                       ),
                                     ),
                                   ),
@@ -347,9 +337,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       decoration: InputDecoration(
                                         hintText: 'Tag',
                                         hintStyle:
-                                            FlutterFlowTheme.bodyText1.override(
+                                            FlutterFlowTheme.bodyText2.override(
                                           fontFamily: 'Poppins',
-                                          color: Color(0xFFAAAAAA),
                                         ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
@@ -379,9 +368,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         fillColor: Color(0xFF4D5078),
                                       ),
                                       style:
-                                          FlutterFlowTheme.bodyText1.override(
+                                          FlutterFlowTheme.bodyText2.override(
                                         fontFamily: 'Poppins',
-                                        color: Color(0xFFAAAAAA),
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
@@ -397,10 +385,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 decoration: InputDecoration(
                                   hintText: 'My description ...',
                                   hintStyle:
-                                      FlutterFlowTheme.bodyText1.override(
+                                      FlutterFlowTheme.bodyText2.override(
                                     fontFamily: 'Poppins',
-                                    color: Color(0xFFAAAAAA),
-                                    fontWeight: FontWeight.normal,
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -429,10 +415,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   filled: true,
                                   fillColor: Color(0xFF4D5078),
                                 ),
-                                style: FlutterFlowTheme.bodyText1.override(
+                                style: FlutterFlowTheme.bodyText2.override(
                                   fontFamily: 'Poppins',
-                                  color: Color(0xFFAAAAAA),
-                                  fontWeight: FontWeight.normal,
                                 ),
                                 textAlign: TextAlign.start,
                                 maxLines: 3,
@@ -451,7 +435,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
                                         fontFamily: 'Poppins',
-                                        color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -472,8 +455,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           style: FlutterFlowTheme.bodyText1
                                               .override(
                                             fontFamily: 'Poppins',
-                                            color: Colors.white,
-                                            fontSize: 14,
                                           ),
                                         ),
                                         ToggleIcon(
@@ -517,7 +498,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   'App Settings',
                                   style: FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Poppins',
-                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -531,11 +511,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
                                         fontFamily: 'Poppins',
-                                        color: Colors.white,
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(50, 0, 0, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -576,12 +555,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                     2, 0, 2, 0),
                                                 child: Text(
                                                   'Reset',
-                                                  style: FlutterFlowTheme
-                                                      .bodyText1
-                                                      .override(
-                                                    fontFamily: 'Poppins',
+                                                  style: GoogleFonts.getFont(
+                                                    'Poppins',
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
                                                   ),
                                                 ),
                                               ),
@@ -602,61 +580,62 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
                                         fontFamily: 'Poppins',
-                                        color: Colors.white,
                                       ),
                                     ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        FFButtonWidget(
-                                          onPressed: () {
-                                            print('Button pressed ...');
-                                          },
-                                          text: '',
-                                          options: FFButtonOptions(
-                                            width: 25,
-                                            height: 25,
-                                            color:
-                                                FlutterFlowTheme.secondaryColor,
-                                            textStyle: FlutterFlowTheme
-                                                .subtitle2
-                                                .override(
-                                              fontFamily: 'Poppins',
-                                              color: Colors.white,
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: '',
+                                            options: FFButtonOptions(
+                                              width: 25,
+                                              height: 25,
+                                              color: FlutterFlowTheme
+                                                  .secondaryColor,
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
                                             ),
-                                            borderSide: BorderSide(
-                                              color: Colors.white,
-                                              width: 1,
-                                            ),
-                                            borderRadius: 12,
                                           ),
-                                        ),
-                                        InkWell(
-                                          onTap: () async {
-                                            await launchURL(
-                                                'https://www.youtube.com/watch?v=VU2ft6BFezs');
-                                          },
-                                          child: Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: Color(0xFFF5F5F5),
-                                            child: Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  2, 0, 2, 0),
-                                              child: Text(
-                                                'Reset',
-                                                style: FlutterFlowTheme
-                                                    .bodyText1
-                                                    .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold,
+                                          InkWell(
+                                            onTap: () async {
+                                              await launchURL(
+                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    2, 0, 2, 0),
+                                                child: Text(
+                                                  'Reset',
+                                                  style: GoogleFonts.getFont(
+                                                    'Poppins',
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        )
-                                      ],
+                                          )
+                                        ],
+                                      ),
                                     )
                                   ],
                                 ),
@@ -670,11 +649,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
                                         fontFamily: 'Poppins',
-                                        color: Colors.white,
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -715,12 +693,414 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                     2, 0, 2, 0),
                                                 child: Text(
                                                   'Reset',
-                                                  style: FlutterFlowTheme
-                                                      .bodyText1
-                                                      .override(
-                                                    fontFamily: 'Poppins',
+                                                  style: GoogleFonts.getFont(
+                                                    'Poppins',
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Title 1 Color',
+                                      style: FlutterFlowTheme.title1.override(
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        FFButtonWidget(
+                                          onPressed: () {
+                                            print('Button pressed ...');
+                                          },
+                                          text: '',
+                                          options: FFButtonOptions(
+                                            width: 25,
+                                            height: 25,
+                                            color: Color(0xFF535480),
+                                            textStyle: FlutterFlowTheme
+                                                .subtitle2
+                                                .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                            ),
+                                            borderSide: BorderSide(
+                                              color: Colors.white,
+                                              width: 1,
+                                            ),
+                                            borderRadius: 12,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () async {
+                                            await launchURL(
+                                                'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                          },
+                                          child: Card(
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            color: Color(0xFFF5F5F5),
+                                            child: Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  2, 0, 2, 0),
+                                              child: Text(
+                                                'Reset',
+                                                style: GoogleFonts.getFont(
+                                                  'Poppins',
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Title 2 Color',
+                                      style: FlutterFlowTheme.title2.override(
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: '',
+                                            options: FFButtonOptions(
+                                              width: 25,
+                                              height: 25,
+                                              color: Colors.white,
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              await launchURL(
+                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    2, 0, 2, 0),
+                                                child: Text(
+                                                  'Reset',
+                                                  style: GoogleFonts.getFont(
+                                                    'Poppins',
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Subtitle 1 Color',
+                                      style:
+                                          FlutterFlowTheme.subtitle1.override(
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(45, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: '',
+                                            options: FFButtonOptions(
+                                              width: 25,
+                                              height: 25,
+                                              color: Colors.black,
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              await launchURL(
+                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    2, 0, 2, 0),
+                                                child: Text(
+                                                  'Reset',
+                                                  style: GoogleFonts.getFont(
+                                                    'Poppins',
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Subtitle 2 Color',
+                                      style:
+                                          FlutterFlowTheme.subtitle2.override(
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: '',
+                                            options: FFButtonOptions(
+                                              width: 25,
+                                              height: 25,
+                                              color: Colors.white,
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              await launchURL(
+                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    2, 0, 2, 0),
+                                                child: Text(
+                                                  'Reset',
+                                                  style: GoogleFonts.getFont(
+                                                    'Poppins',
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Body Text 1 Color',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(35, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: '',
+                                            options: FFButtonOptions(
+                                              width: 25,
+                                              height: 25,
+                                              color: Colors.white,
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              await launchURL(
+                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    2, 0, 2, 0),
+                                                child: Text(
+                                                  'Reset',
+                                                  style: GoogleFonts.getFont(
+                                                    'Poppins',
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Body Text 2 Color',
+                                      style:
+                                          FlutterFlowTheme.bodyText2.override(
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: '',
+                                            options: FFButtonOptions(
+                                              width: 25,
+                                              height: 25,
+                                              color: Color(0xFFB2B2B2),
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              await launchURL(
+                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    2, 0, 2, 0),
+                                                child: Text(
+                                                  'Reset',
+                                                  style: GoogleFonts.getFont(
+                                                    'Poppins',
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
                                                   ),
                                                 ),
                                               ),
@@ -739,10 +1119,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         notificationSwitchSetting = newValue),
                                     title: Text(
                                       'Notifications',
-                                      style: FlutterFlowTheme.title3.override(
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
                                         fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                        fontSize: 14,
                                       ),
                                     ),
                                     dense: false,
@@ -763,7 +1142,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
                                         fontFamily: 'Poppins',
-                                        color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
