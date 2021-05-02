@@ -96,7 +96,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                         ),
                                         child: CachedNetworkImage(
                                           imageUrl:
-                                              'https://i.gyazo.com/4fa7b922af5d2951a3c5f74035a4950c.gif',
+                                              addPostPageUsersRecord.photoUrl,
                                           fit: BoxFit.cover,
                                         ),
                                       ),

@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../youtube_player_page/youtube_player_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
   @override
   void initState() {
     super.initState();
-    aboutFieldController = TextEditingController();
+    aboutFieldController = TextEditingController(text: widget.about);
     tagFieldController = TextEditingController(text: widget.tag);
     usernameFieldController = TextEditingController(text: widget.name);
   }
@@ -180,8 +181,16 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     ),
                                     FFButtonWidget(
                                       onPressed: () async {
-                                        await launchURL(
-                                            'https://www.youtube.com/watch?v=VIL_BGHqacw');
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                YoutubePlayerPageWidget(
+                                              url:
+                                                  'https://www.youtube.com/watch?v=VIL_BGHqacw',
+                                            ),
+                                          ),
+                                        );
                                       },
                                       text: 'Modify',
                                       options: FFButtonOptions(
@@ -211,8 +220,16 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   alignment: Alignment(0, 0),
                                   child: InkWell(
                                     onTap: () async {
-                                      await launchURL(
-                                          'https://www.youtube.com/watch?v=o5z1WTfxps4');
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              YoutubePlayerPageWidget(
+                                            url:
+                                                'https://www.youtube.com/watch?v=o5z1WTfxps4',
+                                          ),
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       width: 100,

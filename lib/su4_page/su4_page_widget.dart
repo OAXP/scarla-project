@@ -3,6 +3,7 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
+import '../youtube_player_page/youtube_player_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -89,10 +90,24 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                child: FaIcon(
-                                  FontAwesomeIcons.pen,
-                                  color: Colors.white,
-                                  size: 15,
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            YoutubePlayerPageWidget(
+                                          url:
+                                              'https://www.youtube.com/watch?v=OUy-iIYu45k',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: FaIcon(
+                                    FontAwesomeIcons.pen,
+                                    color: Colors.white,
+                                    size: 15,
+                                  ),
                                 ),
                               )
                             ],

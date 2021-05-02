@@ -1,6 +1,6 @@
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
+import '../youtube_player_page/youtube_player_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -179,8 +179,15 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                           padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
                           child: InkWell(
                             onTap: () async {
-                              await launchURL(
-                                  'https://www.youtube.com/watch?v=K1PCl5D-IpU');
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => YoutubePlayerPageWidget(
+                                    url:
+                                        'https://www.youtube.com/watch?v=K1PCl5D-IpU',
+                                  ),
+                                ),
+                              );
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -263,8 +270,16 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                           ),
                                           IconButton(
                                             onPressed: () async {
-                                              await launchURL(
-                                                  'https://youtu.be/ByrUgKNV42Q');
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      YoutubePlayerPageWidget(
+                                                    url:
+                                                        'https://youtu.be/ByrUgKNV42Q',
+                                                  ),
+                                                ),
+                                              );
                                             },
                                             icon: Icon(
                                               Icons.add_circle_outline,

@@ -86,10 +86,15 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    child: Icon(
-                                      Icons.close,
-                                      color: Colors.white,
-                                      size: 24,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Colors.white,
+                                        size: 24,
+                                      ),
                                     ),
                                   ),
                                   Padding(

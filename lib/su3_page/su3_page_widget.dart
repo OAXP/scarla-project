@@ -72,7 +72,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           InkWell(
                             onTap: () async {
                               final usersRecordData = {
-                                ...createUsersRecordData(),
                                 'selected_games':
                                     FieldValue.arrayUnion(['lol']),
                               };
@@ -127,7 +126,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           InkWell(
                             onTap: () async {
                               final usersRecordData = {
-                                ...createUsersRecordData(),
                                 'selected_games':
                                     FieldValue.arrayUnion(['valorant']),
                               };
@@ -181,7 +179,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           InkWell(
                             onTap: () async {
                               final usersRecordData = {
-                                ...createUsersRecordData(),
                                 'selected_games': FieldValue.arrayUnion(['mw']),
                               };
 
@@ -234,7 +231,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           InkWell(
                             onTap: () async {
                               final usersRecordData = {
-                                ...createUsersRecordData(),
                                 'selected_games': FieldValue.arrayUnion(['ow']),
                               };
 
@@ -287,7 +283,6 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           InkWell(
                             onTap: () async {
                               final usersRecordData = {
-                                ...createUsersRecordData(),
                                 'selected_games': FieldValue.arrayUnion(['rl']),
                               };
 
