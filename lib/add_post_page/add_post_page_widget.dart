@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../youtube_player_page/youtube_player_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -155,6 +156,55 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                               ),
                               textAlign: TextAlign.start,
                               maxLines: 9,
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.tertiaryColor,
+                            ),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl:
+                                        'https://media1.tenor.com/images/66880eefc5d3881b5aaa7ca4287b12bd/tenor.gif?itemid=17177195',
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    height:
+                                        MediaQuery.of(context).size.height * 1,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    child: IconButton(
+                                      onPressed: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                YoutubePlayerPageWidget(
+                                              url:
+                                                  'https://www.youtube.com/watch?v=sq2JJf7jB00',
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      icon: Icon(
+                                        Icons.image,
+                                        color: FlutterFlowTheme.secondaryColor,
+                                        size: 30,
+                                      ),
+                                      iconSize: 30,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                           Row(
