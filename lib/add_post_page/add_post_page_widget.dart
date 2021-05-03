@@ -9,10 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddPostPageWidget extends StatefulWidget {
-  AddPostPageWidget({Key key, this.userRef, this.initValue}) : super(key: key);
+  AddPostPageWidget({Key key, this.userRef, this.initValue, this.initImage})
+      : super(key: key);
 
   final DocumentReference userRef;
   final String initValue;
+  final String initImage;
 
   @override
   _AddPostPageWidgetState createState() => _AddPostPageWidgetState();
@@ -88,17 +90,21 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Container(
-                                        width: 25,
-                                        height: 25,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              addPostPageUsersRecord.photoUrl,
-                                          fit: BoxFit.cover,
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(0, 2, 0, 2),
+                                        child: Container(
+                                          width: 30,
+                                          height: 30,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                addPostPageUsersRecord.photoUrl,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                       Padding(
@@ -113,20 +119,6 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                         ),
                                       )
                                     ],
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment(0, 0),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      print('IconButton pressed ...');
-                                    },
-                                    icon: Icon(
-                                      Icons.keyboard_control,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                    iconSize: 15,
                                   ),
                                 )
                               ],
@@ -172,36 +164,69 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   CachedNetworkImage(
-                                    imageUrl:
-                                        'https://media1.tenor.com/images/66880eefc5d3881b5aaa7ca4287b12bd/tenor.gif?itemid=17177195',
+                                    imageUrl: widget.initImage,
                                     width:
                                         MediaQuery.of(context).size.width * 0.8,
                                     height:
                                         MediaQuery.of(context).size.height * 1,
                                     fit: BoxFit.cover,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    child: IconButton(
-                                      onPressed: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                YoutubePlayerPageWidget(
-                                              url:
-                                                  'https://www.youtube.com/watch?v=sq2JJf7jB00',
-                                            ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                        child: IconButton(
+                                          onPressed: () async {
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    YoutubePlayerPageWidget(
+                                                  url:
+                                                      'https://www.youtube.com/watch?v=sq2JJf7jB00',
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          icon: Icon(
+                                            Icons.image,
+                                            color:
+                                                FlutterFlowTheme.secondaryColor,
+                                            size: 30,
                                           ),
-                                        );
-                                      },
-                                      icon: Icon(
-                                        Icons.image,
-                                        color: FlutterFlowTheme.secondaryColor,
-                                        size: 30,
+                                          iconSize: 30,
+                                        ),
                                       ),
-                                      iconSize: 30,
-                                    ),
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                        child: IconButton(
+                                          onPressed: () async {
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    YoutubePlayerPageWidget(
+                                                  url:
+                                                      'https://www.youtube.com/watch?v=6hfwIGE2j8w',
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          icon: Icon(
+                                            Icons.clear,
+                                            color:
+                                                FlutterFlowTheme.secondaryColor,
+                                            size: 30,
+                                          ),
+                                          iconSize: 30,
+                                        ),
+                                      )
+                                    ],
                                   )
                                 ],
                               ),
@@ -235,6 +260,8 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                   final id = '';
                                   final timestamp = getCurrentTimestamp;
                                   final authorRef = widget.userRef;
+                                  final imageUrl =
+                                      'https://media1.tenor.com/images/e7be01a78bf105f0e28875233f6b94b0/tenor.gif?itemid=20697311';
 
                                   final feedRecordData = createFeedRecordData(
                                     authorId: authorId,
@@ -246,6 +273,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                     id: id,
                                     timestamp: timestamp,
                                     authorRef: authorRef,
+                                    imageUrl: imageUrl,
                                   );
 
                                   await FeedRecord.collection

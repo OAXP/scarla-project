@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../group_add_member_page/group_add_member_page_widget.dart';
 import '../main.dart';
+import '../profile_page/profile_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -321,7 +322,9 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          GroupAddMemberPageWidget(),
+                                          GroupAddMemberPageWidget(
+                                        groupRef: widget.groupRef,
+                                      ),
                                     ),
                                   );
                                 },
@@ -336,102 +339,157 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                           ),
                         ),
                         Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: ListView(
-                              padding: EdgeInsets.zero,
-                              scrollDirection: Axis.vertical,
-                              children: [
-                                Card(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  color: Color(0x85F5F5F5),
-                                  child: Align(
-                                    alignment: Alignment(0, 0),
-                                    child: Padding(
-                                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Container(
-                                                width: 80,
-                                                height: 80,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      'https://s4.anilist.co/file/anilistcdn/character/large/b45627-CR68RyZmddGG.png',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10, 0, 0, 0),
-                                                child: Row(
+                          child: StreamBuilder<List<UsersRecord>>(
+                            stream: queryUsersRecord(
+                              queryBuilder: (usersRecord) => usersRecord
+                                  .where('uid', isEqualTo: '1ReplaceByIn'),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              List<UsersRecord> listViewUsersRecordList =
+                                  snapshot.data;
+                              // Customize what your widget looks like with no query results.
+                              if (snapshot.data.isEmpty) {
+                                // return Container();
+                                // For now, we'll just include some dummy data.
+                                listViewUsersRecordList =
+                                    createDummyUsersRecord(count: 4);
+                              }
+                              return Padding(
+                                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listViewUsersRecordList.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewUsersRecord =
+                                        listViewUsersRecordList[listViewIndex];
+                                    return InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProfilePageWidget(
+                                              userRef:
+                                                  listViewUsersRecord.reference,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: Color(0x85F5F5F5),
+                                        child: Align(
+                                          alignment: Alignment(0, 0),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Row(
                                                   mainAxisSize:
-                                                      MainAxisSize.min,
+                                                      MainAxisSize.max,
                                                   children: [
-                                                    Text(
-                                                      'Name',
-                                                      textAlign:
-                                                          TextAlign.justify,
-                                                      style: FlutterFlowTheme
-                                                          .subtitle1
-                                                          .override(
-                                                        fontFamily: 'Poppins',
+                                                    Container(
+                                                      width: 80,
+                                                      height: 80,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: CachedNetworkImage(
+                                                        imageUrl:
+                                                            listViewUsersRecord
+                                                                .photoUrl,
+                                                        fit: BoxFit.cover,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      '#',
-                                                      textAlign:
-                                                          TextAlign.justify,
-                                                      style: FlutterFlowTheme
-                                                          .subtitle1
-                                                          .override(
-                                                        fontFamily: 'Poppins',
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'TAG',
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: FlutterFlowTheme
-                                                          .subtitle1
-                                                          .override(
-                                                        fontFamily: 'Poppins',
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.fromLTRB(
+                                                              10, 0, 0, 0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Text(
+                                                            listViewUsersRecord
+                                                                .name,
+                                                            textAlign: TextAlign
+                                                                .justify,
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .subtitle1
+                                                                    .override(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            '#',
+                                                            textAlign: TextAlign
+                                                                .justify,
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .subtitle1
+                                                                    .override(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            listViewUsersRecord
+                                                                .tag,
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .subtitle1
+                                                                    .override(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                            ),
+                                                          )
+                                                        ],
                                                       ),
                                                     )
                                                   ],
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                          IconButton(
-                                            onPressed: () {
-                                              print('IconButton pressed ...');
-                                            },
-                                            icon: Icon(
-                                              Icons.cancel_sharp,
-                                              color: Colors.black,
-                                              size: 30,
+                                                IconButton(
+                                                  onPressed: () {
+                                                    print(
+                                                        'IconButton pressed ...');
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.cancel_sharp,
+                                                    color: Colors.black,
+                                                    size: 30,
+                                                  ),
+                                                  iconSize: 30,
+                                                )
+                                              ],
                                             ),
-                                            iconSize: 30,
-                                          )
-                                        ],
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
                           ),
                         )
                       ],

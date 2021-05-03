@@ -95,9 +95,10 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                     Expanded(
                       child: StreamBuilder<List<FriendsRecord>>(
                         stream: queryFriendsRecord(
-                          queryBuilder: (friendsRecord) => friendsRecord.where(
-                              'friends',
-                              arrayContains: currentUserReference),
+                          queryBuilder: (friendsRecord) => friendsRecord
+                              .where('friends',
+                                  arrayContains: currentUserReference)
+                              .orderBy('status'),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.

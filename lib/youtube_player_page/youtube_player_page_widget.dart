@@ -78,7 +78,7 @@ class _YoutubePlayerPageWidgetState extends State<YoutubePlayerPageWidget> {
                           url: widget.url,
                           width: MediaQuery.of(context).size.width,
                           height: 300,
-                          autoPlay: false,
+                          autoPlay: true,
                           looping: true,
                           mute: false,
                           showControls: true,

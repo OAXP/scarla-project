@@ -442,8 +442,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                                       .max,
                                                               children: [
                                                                 Container(
-                                                                  width: 25,
-                                                                  height: 25,
+                                                                  width: 30,
+                                                                  height: 30,
                                                                   clipBehavior:
                                                                       Clip.antiAlias,
                                                                   decoration:
@@ -542,7 +542,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                       ),
                                                       child: CachedNetworkImage(
                                                         imageUrl:
-                                                            'https://media1.tenor.com/images/66880eefc5d3881b5aaa7ca4287b12bd/tenor.gif?itemid=17177195',
+                                                            listViewFeedRecord
+                                                                .imageUrl,
                                                         width: MediaQuery.of(
                                                                 context)
                                                             .size
@@ -576,6 +577,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                                   initValue:
                                                                       listViewFeedRecord
                                                                           .content,
+                                                                  initImage:
+                                                                      listViewFeedRecord
+                                                                          .imageUrl,
                                                                 ),
                                                               ),
                                                             );

@@ -43,6 +43,9 @@ abstract class FeedRecord implements Built<FeedRecord, FeedRecordBuilder> {
   DocumentReference get authorRef;
 
   @nullable
+  String get imageUrl;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -53,7 +56,8 @@ abstract class FeedRecord implements Built<FeedRecord, FeedRecordBuilder> {
     ..game = ''
     ..id = ''
     ..type = 0
-    ..authorPhotoUrl = '';
+    ..authorPhotoUrl = ''
+    ..imageUrl = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('feed');
@@ -76,6 +80,7 @@ Map<String, dynamic> createFeedRecordData({
   String authorPhotoUrl,
   Timestamp timestamp,
   DocumentReference authorRef,
+  String imageUrl,
 }) =>
     serializers.serializeWith(
         FeedRecord.serializer,
@@ -88,7 +93,8 @@ Map<String, dynamic> createFeedRecordData({
           ..type = type
           ..authorPhotoUrl = authorPhotoUrl
           ..timestamp = timestamp
-          ..authorRef = authorRef));
+          ..authorRef = authorRef
+          ..imageUrl = imageUrl));
 
 FeedRecord get dummyFeedRecord {
   final builder = FeedRecordBuilder()
@@ -99,7 +105,8 @@ FeedRecord get dummyFeedRecord {
     ..id = dummyString
     ..type = dummyInteger
     ..authorPhotoUrl = dummyImagePath
-    ..timestamp = dummyTimestamp;
+    ..timestamp = dummyTimestamp
+    ..imageUrl = dummyImagePath;
   return builder.build();
 }
 

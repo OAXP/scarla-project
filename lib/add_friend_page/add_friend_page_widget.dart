@@ -1,5 +1,6 @@
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../profile_page/profile_page_widget.dart';
 import '../youtube_player_page/youtube_player_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -184,9 +185,8 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => YoutubePlayerPageWidget(
-                                    url:
-                                        'https://www.youtube.com/watch?v=K1PCl5D-IpU',
+                                  builder: (context) => ProfilePageWidget(
+                                    userRef: listViewUsersRecord.reference,
                                   ),
                                 ),
                               );

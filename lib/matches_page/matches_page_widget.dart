@@ -158,84 +158,95 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                 itemBuilder: (context, listViewIndex) {
                                   final listViewUsersRecord =
                                       listViewUsersRecordList[listViewIndex];
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () async {
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  YoutubePlayerPageWidget(
-                                                url:
-                                                    'https://www.youtube.com/watch?v=1aYS2cn8Zio',
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        child: Icon(
-                                          Icons.remove_circle,
-                                          color:
-                                              FlutterFlowTheme.secondaryColor,
-                                          size: 24,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl: listViewUsersRecord
-                                                    .photoUrl,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  2, 0, 0, 0),
-                                              child: Text(
-                                                listViewUsersRecord.name,
-                                                style: FlutterFlowTheme
-                                                    .bodyText1
-                                                    .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: Colors.white,
-                                                  fontSize: 10,
+                                  return Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                                    child: Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      color: FlutterFlowTheme.tertiaryColor,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () async {
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      YoutubePlayerPageWidget(
+                                                    url:
+                                                        'https://www.youtube.com/watch?v=1aYS2cn8Zio',
+                                                  ),
                                                 ),
-                                              ),
+                                              );
+                                            },
+                                            child: Icon(
+                                              Icons.remove_circle,
+                                              color: FlutterFlowTheme
+                                                  .secondaryColor,
+                                              size: 24,
                                             ),
-                                            Text(
-                                              '#',
-                                              style: FlutterFlowTheme.bodyText1
-                                                  .override(
-                                                fontFamily: 'Poppins',
-                                                color: Color(0xFF838383),
-                                                fontSize: 10,
-                                              ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                0, 0, 10, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        listViewUsersRecord
+                                                            .photoUrl,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      2, 0, 0, 0),
+                                                  child: Text(
+                                                    listViewUsersRecord.name,
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.white,
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '#',
+                                                  style: FlutterFlowTheme
+                                                      .bodyText1
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFF838383),
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  listViewUsersRecord.tag,
+                                                  style: FlutterFlowTheme
+                                                      .bodyText1
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFF838383),
+                                                    fontSize: 10,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                            Text(
-                                              listViewUsersRecord.tag,
-                                              style: FlutterFlowTheme.bodyText1
-                                                  .override(
-                                                fontFamily: 'Poppins',
-                                                color: Color(0xFF838383),
-                                                fontSize: 10,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   );
                                 },
                               ),
