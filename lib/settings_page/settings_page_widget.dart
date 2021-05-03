@@ -714,6 +714,74 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
+                                      'AppBar Color',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FFButtonWidget(
+                                            onPressed: () {
+                                              print('Button pressed ...');
+                                            },
+                                            text: '',
+                                            options: FFButtonOptions(
+                                              width: 25,
+                                              height: 25,
+                                              color: Color(0xA2000000),
+                                              textStyle: FlutterFlowTheme
+                                                  .subtitle2
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.white,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () async {
+                                              await launchURL(
+                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              child: Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    2, 0, 2, 0),
+                                                child: Text(
+                                                  'Reset',
+                                                  style: GoogleFonts.getFont(
+                                                    'Poppins',
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
                                       'Title 1 Color',
                                       style: FlutterFlowTheme.title1.override(
                                         fontFamily: 'Poppins',
