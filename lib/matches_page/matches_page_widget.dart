@@ -280,11 +280,13 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                             List<GamesRanksRecord>
                                 listViewGamesRanksRecordList = snapshot.data;
                             // Customize what your widget looks like with no query results.
-                            if (snapshot.data.isEmpty) {
-                              // return Container();
-                              // For now, we'll just include some dummy data.
-                              listViewGamesRanksRecordList =
-                                  createDummyGamesRanksRecord(count: 4);
+                            if (listViewGamesRanksRecordList.isEmpty) {
+                              return Center(
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://static.thenounproject.com/png/449469-200.png',
+                                ),
+                              );
                             }
                             return Padding(
                               padding: EdgeInsets.fromLTRB(0, 5, 0, 0),

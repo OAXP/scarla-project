@@ -117,7 +117,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                           obscureText: false,
                           decoration: InputDecoration(
                             hintText: 'Find friends...',
-                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                            hintStyle: FlutterFlowTheme.bodyText2.override(
                               fontFamily: 'Poppins',
                             ),
                             enabledBorder: UnderlineInputBorder(
@@ -146,7 +146,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                             ),
                             contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                           ),
-                          style: FlutterFlowTheme.bodyText1.override(
+                          style: FlutterFlowTheme.bodyText2.override(
                             fontFamily: 'Poppins',
                           ),
                           textAlign: TextAlign.start,

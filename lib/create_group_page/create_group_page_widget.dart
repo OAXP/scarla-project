@@ -236,11 +236,13 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                           List<FriendsRecord> listViewFriendsRecordList =
                               snapshot.data;
                           // Customize what your widget looks like with no query results.
-                          if (snapshot.data.isEmpty) {
-                            // return Container();
-                            // For now, we'll just include some dummy data.
-                            listViewFriendsRecordList =
-                                createDummyFriendsRecord(count: 4);
+                          if (listViewFriendsRecordList.isEmpty) {
+                            return Center(
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    'https://static.thenounproject.com/png/449469-200.png',
+                              ),
+                            );
                           }
                           return ListView.builder(
                             padding: EdgeInsets.zero,

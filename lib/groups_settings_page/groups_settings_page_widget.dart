@@ -353,11 +353,13 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                               List<UsersRecord> listViewUsersRecordList =
                                   snapshot.data;
                               // Customize what your widget looks like with no query results.
-                              if (snapshot.data.isEmpty) {
-                                // return Container();
-                                // For now, we'll just include some dummy data.
-                                listViewUsersRecordList =
-                                    createDummyUsersRecord(count: 4);
+                              if (listViewUsersRecordList.isEmpty) {
+                                return Center(
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        'https://static.thenounproject.com/png/449469-200.png',
+                                  ),
+                                );
                               }
                               return Padding(
                                 padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
