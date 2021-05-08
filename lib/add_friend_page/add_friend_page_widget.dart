@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:scarla/auth/auth_util.dart';
+import 'package:scarla/flutter_flow/flutter_flow_util.dart';
+
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../profile_page/profile_page_widget.dart';
@@ -25,6 +29,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.primaryColor,
@@ -47,7 +52,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                 width: MediaQuery.of(context).size.width,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: Color(0xA2000000),
+                  color: FlutterFlowTheme.appBarColor,
                 ),
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
@@ -150,8 +155,8 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
               Expanded(
                 child: StreamBuilder<List<UsersRecord>>(
                   stream: queryUsersRecord(
-                    queryBuilder: (usersRecord) => usersRecord.where('name',
-                        isEqualTo: searchTextFieldController.text),
+                    queryBuilder: (usersRecord) => usersRecord.where('keys',
+                        arrayContainsAny: [searchTextFieldController.text.toLowerCase()]).where('uid', isNotEqualTo: currentUserUid),
                     limit: 10,
                   ),
                   builder: (context, snapshot) {
@@ -268,16 +273,35 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                           ),
                                           IconButton(
                                             onPressed: () async {
-                                              await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      YoutubePlayerPageWidget(
-                                                    url:
-                                                        'https://youtu.be/ByrUgKNV42Q',
+
+                                              final isFriendRecord = await queryFriendsRecord(
+                                                queryBuilder: (friendsRecord) => friendsRecord
+                                                    .where('friends', whereIn:
+                                                [
+                                                  [listViewUsersRecord.reference, currentUserReference],
+                                                  [currentUserReference, listViewUsersRecord.reference]
+                                                ])
+                                              ).first;
+
+                                              if(isFriendRecord.isEmpty) {
+                                                final friendshipData = {
+                                                  ...createFriendsRecordData(
+                                                      status: 0,
+                                                      timestamp: getCurrentTimestamp
                                                   ),
-                                                ),
-                                              );
+                                                  'friends': [
+                                                    currentUserReference,
+                                                    listViewUsersRecord
+                                                        .reference
+                                                  ]
+                                                };
+
+                                                await FriendsRecord.collection
+                                                    .doc()
+                                                    .set(friendshipData);
+                                              } else {
+                                                scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("You already have a friendship with this user, go to Friends page")));
+                                              }
                                             },
                                             icon: Icon(
                                               Icons.add_circle_outline,

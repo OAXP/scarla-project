@@ -67,7 +67,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                         width: MediaQuery.of(context).size.width,
                         height: 100,
                         decoration: BoxDecoration(
-                          color: Color(0xA2000000),
+                          color: FlutterFlowTheme.appBarColor,
                         ),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
@@ -88,7 +88,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                       },
                                       child: Icon(
                                         Icons.close,
-                                        color: Color(0xFF535480),
+                                        color: FlutterFlowTheme.title1Color,
                                         size: 30,
                                       ),
                                     ),
@@ -113,7 +113,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                   },
                                   icon: Icon(
                                     Icons.check_rounded,
-                                    color: Color(0xFF535480),
+                                    color: FlutterFlowTheme.title1Color,
                                     size: 30,
                                   ),
                                   iconSize: 30,

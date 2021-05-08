@@ -1,3 +1,8 @@
+import 'package:scarla/auth/firebase_user_provider.dart';
+import 'package:scarla/chat_page/chat_page_widget.dart';
+import 'package:scarla/flutter_flow/flutter_flow_widgets.dart';
+import 'package:scarla/profile_page/profile_page_widget.dart';
+
 import '../add_friend_page/add_friend_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
@@ -15,13 +20,11 @@ class FriendsPageWidget extends StatefulWidget {
 }
 
 class _FriendsPageWidgetState extends State<FriendsPageWidget> {
-  TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
   }
 
   @override
@@ -48,7 +51,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                 width: MediaQuery.of(context).size.width,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: Color(0xA2000000),
+                  color: FlutterFlowTheme.appBarColor,
                 ),
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
@@ -85,7 +88,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                               },
                               child: Icon(
                                 Icons.person_add_alt_1_rounded,
-                                color: Color(0xFF535480),
+                                color: FlutterFlowTheme.title1Color,
                                 size: 24,
                               ),
                             ),
@@ -96,73 +99,12 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 5, 5),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      child: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: 35,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(10, 0, 40, 0),
-                        child: TextFormField(
-                          controller: textController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            hintText: 'Find friends...',
-                            hintStyle: FlutterFlowTheme.bodyText2.override(
-                              fontFamily: 'Poppins',
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 100,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30),
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 100,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(30),
-                                bottomRight: Radius.circular(30),
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30),
-                              ),
-                            ),
-                            contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                          ),
-                          style: FlutterFlowTheme.bodyText2.override(
-                            fontFamily: 'Poppins',
-                          ),
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
               Expanded(
                 child: StreamBuilder<List<FriendsRecord>>(
                   stream: queryFriendsRecord(
                     queryBuilder: (friendsRecord) => friendsRecord
-                        .where('friends', arrayContains: currentUserReference)
-                        .orderBy('status'),
+                            .where('friends', arrayContains: currentUserReference)
+                            .orderBy('status'),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -189,66 +131,247 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                         itemBuilder: (context, listViewIndex) {
                           final listViewFriendsRecord =
                               listViewFriendsRecordList[listViewIndex];
-                          return Padding(
-                            padding: EdgeInsets.fromLTRB(0, 7, 8, 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.fromLTRB(6, 0, 0, 0),
-                                      child: Container(
-                                        width: 60,
-                                        height: 60,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              'https://i.pinimg.com/originals/78/fc/df/78fcdf41fbc27797e92a4429c276e2f6.gif',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.fromLTRB(11, 0, 0, 0),
-                                      child: Text(
-                                        'name#uwu',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Poppins',
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                InkWell(
+                          final refToTake =
+                              listViewFriendsRecord.friends.first ==
+                                      currentUserReference
+                                  ? listViewFriendsRecord.friends.last
+                                  : listViewFriendsRecord.friends.first;
+                          final isRequested =
+                              (listViewFriendsRecord.friends.first ==
+                                  currentUserReference);
+                          return StreamBuilder<UsersRecord>(
+                              stream: UsersRecord.getDocument(refToTake),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                      child: CircularProgressIndicator());
+                                }
+                                final userRecord = snapshot.data;
+
+                                return InkWell(
                                   onTap: () async {
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            YoutubePlayerPageWidget(
-                                          url:
-                                              'https://www.youtube.com/watch?v=-mMhKYJFOnQ&ab_channel=Yisus',
+                                        builder: (context) => ProfilePageWidget(
+                                          userRef: userRecord.reference,
                                         ),
                                       ),
                                     );
                                   },
-                                  child: Icon(
-                                    Icons.more_vert,
-                                    color: Color(0xFFF2F2F2),
-                                    size: 24,
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(5, 7, 15, 8),
+                                    child: Container(
+                                      color: FlutterFlowTheme.tertiaryColor,
+                                      height: 70,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    EdgeInsets.fromLTRB(6, 0, 0, 0),
+                                                child: Container(
+                                                  width: 60,
+                                                  height: 60,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: userRecord.photoUrl,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    11, 0, 0, 0),
+                                                child: Text(
+                                                  '${userRecord.name}#${userRecord.tag}',
+                                                  style: FlutterFlowTheme.bodyText1
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          if (listViewFriendsRecord.status == 1)
+                                            Row(
+                                              children: [
+                                                InkWell(
+                                                  onTap: () async {
+                                                    final isGroupRecord =
+                                                        await queryGroupsRecord(
+                                                            queryBuilder:
+                                                                (groupsRecord) =>
+                                                                    groupsRecord.where(
+                                                                        'members_id',
+                                                                        whereIn: [
+                                                                          [
+                                                                            userRecord
+                                                                                .uid,
+                                                                            currentUserUid
+                                                                          ],
+                                                                          [
+                                                                            currentUserUid,
+                                                                            userRecord
+                                                                                .uid
+                                                                          ]
+                                                                        ])).first;
+
+                                                    GroupsRecord group;
+                                                    String myName = (await UsersRecord
+                                                                .getDocument(
+                                                                    currentUserReference)
+                                                            .first)
+                                                        .name;
+
+                                                    if (isGroupRecord.isEmpty) {
+                                                      final gName =
+                                                          "${userRecord.name} and $myName";
+                                                      final gPhotoUrl =
+                                                          userRecord.photoUrl;
+                                                      final lastMessage = '...';
+
+                                                      final groupsRecordData = {
+                                                        ...createGroupsRecordData(
+                                                          gName: gName,
+                                                          gPhotoUrl: gPhotoUrl,
+                                                          lastMessage: lastMessage,
+                                                        ),
+                                                        'members_id': [
+                                                          userRecord.uid,
+                                                          currentUserUid
+                                                        ],
+                                                      };
+
+                                                      await GroupsRecord.collection
+                                                          .doc()
+                                                          .set(groupsRecordData);
+
+                                                      group =
+                                                          (await queryGroupsRecord(
+                                                                  queryBuilder: (groupsRecord) =>
+                                                                      groupsRecord.where(
+                                                                          'members_id',
+                                                                          whereIn: [
+                                                                            [
+                                                                              userRecord
+                                                                                  .uid,
+                                                                              currentUserUid
+                                                                            ],
+                                                                            [
+                                                                              currentUserUid,
+                                                                              userRecord
+                                                                                  .uid
+                                                                            ]
+                                                                          ])).first)
+                                                              .first;
+                                                    } else {
+                                                      group = isGroupRecord.first;
+                                                    }
+
+                                                    await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ChatPageWidget(
+                                                          groupName: group.gName,
+                                                          groupRef: group.reference,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: Icon(
+                                                    Icons.message,
+                                                    color: Color(0xFFF2F2F2),
+                                                    size: 24,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    await listViewFriendsRecord
+                                                        .reference
+                                                        .delete();
+                                                  },
+                                                  child: Icon(
+                                                    Icons.close,
+                                                    color: Color(0xFFF2F2F2),
+                                                    size: 24,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          if (listViewFriendsRecord.status == 0 &&
+                                              !isRequested)
+                                            Row(
+                                              children: [
+                                                InkWell(
+                                                  onTap: () async {
+                                                    final friendshipData = {
+                                                      ...createFriendsRecordData(
+                                                        status: 1,
+                                                      )
+                                                    };
+
+                                                    await listViewFriendsRecord
+                                                        .reference
+                                                        .update(friendshipData);
+                                                  },
+                                                  child: Icon(
+                                                    Icons.check,
+                                                    color: Color(0xFFF2F2F2),
+                                                    size: 24,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    await listViewFriendsRecord
+                                                        .reference
+                                                        .delete();
+                                                  },
+                                                  child: Icon(
+                                                    Icons.close,
+                                                    color: Color(0xFFF2F2F2),
+                                                    size: 24,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          if (listViewFriendsRecord.status == 0 &&
+                                              isRequested)
+                                            InkWell(
+                                              onTap: () async {
+                                                await listViewFriendsRecord
+                                                    .reference
+                                                    .delete();
+                                              },
+                                              child: Icon(
+                                                Icons.delete,
+                                                color: Color(0xFFF2F2F2),
+                                                size: 24,
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                )
-                              ],
-                            ),
-                          );
+                                );
+                              });
                         },
                       ),
                     );

@@ -1,3 +1,7 @@
+import 'package:scarla/chat_page/widgets/chat_message_other.dart';
+import 'package:scarla/chat_page/widgets/chat_message_self.dart';
+import 'package:scarla/chat_page/widgets/message_form.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -9,6 +13,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:imgur/imgur.dart' as imgur;
 
 class ChatPageWidget extends StatefulWidget {
   ChatPageWidget({Key key, this.groupName, this.groupRef}) : super(key: key);
@@ -23,11 +28,77 @@ class ChatPageWidget extends StatefulWidget {
 class _ChatPageWidgetState extends State<ChatPageWidget> {
   TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final messageListController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     textController = TextEditingController();
+  }
+
+  void _addMessage(Map msgMap) async {
+    String value = msgMap['value'];
+    int type = msgMap['type'];
+    switch (type) {
+      case 0:
+        value = value;
+        break;
+      case 1:case 2:
+        setState(() {
+          FlutterFlowTheme.isUploading = true;
+        });
+        final client = imgur.Imgur(
+            imgur.Authentication.fromClientId(
+                '2a04555f27563dc'));
+        await client.image
+            .uploadImage(
+            imagePath: value,
+            title: '*_*',
+            description: '*_*')
+            .then(
+                (image) {
+                  value = image.link;
+                  setState(() {
+                    FlutterFlowTheme.isUploading = false;
+                  });
+                });
+        break;
+      default:
+        print("Not configured yet");
+    }
+    final authorId = currentUserUid;
+    final groupRef = widget.groupRef;
+    final timestamp = getCurrentTimestamp;
+    final authorRef = currentUserReference;
+
+    final gMessagesRecordData =
+    createGMessagesRecordData(
+      authorId: authorId,
+      groupRef: groupRef,
+      timestamp: timestamp,
+      type: type,
+      value: value,
+      authorRef: authorRef,
+    );
+
+    await GMessagesRecord.collection
+        .doc()
+        .set(gMessagesRecordData);
+    final lastMessage = textController.text;
+
+    final groupsRecordData =
+    createGroupsRecordData(
+      lastMessage: lastMessage,
+    );
+
+    await widget.groupRef
+        .update(groupsRecordData);
+
+    messageListController.animateTo(
+        messageListController
+            .position.minScrollExtent,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeOut);
   }
 
   @override
@@ -61,7 +132,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                         width: MediaQuery.of(context).size.width,
                         height: 100,
                         decoration: BoxDecoration(
-                          color: Color(0xA2000000),
+                          color: FlutterFlowTheme.appBarColor,
                         ),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
@@ -78,7 +149,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                   },
                                   child: Icon(
                                     Icons.arrow_back_ios,
-                                    color: Color(0xFF535480),
+                                    color: FlutterFlowTheme.title1Color,
                                     size: 24,
                                   ),
                                 ),
@@ -105,7 +176,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                 },
                                 icon: Icon(
                                   Icons.settings,
-                                  color: Color(0xFF535480),
+                                  color: FlutterFlowTheme.title1Color,
                                   size: 30,
                                 ),
                                 iconSize: 30,
@@ -119,8 +190,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                           stream: queryGMessagesRecord(
                             queryBuilder: (gMessagesRecord) => gMessagesRecord
                                 .where('group_ref', isEqualTo: widget.groupRef)
-                                .where('type', isEqualTo: 0)
-                                .orderBy('timestamp'),
+                                .orderBy('timestamp', descending: true),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -129,6 +199,17 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                             }
                             List<GMessagesRecord> listViewGMessagesRecordList =
                                 snapshot.data;
+                            bool shouldDisplayAvatar(int index) {
+                              if (index == 0) return true;
+
+                              final previousId =
+                                  listViewGMessagesRecordList[index - 1]
+                                      .authorId;
+                              final authorId =
+                                  listViewGMessagesRecordList[index].authorId;
+                              return authorId != previousId;
+                            }
+
                             // Customize what your widget looks like with no query results.
                             if (listViewGMessagesRecordList.isEmpty) {
                               return Center(
@@ -139,254 +220,43 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                               );
                             }
                             return ListView.builder(
+                              controller: messageListController,
                               padding: EdgeInsets.zero,
+                              reverse: true,
                               scrollDirection: Axis.vertical,
                               itemCount: listViewGMessagesRecordList.length,
                               itemBuilder: (context, listViewIndex) {
                                 final listViewGMessagesRecord =
                                     listViewGMessagesRecordList[listViewIndex];
-                                return Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 4, 10, 0),
-                                  child: Container(
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color: Color(0x00FFFFFF),
+                                if (currentUserUid ==
+                                    listViewGMessagesRecord.authorId) {
+                                  return Dismissible(
+                                    onDismissed: (_) {
+                                      listViewGMessagesRecord.reference
+                                          .delete();
+                                    },
+                                    key: ValueKey(
+                                        listViewGMessagesRecord.timestamp),
+                                    child: ChatMessage(
+                                      index: listViewIndex,
+                                      data: listViewGMessagesRecord,
+                                      nbElements: listViewGMessagesRecordList.length,
                                     ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        StreamBuilder<UsersRecord>(
-                                          stream: UsersRecord.getDocument(
-                                              listViewGMessagesRecord
-                                                  .authorRef),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                  child:
-                                                      CircularProgressIndicator());
-                                            }
-                                            final columnUsersRecord =
-                                                snapshot.data;
-                                            return InkWell(
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ProfilePageWidget(
-                                                      userRef: columnUsersRecord
-                                                          .reference,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    columnUsersRecord.name,
-                                                    style: FlutterFlowTheme
-                                                        .bodyText1
-                                                        .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Color(0xFF535480),
-                                                      fontSize: 8,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width: 40,
-                                                    height: 40,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl:
-                                                          columnUsersRecord
-                                                              .photoUrl,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              10, 20, 10, 1),
-                                          child: Container(
-                                            constraints: BoxConstraints(
-                                              maxWidth: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.75,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFFEEEEEE),
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              shape: BoxShape.rectangle,
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  5, 0, 5, 0),
-                                              child: Text(
-                                                listViewGMessagesRecord.value,
-                                                textAlign: TextAlign.start,
-                                                style: FlutterFlowTheme
-                                                    .subtitle1
-                                                    .override(
-                                                  fontFamily: 'Poppins',
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                  );
+                                }
+                                return ChatMessageOther(
+                                  index: listViewIndex,
+                                  data: listViewGMessagesRecord,
+                                  showAvatar:
+                                      shouldDisplayAvatar(listViewIndex),
                                 );
                               },
                             );
                           },
                         ),
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.09,
-                        decoration: BoxDecoration(
-                          color: Color(0x83FFFFFF),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                    child: Icon(
-                                      Icons.image,
-                                      color: FlutterFlowTheme.primaryColor,
-                                      size: 26,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: TextFormField(
-                                      controller: textController,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        hintText: 'Send a chat',
-                                        hintStyle:
-                                            FlutterFlowTheme.bodyText2.override(
-                                          fontFamily: 'Poppins',
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Colors.white,
-                                            width: 1,
-                                          ),
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(30),
-                                            bottomRight: Radius.circular(30),
-                                            topLeft: Radius.circular(30),
-                                            topRight: Radius.circular(30),
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Colors.white,
-                                            width: 1,
-                                          ),
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(30),
-                                            bottomRight: Radius.circular(30),
-                                            topLeft: Radius.circular(30),
-                                            topRight: Radius.circular(30),
-                                          ),
-                                        ),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        contentPadding:
-                                            EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                      ),
-                                      style:
-                                          FlutterFlowTheme.bodyText2.override(
-                                        fontFamily: 'Poppins',
-                                      ),
-                                      textAlign: TextAlign.start,
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        final authorId = currentUserUid;
-                                        final groupRef = widget.groupRef;
-                                        final timestamp = getCurrentTimestamp;
-                                        final type = 0;
-                                        final value = textController.text;
-                                        final authorRef = currentUserReference;
-
-                                        final gMessagesRecordData =
-                                            createGMessagesRecordData(
-                                          authorId: authorId,
-                                          groupRef: groupRef,
-                                          timestamp: timestamp,
-                                          type: type,
-                                          value: value,
-                                          authorRef: authorRef,
-                                        );
-
-                                        await GMessagesRecord.collection
-                                            .doc()
-                                            .set(gMessagesRecordData);
-                                        final lastMessage = textController.text;
-
-                                        final groupsRecordData =
-                                            createGroupsRecordData(
-                                          lastMessage: lastMessage,
-                                        );
-
-                                        await widget.groupRef
-                                            .update(groupsRecordData);
-                                      },
-                                      text: 'SEND',
-                                      options: FFButtonOptions(
-                                        width: 75,
-                                        height: 40,
-                                        color: FlutterFlowTheme.primaryColor,
-                                        textStyle:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1,
-                                        ),
-                                        borderRadius: 30,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                      MessageForm(
+                        onSubmit: _addMessage,
                       )
                     ],
                   )

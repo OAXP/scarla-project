@@ -1,3 +1,5 @@
+import 'package:scarla/util/transparent_route.dart';
+
 import '../add_post_page/add_post_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
@@ -55,7 +57,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           onTap: () async {
                             await Navigator.push(
                               context,
-                              MaterialPageRoute(
+                              TransparentRoute(
                                 builder: (context) => AddPostPageWidget(
                                   userRef: currentUserReference,
                                   initValue: '',
@@ -250,11 +252,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                         Container(
                                           width: double.infinity,
-                                          height: 200,
+                                          height: (listViewFeedRecord.imageUrl.trim() == "") ? 0 : 200,
                                           decoration: BoxDecoration(
                                             color: Color(0x00EEEEEE),
                                           ),
-                                          child: CachedNetworkImage(
+                                          child: (listViewFeedRecord.imageUrl.trim() == "") ? Container()
+                                              : CachedNetworkImage(
                                             imageUrl:
                                                 listViewFeedRecord.imageUrl,
                                             width: MediaQuery.of(context)
@@ -276,7 +279,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               onPressed: () async {
                                                 await Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
+                                                  TransparentRoute(
                                                     builder: (context) =>
                                                         AddPostPageWidget(
                                                       userRef:

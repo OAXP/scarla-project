@@ -34,13 +34,31 @@ class _RankPageWidgetState extends State<RankPageWidget> {
           return Center(child: CircularProgressIndicator());
         }
         List<GamesRanksRecord> rankPageGamesRanksRecordList = snapshot.data;
+        int rank;
         // Customize what your widget looks like with no query results.
         if (snapshot.data.isEmpty) {
           // return Container();
           // For now, we'll just include some dummy data.
-          rankPageGamesRanksRecordList = createDummyGamesRanksRecord(count: 1);
+          rank = 1;
+        } else {
+          final rankPageGamesRanksRecord = rankPageGamesRanksRecordList.first;
+          switch (widget.game){
+            case 'valorant':
+              rank = rankPageGamesRanksRecord.valorant;
+              break;
+            case 'lol':
+              rank = rankPageGamesRanksRecord.lol;
+              break;
+            case 'ow':
+              rank = rankPageGamesRanksRecord.ow;
+              break;
+            case 'rl':
+              rank = rankPageGamesRanksRecord.rl;
+              break;
+            default:
+              rank = 1;
+          }
         }
-        final rankPageGamesRanksRecord = rankPageGamesRanksRecordList.first;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: Color(0x7A000000),
@@ -112,7 +130,7 @@ class _RankPageWidgetState extends State<RankPageWidget> {
                               color: Color(0x00EEEEEE),
                             ),
                             child: Image.asset(
-                              'assets/images/20.png',
+                              'assets/games/ranks/${widget.game}/$rank.png',
                               width: MediaQuery.of(context).size.width * 0.5,
                               height: MediaQuery.of(context).size.height * 1,
                               fit: BoxFit.contain,

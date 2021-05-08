@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../su2_page/su2_page_widget.dart';
@@ -71,6 +73,9 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(25)
+                                  ],
                                   controller: usernameFieldController,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -123,6 +128,9 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                               ),
                               Expanded(
                                 child: TextFormField(
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(5)
+                                  ],
                                   controller: tagFieldController,
                                   obscureText: false,
                                   decoration: InputDecoration(

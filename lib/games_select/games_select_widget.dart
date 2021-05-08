@@ -43,7 +43,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
                         child: Image.asset(
-                          'assets/images/controller--v1.png',
+                          'assets/logo/mainLogo.png',
                           width: 100,
                           height: 100,
                           fit: BoxFit.cover,
@@ -81,7 +81,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.asset(
-                                        'assets/images/13d11d702dbad5dca33f0e22abf4b3978381b5e7_league-of-legends-hero-splash.jpg',
+                                        'assets/games/cards/lol/3.jpg',
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height: 100,
@@ -125,7 +125,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.asset(
-                                        'assets/images/article-esports-valorant-what-is-meta-hero.jpg',
+                                        'assets/games/cards/valorant/3.jpg',
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height: 100,
@@ -168,7 +168,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.asset(
-                                        'assets/images/hbhfrvbjyiai7jt7hs8c.jpg',
+                                        'assets/games/cards/mw/3.jpg',
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height: 100,
@@ -211,7 +211,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.asset(
-                                        'assets/images/share.jpg',
+                                        'assets/games/cards/ow/3.jpg',
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height: 100,
@@ -254,7 +254,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.asset(
-                                        'assets/images/rl_home_f2p-launch_shop_10367.jpg',
+                                        'assets/games/cards/rl/3.jpg',
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height: 100,

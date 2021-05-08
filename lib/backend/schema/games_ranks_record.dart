@@ -74,11 +74,11 @@ Map<String, dynamic> createGamesRanksRecordData({
 
 GamesRanksRecord get dummyGamesRanksRecord {
   final builder = GamesRanksRecordBuilder()
-    ..lol = dummyInteger
-    ..valorant = dummyInteger
-    ..mw = dummyInteger
-    ..ow = dummyInteger
-    ..rl = dummyInteger;
+    ..lol = 1
+    ..valorant = 1
+    ..mw = 1
+    ..ow = 1
+    ..rl = 1;
   return builder.build();
 }
 

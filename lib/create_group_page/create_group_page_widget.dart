@@ -50,7 +50,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                       width: MediaQuery.of(context).size.width,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Color(0xA2000000),
+                        color: FlutterFlowTheme.appBarColor,
                       ),
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
@@ -67,7 +67,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                 },
                                 child: Icon(
                                   Icons.close,
-                                  color: Color(0xFF535480),
+                                  color: FlutterFlowTheme.title1Color,
                                   size: 30,
                                 ),
                               ),
@@ -80,7 +80,6 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                             ),
                             IconButton(
                               onPressed: () async {
-                                final gId = 'id';
                                 final gName = groupNameFieldController.text;
                                 final gPhotoUrl =
                                     'https://media1.tenor.com/images/e7be01a78bf105f0e28875233f6b94b0/tenor.gif?itemid=20697311';
@@ -88,10 +87,10 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
 
                                 final groupsRecordData = {
                                   ...createGroupsRecordData(
-                                    gId: gId,
                                     gName: gName,
                                     gPhotoUrl: gPhotoUrl,
                                     lastMessage: lastMessage,
+                                    host: currentUserReference,
                                   ),
                                   'members_id':
                                       FieldValue.arrayUnion([currentUserUid]),
@@ -104,7 +103,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                               },
                               icon: Icon(
                                 Icons.check_rounded,
-                                color: Color(0xFF535480),
+                                color: FlutterFlowTheme.title1Color,
                                 size: 30,
                               ),
                               iconSize: 30,

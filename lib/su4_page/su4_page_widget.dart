@@ -345,13 +345,18 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                               'https://media.discordapp.net/attachments/530418694841565186/819976832321454160/wonderEggSniper.gif';
                           final tag = widget.tag;
 
-                          final usersRecordData = createUsersRecordData(
+                          final keys = createKeys("$name#$tag");
+
+                          final usersRecordData = {
+                            ...createUsersRecordData(
                             about: about,
                             name: name,
                             photoUrl: photoUrl,
                             bgProfile: bgProfile,
                             tag: tag,
-                          );
+                          ),
+                          'keys' : keys,
+                          };
 
                           await currentUserReference.update(usersRecordData);
                           await Navigator.pushAndRemoveUntil(

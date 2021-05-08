@@ -12,6 +12,19 @@ Future launchURL(String url) async {
   }
 }
 
+List<String> createKeys(String s) {
+  List<String> list = <String>[];
+
+  var curName = '';
+
+  for(final i in s.split('')) {
+    curName += i.toLowerCase();
+    list.add(curName);
+  }
+
+  return list;
+}
+
 Timestamp get getCurrentTimestamp => Timestamp.fromDate(DateTime.now());
 
 bool get isIos => Platform.isIOS;

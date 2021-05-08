@@ -1,3 +1,7 @@
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:scarla/flutter_flow/upload_media.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -7,6 +11,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:imgur/imgur.dart' as imgur;
 
 class AddPostPageWidget extends StatefulWidget {
   AddPostPageWidget({Key key, this.userRef, this.initValue, this.initImage})
@@ -23,11 +28,43 @@ class AddPostPageWidget extends StatefulWidget {
 class _AddPostPageWidgetState extends State<AddPostPageWidget> {
   TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  String postPic;
 
   @override
   void initState() {
     super.initState();
     textController = TextEditingController(text: widget.initValue);
+  }
+
+  Future getImage({bool isVideo = false}) async {
+    ImagePicker imagePicker = ImagePicker();
+    PickedFile pickedFile;
+
+    if (isVideo) {
+      pickedFile = await imagePicker.getVideo(source: ImageSource.gallery);
+    } else {
+      pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    }
+
+    if (pickedFile != null) {
+      final isValid = validateFileFormat(pickedFile.path, context);
+      if (isValid) {
+        setState(() {
+          FlutterFlowTheme.isUploading = true;
+        });
+        final client =
+        imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
+        await client.image
+            .uploadImage(
+            imagePath: pickedFile.path, title: '*_*', description: '*_*')
+            .then((image) {
+          postPic = image.link;
+          setState(() {
+            FlutterFlowTheme.isUploading = false;
+          });
+        });
+      }
+    }
   }
 
   @override
@@ -131,6 +168,9 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                               color: Color(0x00EEEEEE),
                             ),
                             child: TextFormField(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(125)
+                              ],
                               controller: textController,
                               obscureText: false,
                               decoration: InputDecoration(
@@ -163,8 +203,9 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
+                                  (postPic == null && widget.initImage.trim() == "") ? Container() :
                                   CachedNetworkImage(
-                                    imageUrl: widget.initImage,
+                                    imageUrl: (postPic != null) ? postPic : widget.initImage,
                                     width:
                                         MediaQuery.of(context).size.width * 0.8,
                                     height:
@@ -181,16 +222,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                             EdgeInsets.fromLTRB(10, 0, 0, 0),
                                         child: IconButton(
                                           onPressed: () async {
-                                            await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    YoutubePlayerPageWidget(
-                                                  url:
-                                                      'https://www.youtube.com/watch?v=sq2JJf7jB00',
-                                                ),
-                                              ),
-                                            );
+                                            getImage();
                                           },
                                           icon: Icon(
                                             Icons.image,
@@ -206,16 +238,9 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                             EdgeInsets.fromLTRB(10, 0, 0, 0),
                                         child: IconButton(
                                           onPressed: () async {
-                                            await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    YoutubePlayerPageWidget(
-                                                  url:
-                                                      'https://www.youtube.com/watch?v=6hfwIGE2j8w',
-                                                ),
-                                              ),
-                                            );
+                                            setState(() {
+                                              postPic = null;
+                                            });
                                           },
                                           icon: Icon(
                                             Icons.clear,
@@ -261,7 +286,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                   final timestamp = getCurrentTimestamp;
                                   final authorRef = widget.userRef;
                                   final imageUrl =
-                                      'https://media1.tenor.com/images/e7be01a78bf105f0e28875233f6b94b0/tenor.gif?itemid=20697311';
+                                  (postPic != null) ? postPic : widget.initImage;
 
                                   final feedRecordData = createFeedRecordData(
                                     authorId: authorId,

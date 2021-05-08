@@ -56,6 +56,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   BuiltList<String> get selectedGames;
 
   @nullable
+  BuiltList<String> get keys;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -70,7 +73,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..isCompetitive = false
     ..isToxic = false
     ..uid = ''
-    ..selectedGames = ListBuilder();
+    ..selectedGames = ListBuilder()
+    ..keys = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -113,7 +117,8 @@ Map<String, dynamic> createUsersRecordData({
           ..ranksRef = ranksRef
           ..createdTime = createdTime
           ..uid = uid
-          ..selectedGames = null));
+          ..selectedGames = null
+          ..keys = null));
 
 UsersRecord get dummyUsersRecord {
   final builder = UsersRecordBuilder()
@@ -128,7 +133,8 @@ UsersRecord get dummyUsersRecord {
     ..isToxic = dummyBoolean
     ..createdTime = dummyTimestamp
     ..uid = dummyString
-    ..selectedGames = ListBuilder([dummyString, dummyString]);
+    ..selectedGames = ListBuilder([dummyString, dummyString])
+    ..keys = ListBuilder([dummyString, dummyString]);
   return builder.build();
 }
 

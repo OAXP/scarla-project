@@ -1,3 +1,5 @@
+import 'package:scarla/profile_page/profile_page_widget.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -46,7 +48,7 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                       width: MediaQuery.of(context).size.width,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Color(0xA2000000),
+                        color: FlutterFlowTheme.appBarColor,
                       ),
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
@@ -61,7 +63,7 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                               },
                               icon: Icon(
                                 Icons.arrow_back_sharp,
-                                color: Color(0xFF535480),
+                                color: FlutterFlowTheme.title1Color,
                                 size: 30,
                               ),
                               iconSize: 30,
@@ -83,7 +85,7 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                               },
                               icon: Icon(
                                 Icons.check_rounded,
-                                color: Color(0xFF535480),
+                                color: FlutterFlowTheme.title1Color,
                                 size: 30,
                               ),
                               iconSize: 30,
@@ -98,7 +100,7 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                           queryBuilder: (friendsRecord) => friendsRecord
                               .where('friends',
                                   arrayContains: currentUserReference)
-                              .orderBy('status'),
+                              .where('status', isEqualTo: 1),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -125,141 +127,157 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                               itemBuilder: (context, listViewIndex) {
                                 final listViewFriendsRecord =
                                     listViewFriendsRecordList[listViewIndex];
-                                return Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              YoutubePlayerPageWidget(
-                                            url:
-                                                'https://www.youtube.com/watch?v=K1PCl5D-IpU',
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0x85F5F5F5),
-                                      elevation: 5,
-                                      child: Stack(
-                                        children: [
-                                          Align(
-                                            alignment: Alignment(0, 0),
-                                            child: Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  5, 5, 5, 5),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
+                                final refToTake =
+                                listViewFriendsRecord.friends.first ==
+                                    currentUserReference
+                                    ? listViewFriendsRecord.friends.last
+                                    : listViewFriendsRecord.friends.first;
+                                return StreamBuilder<UsersRecord>(
+                                  stream: UsersRecord.getDocument(refToTake),
+                                  builder: (context, snapshot) {
+                                    final userRecord = snapshot.data;
+                                    if(userRecord == null) {
+                                      return Container();
+                                    }
+                                    return Padding(
+                                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ProfilePageWidget(
+                                                userRef: userRecord.reference,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Card(
+                                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                                          color: Color(0x85F5F5F5),
+                                          elevation: 5,
+                                          child: Stack(
+                                            children: [
+                                              Align(
+                                                alignment: Alignment(0, 0),
+                                                child: Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      5, 5, 5, 5),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
                                                     children: [
-                                                      Container(
-                                                        width: 80,
-                                                        height: 80,
-                                                        clipBehavior:
-                                                            Clip.antiAlias,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                        child:
-                                                            CachedNetworkImage(
-                                                          imageUrl:
-                                                              'https://i.imgur.com/JXZBBeX.gif',
-                                                          fit: BoxFit.cover,
-                                                        ),
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Container(
+                                                            width: 80,
+                                                            height: 80,
+                                                            clipBehavior:
+                                                                Clip.antiAlias,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape:
+                                                                  BoxShape.circle,
+                                                            ),
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              imageUrl:
+                                                                  userRecord.photoUrl,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.fromLTRB(
+                                                                    5, 0, 0, 0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize.min,
+                                                              children: [
+                                                                Text(
+                                                                  userRecord.name,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .justify,
+                                                                  style:
+                                                                      FlutterFlowTheme
+                                                                          .subtitle1
+                                                                          .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  '#',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .justify,
+                                                                  style:
+                                                                      FlutterFlowTheme
+                                                                          .subtitle1
+                                                                          .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  userRecord.tag,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style:
+                                                                      FlutterFlowTheme
+                                                                          .subtitle1
+                                                                          .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ],
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.fromLTRB(
-                                                                5, 0, 0, 0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Text(
-                                                              'Name',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .justify,
-                                                              style:
-                                                                  FlutterFlowTheme
-                                                                      .subtitle1
-                                                                      .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              '#',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .justify,
-                                                              style:
-                                                                  FlutterFlowTheme
-                                                                      .subtitle1
-                                                                      .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'TAG',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style:
-                                                                  FlutterFlowTheme
-                                                                      .subtitle1
-                                                                      .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                              ),
-                                                            )
-                                                          ],
+                                                      IconButton(
+                                                        onPressed: () async {
+                                                          final membersId = (await GroupsRecord.getDocument(widget.groupRef).first).membersId;
+
+                                                          if(membersId.contains(userRecord.uid)) {
+                                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("This user is already in this group.")));
+                                                          } else {
+                                                            final groupsRecordData = {
+                                                              'members_id': FieldValue.arrayUnion(
+                                                                  [userRecord.uid]),
+                                                            };
+
+                                                            await widget.groupRef
+                                                                .update(groupsRecordData);
+                                                          }
+
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.add_circle_outline,
+                                                          color: Colors.black,
+                                                          size: 30,
                                                         ),
+                                                        iconSize: 30,
                                                       )
                                                     ],
                                                   ),
-                                                  IconButton(
-                                                    onPressed: () async {
-                                                      await Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              YoutubePlayerPageWidget(
-                                                            url:
-                                                                'https://youtu.be/ByrUgKNV42Q',
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.add_circle_outline,
-                                                      color: Colors.black,
-                                                      size: 30,
-                                                    ),
-                                                    iconSize: 30,
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
+                                    );
+                                  }
                                 );
                               },
                             ),

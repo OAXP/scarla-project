@@ -19,160 +19,204 @@ class EditGamePageWidget extends StatefulWidget {
 
 class _EditGamePageWidgetState extends State<EditGamePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  double sliderValue;
+  double max;
+  final min = 1;
+  List<GamesRanksRecord> editGamePageGamesRanksRecordList;
+  GamesRanksRecord editGamePageGamesRanksRecord;
+  int lol;
+  int valorant;
+  int ow;
+  int rl;
+
+  @override
+  void initState() {
+    super.initState();
+    queryGamesRanksRecord(
+      queryBuilder: (gamesRanksRecord) =>
+          gamesRanksRecord.where('userRef', isEqualTo: widget.user),
+      singleRecord: true,
+    ).first.then((value) {
+      setState(() {
+        editGamePageGamesRanksRecordList = value;
+      });
+      if (editGamePageGamesRanksRecordList.isEmpty) {
+        editGamePageGamesRanksRecordList =
+            createDummyGamesRanksRecord(count: 1);
+      }
+      editGamePageGamesRanksRecord = editGamePageGamesRanksRecordList.first;
+      lol = editGamePageGamesRanksRecord.lol;
+      valorant = editGamePageGamesRanksRecord.valorant;
+      ow = editGamePageGamesRanksRecord.ow;
+      rl = editGamePageGamesRanksRecord.rl;
+
+      switch(widget.game){
+        case 'lol':
+          sliderValue = lol.toDouble();
+          max = 37;
+          break;
+        case 'valorant':
+          sliderValue = valorant.toDouble();
+          max = 21;
+          break;
+        case 'ow':
+          sliderValue = ow.toDouble();
+          max = 9;
+          break;
+        case 'rl':
+          sliderValue = rl.toDouble();
+          max = 23;
+          break;
+        default:
+          sliderValue = 1;
+          max = 1;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<GamesRanksRecord>>(
-      stream: queryGamesRanksRecord(
-        queryBuilder: (gamesRanksRecord) =>
-            gamesRanksRecord.where('userRef', isEqualTo: widget.user),
-        singleRecord: true,
-      ),
-      builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
-        if (!snapshot.hasData) {
-          return Center(child: CircularProgressIndicator());
-        }
-        List<GamesRanksRecord> editGamePageGamesRanksRecordList = snapshot.data;
-        // Customize what your widget looks like with no query results.
-        if (snapshot.data.isEmpty) {
-          // return Container();
-          // For now, we'll just include some dummy data.
-          editGamePageGamesRanksRecordList =
-              createDummyGamesRanksRecord(count: 1);
-        }
-        final editGamePageGamesRanksRecord =
-            editGamePageGamesRanksRecordList.first;
-        return Scaffold(
-          key: scaffoldKey,
-          backgroundColor: Color(0x7A000000),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
+    if (editGamePageGamesRanksRecordList == null) {
+      return Container();
+    }
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: Color(0x7A000000),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: Alignment(0, 0),
               children: [
-                Stack(
-                  alignment: Alignment(0, 0),
-                  children: [
-                    InkWell(
-                      onTap: () async {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
+                InkWell(
+                  onTap: () async {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 1,
+                    decoration: BoxDecoration(
+                      color: Color(0x00EEEEEE),
+                    ),
+                  ),
+                ),
+                Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  color: FlutterFlowTheme.tertiaryColor,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    primary: false,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.game,
+                              style: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Poppins',
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Slider(
+                        value: sliderValue,
+                        onChanged: (value) {
+                          setState(() {
+                            sliderValue = value;
+                          });
+                          switch(widget.game){
+                            case 'lol':
+                              lol = sliderValue.toInt();
+                              break;
+                            case 'valorant':
+                              valorant = sliderValue.toInt();
+                              break;
+                            case 'ow':
+                              ow = sliderValue.toInt();
+                              break;
+                            case 'rl':
+                              rl = sliderValue.toInt();
+                              break;
+                            default:
+                              sliderValue = 1;
+                          }
+                        },
+                        divisions: (max <= 1) ? 1 : (max-1).toInt(),
+                        min: 1,
+                        max: max,
+                      ),
+                      Container(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 1,
+                        height: 150,
                         decoration: BoxDecoration(
                           color: Color(0x00EEEEEE),
                         ),
+                        child: Image.asset(
+                          'assets/games/ranks/${widget.game}/${sliderValue.toInt()}.png',
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 1,
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                    ),
-                    Card(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      color: FlutterFlowTheme.tertiaryColor,
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        primary: false,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  widget.game,
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                  ),
-                                )
-                              ],
+                          IconButton(
+                            onPressed: () async {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.cancel_outlined,
+                              color: Color(0xFF444771),
+                              size: 20,
                             ),
+                            iconSize: 20,
                           ),
-                          Text(
-                            'REPLACE BY SLIDER',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              color: Color(0x00EEEEEE),
-                            ),
-                            child: Image.asset(
-                              'assets/images/20.png',
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 1,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              IconButton(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(
-                                  Icons.cancel_outlined,
-                                  color: Color(0xFF444771),
-                                  size: 20,
-                                ),
-                                iconSize: 20,
-                              ),
-                              IconButton(
-                                onPressed: () async {
-                                  final lol = editGamePageGamesRanksRecord.lol;
-                                  final valorant =
-                                      editGamePageGamesRanksRecord.valorant;
-                                  final ow = editGamePageGamesRanksRecord.ow;
-                                  final rl = editGamePageGamesRanksRecord.rl;
+                          IconButton(
+                            onPressed: () async {
+                              final gamesRanksRecordData =
+                                  createGamesRanksRecordData(
+                                lol: lol,
+                                valorant: valorant,
+                                ow: ow,
+                                rl: rl,
+                              );
 
-                                  final gamesRanksRecordData =
-                                      createGamesRanksRecordData(
-                                    lol: lol,
-                                    valorant: valorant,
-                                    ow: ow,
-                                    rl: rl,
-                                  );
-
-                                  await editGamePageGamesRanksRecord.reference
-                                      .update(gamesRanksRecordData);
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(
-                                  Icons.check_circle_outlined,
-                                  color: Color(0xFF444771),
-                                  size: 20,
-                                ),
-                                iconSize: 20,
-                              )
-                            ],
+                              await editGamePageGamesRanksRecord.reference
+                                  .update(gamesRanksRecordData);
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.check_circle_outlined,
+                              color: Color(0xFF444771),
+                              size: 20,
+                            ),
+                            iconSize: 20,
                           )
                         ],
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 )
               ],
-            ),
-          ),
-        );
-      },
+            )
+          ],
+        ),
+      ),
     );
   }
 }

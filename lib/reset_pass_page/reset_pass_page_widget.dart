@@ -71,7 +71,7 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                               child: Padding(
                                 padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
                                 child: Image.asset(
-                                  'assets/images/controller--v1.png',
+                                  'assets/logo/mainLogo.png',
                                   width: 60,
                                   height: 60,
                                   fit: BoxFit.cover,

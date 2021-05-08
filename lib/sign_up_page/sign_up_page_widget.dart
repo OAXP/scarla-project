@@ -74,7 +74,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(0, 4, 0, 0),
                               child: Image.asset(
-                                'assets/images/controller--v1.png',
+                                'assets/logo/mainLogo.png',
                                 width: 60,
                                 height: 60,
                                 fit: BoxFit.cover,

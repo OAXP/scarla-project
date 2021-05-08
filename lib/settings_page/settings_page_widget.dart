@@ -1,3 +1,10 @@
+import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:scarla/add_remove_game_page/add_remove_game_page_widget.dart';
+import 'package:scarla/flutter_flow/upload_media.dart';
+import 'package:scarla/util/transparent_route.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../edit_game_page/edit_game_page_widget.dart';
@@ -11,6 +18,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:imgur/imgur.dart' as imgur;
 
 class SettingsPageWidget extends StatefulWidget {
   SettingsPageWidget(
@@ -23,11 +31,11 @@ class SettingsPageWidget extends StatefulWidget {
       this.about})
       : super(key: key);
 
-  final String photoUrl;
+  String photoUrl;
   final DocumentReference user;
   final String name;
   final String tag;
-  final String bgProfile;
+  String bgProfile;
   final String about;
 
   @override
@@ -47,6 +55,41 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
     aboutFieldController = TextEditingController(text: widget.about);
     tagFieldController = TextEditingController(text: widget.tag);
     usernameFieldController = TextEditingController(text: widget.name);
+  }
+
+  Future getImage({bool isVideo = false, bool isPfp = true}) async {
+    ImagePicker imagePicker = ImagePicker();
+    PickedFile pickedFile;
+
+    if (isVideo) {
+      pickedFile = await imagePicker.getVideo(source: ImageSource.gallery);
+    } else {
+      pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    }
+
+    if (pickedFile != null) {
+      final isValid = validateFileFormat(pickedFile.path, context);
+      if (isValid) {
+        setState(() {
+          FlutterFlowTheme.isUploading = true;
+        });
+        final client =
+            imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
+        await client.image
+            .uploadImage(
+                imagePath: pickedFile.path, title: '*_*', description: '*_*')
+            .then((image) {
+          if (isPfp) {
+            widget.photoUrl = image.link;
+          } else {
+            widget.bgProfile = image.link;
+          }
+          setState(() {
+            FlutterFlowTheme.isUploading = false;
+          });
+        });
+      }
+    }
   }
 
   @override
@@ -70,13 +113,18 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
               final bgProfile = widget.bgProfile;
               final about = aboutFieldController.text;
 
-              final usersRecordData = createUsersRecordData(
-                name: name,
-                tag: tag,
-                photoUrl: photoUrl,
-                bgProfile: bgProfile,
-                about: about,
-              );
+              final keys = createKeys("$name#$tag");
+
+              final usersRecordData = {
+                ...createUsersRecordData(
+                  name: name,
+                  tag: tag,
+                  photoUrl: photoUrl,
+                  bgProfile: bgProfile,
+                  about: about,
+                ),
+                'keys': keys,
+              };
 
               await settingsPageUsersRecord.reference.update(usersRecordData);
               Navigator.pop(context);
@@ -108,7 +156,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                         width: MediaQuery.of(context).size.width,
                         height: 100,
                         decoration: BoxDecoration(
-                          color: Color(0xA2000000),
+                          color: FlutterFlowTheme.appBarColor,
                         ),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
@@ -128,7 +176,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       },
                                       child: Icon(
                                         Icons.close,
-                                        color: Color(0xFF535480),
+                                        color: FlutterFlowTheme.title1Color,
                                         size: 27,
                                       ),
                                     ),
@@ -164,7 +212,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   children: [
                                     Align(
                                       alignment: Alignment(0, 0),
-                                      child: CachedNetworkImage(
+                                      child: (FlutterFlowTheme.isUploading)
+                                          ? Center(
+                                          child:
+                                          CircularProgressIndicator())
+                                      : CachedNetworkImage(
                                         imageUrl: widget.bgProfile,
                                         width:
                                             MediaQuery.of(context).size.width,
@@ -172,20 +224,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                             MediaQuery.of(context).size.height *
                                                 1,
                                         fit: BoxFit.cover,
+                                        placeholder: (context, url) => Container(
+                                            color: FlutterFlowTheme.tertiaryColor
+                                        ),
                                       ),
                                     ),
                                     FFButtonWidget(
                                       onPressed: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                YoutubePlayerPageWidget(
-                                              url:
-                                                  'https://www.youtube.com/watch?v=VIL_BGHqacw',
-                                            ),
-                                          ),
-                                        );
+                                        getImage(isPfp: false);
                                       },
                                       text: 'Modify',
                                       options: FFButtonOptions(
@@ -214,16 +260,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   alignment: Alignment(0, 0),
                                   child: InkWell(
                                     onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              YoutubePlayerPageWidget(
-                                            url:
-                                                'https://www.youtube.com/watch?v=o5z1WTfxps4',
-                                          ),
-                                        ),
-                                      );
+                                      getImage();
                                     },
                                     child: Container(
                                       width: 100,
@@ -232,10 +269,17 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                       ),
-                                      child: CachedNetworkImage(
-                                        imageUrl: widget.photoUrl,
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child: (FlutterFlowTheme.isUploading)
+                                          ? Center(
+                                              child:
+                                                  CircularProgressIndicator())
+                                          : CachedNetworkImage(
+                                              imageUrl: widget.photoUrl,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) => Container(
+                                                color: FlutterFlowTheme.tertiaryColor
+                                              ),
+                                            ),
                                     ),
                                   ),
                                 ),
@@ -278,6 +322,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 children: [
                                   Expanded(
                                     child: TextFormField(
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(25)
+                                      ],
                                       controller: usernameFieldController,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -332,6 +379,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   ),
                                   Expanded(
                                     child: TextFormField(
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(5)
+                                      ],
                                       controller: tagFieldController,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -380,6 +430,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                             Padding(
                               padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
                               child: TextFormField(
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(125)
+                                ],
                                 controller: aboutFieldController,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -520,7 +573,36 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
-                                              print('Button pressed ...');
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    titlePadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: MaterialPicker(
+                                                        pickerColor:
+                                                            FlutterFlowTheme
+                                                                .primaryColor,
+                                                        onColorChanged:
+                                                            (Color c) {
+                                                          setState(() {
+                                                            FlutterFlowTheme
+                                                                .primaryColor = c;
+                                                          });
+                                                        },
+                                                        enableLabel: true,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
                                             },
                                             text: '',
                                             options: FFButtonOptions(
@@ -543,8 +625,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
-                                              await launchURL(
-                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                              setState(() {
+                                                FlutterFlowTheme.primaryColor =
+                                                    Color(0xFF25263E);
+                                              });
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -589,7 +673,36 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
-                                              print('Button pressed ...');
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    titlePadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: MaterialPicker(
+                                                        pickerColor:
+                                                            FlutterFlowTheme
+                                                                .secondaryColor,
+                                                        onColorChanged:
+                                                            (Color c) {
+                                                          setState(() {
+                                                            FlutterFlowTheme
+                                                                .secondaryColor = c;
+                                                          });
+                                                        },
+                                                        enableLabel: true,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
                                             },
                                             text: '',
                                             options: FFButtonOptions(
@@ -612,8 +725,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
-                                              await launchURL(
-                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                              setState(() {
+                                                FlutterFlowTheme
+                                                        .secondaryColor =
+                                                    Color(0xFFFF4553);
+                                              });
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -658,7 +774,36 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
-                                              print('Button pressed ...');
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    titlePadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: MaterialPicker(
+                                                        pickerColor:
+                                                            FlutterFlowTheme
+                                                                .tertiaryColor,
+                                                        onColorChanged:
+                                                            (Color c) {
+                                                          setState(() {
+                                                            FlutterFlowTheme
+                                                                .tertiaryColor = c;
+                                                          });
+                                                        },
+                                                        enableLabel: true,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
                                             },
                                             text: '',
                                             options: FFButtonOptions(
@@ -681,8 +826,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
-                                              await launchURL(
-                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                              setState(() {
+                                                FlutterFlowTheme.tertiaryColor =
+                                                    Color(0xFF252854);
+                                              });
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -727,13 +874,43 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
-                                              print('Button pressed ...');
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    titlePadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: MaterialPicker(
+                                                        pickerColor:
+                                                            FlutterFlowTheme
+                                                                .appBarColor,
+                                                        onColorChanged:
+                                                            (Color c) {
+                                                          setState(() {
+                                                            FlutterFlowTheme
+                                                                .appBarColor = c;
+                                                          });
+                                                        },
+                                                        enableLabel: true,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
                                             },
                                             text: '',
                                             options: FFButtonOptions(
                                               width: 25,
                                               height: 25,
-                                              color: Color(0xA2000000),
+                                              color:
+                                                  FlutterFlowTheme.appBarColor,
                                               textStyle: FlutterFlowTheme
                                                   .subtitle2
                                                   .override(
@@ -749,8 +926,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
-                                              await launchURL(
-                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                              setState(() {
+                                                FlutterFlowTheme.appBarColor =
+                                                    Color(0xA2000000);
+                                              });
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -792,13 +971,39 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       children: [
                                         FFButtonWidget(
                                           onPressed: () {
-                                            print('Button pressed ...');
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  titlePadding:
+                                                      const EdgeInsets.all(0.0),
+                                                  contentPadding:
+                                                      const EdgeInsets.all(0.0),
+                                                  content:
+                                                      SingleChildScrollView(
+                                                    child: MaterialPicker(
+                                                      pickerColor:
+                                                          FlutterFlowTheme
+                                                              .title1Color,
+                                                      onColorChanged:
+                                                          (Color c) {
+                                                        setState(() {
+                                                          FlutterFlowTheme
+                                                              .title1Color = c;
+                                                        });
+                                                      },
+                                                      enableLabel: true,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
                                           },
                                           text: '',
                                           options: FFButtonOptions(
                                             width: 25,
                                             height: 25,
-                                            color: Color(0xFF535480),
+                                            color: FlutterFlowTheme.title1Color,
                                             textStyle: FlutterFlowTheme
                                                 .subtitle2
                                                 .override(
@@ -814,8 +1019,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         ),
                                         InkWell(
                                           onTap: () async {
-                                            await launchURL(
-                                                'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                            setState(() {
+                                              FlutterFlowTheme.title1Color =
+                                                  Color(0xFF535480);
+                                            });
                                           },
                                           child: Card(
                                             clipBehavior:
@@ -858,13 +1065,43 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
-                                              print('Button pressed ...');
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    titlePadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: MaterialPicker(
+                                                        pickerColor:
+                                                            FlutterFlowTheme
+                                                                .title2Color,
+                                                        onColorChanged:
+                                                            (Color c) {
+                                                          setState(() {
+                                                            FlutterFlowTheme
+                                                                .title2Color = c;
+                                                          });
+                                                        },
+                                                        enableLabel: true,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
                                             },
                                             text: '',
                                             options: FFButtonOptions(
                                               width: 25,
                                               height: 25,
-                                              color: Colors.white,
+                                              color:
+                                                  FlutterFlowTheme.title2Color,
                                               textStyle: FlutterFlowTheme
                                                   .subtitle2
                                                   .override(
@@ -880,8 +1117,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
-                                              await launchURL(
-                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                              setState(() {
+                                                FlutterFlowTheme.title2Color =
+                                                    Colors.white;
+                                              });
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -926,13 +1165,43 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
-                                              print('Button pressed ...');
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    titlePadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: MaterialPicker(
+                                                        pickerColor:
+                                                            FlutterFlowTheme
+                                                                .subtitle1Color,
+                                                        onColorChanged:
+                                                            (Color c) {
+                                                          setState(() {
+                                                            FlutterFlowTheme
+                                                                .subtitle1Color = c;
+                                                          });
+                                                        },
+                                                        enableLabel: true,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
                                             },
                                             text: '',
                                             options: FFButtonOptions(
                                               width: 25,
                                               height: 25,
-                                              color: Colors.black,
+                                              color: FlutterFlowTheme
+                                                  .subtitle1Color,
                                               textStyle: FlutterFlowTheme
                                                   .subtitle2
                                                   .override(
@@ -948,8 +1217,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
-                                              await launchURL(
-                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                              setState(() {
+                                                FlutterFlowTheme
+                                                        .subtitle1Color =
+                                                    Colors.black;
+                                              });
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -994,13 +1266,43 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
-                                              print('Button pressed ...');
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    titlePadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: MaterialPicker(
+                                                        pickerColor:
+                                                            FlutterFlowTheme
+                                                                .subtitle2Color,
+                                                        onColorChanged:
+                                                            (Color c) {
+                                                          setState(() {
+                                                            FlutterFlowTheme
+                                                                .subtitle2Color = c;
+                                                          });
+                                                        },
+                                                        enableLabel: true,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
                                             },
                                             text: '',
                                             options: FFButtonOptions(
                                               width: 25,
                                               height: 25,
-                                              color: Colors.white,
+                                              color: FlutterFlowTheme
+                                                  .subtitle2Color,
                                               textStyle: FlutterFlowTheme
                                                   .subtitle2
                                                   .override(
@@ -1016,8 +1318,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
-                                              await launchURL(
-                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                              setState(() {
+                                                FlutterFlowTheme
+                                                        .subtitle2Color =
+                                                    Colors.white;
+                                              });
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -1062,13 +1367,43 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
-                                              print('Button pressed ...');
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    titlePadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: MaterialPicker(
+                                                        pickerColor:
+                                                            FlutterFlowTheme
+                                                                .body1Color,
+                                                        onColorChanged:
+                                                            (Color c) {
+                                                          setState(() {
+                                                            FlutterFlowTheme
+                                                                .body1Color = c;
+                                                          });
+                                                        },
+                                                        enableLabel: true,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
                                             },
                                             text: '',
                                             options: FFButtonOptions(
                                               width: 25,
                                               height: 25,
-                                              color: Colors.white,
+                                              color:
+                                                  FlutterFlowTheme.body1Color,
                                               textStyle: FlutterFlowTheme
                                                   .subtitle2
                                                   .override(
@@ -1084,8 +1419,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
-                                              await launchURL(
-                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                              setState(() {
+                                                FlutterFlowTheme.body1Color =
+                                                    Colors.white;
+                                              });
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -1130,13 +1467,43 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
-                                              print('Button pressed ...');
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    titlePadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            0.0),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: MaterialPicker(
+                                                        pickerColor:
+                                                            FlutterFlowTheme
+                                                                .body2Color,
+                                                        onColorChanged:
+                                                            (Color c) {
+                                                          setState(() {
+                                                            FlutterFlowTheme
+                                                                .body2Color = c;
+                                                          });
+                                                        },
+                                                        enableLabel: true,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
                                             },
                                             text: '',
                                             options: FFButtonOptions(
                                               width: 25,
                                               height: 25,
-                                              color: Color(0xFFB2B2B2),
+                                              color:
+                                                  FlutterFlowTheme.body2Color,
                                               textStyle: FlutterFlowTheme
                                                   .subtitle2
                                                   .override(
@@ -1152,8 +1519,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
-                                              await launchURL(
-                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                              setState(() {
+                                                FlutterFlowTheme.body2Color =
+                                                    Color(0xFFB2B2B2);
+                                              });
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -1206,8 +1575,35 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           InkWell(
                                             onTap: () async {
-                                              await launchURL(
-                                                  'https://www.youtube.com/watch?v=VU2ft6BFezs');
+                                              setState(() {
+                                                FlutterFlowTheme.primaryColor =
+                                                    Color(0xFF25263E);
+                                                FlutterFlowTheme
+                                                        .secondaryColor =
+                                                    Color(0xFFFF4553);
+                                                FlutterFlowTheme.tertiaryColor =
+                                                    Color(0xFF252854);
+                                                FlutterFlowTheme.appBarColor =
+                                                    Color(0xA2000000);
+                                                FlutterFlowTheme.title1Color =
+                                                    Color(0xFF535480);
+                                                FlutterFlowTheme.title2Color =
+                                                    Colors.white;
+                                                FlutterFlowTheme.title3Color =
+                                                    Colors.white;
+                                                FlutterFlowTheme
+                                                        .subtitle1Color =
+                                                    Colors.black;
+                                                FlutterFlowTheme
+                                                        .subtitle2Color =
+                                                    Colors.white;
+                                                FlutterFlowTheme.body1Color =
+                                                    Colors.white;
+                                                FlutterFlowTheme.body2Color =
+                                                    Color(0xFFB2B2B2);
+                                                notificationSwitchSetting =
+                                                    true;
+                                              });
                                             },
                                             child: Card(
                                               clipBehavior:
@@ -1236,7 +1632,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                               ],
                             ),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -1267,6 +1663,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       children: [
+                                        if (settingsPageUsersRecord.selectedGames.contains("valorant"))
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1276,7 +1673,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                               onTap: () async {
                                                 await Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
+                                                  TransparentRoute(
                                                     builder: (context) =>
                                                         EditGamePageWidget(
                                                       game: 'valorant',
@@ -1295,13 +1692,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Image.asset(
-                                                  'assets/images/valorantIcon.jpg',
+                                                  'assets/games/icons/valorantIcon.jpg',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                             )
                                           ],
                                         ),
+                                        if (settingsPageUsersRecord.selectedGames.contains("mw"))
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1313,7 +1711,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                               onTap: () async {
                                                 await Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
+                                                  TransparentRoute(
                                                     builder: (context) =>
                                                         EditGamePageWidget(
                                                       game: 'mw',
@@ -1332,13 +1730,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Image.asset(
-                                                  'assets/images/MWIcon.png',
+                                                  'assets/games/icons/mwIcon.png',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                             )
                                           ],
                                         ),
+                                        if (settingsPageUsersRecord.selectedGames.contains("rl"))
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1350,7 +1749,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                               onTap: () async {
                                                 await Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
+                                                  TransparentRoute(
                                                     builder: (context) =>
                                                         EditGamePageWidget(
                                                       game: 'rl',
@@ -1369,13 +1768,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Image.asset(
-                                                  'assets/images/rlIcon.png',
+                                                  'assets/games/icons/rlIcon.png',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                             )
                                           ],
                                         ),
+                                        if (settingsPageUsersRecord.selectedGames.contains("ow"))
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1387,7 +1787,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                               onTap: () async {
                                                 await Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
+                                                  TransparentRoute(
                                                     builder: (context) =>
                                                         EditGamePageWidget(
                                                       game: 'ow',
@@ -1406,13 +1806,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Image.asset(
-                                                  'assets/images/OwIcon.png',
+                                                  'assets/games/icons/owIcon.png',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                             )
                                           ],
                                         ),
+                                        if (settingsPageUsersRecord.selectedGames.contains("lol"))
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -1424,7 +1825,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                               onTap: () async {
                                                 await Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(
+                                                  TransparentRoute(
                                                     builder: (context) =>
                                                         EditGamePageWidget(
                                                       game: 'lol',
@@ -1443,13 +1844,49 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Image.asset(
-                                                  'assets/images/LOLIcon.png',
+                                                  'assets/games/icons/lolIcon.png',
                                                   fit: BoxFit.contain,
                                                 ),
                                               ),
                                             )
                                           ],
-                                        )
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  TransparentRoute(
+                                                    builder: (context) =>
+                                                        AddRemoveGamePageWidget(),
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                width: 50,
+                                                height: 50,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: FlutterFlowTheme.secondaryColor,
+                                                ),
+                                                child: Center(
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons.pen,
+                                                    color: FlutterFlowTheme.primaryColor,
+                                                    size: 25,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   )

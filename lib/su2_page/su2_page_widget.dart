@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
@@ -170,6 +172,9 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                             Padding(
                               padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                               child: TextFormField(
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(125)
+                                ],
                                 controller: textController,
                                 obscureText: false,
                                 decoration: InputDecoration(

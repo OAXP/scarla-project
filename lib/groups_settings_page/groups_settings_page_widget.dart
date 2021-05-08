@@ -1,3 +1,7 @@
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:scarla/flutter_flow/upload_media.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -11,6 +15,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:imgur/imgur.dart' as imgur;
 
 class GroupsSettingsPageWidget extends StatefulWidget {
   GroupsSettingsPageWidget({Key key, this.groupRef, this.groupName})
@@ -27,11 +32,43 @@ class GroupsSettingsPageWidget extends StatefulWidget {
 class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
   TextEditingController groupNameFieldController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  String groupPic;
 
   @override
   void initState() {
     super.initState();
     groupNameFieldController = TextEditingController(text: widget.groupName);
+  }
+
+  Future getImage({bool isVideo = false}) async {
+    ImagePicker imagePicker = ImagePicker();
+    PickedFile pickedFile;
+
+    if (isVideo) {
+      pickedFile = await imagePicker.getVideo(source: ImageSource.gallery);
+    } else {
+      pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    }
+
+    if (pickedFile != null) {
+      final isValid = validateFileFormat(pickedFile.path, context);
+      if (isValid) {
+        setState(() {
+          FlutterFlowTheme.isUploading = true;
+        });
+        final client =
+        imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
+        await client.image
+            .uploadImage(
+            imagePath: pickedFile.path, title: '*_*', description: '*_*')
+            .then((image) {
+          groupPic = image.link;
+          setState(() {
+            FlutterFlowTheme.isUploading = false;
+          });
+        });
+      }
+    }
   }
 
   @override
@@ -67,7 +104,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                           width: MediaQuery.of(context).size.width,
                           height: 100,
                           decoration: BoxDecoration(
-                            color: Color(0xA2000000),
+                            color: FlutterFlowTheme.appBarColor,
                           ),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
@@ -82,7 +119,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                   },
                                   icon: Icon(
                                     Icons.arrow_back_sharp,
-                                    color: Color(0xFF535480),
+                                    color: FlutterFlowTheme.title1Color,
                                     size: 30,
                                   ),
                                   iconSize: 30,
@@ -97,6 +134,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                   onPressed: () async {
                                     final gName = groupNameFieldController.text;
                                     final gPhotoUrl =
+                                    (groupPic != null) ? groupPic :
                                         groupsSettingsPageGroupsRecord
                                             .gPhotoUrl;
 
@@ -115,7 +153,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                   },
                                   icon: Icon(
                                     Icons.check_rounded,
-                                    color: Color(0xFF535480),
+                                    color: FlutterFlowTheme.title1Color,
                                     size: 30,
                                   ),
                                   iconSize: 30,
@@ -130,17 +168,22 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                             children: [
                               Align(
                                 alignment: Alignment(0, 0),
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: CachedNetworkImage(
-                                    imageUrl: groupsSettingsPageGroupsRecord
-                                        .gPhotoUrl,
-                                    fit: BoxFit.cover,
+                                child: InkWell(
+                                  onTap: () async {
+                                    getImage();
+                                  },
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: CachedNetworkImage(
+                                      imageUrl: (groupPic != null) ? groupPic : groupsSettingsPageGroupsRecord
+                                          .gPhotoUrl,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -183,6 +226,9 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                           width: MediaQuery.of(context).size.width * 0.7,
                           decoration: BoxDecoration(),
                           child: TextFormField(
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(35)
+                            ],
                             controller: groupNameFieldController,
                             obscureText: false,
                             decoration: InputDecoration(
@@ -227,74 +273,81 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  await widget.groupRef.delete();
-                                  await Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => NavBarPage(
-                                          initialPage: 'GroupListPage'),
+                            (groupsSettingsPageGroupsRecord
+                                .host ==
+                                currentUserReference ||
+                                groupsSettingsPageGroupsRecord
+                                    .membersId
+                                    .length <=
+                                    2)
+                                ? Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        await widget.groupRef.delete();
+                                        await Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => NavBarPage(
+                                                initialPage: 'GroupListPage'),
+                                          ),
+                                          (r) => false,
+                                        );
+                                      },
+                                      text: 'Delete Group',
+                                      options: FFButtonOptions(
+                                        width: 130,
+                                        height: 40,
+                                        color: FlutterFlowTheme.secondaryColor,
+                                        textStyle:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Poppins',
+                                        ),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: 12,
+                                      ),
                                     ),
-                                    (r) => false,
-                                  );
-                                },
-                                text: 'Delete Group',
-                                options: FFButtonOptions(
-                                  width: 130,
-                                  height: 40,
-                                  color: FlutterFlowTheme.secondaryColor,
-                                  textStyle:
-                                      FlutterFlowTheme.subtitle2.override(
-                                    fontFamily: 'Poppins',
-                                  ),
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1,
-                                  ),
-                                  borderRadius: 12,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  final groupsRecordData = {
-                                    'members_id': FieldValue.arrayRemove(
-                                        [currentUserUid]),
-                                  };
+                                  )
+                                : Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        final groupsRecordData = {
+                                          'members_id': FieldValue.arrayRemove(
+                                              [currentUserUid]),
+                                        };
 
-                                  await widget.groupRef
-                                      .update(groupsRecordData);
-                                  await Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => NavBarPage(
-                                          initialPage: 'GroupListPage'),
+                                        await widget.groupRef
+                                            .update(groupsRecordData);
+                                        await Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => NavBarPage(
+                                                initialPage: 'GroupListPage'),
+                                          ),
+                                          (r) => false,
+                                        );
+                                      },
+                                      text: 'Leave Group',
+                                      options: FFButtonOptions(
+                                        width: 130,
+                                        height: 40,
+                                        color: FlutterFlowTheme.secondaryColor,
+                                        textStyle:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Poppins',
+                                        ),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: 12,
+                                      ),
                                     ),
-                                    (r) => false,
-                                  );
-                                },
-                                text: 'Leave Group',
-                                options: FFButtonOptions(
-                                  width: 130,
-                                  height: 40,
-                                  color: FlutterFlowTheme.secondaryColor,
-                                  textStyle:
-                                      FlutterFlowTheme.subtitle2.override(
-                                    fontFamily: 'Poppins',
-                                  ),
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1,
-                                  ),
-                                  borderRadius: 12,
-                                ),
-                              ),
-                            )
+                                  )
                           ],
                         ),
                         Padding(
@@ -341,8 +394,11 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                         Expanded(
                           child: StreamBuilder<List<UsersRecord>>(
                             stream: queryUsersRecord(
-                              queryBuilder: (usersRecord) => usersRecord
-                                  .where('uid', isEqualTo: '1ReplaceByIn'),
+                              queryBuilder: (usersRecord) => usersRecord.where(
+                                  'uid',
+                                  whereIn: groupsSettingsPageGroupsRecord
+                                      .membersId
+                                      .asList()),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -470,18 +526,32 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                     )
                                                   ],
                                                 ),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    print(
-                                                        'IconButton pressed ...');
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.cancel_sharp,
-                                                    color: Colors.black,
-                                                    size: 30,
-                                                  ),
-                                                  iconSize: 30,
-                                                )
+                                                if ((groupsSettingsPageGroupsRecord
+                                                                .host ==
+                                                            currentUserReference ||
+                                                        groupsSettingsPageGroupsRecord
+                                                                .membersId
+                                                                .length <=
+                                                            2) &&
+                                                    listViewUsersRecord.uid !=
+                                                        currentUserUid)
+                                                  IconButton(
+                                                    onPressed: () async {
+                                                      final groupsRecordData = {
+                                                        'members_id': FieldValue.arrayRemove(
+                                                            [listViewUsersRecord.uid]),
+                                                      };
+
+                                                      await widget.groupRef
+                                                          .update(groupsRecordData);
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.cancel_sharp,
+                                                      color: Colors.black,
+                                                      size: 30,
+                                                    ),
+                                                    iconSize: 30,
+                                                  )
                                               ],
                                             ),
                                           ),

@@ -87,7 +87,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.asset(
-                                      'assets/images/13d11d702dbad5dca33f0e22abf4b3978381b5e7_league-of-legends-hero-splash.jpg',
+                                      'assets/games/cards/lol/3.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -141,7 +141,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.asset(
-                                      'assets/images/article-esports-valorant-what-is-meta-hero.jpg',
+                                      'assets/games/cards/valorant/3.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -193,7 +193,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.asset(
-                                      'assets/images/hbhfrvbjyiai7jt7hs8c.jpg',
+                                      'assets/games/cards/mw/3.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -245,7 +245,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.asset(
-                                      'assets/images/share.jpg',
+                                      'assets/games/cards/ow/3.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -297,7 +297,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(20),
                                     child: Image.asset(
-                                      'assets/images/3.jpg',
+                                      'assets/games/cards/rl/3.jpg',
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,

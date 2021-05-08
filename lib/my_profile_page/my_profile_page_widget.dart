@@ -1,3 +1,5 @@
+import 'package:scarla/util/transparent_route.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../chat_page/chat_page_widget.dart';
@@ -251,73 +253,51 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     ),
                                   ),
                                 ),
-                                StreamBuilder<List<UsersRecord>>(
-                                  stream: queryUsersRecord(),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                          child: CircularProgressIndicator());
-                                    }
-                                    List<UsersRecord> rowUsersRecordList =
-                                        snapshot.data;
-                                    // Customize what your widget looks like with no query results.
-                                    if (snapshot.data.isEmpty) {
-                                      // return Container();
-                                      // For now, we'll just include some dummy data.
-                                      rowUsersRecordList =
-                                          createDummyUsersRecord(count: 4);
-                                    }
-                                    return Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(20, 2, 20, 2),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: List.generate(
-                                            rowUsersRecordList.length,
-                                            (rowIndex) {
-                                          final rowUsersRecord =
-                                              rowUsersRecordList[rowIndex];
-                                          return Padding(
-                                            padding: EdgeInsets.fromLTRB(
-                                                10, 0, 0, 0),
-                                            child: InkWell(
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        RankPageWidget(
-                                                      username:
-                                                          stackUsersRecord.name,
-                                                      game: 'valorant',
-                                                      userRef: stackUsersRecord
-                                                          .reference,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 30,
-                                                height: 30,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      'https://pbs.twimg.com/profile_images/1291867974790295552/AFRVxzDT_400x400.jpg',
-                                                  fit: BoxFit.contain,
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(20, 2, 20, 2),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: List.generate(
+                                        stackUsersRecord.selectedGames.length,
+                                        (gameIndex) {
+                                      final game = stackUsersRecord
+                                          .selectedGames[gameIndex];
+                                      return Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              TransparentRoute(
+                                                builder: (context) =>
+                                                    RankPageWidget(
+                                                  username:
+                                                      stackUsersRecord.name,
+                                                  game: game,
+                                                  userRef: stackUsersRecord
+                                                      .reference,
                                                 ),
                                               ),
+                                            );
+                                          },
+                                          child: Container(
+                                            width: 30,
+                                            height: 30,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
                                             ),
-                                          );
-                                        }),
-                                      ),
-                                    );
-                                  },
+                                            child: Image.asset(
+                                              'assets/games/icons/${game}Icon.png',
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                                  ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(0, 5, 0, 0),

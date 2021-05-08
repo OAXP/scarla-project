@@ -1,3 +1,5 @@
+import 'package:scarla/util/transparent_route.dart';
+
 import '../add_post_page/add_post_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
@@ -294,10 +296,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: List.generate(
-                                                rowUsersRecordList.length,
-                                                (rowIndex) {
-                                              final rowUsersRecord =
-                                                  rowUsersRecordList[rowIndex];
+                                                profilePageUsersRecord.selectedGames.length,
+                                                (gameIndex) {
+                                                  final game = profilePageUsersRecord
+                                                      .selectedGames[gameIndex];
                                               return Padding(
                                                 padding: EdgeInsets.fromLTRB(
                                                     10, 0, 0, 0),
@@ -305,13 +307,13 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                   onTap: () async {
                                                     await Navigator.push(
                                                       context,
-                                                      MaterialPageRoute(
+                                                      TransparentRoute(
                                                         builder: (context) =>
                                                             RankPageWidget(
                                                           username:
                                                               profilePageUsersRecord
                                                                   .name,
-                                                          game: 'valorant',
+                                                          game: game,
                                                           userRef:
                                                               widget.userRef,
                                                         ),
@@ -326,9 +328,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                     ),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl:
-                                                          'https://pbs.twimg.com/profile_images/1291867974790295552/AFRVxzDT_400x400.jpg',
+                                                    child: Image.asset(
+                                                      'assets/games/icons/${game}Icon.png',
                                                       fit: BoxFit.contain,
                                                     ),
                                                   ),
@@ -387,6 +388,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         }
                                         return ListView.builder(
                                           padding: EdgeInsets.zero,
+                                          primary: false,
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,
                                           itemCount:
