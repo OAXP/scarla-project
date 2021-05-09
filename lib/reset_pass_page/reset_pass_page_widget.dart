@@ -118,7 +118,7 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                     ),
                                     child: Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                          EdgeInsets.fromLTRB(20, 2, 20, 0),
                                       child: TextFormField(
                                         controller: emailFieldController,
                                         obscureText: false,

@@ -122,7 +122,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     ),
                                     child: Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                          EdgeInsets.fromLTRB(20, 2, 20, 0),
                                       child: TextFormField(
                                         controller: emailFieldController,
                                         obscureText: false,
@@ -176,7 +176,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     ),
                                     child: Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                          EdgeInsets.fromLTRB(20, 2, 20, 0),
                                       child: TextFormField(
                                         controller: passwordFieldController,
                                         obscureText: true,
@@ -260,7 +260,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(0, 13, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -304,7 +304,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 ),
 
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(69,67,0,0),
+                                  padding: const EdgeInsets.fromLTRB(69,72,0,0),
                                   child: Row(
                                     children: [
                                       Container(

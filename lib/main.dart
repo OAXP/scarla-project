@@ -11,8 +11,10 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'home_page/home_page_widget.dart';
 import 'group_list_page/group_list_page_widget.dart';
 import 'games_select/games_select_widget.dart';
+import 'login_page/login_page_widget.dart';
 import 'my_profile_page/my_profile_page_widget.dart';
 import 'friends_page/friends_page_widget.dart';
+import 'su3_page/su3_page_widget.dart';
 import 'util/transparent_route.dart';
 
 void main() async {
@@ -123,6 +125,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
     };
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBody: true,
       body: tabs[_currentPage],
       floatingActionButton: FloatingActionButton(
@@ -263,7 +266,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                             width: 6.0,
                             height: 6.0,
                             decoration: new BoxDecoration(
-                              color: Colors.white,
+                              color: color,
                               shape: BoxShape.circle,
                             ),
                           ),

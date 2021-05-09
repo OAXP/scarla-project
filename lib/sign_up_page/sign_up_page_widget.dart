@@ -275,7 +275,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                  padding: EdgeInsets.fromLTRB(0, 5, 0, 8),
                                   child: FFButtonWidget(
                                     onPressed: () async {
                                       if (passwordTextController.text !=
@@ -323,6 +323,32 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                       ),
                                       borderRadius: 25,
                                     ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(43,45,0,20),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 100,
+                                        height: 2,
+                                        color: Color.fromRGBO(255, 255, 255, 110),
+                                      ),
+                                      SizedBox(width: 7,),
+                                      Text('OR SIGN UP WITH',style:GoogleFonts.getFont(
+                                        'Open Sans',
+                                        color:
+                                        Color.fromRGBO(255, 255, 255, 110),
+                                        //FlutterFlowTheme.secondaryColor,
+                                        fontSize: 11,
+                                      ), ),
+                                      SizedBox(width: 7,),
+                                      Container(
+                                        width: 100,
+                                        height: 2,
+                                        color: Color.fromRGBO(255, 255, 255, 110),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Padding(

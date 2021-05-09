@@ -54,7 +54,7 @@ class _CirclesPageState extends State<CirclesPage> with TickerProviderStateMixin
   }
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool value= false;
-  bool select= false;
+  bool select= true;
   bool check= false;
   Color color1=Color(0xff0b323e);
   Color color2= Color(0xff010b15);
@@ -419,7 +419,7 @@ class _CirclesPageState extends State<CirclesPage> with TickerProviderStateMixin
                         tristate: false,
                         onChanged: (bool isChecked) {
                           setState(() {
-                            select = isChecked;
+                            select = !select;
                             value = false;
                             check = false;
                           });

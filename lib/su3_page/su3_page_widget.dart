@@ -23,6 +23,7 @@ class Su3PageWidget extends StatefulWidget {
 
 class _Su3PageWidgetState extends State<Su3PageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<bool> selected= List.filled(5, false);
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +69,11 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                         children: [
                           InkWell(
                             onTap: () async {
+                              setState(()
+                              {
+                                selected[0]=!selected[0];
+                              });
+
                               final usersRecordData = {
                                 'selected_games':
                                     FieldValue.arrayUnion(['lol']),
@@ -75,26 +81,31 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
 
                               await currentUserReference
                                   .update(usersRecordData);
+
                             },
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: Color(0x00F5F5F5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
                               child: Stack(
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.asset(
-                                      'assets/games/cards/lol/3.jpg',
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 100,
-                                      fit: BoxFit.cover,
+                                  Container(
+                                    decoration:
+                                    new BoxDecoration(
+                                      border: Border.all(width: 4,color: (!selected[0])?Colors.transparent:Colors.green),
+
+
+                                      borderRadius: BorderRadius.circular(24),
+                                      shape: BoxShape.rectangle,
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.asset(
+                                        'assets/games/cards/lol/3.jpg',
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(5, 35, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
@@ -119,9 +130,13 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 ],
                               ),
                             ),
-                          ),
+                          SizedBox(height: 3.5,),
                           InkWell(
                             onTap: () async {
+                              setState(()
+                              {
+                                selected[1]=!selected[1];
+                              });
                               final usersRecordData = {
                                 'selected_games':
                                     FieldValue.arrayUnion(['valorant']),
@@ -130,25 +145,29 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                               await currentUserReference
                                   .update(usersRecordData);
                             },
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: Color(0x00F5F5F5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Stack(
+                            child: Stack(
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.asset(
-                                      'assets/games/cards/valorant/3.jpg',
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 100,
-                                      fit: BoxFit.cover,
+                                  Container(
+                                    decoration:
+                                    new BoxDecoration(
+                                      border: Border.all(width: 4,color: (!selected[1])?Colors.transparent:Colors.green),
+
+
+                                      borderRadius: BorderRadius.circular(24),
+                                      shape: BoxShape.rectangle,
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.asset(
+                                        'assets/games/cards/valorant/3.jpg',
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(5, 35, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
@@ -172,9 +191,13 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 ],
                               ),
                             ),
-                          ),
+                          SizedBox(height: 3.5,),
                           InkWell(
                             onTap: () async {
+                              setState(() {
+
+                                selected[2]=!selected[2];
+                              });
                               final usersRecordData = {
                                 'selected_games': FieldValue.arrayUnion(['mw']),
                               };
@@ -182,25 +205,30 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                               await currentUserReference
                                   .update(usersRecordData);
                             },
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: Color(0x00F5F5F5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+
                               child: Stack(
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.asset(
-                                      'assets/games/cards/mw/3.jpg',
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 100,
-                                      fit: BoxFit.cover,
+                                  Container(
+                                    decoration:
+                                    new BoxDecoration(
+                                      border: Border.all(width: 4,color: (!selected[2])?Colors.transparent:Colors.green),
+
+
+                                      borderRadius: BorderRadius.circular(24),
+                                      shape: BoxShape.rectangle,
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.asset(
+                                        'assets/games/cards/mw/3.jpg',
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(5, 35, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
@@ -224,9 +252,13 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 ],
                               ),
                             ),
-                          ),
+                          SizedBox(height: 3.5,),
                           InkWell(
                             onTap: () async {
+                              setState(() {
+
+                                selected[3]=!selected[3];
+                              });
                               final usersRecordData = {
                                 'selected_games': FieldValue.arrayUnion(['ow']),
                               };
@@ -234,25 +266,30 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                               await currentUserReference
                                   .update(usersRecordData);
                             },
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: Color(0x00F5F5F5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+
                               child: Stack(
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.asset(
-                                      'assets/games/cards/ow/3.jpg',
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 100,
-                                      fit: BoxFit.cover,
+                                  Container(
+                                    decoration:
+                                    new BoxDecoration(
+                                      border: Border.all(width: 4,color: (!selected[3])?Colors.transparent:Colors.green),
+
+
+                                      borderRadius: BorderRadius.circular(24),
+                                      shape: BoxShape.rectangle,
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.asset(
+                                        'assets/games/cards/ow/3.jpg',
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(5, 35, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
@@ -276,9 +313,15 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 ],
                               ),
                             ),
-                          ),
+
+                          SizedBox(height: 3.5,),
                           InkWell(
                             onTap: () async {
+                              setState(() {
+
+                                selected[4]=!selected[4];
+                              });
+
                               final usersRecordData = {
                                 'selected_games': FieldValue.arrayUnion(['rl']),
                               };
@@ -286,25 +329,30 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                               await currentUserReference
                                   .update(usersRecordData);
                             },
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: Color(0x00F5F5F5),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+
                               child: Stack(
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Image.asset(
-                                      'assets/games/cards/rl/3.jpg',
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 100,
-                                      fit: BoxFit.cover,
+                                  Container(
+                                    decoration:
+                                    new BoxDecoration(
+                                      border: Border.all(width: 4,color: (!selected[4])?Colors.transparent:Colors.green),
+
+
+                                      borderRadius: BorderRadius.circular(24),
+                                      shape: BoxShape.rectangle,
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.asset(
+                                        'assets/games/cards/rl/3.jpg',
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(5, 30, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(5, 35, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -330,7 +378,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 ],
                               ),
                             ),
-                          )
+
                         ],
                       ),
                     ),
@@ -390,17 +438,97 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           padding: EdgeInsets.fromLTRB(70, 1, 6, 0),
                           child: InkWell(
                             onTap: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Su4PageWidget(
-                                    username: widget.username,
-                                    tag: widget.tag,
-                                    photoUrl: widget.photoUrl,
-                                    about: widget.about,
+                              if (selected.contains(true)) {
+
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Su4PageWidget(
+                                      username: widget.username,
+                                      tag: widget.tag,
+                                      photoUrl: widget.photoUrl,
+                                      about: widget.about,
+                                    ),
                                   ),
-                                ),
-                              );
+                                );
+
+
+
+
+                              } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      title: Center(child: Text('Alert!')),
+                                      content: Text(
+                                          'You have not picked any games yet!'),
+                                      actions: <Widget>[
+                                        Column(
+                                          children: [
+                                            Center(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 0, 17, 15),
+                                                child: Container(
+                                                  width: 250,
+                                                  height: 1,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            24),
+                                                    color: Colors.grey[300],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 0, 24, 0),
+                                                  child: Container(
+                                                    width: 107,
+                                                    height: 47,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24),
+                                                      color: Color(0xffff4553),
+                                                    ),
+                                                    child: TextButton(
+                                                      child: Text(
+                                                        'Ok!',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white,
+                                                        fontSize: 15),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
