@@ -107,7 +107,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                            padding: EdgeInsets.fromLTRB(0, 26, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -326,7 +326,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(43,45,0,20),
+                                  padding: const EdgeInsets.fromLTRB(43,42,0,20),
                                   child: Row(
                                     children: [
                                       Container(
