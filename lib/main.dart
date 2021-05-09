@@ -263,7 +263,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                             width: 6.0,
                             height: 6.0,
                             decoration: new BoxDecoration(
-                              color: color,
+                              color: Colors.white,
                               shape: BoxShape.circle,
                             ),
                           ),
