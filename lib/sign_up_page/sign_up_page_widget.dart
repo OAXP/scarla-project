@@ -1,3 +1,6 @@
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
+
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -32,35 +35,57 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      //resizeToAvoidBottomInset: false,
       backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
-          Align(
+         /* Align(
             alignment: Alignment(0, -1),
-            child: CachedNetworkImage(
-              imageUrl:
-                  'https://media1.giphy.com/media/3oEjHYlwvUK5p9AIbm/giphy.gif',
-              width: double.infinity,
-              height: 260,
-              fit: BoxFit.cover,
+            child: Container(
+              color: Color(0xFF313150),
+            )
+        ),*/
+          WaveWidget(
+
+            backgroundColor: Colors.deepPurpleAccent,
+            config: CustomConfig(
+
+              gradients: [
+                [Colors.red, Color(0xEEF44336)],
+                [Colors.red[800], Color(0x77E57373)],
+                [Colors.orange, Color(0x66FF9800)],
+                [Color(0xFF313150), Color(0xFF313150)]
+              ],
+              durations: [35000, 19440, 10800, 6000],
+              heightPercentages: [0.30, 0.40, 0.56, 0.70],
+              blur: MaskFilter.blur(BlurStyle.solid, 0),
+              gradientBegin: Alignment.bottomLeft,
+              gradientEnd: Alignment.topRight,
+            ),
+
+            waveAmplitude: 0,
+
+            size: Size(
+              double.infinity,200,
             ),
           ),
+
           Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 230, 0, 0),
+                  padding: EdgeInsets.fromLTRB(0, 200, 0, 0),
                   child: Container(
                     width: double.infinity,
-                    height: 100,
+                    height: 150,
                     decoration: BoxDecoration(
                       color: Color(0xFF313150),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0),
                         bottomRight: Radius.circular(0),
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(0),
+                        topRight: Radius.circular(0),
                       ),
                     ),
                     child: SingleChildScrollView(
@@ -72,7 +97,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                           Align(
                             alignment: Alignment(0, -0.65),
                             child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 4, 0, 0),
+                              padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                               child: Image.asset(
                                 'assets/logo/mainLogo.png',
                                 width: 60,
@@ -82,7 +107,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                            padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -97,7 +122,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                     ),
                                     child: Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                          EdgeInsets.fromLTRB(20, 2, 20, 0),
                                       child: TextFormField(
                                         controller: emailTextController,
                                         obscureText: false,
@@ -151,7 +176,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                     ),
                                     child: Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                          EdgeInsets.fromLTRB(20, 2, 20, 0),
                                       child: TextFormField(
                                         controller: passwordTextController,
                                         obscureText: true,
@@ -205,7 +230,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                     ),
                                     child: Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                          EdgeInsets.fromLTRB(20, 2, 20, 0),
                                       child: TextFormField(
                                         controller:
                                             confirmPasswordTextController,
@@ -431,7 +456,8 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                 ),
               )
             ],
-          )
+          ),
+
         ],
       ),
     );

@@ -184,7 +184,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(0, 6, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -254,7 +254,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 2, 20, 2),
+                                  padding: EdgeInsets.fromLTRB(20, 5, 20, 2),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -300,7 +300,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(4, 6, 0, 0),
                                   child: Text(
                                     'My Squads',
                                     textAlign: TextAlign.center,

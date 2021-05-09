@@ -1,3 +1,6 @@
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
+
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -27,17 +30,38 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      resizeToAvoidBottomInset: false,
       backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
           Align(
-            alignment: Alignment(0, -1),
-            child: CachedNetworkImage(
-              imageUrl:
-                  'https://media1.giphy.com/media/3oEjHYlwvUK5p9AIbm/giphy.gif',
-              width: double.infinity,
-              height: 230,
-              fit: BoxFit.cover,
+              alignment: Alignment(0, -1),
+              child: Container(
+                color: Color(0xFF313150),
+              )
+          ),
+          WaveWidget(
+
+            backgroundColor: Colors.deepPurpleAccent,
+            config: CustomConfig(
+
+              gradients: [
+                [Colors.red, Color(0xEEF44336)],
+                [Colors.red[800], Color(0x77E57373)],
+                [Colors.orange, Color(0x66FF9800)],
+                [Color(0xFF313150), Color(0xFF313150)]
+              ],
+              durations: [35000, 19440, 10800, 6000],
+              heightPercentages: [0.30, 0.40, 0.56, 0.70],
+              blur: MaskFilter.blur(BlurStyle.solid, 0),
+              gradientBegin: Alignment.bottomLeft,
+              gradientEnd: Alignment.topRight,
+            ),
+
+            waveAmplitude: 0,
+
+            size: Size(
+              double.infinity,200,
             ),
           ),
           Column(
@@ -45,7 +69,7 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
             children: [
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 190, 0, 0),
+                  padding: EdgeInsets.fromLTRB(0, 168, 0, 0),
                   child: Container(
                     width: double.infinity,
                     height: 100,
@@ -54,12 +78,12 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0),
                         bottomRight: Radius.circular(0),
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(0),
+                        topRight: Radius.circular(0),
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 60, 0, 60),
+                      padding: EdgeInsets.fromLTRB(0, 35, 0, 60),
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -69,7 +93,7 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                             Align(
                               alignment: Alignment(0, -0.65),
                               child: Padding(
-                                padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 55),
                                 child: Image.asset(
                                   'assets/logo/mainLogo.png',
                                   width: 60,
@@ -230,7 +254,8 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                 ),
               )
             ],
-          )
+          ),
+
         ],
       ),
     );

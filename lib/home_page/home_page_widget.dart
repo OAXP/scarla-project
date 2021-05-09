@@ -1,4 +1,5 @@
 import 'package:scarla/util/transparent_route.dart';
+import 'package:selectable_circle/selectable_circle.dart';
 
 import '../add_post_page/add_post_page_widget.dart';
 import '../auth/auth_util.dart';
@@ -16,16 +17,303 @@ class HomePageWidget extends StatefulWidget {
   _HomePageWidgetState createState() => _HomePageWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
+class _HomePageWidgetState extends State<HomePageWidget>  with  TickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<bool> isSelected=new List.filled(6, false);
+  AnimationController _animationController;
+  Color color1=Color(0xff0b323e);
+  Color color2= Color(0xff010b15);
+
+  @override
+  initState() {
+
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400),);
+    super.initState();
+  }
+
+  @override
+  dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.primaryColor,
-      drawer: Drawer(
-        elevation: 16,
+      drawer:  SizedBox(
+        width: MediaQuery.of(context).size.width * 0.20,
+        child: Drawer(
+          child: Container(
+            color: Color(0xff292e5c),
+            child: ListView(
+              children: <Widget>[
+                SizedBox(height: 20),
+                SelectableCircle(
+                  color: Colors.white12,
+                  selectedColor: Colors.red,
+                  width: 80.0,
+                  isSelected: isSelected[5],
+                  borderColor: Colors.deepPurpleAccent,
+                  selectedBorderColor: Colors.green,
+                  selectMode: SelectMode.simple,
+                  onTap: () {
+
+                    setState(() {
+                      if(!isSelected[5]) {
+                        if(!isSelected.contains(true)) { }
+                        isSelected.fillRange(0, isSelected.length, false);
+                        isSelected[5] = true;
+                        if (isSelected[5]) {
+
+
+
+                        }
+                      }else{
+
+                        isSelected.fillRange(0, isSelected.length, false);
+
+
+                      }
+                    }
+                    );
+                  },
+                  child:  Text('All'),
+                ),
+
+                SizedBox(height: 30),
+                SelectableCircle(
+
+                    width: 80.0,
+                    isSelected: isSelected[0],
+                    borderColor: Colors.deepPurpleAccent,
+                    selectedBorderColor: Colors.green,
+                    color: Color(0xffff4654),
+                    selectedColor: Colors.green,
+
+                    selectMode: SelectMode.simple,
+                    onTap: () {
+
+                      setState(() {
+                        if(!isSelected[0]) {
+                          if(!isSelected.contains(true)) { }
+                          isSelected.fillRange(0, isSelected.length, false);
+                          isSelected[0] = true;
+                          if (isSelected[0]) {
+
+
+
+                          }
+                        }else{
+
+                          isSelected.fillRange(0, isSelected.length, false);
+
+
+                        }
+                      }
+                      );
+                    },
+                    child: CircleAvatar(backgroundImage:AssetImage('assets/images/valorantIcon.jpg'),maxRadius: 28.5)
+                ),
+                SizedBox(height: 30),
+                SelectableCircle(
+                    selectMode: SelectMode.simple,
+                    selectedColor: Colors.grey[900],
+                    width: 80.0,
+                    color:Colors.grey[900],
+
+                    isSelected: isSelected[1],
+                    borderColor: Colors.red,
+                    selectedBorderColor: Colors.green,
+                    onTap: () {
+                      setState(() {
+                        if(!isSelected[1]) {
+                          if(!isSelected.contains(true)) { }
+                          isSelected.fillRange(0, isSelected.length, false);
+                          isSelected[1] = true;
+                          if (isSelected[1]) {
+
+                          }
+                        }else{
+
+
+
+                          isSelected.fillRange(0, isSelected.length, false);
+
+
+
+                        }
+                      }
+                      );
+                    },
+                    child: CircleAvatar(
+                      maxRadius: 28.5,
+                      backgroundColor: Colors.grey[900],
+                      child:Container(
+                        width: 200,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image:ExactAssetImage('assets/images/MWIcon.png'),scale:2.5,),
+                          shape: BoxShape.circle,
+
+
+                        ),
+                      ),
+                      //backgroundImage:AssetImage('assets/images/mwIcon.png'),maxRadius: 26,backgroundColor: Colors.grey[900],foregroundColor: Colors.red,
+                    )
+                ),
+                SizedBox(height: 30),
+                SelectableCircle(
+                    width: 80.0,
+                    selectMode: SelectMode.simple,
+                    color:  Color(0xff0a2f39),
+                    isSelected: isSelected[2],
+                    borderColor: Colors.red,
+                    selectedBorderColor: Colors.green,
+                    onTap: () {
+                      setState(() {
+                        if(!isSelected[2]) {
+                          if(!isSelected.contains(true)) { }
+                          isSelected.fillRange(0, isSelected.length, false);
+                          isSelected[2] = true;
+                          if (isSelected[2]) {
+
+
+                          }
+                        }else{
+
+
+
+                          isSelected.fillRange(0, isSelected.length, false);
+
+
+                        }
+                      }
+                      );
+                    },
+                    child: CircleAvatar(maxRadius: 28.5,
+                      //backgroundImage:AssetImage('assets/images/lolIcon.png'),
+                      child:Container(
+                        width: 150,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image:ExactAssetImage('assets/images/LOLIcon.png'),scale: 12),
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: [
+                              color1,
+                              color2,
+                            ],begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+
+                        ),
+                      ),
+                      //backgroundImage:AssetImage('assets/images/lolIcon.png'),maxRadius: 25,backgroundColor: Color(0xff0a2f39),
+                    )
+                ),
+                SizedBox(height: 30),
+                SelectableCircle(
+                  color: Color(0xff004ca3),
+                  width: 80.0,
+                  isSelected: isSelected[3],
+                  borderColor: Colors.deepPurpleAccent,
+                  selectedBorderColor: Colors.green,
+                  selectMode: SelectMode.simple,
+                  onTap: () {
+
+                    setState(() {
+                      if(!isSelected[3]) {
+                        if(!isSelected.contains(true)) { }
+                        isSelected.fillRange(0, isSelected.length, false);
+                        isSelected[3] = true;
+                        if (isSelected[3]) {
+
+
+                        }
+                      }else{
+
+                        isSelected.fillRange(0, isSelected.length, false);
+
+
+                      }
+                    }
+                    );
+                  },
+
+                  child: CircleAvatar(maxRadius: 28.5,
+                    backgroundColor: Color(0xff004ca3),
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(2, 3, 0, 0),
+                      width: 150,
+                      height: 150,
+
+                      decoration: BoxDecoration(
+
+                        color: Color(0xff004ca3),
+                        image: DecorationImage(image:ExactAssetImage('assets/images/rlIcon.png'),scale: 28,),
+                        shape: BoxShape.circle,
+
+
+                      ),
+                    ),
+                  ),/* CircleAvatar(backgroundImage:AssetImage('assets/images/rlIcon.png'),radius: 20,backgroundColor: Color(0xff004ca3),)*/
+                ),
+                SizedBox(height: 30),
+                SelectableCircle(
+                  color: Colors.grey[350],
+                  width: 80.0,
+                  isSelected: isSelected[4],
+                  borderColor: Colors.red,
+                  selectMode: SelectMode.simple,
+                  selectedBorderColor: Colors.green,
+                  onTap: () {
+                    setState(() {
+                      if (!isSelected[4]) {
+                        if (!isSelected.contains(true)) {
+
+                        }
+                        isSelected.fillRange(
+                            0, isSelected.length, false);
+                        isSelected[4] = true;
+                        if (isSelected[4]) {
+
+                        }
+                      }else{
+
+
+
+                        isSelected.fillRange(0, isSelected.length, false);
+
+                      }
+                    }
+                    );
+                  },
+                  child: CircleAvatar(radius: 28,
+
+
+                    child: Container(
+
+                      width: 150,
+                      height: 150,
+
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        image: DecorationImage(image:ExactAssetImage('assets/images/OwIcon.png'),scale: 26,),
+                        shape: BoxShape.circle,
+
+
+                      ),
+                    ),
+                  ),
+                )
+
+              ],
+            ),
+          ),
+        ),
       ),
       body: Stack(
         children: [
