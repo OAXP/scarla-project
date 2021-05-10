@@ -76,7 +76,15 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
   AnimationController _animationController;
   bool isDisabled= false;
   Color selectedColor;
-  final testKey = GlobalKey();
+  final _homeIconKey = GlobalKey();
+  final _chatIconKey = GlobalKey();
+  final _friendsIconKey = GlobalKey();
+  final _profileIconKey = GlobalKey();
+  Color color = Color(0xFFFF4553);
+  double pos_l;
+  double pos_r;
+  double pos_t;
+  double pos_b;
 
   @override
   void initState() {
@@ -85,43 +93,46 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
 
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 400),);
+
+    pos_l = 0;
+    pos_r = 306;
+    pos_t = 35;
+    pos_b = 0;
   }
 
-  void getPosition() {
-    final RenderBox renderBox = testKey.currentContext.findRenderObject();
+  Offset getPosition(GlobalKey key) {
+    final RenderBox renderBox = key.currentContext.findRenderObject();
     final position = renderBox.localToGlobal(Offset.zero);
-    print(position);
+    return position;
   }
 
-  Color color = Color(0xFFFF4553);
-  double pos_l = 0;
-  double pos_r = 306;
-  double pos_t = 35;
-  double pos_b = 0;
-  void _movewidget(String pos) {
-    final RenderBox renderBox = testKey.currentContext.findRenderObject();
-    final position = renderBox.localToGlobal(Offset.zero);
+  Size getSize(GlobalKey key) {
+    final RenderBox renderBox = key.currentContext.findRenderObject();
     final size = renderBox.size;
+    return size;
+  }
+
+
+  void _movewidget(String pos) {
     setState(() {
       if (pos == "Profile") {
-        print(position.dx);
-        pos_l = position.dx - (size.width/2);
+        pos_l = getPosition(_profileIconKey).dx - (getSize(_profileIconKey).width/2) + 5;
         pos_r = 0;
         pos_t = 35;
         pos_b = 0;
       } else if (pos == "Users") {
-        pos_l = 134;
+        pos_l = getPosition(_chatIconKey).dx + (getSize(_friendsIconKey).width/2) + 5;
         pos_r = 0;
         pos_t = 35;
         pos_b = 0;
       }else if (pos == "Home") {
-        pos_l = 0;
-        pos_r = 306;
+        pos_l = -getPosition(_profileIconKey).dx + (getSize(_homeIconKey).width/2) - 5;
+        pos_r = 0;
         pos_t = 35;
         pos_b = 0;
       }else if (pos == "Messages") {
-        pos_l = 0;
-        pos_r = 134;
+        pos_l = -getPosition(_chatIconKey).dx - (getSize(_chatIconKey).width/2) - 5;
+        pos_r = 0;
         pos_t = 35;
         pos_b = 0;
       }
@@ -208,6 +219,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         IconButton(
+                          key: _homeIconKey,
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           icon: Icon(AntDesign.home),
@@ -222,6 +234,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                           },
                         ),
                         IconButton(
+                          key: _chatIconKey,
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           icon: Icon(AntDesign.message1),
@@ -241,6 +254,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0,2,0,0),
                           child: IconButton(
+                            key: _friendsIconKey,
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             icon: Icon(FluentIcons.people_community_28_regular),
@@ -256,7 +270,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                           ),
                         ),
                         IconButton(
-                          key: testKey,
+                          key: _profileIconKey,
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           icon: Icon(LineIcons.userCircle),
