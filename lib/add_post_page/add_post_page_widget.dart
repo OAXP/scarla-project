@@ -92,6 +92,8 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                       onTap: () async {
                         Navigator.pop(context);
                       },
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 1,

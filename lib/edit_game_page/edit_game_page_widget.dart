@@ -36,19 +36,30 @@ class _EditGamePageWidgetState extends State<EditGamePageWidget> {
       queryBuilder: (gamesRanksRecord) =>
           gamesRanksRecord.where('userRef', isEqualTo: widget.user),
       singleRecord: true,
-    ).first.then((value) {
+    ).first.then((value) async {
       setState(() {
         editGamePageGamesRanksRecordList = value;
       });
       if (editGamePageGamesRanksRecordList.isEmpty) {
-        editGamePageGamesRanksRecordList =
-            createDummyGamesRanksRecord(count: 1);
+        final gamesRankRecord = createGamesRanksRecordData(
+          userRef: currentUserReference,
+          lol: 1,
+          valorant: 1,
+          mw: 1,
+          ow: 1,
+          rl: 1,
+        );
+        await GamesRanksRecord.collection
+            .doc()
+            .set(gamesRankRecord);
       }
-      editGamePageGamesRanksRecord = editGamePageGamesRanksRecordList.first;
-      lol = editGamePageGamesRanksRecord.lol;
-      valorant = editGamePageGamesRanksRecord.valorant;
-      ow = editGamePageGamesRanksRecord.ow;
-      rl = editGamePageGamesRanksRecord.rl;
+      if(editGamePageGamesRanksRecordList != null) {
+        editGamePageGamesRanksRecord = editGamePageGamesRanksRecordList.first;
+        lol = editGamePageGamesRanksRecord.lol;
+        valorant = editGamePageGamesRanksRecord.valorant;
+        ow = editGamePageGamesRanksRecord.ow;
+        rl = editGamePageGamesRanksRecord.rl;
+      }
 
       switch(widget.game){
         case 'lol':
@@ -94,6 +105,8 @@ class _EditGamePageWidgetState extends State<EditGamePageWidget> {
                   onTap: () async {
                     Navigator.pop(context);
                   },
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 1,

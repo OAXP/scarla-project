@@ -596,7 +596,6 @@ class _CirclesPageState extends State<CirclesPage>
                           } else if (noSelected) {
                             competitive = [false];
                           }
-                          // TODO fix animation quand on revient de matches
                           await Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
