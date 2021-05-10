@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:scarla/circles_page/circles_page_widget.dart';
+import 'package:scarla/flutter_flow/flutter_flow_util.dart';
 import 'assets/custom_icons_icons.dart';
 import 'auth/firebase_user_provider.dart';
 import 'package:scarla/login_page/login_page_widget.dart';
@@ -121,7 +122,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
         pos_t = 35;
         pos_b = 0;
       } else if (pos == "Users") {
-        pos_l = getPosition(_friendsIconKey).dx - ((getSize(_friendsIconKey).width*2) + 6);
+        pos_l = isIos ? getPosition(_chatIconKey).dx + 35 : getPosition(_friendsIconKey).dx - ((getSize(_friendsIconKey).width*2) + 6);
         pos_r = 0;
         pos_t = 35;
         pos_b = 0;
@@ -131,8 +132,13 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
         pos_t = 35;
         pos_b = 0;
       }else if (pos == "Messages") {
-        pos_l = 0;
-        pos_r = getPosition(_chatIconKey).dx + (getSize(_chatIconKey).width/4) + 12;
+        if(isIos) {
+          pos_l = -getPosition(_chatIconKey).dx - 35;
+          pos_r = 0;
+        } else {
+          pos_l = 0;
+          pos_r = getPosition(_chatIconKey).dx + (getSize(_chatIconKey).width/4) + 12;
+        }
         pos_t = 35;
         pos_b = 0;
       }
