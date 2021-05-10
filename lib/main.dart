@@ -76,6 +76,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
   AnimationController _animationController;
   bool isDisabled= false;
   Color selectedColor;
+  final testKey = GlobalKey();
 
   @override
   void initState() {
@@ -86,15 +87,25 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
         AnimationController(vsync: this, duration: Duration(milliseconds: 400),);
   }
 
+  void getPosition() {
+    final RenderBox renderBox = testKey.currentContext.findRenderObject();
+    final position = renderBox.localToGlobal(Offset.zero);
+    print(position);
+  }
+
   Color color = Color(0xFFFF4553);
   double pos_l = 0;
   double pos_r = 306;
   double pos_t = 35;
   double pos_b = 0;
   void _movewidget(String pos) {
+    final RenderBox renderBox = testKey.currentContext.findRenderObject();
+    final position = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
     setState(() {
       if (pos == "Profile") {
-        pos_l = 303;
+        print(position.dx);
+        pos_l = position.dx - (size.width/2);
         pos_r = 0;
         pos_t = 35;
         pos_b = 0;
@@ -245,6 +256,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                           ),
                         ),
                         IconButton(
+                          key: testKey,
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           icon: Icon(LineIcons.userCircle),
