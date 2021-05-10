@@ -168,8 +168,12 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(8, 7, 9, 8),
                                     child: Container(
-                                      color: FlutterFlowTheme.tertiaryColor,
+
                                       height: 70,
+                                      decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.tertiaryColor,
+                                        borderRadius: BorderRadius.circular(15)
+                                      ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:

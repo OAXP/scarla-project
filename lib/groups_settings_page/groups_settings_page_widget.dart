@@ -169,7 +169,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                               Align(
                                 alignment: Alignment(0, 0),
                                 child: InkWell(
-                                  onTap: () async {
+                                  onTap: () {
                                     getImage();
                                   },
                                   child: Container(
@@ -294,7 +294,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                 borderRadius: BorderRadius.circular(10.0),
                                               ),
                                               title: Center(child: Text('Alert!')),
-                                              content: Text('You have not picked any games yet!'),
+                                              content: Text('Are you sure you want to delete this group?'),
                                               actions: <Widget>[
                                                 Column(
                                                   children: [
@@ -399,14 +399,16 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                 borderRadius: BorderRadius.circular(10.0),
                                               ),
                                               title: Center(child: Text('Alert!')),
-                                              content: Text('You have not picked any games yet!'),
+                                              content: Text('Are you sure you want to leave this '
+                                                    'group?'),
+
                                               actions: <Widget>[
                                                 Column(
                                                   children: [
 
                                                     Center(
                                                       child: Padding(
-                                                        padding: const EdgeInsets.fromLTRB(0,0,17,15),
+                                                        padding: const EdgeInsets.fromLTRB(0,0,22,15),
                                                         child: Container(
                                                           width:250,
                                                           height:2,
@@ -419,7 +421,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                       children: [
 
                                                         Padding(
-                                                          padding: const EdgeInsets.fromLTRB(0,0,12,0),
+                                                          padding: const EdgeInsets.fromLTRB(0,0,10,0),
                                                           child: Container(
                                                             width:107,
                                                             height:47,
@@ -436,7 +438,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                           ),
                                                         ),
                                                         Padding(
-                                                          padding: const EdgeInsets.fromLTRB(0,0,18,0),
+                                                          padding: const EdgeInsets.fromLTRB(0,0,20,0),
                                                           child: Container(
                                                             width:107,
                                                             height:47,

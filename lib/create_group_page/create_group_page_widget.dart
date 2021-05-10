@@ -1,3 +1,7 @@
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:scarla/flutter_flow/upload_media.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -7,9 +11,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:imgur/imgur.dart' as imgur;
+import '../main.dart';
 
 class CreateGroupPageWidget extends StatefulWidget {
-  final List<UsersRecord> selectedUsers;
+  List<UsersRecord> selectedUsers;
   CreateGroupPageWidget({Key key, this.selectedUsers}) : super(key: key);
 
   @override
@@ -19,6 +25,7 @@ class CreateGroupPageWidget extends StatefulWidget {
 class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
   TextEditingController groupNameFieldController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  String groupPic;
 
   @override
   void initState() {
@@ -26,8 +33,43 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
     groupNameFieldController = TextEditingController();
   }
 
+  Future getImage({bool isVideo = false}) async {
+    ImagePicker imagePicker = ImagePicker();
+    PickedFile pickedFile;
+
+    if (isVideo) {
+      pickedFile = await imagePicker.getVideo(source: ImageSource.gallery);
+    } else {
+      pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    }
+
+    if (pickedFile != null) {
+      final isValid = validateFileFormat(pickedFile.path, context);
+      if (isValid) {
+        setState(() {
+          FlutterFlowTheme.isUploading = true;
+        });
+        final client =
+        imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
+        await client.image
+            .uploadImage(
+            imagePath: pickedFile.path, title: '*_*', description: '*_*')
+            .then((image) {
+          groupPic = image.link;
+          setState(() {
+            FlutterFlowTheme.isUploading = false;
+          });
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if(widget.selectedUsers == null) {
+      widget.selectedUsers = List.empty(growable: true);
+    }
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.primaryColor,
@@ -83,8 +125,14 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                               onPressed: () async {
                                 final gName = groupNameFieldController.text;
                                 final gPhotoUrl =
-                                    'https://media1.tenor.com/images/e7be01a78bf105f0e28875233f6b94b0/tenor.gif?itemid=20697311';
+                                (groupPic != null) ? groupPic : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
                                 final lastMessage = '...';
+
+                                List<String> membersId = List.empty(growable: true);
+                                for(UsersRecord user in widget.selectedUsers) {
+                                  membersId.add(user.uid);
+                                }
+                                membersId.add(currentUserUid);
 
                                 final groupsRecordData = {
                                   ...createGroupsRecordData(
@@ -94,14 +142,20 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                     lastMessageTimestamp: getCurrentTimestamp,
                                     host: currentUserReference,
                                   ),
-                                  'members_id':
-                                      FieldValue.arrayUnion([currentUserUid]),
+                                  'members_id': membersId,
                                 };
 
                                 await GroupsRecord.collection
                                     .doc()
                                     .set(groupsRecordData);
-                                Navigator.pop(context);
+                                await Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NavBarPage(initialPage: 'GroupListPage'),
+                                  ),
+                                      (r) => false,
+                                );
                               },
                               icon: Icon(
                                 Icons.check_rounded,
@@ -120,17 +174,23 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                         children: [
                           Align(
                             alignment: Alignment(0, 0),
-                            child: Container(
-                              width: 100,
-                              height: 100,
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    'https://i.gyazo.com/be17e4932af4ee59c2b64a717b855f95.gif',
-                                fit: BoxFit.cover,
+                            child: InkWell(
+                              onTap: () {
+                                getImage();
+                              },
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: FlutterFlowTheme.tertiaryColor,
+                                ),
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                  (groupPic != null) ? groupPic : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -174,6 +234,9 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                       child: TextFormField(
                         controller: groupNameFieldController,
                         obscureText: false,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(35)
+                        ],
                         decoration: InputDecoration(
                           hintText: 'Group Name',
                           hintStyle: FlutterFlowTheme.bodyText2.override(
@@ -418,7 +481,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        'TAG',
+                                                        userRecord.tag,
                                                         textAlign: TextAlign.start,
                                                         style: FlutterFlowTheme
                                                             .subtitle1
@@ -433,7 +496,11 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                             ),
                                             IconButton(
                                               onPressed: () {
-                                                print('IconButton pressed ...');
+                                                setState(() {
+                                                  if(!widget.selectedUsers.contains(userRecord)) {
+                                                    widget.selectedUsers.add(userRecord);
+                                                  }
+                                                });
                                               },
                                               icon: Icon(
                                                 Icons.add_circle_outline,

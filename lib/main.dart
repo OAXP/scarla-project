@@ -140,7 +140,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
           animationController: _animationController,
           icons: [
             AnimatedIconItem(
-              backgroundColor: Color(0xFF5456C2),
+              backgroundColor: Color(0xFF5B54C2),
               icon: Icon(
                 CustomIcons.controller,
                 color: Colors.white,
@@ -157,7 +157,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                         ),
                       );
                       await Future.delayed(Duration(milliseconds: 200));
-                      _animationController.reset();
+                      _animationController.reverse();
                       isDisabled=true;
                 }
               }
@@ -178,6 +178,9 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
 
           //progress: _animationController,
         ),
+        onPressed: (){
+
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(

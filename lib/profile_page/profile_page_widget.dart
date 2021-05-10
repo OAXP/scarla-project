@@ -488,7 +488,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                               ],
                                                             ),
                                                           ),
-                                                          Align(
+                                                          /*Align(
                                                             alignment:
                                                                 Alignment(0, 0),
                                                             child: IconButton(
@@ -505,7 +505,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                               ),
                                                               iconSize: 15,
                                                             ),
-                                                          )
+                                                          )*/
                                                         ],
                                                       ),
                                                     ),
@@ -542,23 +542,20 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                     ),
                                                     Container(
                                                       width: double.infinity,
-                                                      height: 200,
+                                                      height: (listViewFeedRecord.imageUrl.trim() == "") ? 0 : 200,
                                                       decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0x00EEEEEE),
+                                                        color: Color(0x00EEEEEE),
                                                       ),
-                                                      child: CachedNetworkImage(
+                                                      child: (listViewFeedRecord.imageUrl.trim() == "") ? Container()
+                                                          : CachedNetworkImage(
                                                         imageUrl:
-                                                            listViewFeedRecord
-                                                                .imageUrl,
-                                                        width: MediaQuery.of(
-                                                                context)
+                                                        listViewFeedRecord.imageUrl,
+                                                        width: MediaQuery.of(context)
                                                             .size
                                                             .width,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
+                                                        height: MediaQuery.of(context)
+                                                            .size
+                                                            .height *
                                                             1,
                                                         fit: BoxFit.cover,
                                                       ),

@@ -27,7 +27,7 @@ class _CirclesPageState extends State<CirclesPage>
     color: Colors.white,
     size: 25,
   );
-  Color color = Colors.indigoAccent;
+  Color color = Color(0xFF5B54C2);
   AnimationController controller;
   bool isPlaying = false;
 
@@ -44,6 +44,20 @@ class _CirclesPageState extends State<CirclesPage>
           _animationController.reset();
         }
       });
+  }
+
+  @override
+  void setState(fn) {
+    if(mounted) {
+      super.setState(fn);
+    }
+  }
+
+@override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+    controller.dispose();
   }
 
   void _handleOnPressed() {
@@ -106,7 +120,7 @@ class _CirclesPageState extends State<CirclesPage>
                                   color: Colors.white,
                                   size: 25,
                                 );
-                                color = Colors.indigoAccent;
+                                color = Color(0xFF5B54C2);
                               }
                             });
                           },
@@ -153,7 +167,7 @@ class _CirclesPageState extends State<CirclesPage>
                                   color: Colors.white,
                                   size: 25,
                                 );
-                                color = Colors.indigoAccent;
+                                color = Color(0xFF5B54C2);
                               }
                             });
                           },
@@ -211,7 +225,7 @@ class _CirclesPageState extends State<CirclesPage>
                                   color: Colors.white,
                                   size: 25,
                                 );
-                                color = Colors.indigoAccent;
+                                color = Color(0xFF5B54C2);
                               }
                             });
                           },
@@ -225,7 +239,7 @@ class _CirclesPageState extends State<CirclesPage>
                                 image: DecorationImage(
                                     image: ExactAssetImage(
                                         'assets/games/icons/lolIcon.png'),
-                                    scale: 11),
+                                    scale: 10),
                                 shape: BoxShape.circle,
                                 gradient: LinearGradient(
                                   colors: [
@@ -279,7 +293,7 @@ class _CirclesPageState extends State<CirclesPage>
                                 color: Colors.white,
                                 size: 25,
                               );
-                              color = Colors.indigoAccent;
+                              color = Color(0xFF5B54C2);
                             }
                           });
                         },
@@ -295,7 +309,7 @@ class _CirclesPageState extends State<CirclesPage>
                               image: DecorationImage(
                                 image:
                                     ExactAssetImage('assets/games/icons/rlIcon.png'),
-                                scale: 26,
+                                scale: 23,
                               ),
                               shape: BoxShape.circle,
                             ),
@@ -337,7 +351,7 @@ class _CirclesPageState extends State<CirclesPage>
                                 color: Colors.white,
                                 size: 25,
                               );
-                              color = Colors.indigoAccent;
+                              color = Color(0xFF5B54C2);
                             }
                           });
                         },
@@ -427,6 +441,15 @@ class _CirclesPageState extends State<CirclesPage>
                                     anySelected = !anySelected;
                                     noSelected = false;
                                     yesSelected = false;
+                                    if(anySelected == true) {
+                                      yesSelected = false;
+                                      anySelected = true;
+                                      noSelected = false;
+                                    } else {
+                                      noSelected = false;
+                                      anySelected = !anySelected;
+                                      yesSelected = false;
+                                    }
                                   });
                                 },
                               ),
@@ -471,9 +494,15 @@ class _CirclesPageState extends State<CirclesPage>
                                 tristate: false,
                                 onChanged: (bool isChecked) {
                                   setState(() {
-                                    noSelected = isChecked;
-                                    anySelected = false;
-                                    yesSelected = false;
+                                    if(noSelected == true) {
+                                      yesSelected = false;
+                                      anySelected = false;
+                                      noSelected = true;
+                                    } else {
+                                      noSelected = isChecked;
+                                      anySelected = false;
+                                      yesSelected = false;
+                                    }
                                   });
                                 },
                               ),
@@ -518,9 +547,15 @@ class _CirclesPageState extends State<CirclesPage>
                                 tristate: false,
                                 onChanged: (bool isChecked) {
                                   setState(() {
-                                    yesSelected = isChecked;
-                                    anySelected = false;
-                                    noSelected = false;
+                                    if(yesSelected == true) {
+                                      yesSelected = true;
+                                      anySelected = false;
+                                      noSelected = false;
+                                    } else {
+                                      yesSelected = isChecked;
+                                      anySelected = false;
+                                      noSelected = false;
+                                    }
                                   });
                                 },
                               ),
@@ -579,15 +614,16 @@ class _CirclesPageState extends State<CirclesPage>
                 floatingActionButton: Padding(
                   padding: const EdgeInsets.all(32.0),
                   child: FloatingActionButton(
-                      backgroundColor: Colors.indigoAccent,
+                      backgroundColor: Color(0xFF5B54C2),
                       child: LoadingIndicator(
                         indicatorType: Indicator.circleStrokeSpin,
                         color: Colors.white,
-                      )
+                      ),
                       /*Lottie.network('https://assets3.lottiefiles.com/packages/lf20_0ZPIFf.json',width: 150,height: 150,fit: BoxFit.cover,),*/
 
                       /* Lottie.network(
                             'https://assets2.lottiefiles.com/packages/lf20_FVqg63.json'),*/
+                    onPressed: () {},
                       ),
                 ),
                 floatingActionButtonLocation:
@@ -623,6 +659,7 @@ class _CirclesPageState extends State<CirclesPage>
                         _animationController.addStatusListener((status) async {
                           if (status == AnimationStatus.completed) {
                             Navigator.of(context).pop();
+
                             /*AnimationDirection.reverse();
                         icon= Icon(CustomIcons.controller);*/
                           }
@@ -640,7 +677,9 @@ class _CirclesPageState extends State<CirclesPage>
                         }),
                   ],
                 ),
+              onPressed: (){
 
+              },
                 //CircleAvatar(backgroundImage:NetworkImage('https://i.imgur.com/GLdqYB2.gif'),maxRadius: 25,backgroundColor: Colors.transparent,),
               ))
           : null,

@@ -1,4 +1,5 @@
 import 'package:scarla/auth/firebase_user_provider.dart';
+import 'package:scarla/create_group_page/create_group_page_widget.dart';
 import 'package:scarla/flutter_flow/flutter_flow_util.dart';
 
 import '../auth/auth_util.dart';
@@ -86,26 +87,15 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(50, 0, 0, 0),
                         child: IconButton(
-                          onPressed: () async { // TODO go to create group page
-                            /*final gName =
-                                "$currentUserDisplayName Squad";
-                            final gPhotoUrl =
-                                currentUserPhoto;
-                            final lastMessage = '...';
-
-                            final groupsRecordData = {
-                              ...createGroupsRecordData(
-                                gName: gName,
-                                gPhotoUrl: gPhotoUrl,
-                                lastMessage: lastMessage,
-                                lastMessageTimestamp: getCurrentTimestamp,
+                          onPressed: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CreateGroupPageWidget(
+                                  selectedUsers: selectedUsers,
+                                ),
                               ),
-                              'members_id': selectedUsers,
-                            };
-
-                            await GroupsRecord.collection
-                                .doc()
-                                .set(groupsRecordData);*/
+                            );
                           },
                           icon: Icon(
                             Icons.check_rounded,
@@ -176,7 +166,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                           padding:
                                               EdgeInsets.fromLTRB(2, 0, 0, 0),
                                           child: Text(
-                                            listViewUsersRecord.name,
+                                            "${listViewUsersRecord.name}#${listViewUsersRecord.tag}",
                                             style: FlutterFlowTheme.bodyText1
                                                 .override(
                                               fontFamily: 'Poppins',
@@ -185,24 +175,6 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                             ),
                                           ),
                                         ),
-                                        Text(
-                                          '#',
-                                          style: FlutterFlowTheme.bodyText1
-                                              .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFF838383),
-                                            fontSize: 10,
-                                          ),
-                                        ),
-                                        Text(
-                                          listViewUsersRecord.tag,
-                                          style: FlutterFlowTheme.bodyText1
-                                              .override(
-                                            fontFamily: 'Poppins',
-                                            color: Color(0xFF838383),
-                                            fontSize: 10,
-                                          ),
-                                        )
                                       ],
                                     ),
                                   )
@@ -291,37 +263,17 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(
-                                                  listViewUsersRecord.name,
-                                                  textAlign: TextAlign.justify,
-                                                  style: FlutterFlowTheme
-                                                      .subtitle1
-                                                      .override(
-                                                    fontFamily: 'Poppins',
-                                                  ),
+                                            Container(
+                                              width: 100,
+                                              child: Text(
+                                                "${listViewUsersRecord.name}#${listViewUsersRecord.tag}",
+                                                textAlign: TextAlign.justify,
+                                                style: FlutterFlowTheme
+                                                    .subtitle1
+                                                    .override(
+                                                  fontFamily: 'Poppins',
                                                 ),
-                                                Text(
-                                                  '#',
-                                                  textAlign: TextAlign.justify,
-                                                  style: FlutterFlowTheme
-                                                      .subtitle1
-                                                      .override(
-                                                    fontFamily: 'Poppins',
-                                                  ),
-                                                ),
-                                                Text(
-                                                  listViewUsersRecord.tag,
-                                                  textAlign: TextAlign.start,
-                                                  style: FlutterFlowTheme
-                                                      .subtitle1
-                                                      .override(
-                                                    fontFamily: 'Poppins',
-                                                  ),
-                                                )
-                                              ],
+                                              ),
                                             ),
                                             Padding(
                                               padding: EdgeInsets.fromLTRB(
@@ -366,7 +318,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                                               BoxShape.circle,
                                                         ),
                                                         child: Image.asset(
-                                                          'assets/images/20.png',
+                                                          'assets/games/ranks/valorant/20.png',
                                                           fit: BoxFit.cover,
                                                         ),
                                                       )
@@ -378,7 +330,9 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                             IconButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  selectedUsers.add(listViewUsersRecord);
+                                                  if(!selectedUsers.contains(listViewUsersRecord)) {
+                                                    selectedUsers.add(listViewUsersRecord);
+                                                  }
                                                 });
                                               },
                                               icon: Icon(

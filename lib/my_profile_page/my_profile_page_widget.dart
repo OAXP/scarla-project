@@ -254,7 +254,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 5, 20, 2),
+                                  padding: EdgeInsets.fromLTRB(20, 6, 20, 5),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -336,7 +336,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                       );
                                     }
                                     return Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
                                       child: GridView.builder(
                                         padding: EdgeInsets.zero,
                                         gridDelegate:

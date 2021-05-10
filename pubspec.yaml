@@ -92,7 +92,6 @@ flutter:
     - assets/games/ranks/mw/
     - assets/games/ranks/rl/
     - assets/games/ranks/valorant/
-    - assets/images/
   fonts:
     - family:  CustomIcons
       fonts:

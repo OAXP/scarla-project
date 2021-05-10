@@ -115,7 +115,7 @@ class _HomePageWidgetState extends State<HomePageWidget>  with  TickerProviderSt
                       }
                       );
                     },
-                    child: CircleAvatar(backgroundImage:AssetImage('assets/images/valorantIcon.jpg'),maxRadius: 28.5)
+                    child: CircleAvatar(backgroundImage:AssetImage('assets/games/icons/valorantIcon.png'),maxRadius: 28.5)
                 ),
                 SizedBox(height: 30),
                 SelectableCircle(
@@ -155,7 +155,7 @@ class _HomePageWidgetState extends State<HomePageWidget>  with  TickerProviderSt
                         width: 200,
                         height: 200,
                         decoration: BoxDecoration(
-                          image: DecorationImage(image:ExactAssetImage('assets/images/MWIcon.png'),scale:2.5,),
+                          image: DecorationImage(image:ExactAssetImage('assets/games/icons/mwIcon.png'),scale:2.5,),
                           shape: BoxShape.circle,
 
 
@@ -199,7 +199,7 @@ class _HomePageWidgetState extends State<HomePageWidget>  with  TickerProviderSt
                         width: 150,
                         height: 150,
                         decoration: BoxDecoration(
-                          image: DecorationImage(image:ExactAssetImage('assets/images/LOLIcon.png'),scale: 12),
+                          image: DecorationImage(image:ExactAssetImage('assets/games/icons/lolIcon.png'),scale: 11),
                           shape: BoxShape.circle,
                           gradient: LinearGradient(
                             colors: [
@@ -253,7 +253,7 @@ class _HomePageWidgetState extends State<HomePageWidget>  with  TickerProviderSt
                       decoration: BoxDecoration(
 
                         color: Color(0xff004ca3),
-                        image: DecorationImage(image:ExactAssetImage('assets/images/rlIcon.png'),scale: 28,),
+                        image: DecorationImage(image:ExactAssetImage('assets/games/icons/rlIcon.png'),scale: 23,),
                         shape: BoxShape.circle,
 
 
@@ -301,7 +301,7 @@ class _HomePageWidgetState extends State<HomePageWidget>  with  TickerProviderSt
 
                       decoration: BoxDecoration(
                         color: Colors.grey[300],
-                        image: DecorationImage(image:ExactAssetImage('assets/images/OwIcon.png'),scale: 26,),
+                        image: DecorationImage(image:ExactAssetImage('assets/games/icons/owIcon.png'),scale: 26,),
                         shape: BoxShape.circle,
 
 
@@ -506,8 +506,10 @@ class _HomePageWidgetState extends State<HomePageWidget>  with  TickerProviderSt
                                                     alignment: Alignment(0, 0),
                                                     child: IconButton(
                                                       onPressed: () {
-                                                        print(
-                                                            'IconButton pressed ...');
+
+
+
+
                                                       },
                                                       icon: Icon(
                                                         Icons.keyboard_control,

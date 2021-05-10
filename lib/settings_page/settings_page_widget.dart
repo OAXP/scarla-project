@@ -323,7 +323,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   Expanded(
                                     child: TextFormField(
                                       inputFormatters: [
-                                        LengthLimitingTextInputFormatter(25)
+                                        LengthLimitingTextInputFormatter(10)
                                       ],
                                       controller: usernameFieldController,
                                       obscureText: false,
@@ -475,13 +475,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 maxLines: 3,
                               ),
                             ),
+                            Divider(height: 30,thickness: 1,indent:20,endIndent: 20,color:  Color(0x23F5F5F5),),
                             Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(),
                                   child: Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                                     child: Text(
                                       'Game Preference',
                                       textAlign: TextAlign.center,
@@ -493,57 +494,61 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Competitive',
-                                          style: FlutterFlowTheme.bodyText1
-                                              .override(
-                                            fontFamily: 'Poppins',
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(25,0,0,0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Competitive',
+                                            style: FlutterFlowTheme.bodyText1
+                                                .override(
+                                              fontFamily: 'Poppins',
+                                            ),
                                           ),
-                                        ),
-                                        ToggleIcon(
-                                          onPressed: () async {
-                                            final isCompetitive =
-                                                !settingsPageUsersRecord
-                                                    .isCompetitive;
+                                          ToggleIcon(
+                                            onPressed: () async {
+                                              final isCompetitive =
+                                                  !settingsPageUsersRecord
+                                                      .isCompetitive;
 
-                                            final usersRecordData =
-                                                createUsersRecordData(
-                                              isCompetitive: isCompetitive,
-                                            );
+                                              final usersRecordData =
+                                                  createUsersRecordData(
+                                                isCompetitive: isCompetitive,
+                                              );
 
-                                            await settingsPageUsersRecord
-                                                .reference
-                                                .update(usersRecordData);
-                                          },
-                                          value: settingsPageUsersRecord
-                                              .isCompetitive,
-                                          onIcon: Icon(
-                                            Icons.check_box,
-                                            color: Color(0xFF535480),
-                                            size: 23,
-                                          ),
-                                          offIcon: Icon(
-                                            Icons.check_box_outline_blank,
-                                            color: Color(0xFF535480),
-                                            size: 23,
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
+                                              await settingsPageUsersRecord
+                                                  .reference
+                                                  .update(usersRecordData);
+                                            },
+                                            value: settingsPageUsersRecord
+                                                .isCompetitive,
+                                            onIcon: Icon(
+                                              Icons.check_box,
+                                              color: Color(0xFF535480),
+                                              size: 23,
+                                            ),
+                                            offIcon: Icon(
+                                              Icons.check_box_outline_blank,
+                                              color: Color(0xFF535480),
+                                              size: 23,
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
+                            Divider(height: 25,thickness: 1,indent:20,endIndent: 20,color:  Color(0x23F5F5F5),),
                             Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -554,6 +559,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                                SizedBox(height:15),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -1575,50 +1581,130 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           InkWell(
                                             onTap: () async {
-                                              setState(() {
-                                                FlutterFlowTheme.primaryColor =
-                                                    Color(0xFF25263E);
-                                                FlutterFlowTheme
-                                                        .secondaryColor =
-                                                    Color(0xFFFF4553);
-                                                FlutterFlowTheme.tertiaryColor =
-                                                    Color(0xFF252854);
-                                                FlutterFlowTheme.appBarColor =
-                                                    Color(0xA2000000);
-                                                FlutterFlowTheme.title1Color =
-                                                    Color(0xFF535480);
-                                                FlutterFlowTheme.title2Color =
-                                                    Colors.white;
-                                                FlutterFlowTheme.title3Color =
-                                                    Colors.white;
-                                                FlutterFlowTheme
-                                                        .subtitle1Color =
-                                                    Colors.black;
-                                                FlutterFlowTheme
-                                                        .subtitle2Color =
-                                                    Colors.white;
-                                                FlutterFlowTheme.body1Color =
-                                                    Colors.white;
-                                                FlutterFlowTheme.body2Color =
-                                                    Color(0xFFB2B2B2);
-                                                notificationSwitchSetting =
-                                                    true;
-                                              });
+
+
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    backgroundColor: Colors.white,
+                                                    shape: RoundedRectangleBorder(
+
+                                                      borderRadius: BorderRadius.circular(10.0),
+                                                    ),
+                                                    title: Center(child: Text('Alert!')),
+                                                    content: Text('Are you sure you want to reset your color settings?'),
+                                                    actions: <Widget>[
+                                                      Column(
+                                                        children: [
+
+                                                          Center(
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.fromLTRB(0,0,22,15),
+                                                              child: Container(
+                                                                width:250,
+                                                                height:2,
+                                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey[300],),
+
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            children: [
+
+                                                              Padding(
+                                                                padding: const EdgeInsets.fromLTRB(0,0,10,0),
+                                                                child: Container(
+                                                                  width:107,
+                                                                  height:47,
+                                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey,),
+                                                                  child: TextButton(
+
+                                                                    child: Text('Cancel',style: TextStyle(color: Colors.white),),
+
+
+                                                                    onPressed: () {
+                                                                      Navigator.of(context).pop();
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding: const EdgeInsets.fromLTRB(0,0,20,0),
+                                                                child: Container(
+                                                                  width:107,
+                                                                  height:47,
+                                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Color(0xffff4553),),
+                                                                  child: TextButton(
+
+                                                                    child: Text('Yes!',style: TextStyle(color: Colors.white),),
+
+
+                                                                    onPressed: () {
+                                                                      setState(() {
+                                                                        FlutterFlowTheme.primaryColor =
+                                                                            Color(0xFF25263E);
+                                                                        FlutterFlowTheme
+                                                                            .secondaryColor =
+                                                                            Color(0xFFFF4553);
+                                                                        FlutterFlowTheme.tertiaryColor =
+                                                                            Color(0xFF252854);
+                                                                        FlutterFlowTheme.appBarColor =
+                                                                            Color(0xA2000000);
+                                                                        FlutterFlowTheme.title1Color =
+                                                                            Color(0xFF535480);
+                                                                        FlutterFlowTheme.title2Color =
+                                                                            Colors.white;
+                                                                        FlutterFlowTheme.title3Color =
+                                                                            Colors.white;
+                                                                        FlutterFlowTheme
+                                                                            .subtitle1Color =
+                                                                            Colors.black;
+                                                                        FlutterFlowTheme
+                                                                            .subtitle2Color =
+                                                                            Colors.white;
+                                                                        FlutterFlowTheme.body1Color =
+                                                                            Colors.white;
+                                                                        FlutterFlowTheme.body2Color =
+                                                                            Color(0xFFB2B2B2);
+                                                                        notificationSwitchSetting =
+                                                                        true;
+                                                                      }); Navigator.of(context).pop();
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      )
+
+
+                                                    ],
+                                                  );
+                                                },
+                                              );
+
+
+
                                             },
-                                            child: Card(
-                                              clipBehavior:
-                                                  Clip.antiAliasWithSaveLayer,
-                                              color: Color(0xFFF5F5F5),
-                                              child: Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    2, 0, 2, 0),
-                                                child: Text(
-                                                  'Reset All',
-                                                  style: GoogleFonts.getFont(
-                                                    'Poppins',
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14,
+                                            child: Padding(
+                                              padding: const EdgeInsets.fromLTRB(0,0,30,0),
+                                              child: Card(
+                                                clipBehavior:
+                                                    Clip.antiAliasWithSaveLayer,
+                                                color: Color(0xFFF5F5F5),
+                                                child: Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      2, 0, 2, 0),
+                                                  child: Text(
+                                                    'Reset All',
+                                                    style: GoogleFonts.getFont(
+                                                      'Poppins',
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 14,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -1631,6 +1717,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 )
                               ],
                             ),
+                            Divider(height: 30,thickness: 1,indent:20,endIndent: 20,color:  Color(0x23F5F5F5),),
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
                               child: Column(

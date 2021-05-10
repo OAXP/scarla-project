@@ -75,7 +75,7 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                               Expanded(
                                 child: TextFormField(
                                   inputFormatters: [
-                                    LengthLimitingTextInputFormatter(25)
+                                    LengthLimitingTextInputFormatter(10)
                                   ],
                                   controller: usernameFieldController,
                                   obscureText: false,
