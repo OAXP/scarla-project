@@ -94,8 +94,8 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 400),);
 
-    pos_l = 0;
-    pos_r = 306;
+    pos_l = -750;
+    pos_r = 0;
     pos_t = 35;
     pos_b = 0;
   }
@@ -116,22 +116,22 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
   void _movewidget(String pos) {
     setState(() {
       if (pos == "Profile") {
-        pos_l = getPosition(_profileIconKey).dx - (getSize(_profileIconKey).width/2) + 5;
+        pos_l = getPosition(_profileIconKey).dx - 17;
         pos_r = 0;
         pos_t = 35;
         pos_b = 0;
       } else if (pos == "Users") {
-        pos_l = getPosition(_chatIconKey).dx + (getSize(_friendsIconKey).width/2) + 5;
+        pos_l = getPosition(_chatIconKey).dx + 35;
         pos_r = 0;
         pos_t = 35;
         pos_b = 0;
       }else if (pos == "Home") {
-        pos_l = -getPosition(_profileIconKey).dx + (getSize(_homeIconKey).width/2) - 5;
+        pos_l = -getPosition(_profileIconKey).dx + 20;
         pos_r = 0;
         pos_t = 35;
         pos_b = 0;
       }else if (pos == "Messages") {
-        pos_l = -getPosition(_chatIconKey).dx - (getSize(_chatIconKey).width/2) - 5;
+        pos_l = -getPosition(_chatIconKey).dx - 35;
         pos_r = 0;
         pos_t = 35;
         pos_b = 0;
