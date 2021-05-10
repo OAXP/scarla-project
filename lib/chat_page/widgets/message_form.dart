@@ -50,97 +50,100 @@ class _MessageFormState extends State<MessageForm> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white54,
-      padding: const EdgeInsets.fromLTRB(5, 5, 5, 35),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          (FlutterFlowTheme.isUploading)
-              ? Material(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 1.0),
-                    child: IconButton(
-                      icon: Icon(Icons.file_upload),
-                      onPressed: () {},
-                      color: FlutterFlowTheme.primaryColor,
+      padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+      child: SafeArea(
+        top: false,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            (FlutterFlowTheme.isUploading)
+                ? Material(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 1.0),
+                      child: IconButton(
+                        icon: Icon(Icons.file_upload),
+                        onPressed: () {},
+                        color: FlutterFlowTheme.primaryColor,
+                      ),
                     ),
-                  ),
-                  color: Colors.transparent,
-                )
-              : Material(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 1.0),
-                    child: IconButton(
-                      icon: Icon(Icons.image),
-                      onPressed: getImage,
-                      color: FlutterFlowTheme.primaryColor,
+                    color: Colors.transparent,
+                  )
+                : Material(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 1.0),
+                      child: IconButton(
+                        icon: Icon(Icons.image),
+                        onPressed: getImage,
+                        color: FlutterFlowTheme.primaryColor,
+                      ),
                     ),
+                    color: Colors.transparent,
                   ),
-                  color: Colors.transparent,
+            Material(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 1.0),
+                child: IconButton(
+                  icon: Icon(Icons.video_collection),
+                  onPressed: () {
+                    getImage(isVideo: true);
+                  },
+                  color: FlutterFlowTheme.primaryColor,
                 ),
-          Material(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 1.0),
-              child: IconButton(
-                icon: Icon(Icons.video_collection),
-                onPressed: () {
-                  getImage(isVideo: true);
-                },
-                color: FlutterFlowTheme.primaryColor,
               ),
+              color: Colors.transparent,
             ),
-            color: Colors.transparent,
-          ),
-          Expanded(
-              child: TextField(
-            controller: _controller,
-            decoration: InputDecoration(
-              hintText: 'Send a Chat',
-              hintStyle: FlutterFlowTheme.bodyText2.override(
-                fontFamily: 'Poppins',
+            Expanded(
+                child: TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                hintText: 'Send a Chat',
+                hintStyle: FlutterFlowTheme.bodyText2.override(
+                  fontFamily: 'Poppins',
 
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
+                contentPadding: const EdgeInsets.all(10),
               ),
-              filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
+              style: FlutterFlowTheme.bodyText2.override(
+                fontFamily: 'Poppins',
+                color: Colors.black,
+              ),
+              minLines: 1,
+              maxLines: 4,
+              onChanged: (value) {
+                setState(() {
+                  _message = value;
+                });
+              },
+            )),
+            SizedBox(
+              width: 5,
+            ),
+            RawMaterialButton(
+              onPressed:
+                  _message == null || _message.trim().isEmpty ? null : _onPressed,
+              fillColor: _message == null || _message.trim().isEmpty
+                  ? Colors.blueGrey
+                  : FlutterFlowTheme.primaryColor,
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide.none,
               ),
-              contentPadding: const EdgeInsets.all(10),
-            ),
-            style: FlutterFlowTheme.bodyText2.override(
-              fontFamily: 'Poppins',
-              color: Colors.black,
-            ),
-            minLines: 1,
-            maxLines: 4,
-            onChanged: (value) {
-              setState(() {
-                _message = value;
-              });
-            },
-          )),
-          SizedBox(
-            width: 5,
-          ),
-          RawMaterialButton(
-            onPressed:
-                _message == null || _message.trim().isEmpty ? null : _onPressed,
-            fillColor: _message == null || _message.trim().isEmpty
-                ? Colors.blueGrey
-                : FlutterFlowTheme.primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                'SEND',
-                style: FlutterFlowTheme.subtitle2
-                    .override(fontFamily: 'Poppins', fontSize: 14),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  'SEND',
+                  style: FlutterFlowTheme.subtitle2
+                      .override(fontFamily: 'Poppins', fontSize: 14),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
