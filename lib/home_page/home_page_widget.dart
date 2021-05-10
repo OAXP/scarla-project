@@ -419,7 +419,7 @@ class _HomePageWidgetState extends State<HomePageWidget>  with  TickerProviderSt
                                       listViewFeedRecordList[listViewIndex];
                                   return Padding(
                                     padding: EdgeInsets.fromLTRB(0, 5, 0,
-                                        (listViewIndex == listViewFeedRecordList.length-1) ? 90 : 0),
+                                        (listViewIndex == listViewFeedRecordList.length-1) ? 110 : 0),
                                     child: Card(
                                       clipBehavior: Clip.antiAliasWithSaveLayer,
                                       color: FlutterFlowTheme.tertiaryColor,

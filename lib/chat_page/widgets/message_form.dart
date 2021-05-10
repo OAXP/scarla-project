@@ -50,7 +50,7 @@ class _MessageFormState extends State<MessageForm> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white54,
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.fromLTRB(5, 5, 5, 35),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
