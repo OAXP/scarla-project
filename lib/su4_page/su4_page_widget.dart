@@ -1,3 +1,8 @@
+import 'package:image_picker/image_picker.dart';
+import 'package:scarla/flutter_flow/upload_media.dart';
+import 'package:scarla/rank_page/rank_page_widget.dart';
+import 'package:scarla/util/transparent_route.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -9,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:imgur/imgur.dart' as imgur;
 
 class Su4PageWidget extends StatefulWidget {
   Su4PageWidget(
@@ -17,14 +23,15 @@ class Su4PageWidget extends StatefulWidget {
       this.tag,
       this.photoUrl,
       this.about,
-      this.bgProfile})
+      this.selectedGames})
       : super(key: key);
 
   final String username;
   final String tag;
   final String photoUrl;
   final String about;
-  final String bgProfile;
+  final List<String> selectedGames;
+  String bgProfile;
 
   @override
   _Su4PageWidgetState createState() => _Su4PageWidgetState();
@@ -32,6 +39,37 @@ class Su4PageWidget extends StatefulWidget {
 
 class _Su4PageWidgetState extends State<Su4PageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  Future getImage({bool isVideo = false}) async {
+    ImagePicker imagePicker = ImagePicker();
+    PickedFile pickedFile;
+
+    if (isVideo) {
+      pickedFile = await imagePicker.getVideo(source: ImageSource.gallery);
+    } else {
+      pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    }
+
+    if (pickedFile != null) {
+      final isValid = validateFileFormat(pickedFile.path, context);
+      if (isValid) {
+        setState(() {
+          FlutterFlowTheme.isUploading = true;
+        });
+        final client =
+            imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
+        await client.image
+            .uploadImage(
+                imagePath: pickedFile.path, title: '*_*', description: '*_*')
+            .then((image) {
+          widget.bgProfile = image.link;
+          setState(() {
+            FlutterFlowTheme.isUploading = false;
+          });
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +99,15 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                           decoration: BoxDecoration(
                             color: Color(0xFFB7B7B7),
                           ),
-                          child: CachedNetworkImage(
-                            imageUrl: widget.bgProfile,
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 1,
-                            fit: BoxFit.cover,
-                          ),
+                          child: (widget.bgProfile != null)
+                              ? CachedNetworkImage(
+                                  imageUrl: widget.bgProfile,
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 1,
+                                  fit: BoxFit.cover,
+                                )
+                              : Container(),
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
@@ -92,16 +133,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                 padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                                 child: InkWell(
                                   onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            YoutubePlayerPageWidget(
-                                          url:
-                                              'https://www.youtube.com/watch?v=OUy-iIYu45k',
-                                        ),
-                                      ),
-                                    );
+                                    getImage();
                                   },
                                   child: FaIcon(
                                     FontAwesomeIcons.pen,
@@ -215,60 +247,47 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                 ),
                               ),
                             ),
-                            StreamBuilder<List<UsersRecord>>(
-                              stream: queryUsersRecord(),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                }
-                                List<UsersRecord> rowUsersRecordList =
-                                    snapshot.data;
-                                // Customize what your widget looks like with no query results.
-                                if (snapshot.data.isEmpty) {
-                                  // return Container();
-                                  // For now, we'll just include some dummy data.
-                                  rowUsersRecordList =
-                                      createDummyUsersRecord(count: 4);
-                                }
-                                return Padding(
-                                  padding: EdgeInsets.fromLTRB(2, 2, 2, 2),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: List.generate(
-                                        rowUsersRecordList.length, (rowIndex) {
-                                      final rowUsersRecord =
-                                          rowUsersRecordList[rowIndex];
-                                      return Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            await launchURL(
-                                                'https://www.youtube.com/watch?v=xVSjcrwBI1Y');
-                                          },
-                                          child: Container(
-                                            width: 30,
-                                            height: 30,
-                                            clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  'https://pbs.twimg.com/profile_images/1291867974790295552/AFRVxzDT_400x400.jpg',
-                                              fit: BoxFit.contain,
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 2, 20, 2),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: List.generate(
+                                    widget.selectedGames.length, (gameIndex) {
+                                  final game = widget.selectedGames[gameIndex];
+                                  return Padding(
+                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          TransparentRoute(
+                                            builder: (context) =>
+                                                RankPageWidget(
+                                              username: widget.username,
+                                              game: game,
+                                              userRef: currentUserReference,
                                             ),
                                           ),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 30,
+                                        height: 30,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
                                         ),
-                                      );
-                                    }),
-                                  ),
-                                );
-                              },
-                            )
+                                        child: Image.asset(
+                                          'assets/games/icons/${game}Icon.png',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ),
                           ],
                         )
                       ],
@@ -341,21 +360,22 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                           final about = widget.about;
                           final name = widget.username;
                           final photoUrl = widget.photoUrl;
-                          final bgProfile =
-                              'https://media.discordapp.net/attachments/530418694841565186/819976832321454160/wonderEggSniper.gif';
+                          final bgProfile = widget.bgProfile;
                           final tag = widget.tag;
+                          final selectedGames = widget.selectedGames;
 
                           final keys = createKeys("$name#$tag");
 
                           final usersRecordData = {
                             ...createUsersRecordData(
-                            about: about,
-                            name: name,
-                            photoUrl: photoUrl,
-                            bgProfile: bgProfile,
-                            tag: tag,
-                          ),
-                          'keys' : keys,
+                              about: about,
+                              name: name,
+                              photoUrl: photoUrl,
+                              bgProfile: bgProfile,
+                              tag: tag,
+                            ),
+                            'keys': keys,
+                            'selected_games': selectedGames,
                           };
 
                           await currentUserReference.update(usersRecordData);

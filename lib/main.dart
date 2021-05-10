@@ -16,6 +16,9 @@ import 'my_profile_page/my_profile_page_widget.dart';
 import 'friends_page/friends_page_widget.dart';
 import 'su3_page/su3_page_widget.dart';
 import 'util/transparent_route.dart';
+import 'package:frino_icons/frino_icons.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:line_icons/line_icons.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -221,25 +224,28 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                         SizedBox(
                           width: 10,
                         ),
-                        IconButton(
-                          splashColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          icon: Icon(FontAwesome.users),
-                          iconSize: 24.0,
-                          color: (_currentPage == 'FriendsPage')
-                              ? color
-                              : Colors.white,
-                          onPressed: () {
-                            setState(() => setState(
-                                () => _currentPage = tabs.keys.toList()[2]));
-                            _movewidget("Users");
-                          },
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0,2,0,0),
+                          child: IconButton(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            icon: Icon(FluentIcons.people_community_28_regular),
+                            iconSize: 30.0,
+                            color: (_currentPage == 'FriendsPage')
+                                ? color
+                                : Colors.white,
+                            onPressed: () {
+                              setState(() => setState(
+                                  () => _currentPage = tabs.keys.toList()[2]));
+                              _movewidget("Users");
+                            },
+                          ),
                         ),
                         IconButton(
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          icon: Icon(FontAwesome.user_circle),
-                          iconSize: 24.0,
+                          icon: Icon(LineIcons.userCircle),
+                          iconSize: 29,
                           color: (_currentPage == 'MyProfilePage')
                               ? color
                               : Colors.white,

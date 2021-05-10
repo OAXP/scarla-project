@@ -48,6 +48,13 @@ class _$GroupsRecordSerializer implements StructuredSerializer<GroupsRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.lastMessageTimestamp;
+    if (value != null) {
+      result
+        ..add('last_message_timestamp')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(Timestamp)));
+    }
     value = object.membersId;
     if (value != null) {
       result
@@ -100,6 +107,10 @@ class _$GroupsRecordSerializer implements StructuredSerializer<GroupsRecord> {
           result.lastMessage = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'last_message_timestamp':
+          result.lastMessageTimestamp = serializers.deserialize(value,
+              specifiedType: const FullType(Timestamp)) as Timestamp;
+          break;
         case 'members_id':
           result.membersId.replace(serializers.deserialize(value,
                   specifiedType:
@@ -133,6 +144,8 @@ class _$GroupsRecord extends GroupsRecord {
   @override
   final String lastMessage;
   @override
+  final Timestamp lastMessageTimestamp;
+  @override
   final BuiltList<String> membersId;
   @override
   final DocumentReference host;
@@ -147,6 +160,7 @@ class _$GroupsRecord extends GroupsRecord {
       this.gName,
       this.gPhotoUrl,
       this.lastMessage,
+      this.lastMessageTimestamp,
       this.membersId,
       this.host,
       this.reference})
@@ -167,6 +181,7 @@ class _$GroupsRecord extends GroupsRecord {
         gName == other.gName &&
         gPhotoUrl == other.gPhotoUrl &&
         lastMessage == other.lastMessage &&
+        lastMessageTimestamp == other.lastMessageTimestamp &&
         membersId == other.membersId &&
         host == other.host &&
         reference == other.reference;
@@ -178,9 +193,11 @@ class _$GroupsRecord extends GroupsRecord {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, gId.hashCode), gName.hashCode),
-                        gPhotoUrl.hashCode),
-                    lastMessage.hashCode),
+                    $jc(
+                        $jc($jc($jc(0, gId.hashCode), gName.hashCode),
+                            gPhotoUrl.hashCode),
+                        lastMessage.hashCode),
+                    lastMessageTimestamp.hashCode),
                 membersId.hashCode),
             host.hashCode),
         reference.hashCode));
@@ -193,6 +210,7 @@ class _$GroupsRecord extends GroupsRecord {
           ..add('gName', gName)
           ..add('gPhotoUrl', gPhotoUrl)
           ..add('lastMessage', lastMessage)
+          ..add('lastMessageTimestamp', lastMessageTimestamp)
           ..add('membersId', membersId)
           ..add('host', host)
           ..add('reference', reference))
@@ -220,6 +238,11 @@ class GroupsRecordBuilder
   String get lastMessage => _$this._lastMessage;
   set lastMessage(String lastMessage) => _$this._lastMessage = lastMessage;
 
+  Timestamp _lastMessageTimestamp;
+  Timestamp get lastMessageTimestamp => _$this._lastMessageTimestamp;
+  set lastMessageTimestamp(Timestamp lastMessageTimestamp) =>
+      _$this._lastMessageTimestamp = lastMessageTimestamp;
+
   ListBuilder<String> _membersId;
   ListBuilder<String> get membersId =>
       _$this._membersId ??= new ListBuilder<String>();
@@ -244,6 +267,7 @@ class GroupsRecordBuilder
       _gName = $v.gName;
       _gPhotoUrl = $v.gPhotoUrl;
       _lastMessage = $v.lastMessage;
+      _lastMessageTimestamp = $v.lastMessageTimestamp;
       _membersId = $v.membersId?.toBuilder();
       _host = $v.host;
       _reference = $v.reference;
@@ -273,6 +297,7 @@ class GroupsRecordBuilder
               gName: gName,
               gPhotoUrl: gPhotoUrl,
               lastMessage: lastMessage,
+              lastMessageTimestamp: lastMessageTimestamp,
               membersId: _membersId?.build(),
               host: host,
               reference: reference);

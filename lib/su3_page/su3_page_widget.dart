@@ -24,6 +24,7 @@ class Su3PageWidget extends StatefulWidget {
 class _Su3PageWidgetState extends State<Su3PageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<bool> selected= List.filled(5, false);
+  List<String> selectedGames = List.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
@@ -74,13 +75,11 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 selected[0]=!selected[0];
                               });
 
-                              final usersRecordData = {
-                                'selected_games':
-                                    FieldValue.arrayUnion(['lol']),
-                              };
-
-                              await currentUserReference
-                                  .update(usersRecordData);
+                              if(selectedGames.contains("lol")) {
+                                selectedGames.remove("lol");
+                              } else {
+                                selectedGames.add("lol");
+                              }
 
                             },
                               child: Stack(
@@ -137,13 +136,12 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                               {
                                 selected[1]=!selected[1];
                               });
-                              final usersRecordData = {
-                                'selected_games':
-                                    FieldValue.arrayUnion(['valorant']),
-                              };
 
-                              await currentUserReference
-                                  .update(usersRecordData);
+                              if(selectedGames.contains("valorant")) {
+                                selectedGames.remove("valorant");
+                              } else {
+                                selectedGames.add("valorant");
+                              }
                             },
                             child: Stack(
                                 children: [
@@ -198,12 +196,12 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
 
                                 selected[2]=!selected[2];
                               });
-                              final usersRecordData = {
-                                'selected_games': FieldValue.arrayUnion(['mw']),
-                              };
 
-                              await currentUserReference
-                                  .update(usersRecordData);
+                              if(selectedGames.contains("mw")) {
+                                selectedGames.remove("mw");
+                              } else {
+                                selectedGames.add("mw");
+                              }
                             },
 
                               child: Stack(
@@ -259,12 +257,12 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
 
                                 selected[3]=!selected[3];
                               });
-                              final usersRecordData = {
-                                'selected_games': FieldValue.arrayUnion(['ow']),
-                              };
 
-                              await currentUserReference
-                                  .update(usersRecordData);
+                              if(selectedGames.contains("ow")) {
+                                selectedGames.remove("ow");
+                              } else {
+                                selectedGames.add("ow");
+                              }
                             },
 
                               child: Stack(
@@ -322,12 +320,11 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                 selected[4]=!selected[4];
                               });
 
-                              final usersRecordData = {
-                                'selected_games': FieldValue.arrayUnion(['rl']),
-                              };
-
-                              await currentUserReference
-                                  .update(usersRecordData);
+                              if(selectedGames.contains("rl")) {
+                                selectedGames.remove("rl");
+                              } else {
+                                selectedGames.add("rl");
+                              }
                             },
 
                               child: Stack(
@@ -448,6 +445,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                       tag: widget.tag,
                                       photoUrl: widget.photoUrl,
                                       about: widget.about,
+                                      selectedGames: selectedGames,
                                     ),
                                   ),
                                 );

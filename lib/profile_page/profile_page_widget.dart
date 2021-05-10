@@ -22,6 +22,7 @@ class ProfilePageWidget extends StatefulWidget {
 
 class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  String nom = 'Add as friend';
 
   @override
   Widget build(BuildContext context) {
@@ -237,8 +238,12 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     return FFButtonWidget(
                                       onPressed: () {
                                         print('FriendShipButton pressed ...');
+                                        setState(() {
+                                          nom= 'Request Sent';
+                                        });
+
                                       },
-                                      text: 'Add as friend',
+                                      text: nom,
                                       options: FFButtonOptions(
                                         width: 130,
                                         height: 40,

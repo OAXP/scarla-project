@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
@@ -11,12 +12,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:imgur/imgur.dart' as imgur;
 
 class Su2PageWidget extends StatefulWidget {
   Su2PageWidget({Key key, this.username, this.tag}) : super(key: key);
 
   final String username;
   final String tag;
+  String photoUrl;
 
   @override
   _Su2PageWidgetState createState() => _Su2PageWidgetState();
@@ -31,6 +34,37 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
   void initState() {
     super.initState();
     textController = TextEditingController();
+  }
+
+  Future getImage({bool isVideo = false}) async {
+    ImagePicker imagePicker = ImagePicker();
+    PickedFile pickedFile;
+
+    if (isVideo) {
+      pickedFile = await imagePicker.getVideo(source: ImageSource.gallery);
+    } else {
+      pickedFile = await imagePicker.getImage(source: ImageSource.gallery);
+    }
+
+    if (pickedFile != null) {
+      final isValid = validateFileFormat(pickedFile.path, context);
+      if (isValid) {
+        setState(() {
+          FlutterFlowTheme.isUploading = true;
+        });
+        final client =
+        imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
+        await client.image
+            .uploadImage(
+            imagePath: pickedFile.path, title: '*_*', description: '*_*')
+            .then((image) {
+          widget.photoUrl = image.link;
+          setState(() {
+            FlutterFlowTheme.isUploading = false;
+          });
+        });
+      }
+    }
   }
 
   @override
@@ -90,29 +124,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-                                      final selectedMedia = await selectMedia();
-                                      if (selectedMedia != null &&
-                                          validateFileFormat(
-                                              selectedMedia.storagePath,
-                                              context)) {
-                                        showUploadMessage(
-                                            context, 'Uploading file...',
-                                            showLoading: true);
-                                        final downloadUrl = await uploadData(
-                                            selectedMedia.storagePath,
-                                            selectedMedia.bytes);
-                                        ScaffoldMessenger.of(context)
-                                            .hideCurrentSnackBar();
-                                        if (downloadUrl != null) {
-                                          setState(() =>
-                                              uploadedFileUrl = downloadUrl);
-                                          showUploadMessage(
-                                              context, 'Success!');
-                                        } else {
-                                          showUploadMessage(context,
-                                              'Failed to upload media');
-                                        }
-                                      }
+                                      getImage();
                                     },
                                     child: Stack(
                                       children: [
@@ -124,10 +136,15 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                             clipBehavior: Clip.antiAlias,
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
+                                              color: FlutterFlowTheme.tertiaryColor,
                                             ),
-                                            child: CachedNetworkImage(
+                                            child: (FlutterFlowTheme.isUploading)
+                                                ? Center(
+                                                child:
+                                                CircularProgressIndicator())
+                                                : CachedNetworkImage(
                                               imageUrl:
-                                                  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                                              (widget.photoUrl != null) ? widget.photoUrl : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -328,7 +345,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                     username: widget.username,
                                     tag: widget.tag,
                                     photoUrl:
-                                        'https://media1.tenor.com/images/5fe8472849d4408271c2cfdbb35fd3f6/tenor.gif?itemid=20768761',
+                                    (widget.photoUrl != null) ? widget.photoUrl : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                                     about: textController.text,
                                   ),
                                 ),

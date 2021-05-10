@@ -284,14 +284,87 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                     padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        await widget.groupRef.delete();
-                                        await Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => NavBarPage(
-                                                initialPage: 'GroupListPage'),
-                                          ),
-                                          (r) => false,
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              backgroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+
+                                                borderRadius: BorderRadius.circular(10.0),
+                                              ),
+                                              title: Center(child: Text('Alert!')),
+                                              content: Text('You have not picked any games yet!'),
+                                              actions: <Widget>[
+                                                Column(
+                                                  children: [
+
+                                                    Center(
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.fromLTRB(0,0,17,15),
+                                                        child: Container(
+                                                          width:250,
+                                                          height:2,
+                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey[300],),
+
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: [
+
+                                                        Padding(
+                                                          padding: const EdgeInsets.fromLTRB(0,0,12,0),
+                                                          child: Container(
+                                                            width:107,
+                                                            height:47,
+                                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey,),
+                                                            child: TextButton(
+
+                                                              child: Text('Cancel',style: TextStyle(color: Colors.white),),
+
+
+                                                              onPressed: () {
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding: const EdgeInsets.fromLTRB(0,0,18,0),
+                                                          child: Container(
+                                                            width:107,
+                                                            height:47,
+                                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Color(0xffff4553),),
+                                                            child: TextButton(
+
+                                                              child: Text('Yes!',style: TextStyle(color: Colors.white),),
+
+
+                                                              onPressed: () async {
+
+                                                                await widget.groupRef.delete();
+                                                                await Navigator.pushAndRemoveUntil(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder: (context) => NavBarPage(
+                                                                        initialPage: 'GroupListPage'),
+                                                                  ),
+                                                                      (r) => false,
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+
+
+                                              ],
+                                            );
+                                          },
                                         );
                                       },
                                       text: 'Delete Group',
@@ -315,20 +388,93 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                     padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        final groupsRecordData = {
-                                          'members_id': FieldValue.arrayRemove(
-                                              [currentUserUid]),
-                                        };
 
-                                        await widget.groupRef
-                                            .update(groupsRecordData);
-                                        await Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => NavBarPage(
-                                                initialPage: 'GroupListPage'),
-                                          ),
-                                          (r) => false,
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              backgroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+
+                                                borderRadius: BorderRadius.circular(10.0),
+                                              ),
+                                              title: Center(child: Text('Alert!')),
+                                              content: Text('You have not picked any games yet!'),
+                                              actions: <Widget>[
+                                                Column(
+                                                  children: [
+
+                                                    Center(
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.fromLTRB(0,0,17,15),
+                                                        child: Container(
+                                                          width:250,
+                                                          height:2,
+                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey[300],),
+
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: [
+
+                                                        Padding(
+                                                          padding: const EdgeInsets.fromLTRB(0,0,12,0),
+                                                          child: Container(
+                                                            width:107,
+                                                            height:47,
+                                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey,),
+                                                            child: TextButton(
+
+                                                              child: Text('Cancel',style: TextStyle(color: Colors.white),),
+
+
+                                                              onPressed: () {
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding: const EdgeInsets.fromLTRB(0,0,18,0),
+                                                          child: Container(
+                                                            width:107,
+                                                            height:47,
+                                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Color(0xffff4553),),
+                                                            child: TextButton(
+
+                                                              child: Text('Yes!',style: TextStyle(color: Colors.white),),
+
+
+                                                              onPressed: () async {
+                                                                final groupsRecordData = {
+                                                                  'members_id': FieldValue.arrayRemove(
+                                                                      [currentUserUid]),
+                                                                };
+
+                                                                await widget.groupRef
+                                                                    .update(groupsRecordData);
+                                                                await Navigator.pushAndRemoveUntil(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder: (context) => NavBarPage(
+                                                                        initialPage: 'GroupListPage'),
+                                                                  ),
+                                                                      (r) => false,
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+
+
+                                              ],
+                                            );
+                                          },
                                         );
                                       },
                                       text: 'Leave Group',

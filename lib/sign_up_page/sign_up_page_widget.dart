@@ -326,11 +326,11 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(43,42,0,20),
+                                  padding: const EdgeInsets.fromLTRB(44,40,0,20),
                                   child: Row(
                                     children: [
                                       Container(
-                                        width: 100,
+                                        width: 98,
                                         height: 2,
                                         color: Color.fromRGBO(255, 255, 255, 110),
                                       ),
@@ -344,7 +344,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                       ), ),
                                       SizedBox(width: 7,),
                                       Container(
-                                        width: 100,
+                                        width: 98,
                                         height: 2,
                                         color: Color.fromRGBO(255, 255, 255, 110),
                                       ),

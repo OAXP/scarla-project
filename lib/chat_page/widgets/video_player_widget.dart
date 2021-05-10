@@ -7,9 +7,10 @@ import 'package:video_player/video_player.dart';
 class ScarlaVideoPlayer extends StatefulWidget {
   final VideoPlayerController videoPlayerController;
   final bool looping;
+  final Color color;
 
   const ScarlaVideoPlayer(
-      {Key key, @required this.videoPlayerController, this.looping})
+      {Key key, @required this.videoPlayerController, this.looping, this.color})
       : super(key: key);
 
   @override
@@ -59,7 +60,7 @@ class _VideoPlayerWidgetState extends State<ScarlaVideoPlayer> {
           constraints: BoxConstraints(maxHeight: 400),
           height: finalHeight,
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.secondaryColor,
+            color: widget.color,
           ),
           child: Chewie(
             controller: _chewieController,

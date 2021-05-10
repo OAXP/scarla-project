@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:scarla/auth/firebase_user_provider.dart';
 
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -190,7 +191,9 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                           child: InkWell(
                             onTap: () async {
                               Navigator.pop(context);
-                              await signOut();
+                              await currentUserReference.delete();
+                              await currentUser.user.delete();
+
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -234,15 +237,93 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                           padding: EdgeInsets.fromLTRB(70, 1, 6, 0),
                           child: InkWell(
                             onTap: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Su2PageWidget(
-                                    username: usernameFieldController.text,
-                                    tag: tagFieldController.text,
+
+                              if(usernameFieldController.text.isEmpty||tagFieldController.text.isEmpty){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                      ),
+                                      title: Center(child: Text('Alert!')),
+                                      content: Text(
+                                          'You have not completed your username!'),
+                                      actions: <Widget>[
+                                        Column(
+                                          children: [
+                                            Center(
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.fromLTRB(
+                                                    0, 0, 17, 15),
+                                                child: Container(
+                                                  width: 250,
+                                                  height: 1,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        24),
+                                                    color: Colors.grey[300],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 0, 24, 0),
+                                                  child: Container(
+                                                    width: 107,
+                                                    height: 47,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          24),
+                                                      color: Color(0xffff4553),
+                                                    ),
+                                                    child: TextButton(
+                                                      child: Text(
+                                                        'Ok!',
+                                                        style: TextStyle(
+                                                            color:
+                                                            Colors.white,
+                                                            fontSize: 15),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                              else {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        Su2PageWidget(
+                                          username: usernameFieldController
+                                              .text,
+                                          tag: tagFieldController.text,
+                                        ),
                                   ),
-                                ),
-                              );
+                                );
+                              }
                             },
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,

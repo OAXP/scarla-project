@@ -97,6 +97,7 @@ class _MessageFormState extends State<MessageForm> {
               hintText: 'Send a Chat',
               hintStyle: FlutterFlowTheme.bodyText2.override(
                 fontFamily: 'Poppins',
+
               ),
               filled: true,
               fillColor: Colors.white,
@@ -108,6 +109,7 @@ class _MessageFormState extends State<MessageForm> {
             ),
             style: FlutterFlowTheme.bodyText2.override(
               fontFamily: 'Poppins',
+              color: Colors.black,
             ),
             minLines: 1,
             maxLines: 4,

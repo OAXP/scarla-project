@@ -106,7 +106,9 @@ class ChatMessageOther extends StatelessWidget {
             )
                 : ScarlaVideoPlayer(
               videoPlayerController: VideoPlayerController.network(data.value),
-              looping: true,),
+              looping: true,
+              color: Colors.white,
+            ),
           ),
         ],
       ),

@@ -29,6 +29,10 @@ abstract class GroupsRecord
   String get lastMessage;
 
   @nullable
+  @BuiltValueField(wireName: 'last_message_timestamp')
+  Timestamp get lastMessageTimestamp;
+
+  @nullable
   @BuiltValueField(wireName: 'members_id')
   BuiltList<String> get membersId;
 
@@ -63,6 +67,7 @@ Map<String, dynamic> createGroupsRecordData({
   String gName,
   String gPhotoUrl,
   String lastMessage,
+  Timestamp lastMessageTimestamp,
   DocumentReference host,
 }) =>
     serializers.serializeWith(
@@ -72,6 +77,7 @@ Map<String, dynamic> createGroupsRecordData({
           ..gName = gName
           ..gPhotoUrl = gPhotoUrl
           ..lastMessage = lastMessage
+          ..lastMessageTimestamp = lastMessageTimestamp
           ..membersId = null
           ..host = host));
 
@@ -81,6 +87,7 @@ GroupsRecord get dummyGroupsRecord {
     ..gName = dummyString
     ..gPhotoUrl = dummyImagePath
     ..lastMessage = dummyString
+    ..lastMessageTimestamp = dummyTimestamp
     ..membersId = ListBuilder([dummyString, dummyString]);
   return builder.build();
 }

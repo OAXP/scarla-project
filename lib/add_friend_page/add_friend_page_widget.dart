@@ -65,7 +65,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                         child: Align(
                           alignment: Alignment(-1, 0),
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            padding: EdgeInsets.fromLTRB(11, 0, 0, 0),
                             child: InkWell(
                               onTap: () async {
                                 Navigator.pop(context);
@@ -92,7 +92,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 5, 5),
+                padding: EdgeInsets.fromLTRB(11, 13, 16, 5),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -143,6 +143,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                           ),
                           style: FlutterFlowTheme.bodyText2.override(
                             fontFamily: 'Poppins',
+                            color: Colors.black,
                           ),
                           textAlign: TextAlign.start,
                           maxLines: 1,
@@ -184,7 +185,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                         final listViewUsersRecord =
                             listViewUsersRecordList[listViewIndex];
                         return Padding(
-                          padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                          padding: EdgeInsets.fromLTRB(10, 3, 10, 10),
                           child: InkWell(
                             onTap: () async {
                               await Navigator.push(
@@ -300,7 +301,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                     .doc()
                                                     .set(friendshipData);
                                               } else {
-                                                scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("You already have a friendship with this user, go to Friends page")));
+                                                scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("You already friends with this user, go to Friends page!")));
                                               }
                                             },
                                             icon: Icon(

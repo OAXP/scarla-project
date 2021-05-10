@@ -402,6 +402,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                   ),
                                                   Text(
                                                     gridViewGroupsRecord.gName,
+                                                    overflow: TextOverflow.ellipsis,
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme
                                                         .bodyText2

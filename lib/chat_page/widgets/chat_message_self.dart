@@ -48,7 +48,7 @@ class ChatMessage extends StatelessWidget {
                   height: 400,
                   padding: EdgeInsets.all(70.0),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: FlutterFlowTheme.secondaryColor,
                     borderRadius: BorderRadius.all(
                       Radius.circular(15),
                     ),
@@ -64,7 +64,9 @@ class ChatMessage extends StatelessWidget {
             )
                 : ScarlaVideoPlayer(
                 videoPlayerController: VideoPlayerController.network(data.value),
-                looping: true,),
+                looping: true,
+                color: FlutterFlowTheme.secondaryColor,
+            ),
           )
         ],
       ),

@@ -1,3 +1,5 @@
+import 'package:page_transition/page_transition.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../chat_page/chat_page_widget.dart';
@@ -78,7 +80,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                   child: StreamBuilder<List<GroupsRecord>>(
                     stream: queryGroupsRecord(
                       queryBuilder: (groupsRecord) => groupsRecord
-                          .where('members_id', arrayContains: currentUserUid),
+                          .where('members_id', arrayContains: currentUserUid).orderBy('last_message_timestamp', descending: true),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -113,26 +115,27 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                                 onTap: () async {
                                   await Navigator.push(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ChatPageWidget(
-                                        groupName: listViewGroupsRecord.gName,
-                                        groupRef:
+
+                                          PageTransition(child:  ChatPageWidget(
+                                            groupName: listViewGroupsRecord.gName,
+                                            groupRef:
                                             listViewGroupsRecord.reference,
-                                      ),
-                                    ),
+                                          ), type: PageTransitionType.rightToLeftWithFade,duration: Duration(milliseconds: 400),
+                                              reverseDuration: Duration(milliseconds: 400),)
+
+
                                   );
                                 },
                                 onLongPress: () async {
                                   await Navigator.push(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          GroupsSettingsPageWidget(
+                                      PageTransition(child: GroupsSettingsPageWidget(
                                         groupRef:
-                                            listViewGroupsRecord.reference,
+                                        listViewGroupsRecord.reference,
                                         groupName: listViewGroupsRecord.gName,
-                                      ),
-                                    ),
+                                      ), type: PageTransitionType.rightToLeftWithFade,duration: Duration(milliseconds: 400),
+                                        reverseDuration: Duration(milliseconds: 400),)
+
                                   );
                                 },
                                 child: Card(
@@ -169,12 +172,16 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              listViewGroupsRecord.gName,
-                                              textAlign: TextAlign.start,
-                                              style: FlutterFlowTheme.title2
-                                                  .override(
-                                                fontFamily: 'Poppins',
+                                            Container(
+                                              width: 250,
+                                              child: Text(
+                                                listViewGroupsRecord.gName,
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.start,
+                                                style: FlutterFlowTheme.title2
+                                                    .override(
+                                                  fontFamily: 'Poppins',
+                                                ),
                                               ),
                                             ),
                                             Container(
@@ -187,6 +194,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                                               child: Text(
                                                 listViewGroupsRecord
                                                     .lastMessage,
+                                                overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.start,
                                                 style: FlutterFlowTheme
                                                     .bodyText2

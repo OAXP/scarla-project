@@ -1,7 +1,10 @@
+import 'package:line_icons/line_icon.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:scarla/chat_page/widgets/chat_message_other.dart';
 import 'package:scarla/chat_page/widgets/chat_message_self.dart';
 import 'package:scarla/chat_page/widgets/message_form.dart';
-
+import 'package:page_transition/page_transition.dart';
+import 'package:scarla/group_list_page/group_list_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -84,11 +87,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
     await GMessagesRecord.collection
         .doc()
         .set(gMessagesRecordData);
-    final lastMessage = textController.text;
 
     final groupsRecordData =
     createGroupsRecordData(
-      lastMessage: lastMessage,
+      lastMessage: value,
+      lastMessageTimestamp: getCurrentTimestamp,
     );
 
     await widget.groupRef
@@ -154,30 +157,33 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                   ),
                                 ),
                               ),
-                              Text(
-                                widget.groupName,
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.title1.override(
-                                  fontFamily: 'Poppins',
+                              Container(
+                                width: 250,
+                                child: Text(
+                                  widget.groupName,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.title1.override(
+                                    fontFamily: 'Poppins',
+                                  ),
                                 ),
                               ),
                               IconButton(
                                 onPressed: () async {
                                   await Navigator.push(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          GroupsSettingsPageWidget(
+                                      PageTransition(child:   GroupsSettingsPageWidget(
                                         groupRef: widget.groupRef,
                                         groupName: widget.groupName,
-                                      ),
-                                    ),
+                                      ), type: PageTransitionType.rightToLeftWithFade,duration: Duration(milliseconds: 400),
+                                        reverseDuration: Duration(milliseconds: 400),)
+
                                   );
                                 },
                                 icon: Icon(
-                                  Icons.settings,
+                                  Icons.more_vert,
                                   color: FlutterFlowTheme.title1Color,
-                                  size: 30,
+                                  size: 33,
                                 ),
                                 iconSize: 30,
                               )
