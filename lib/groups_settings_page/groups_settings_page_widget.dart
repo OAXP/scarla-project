@@ -301,7 +301,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
 
                                                     Center(
                                                       child: Padding(
-                                                        padding: const EdgeInsets.fromLTRB(0,0,17,15),
+                                                        padding: const EdgeInsets.fromLTRB(0,0,21,15),
                                                         child: Container(
                                                           width:250,
                                                           height:2,
@@ -314,7 +314,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                       children: [
 
                                                         Padding(
-                                                          padding: const EdgeInsets.fromLTRB(0,0,12,0),
+                                                          padding: const EdgeInsets.fromLTRB(0,0,14,0),
                                                           child: Container(
                                                             width:107,
                                                             height:47,
@@ -331,7 +331,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                           ),
                                                         ),
                                                         Padding(
-                                                          padding: const EdgeInsets.fromLTRB(0,0,18,0),
+                                                          padding: const EdgeInsets.fromLTRB(0,0,23,0),
                                                           child: Container(
                                                             width:107,
                                                             height:47,

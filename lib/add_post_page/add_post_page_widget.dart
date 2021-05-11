@@ -14,12 +14,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:imgur/imgur.dart' as imgur;
 
 class AddPostPageWidget extends StatefulWidget {
-  AddPostPageWidget({Key key, this.userRef, this.initValue, this.initImage})
+  AddPostPageWidget(
+      {Key key, this.userRef, this.initValue, this.initImage, this.chosenGame})
       : super(key: key);
 
   final DocumentReference userRef;
   final String initValue;
   final String initImage;
+  String chosenGame;
 
   @override
   _AddPostPageWidgetState createState() => _AddPostPageWidgetState();
@@ -28,12 +30,16 @@ class AddPostPageWidget extends StatefulWidget {
 class _AddPostPageWidgetState extends State<AddPostPageWidget> {
   TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final gamesList = ['valorant', 'lol', 'ow', 'rl', 'mw'];
   String postPic;
 
   @override
   void initState() {
     super.initState();
     textController = TextEditingController(text: widget.initValue);
+    if (widget.chosenGame == null) {
+      widget.chosenGame = "valorant";
+    }
   }
 
   Future getImage({bool isVideo = false}) async {
@@ -48,15 +54,16 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
 
     if (pickedFile != null) {
       final isValid = validateFileFormat(pickedFile.path, context);
-      if (isValid) {
+      int taille = (await pickedFile.readAsBytes()).length;
+      if(isValid && taille <= 20000000) {
         setState(() {
           FlutterFlowTheme.isUploading = true;
         });
         final client =
-        imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
+            imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
         await client.image
             .uploadImage(
-            imagePath: pickedFile.path, title: '*_*', description: '*_*')
+                imagePath: pickedFile.path, title: '*_*', description: '*_*')
             .then((image) {
           postPic = image.link;
           setState(() {
@@ -159,7 +166,26 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                       )
                                     ],
                                   ),
-                                )
+                                ),
+                                DropdownButton(
+                                  hint: Text("Select a game"),
+                                  dropdownColor: FlutterFlowTheme.tertiaryColor,
+                                  iconSize: 36,
+                                  value: widget.chosenGame,
+                                  style: FlutterFlowTheme.bodyText1
+                                      .override(fontFamily: 'Poppins'),
+                                  onChanged: (newVal) {
+                                    setState(() {
+                                      widget.chosenGame = newVal;
+                                    });
+                                  },
+                                  items: gamesList.map((e) {
+                                    return DropdownMenuItem(
+                                      value: e,
+                                      child: Text(e),
+                                    );
+                                  }).toList(),
+                                ),
                               ],
                             ),
                           ),
@@ -187,6 +213,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                               ),
                               style: FlutterFlowTheme.bodyText2.override(
                                 fontFamily: 'Poppins',
+                                color: Colors.black,
                               ),
                               textAlign: TextAlign.start,
                               maxLines: 9,
@@ -205,15 +232,23 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  (postPic == null && widget.initImage.trim() == "") ? Container() :
-                                  CachedNetworkImage(
-                                    imageUrl: (postPic != null) ? postPic : widget.initImage,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    height:
-                                        MediaQuery.of(context).size.height * 1,
-                                    fit: BoxFit.cover,
-                                  ),
+                                  (postPic == null &&
+                                          widget.initImage.trim() == "")
+                                      ? Container()
+                                      : CachedNetworkImage(
+                                          imageUrl: (postPic != null)
+                                              ? postPic
+                                              : widget.initImage,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.8,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              1,
+                                          fit: BoxFit.cover,
+                                        ),
                                   Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
@@ -280,15 +315,16 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                   final authorName =
                                       addPostPageUsersRecord.name;
                                   final content = textController.text;
-                                  final game = 'valorant';
+                                  final game = widget.chosenGame;
                                   final type = 0;
                                   final authorPhotoUrl =
                                       addPostPageUsersRecord.photoUrl;
                                   final id = '';
                                   final timestamp = getCurrentTimestamp;
                                   final authorRef = widget.userRef;
-                                  final imageUrl =
-                                  (postPic != null) ? postPic : widget.initImage;
+                                  final imageUrl = (postPic != null)
+                                      ? postPic
+                                      : widget.initImage;
 
                                   final feedRecordData = createFeedRecordData(
                                     authorId: authorId,

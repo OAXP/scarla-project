@@ -35,22 +35,22 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                  child: InkWell(
-                    onTap: () async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CreateGroupPageWidget(),
-                        ),
-                      );
-                    },
-                    child: Card(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      color: FlutterFlowTheme.secondaryColor,
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                  child: Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    color: FlutterFlowTheme.secondaryColor,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: InkWell(
+                      onTap: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CreateGroupPageWidget(),
+                          ),
+                        );
+                      },
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
                         child: Row(
@@ -110,40 +110,47 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                             final listViewGroupsRecord =
                                 listViewGroupsRecordList[listViewIndex];
                             return Padding(
-                              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                              child: InkWell(
-                                onTap: () async {
-                                  await Navigator.push(
-                                    context,
+                              padding: EdgeInsets.fromLTRB(
+                                  5,
+                                  5,
+                                  5,
+                                  (listViewIndex ==
+                                      listViewGroupsRecordList.length - 1)
+                                      ? 110
+                                      : 0),
+                              child: Card(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                color: FlutterFlowTheme.secondaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
 
-                                          PageTransition(child:  ChatPageWidget(
-                                            groupName: listViewGroupsRecord.gName,
-                                            groupRef:
-                                            listViewGroupsRecord.reference,
-                                          ), type: PageTransitionType.rightToLeftWithFade,duration: Duration(milliseconds: 400),
-                                              reverseDuration: Duration(milliseconds: 400),)
+                                            PageTransition(child:  ChatPageWidget(
+                                              groupName: listViewGroupsRecord.gName,
+                                              groupRef:
+                                              listViewGroupsRecord.reference,
+                                            ), type: PageTransitionType.rightToLeftWithFade,duration: Duration(milliseconds: 400),
+                                                reverseDuration: Duration(milliseconds: 400),)
 
 
-                                  );
-                                },
-                                onLongPress: () async {
-                                  await Navigator.push(
-                                    context,
-                                      PageTransition(child: GroupsSettingsPageWidget(
-                                        groupRef:
-                                        listViewGroupsRecord.reference,
-                                        groupName: listViewGroupsRecord.gName,
-                                      ), type: PageTransitionType.rightToLeftWithFade,duration: Duration(milliseconds: 400),
-                                        reverseDuration: Duration(milliseconds: 400),)
+                                    );
+                                  },
+                                  onLongPress: () async {
+                                    await Navigator.push(
+                                      context,
+                                        PageTransition(child: GroupsSettingsPageWidget(
+                                          groupRef:
+                                          listViewGroupsRecord.reference,
+                                          groupName: listViewGroupsRecord.gName,
+                                        ), type: PageTransitionType.rightToLeftWithFade,duration: Duration(milliseconds: 400),
+                                          reverseDuration: Duration(milliseconds: 400),)
 
-                                  );
-                                },
-                                child: Card(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  color: FlutterFlowTheme.secondaryColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
+                                    );
+                                  },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [

@@ -1,3 +1,6 @@
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:scarla/chat_page/chat_page_widget.dart';
+import 'package:scarla/flutter_flow/flutter_flow_util.dart';
 import 'package:scarla/util/transparent_route.dart';
 
 import '../add_post_page/add_post_page_widget.dart';
@@ -23,6 +26,34 @@ class ProfilePageWidget extends StatefulWidget {
 class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String nom = 'Add as friend';
+  bool isRequested;
+
+  @override
+  void initState() {
+    super.initState();
+    queryFriendsRecord(
+        queryBuilder: (friendsRecord) =>
+            friendsRecord.where('friends', whereIn: [
+              [widget.userRef, currentUserReference],
+              [currentUserReference, widget.userRef]
+            ])).first.then((value) {
+      if (value.isEmpty) {
+        nom = "Add as friend";
+      } else {
+        int status = value.first.status;
+        if(status == 0) {
+          isRequested = (value.first.friends.first == currentUserReference);
+          if (isRequested) {
+            nom = "Request Sent";
+          } else {
+            nom = "Accept request";
+          }
+        } else {
+          nom = "Friends";
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,12 +131,99 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       ),
                                     ),
                                   ),
+                                  if(nom == 'Friends')
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                    child: Icon(
-                                      Icons.more_vert,
-                                      color: Colors.white,
-                                      size: 26,
+                                    padding: EdgeInsets.fromLTRB(0, 0, 19, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        final isGroupRecord =
+                                        await queryGroupsRecord(
+                                            queryBuilder:
+                                                (groupsRecord) =>
+                                                groupsRecord.where(
+                                                    'members_id',
+                                                    whereIn: [
+                                                      [
+                                                        profilePageUsersRecord
+                                                            .uid,
+                                                        currentUserUid
+                                                      ],
+                                                      [
+                                                        currentUserUid,
+                                                        profilePageUsersRecord
+                                                            .uid
+                                                      ]
+                                                    ])).first;
+
+                                        GroupsRecord group;
+                                        String myName = (await UsersRecord
+                                            .getDocument(
+                                            currentUserReference)
+                                            .first)
+                                            .name;
+
+                                        if (isGroupRecord.isEmpty) {
+                                          final gName =
+                                              "${profilePageUsersRecord.name} and $myName";
+                                          final gPhotoUrl =
+                                              profilePageUsersRecord.photoUrl;
+                                          final lastMessage = '...';
+
+                                          final groupsRecordData = {
+                                            ...createGroupsRecordData(
+                                              gName: gName,
+                                              gPhotoUrl: gPhotoUrl,
+                                              lastMessage: lastMessage,
+                                              lastMessageTimestamp: getCurrentTimestamp,
+                                            ),
+                                            'members_id': [
+                                              profilePageUsersRecord.uid,
+                                              currentUserUid
+                                            ],
+                                          };
+
+                                          await GroupsRecord.collection
+                                              .doc()
+                                              .set(groupsRecordData);
+
+                                          group =
+                                              (await queryGroupsRecord(
+                                                  queryBuilder: (groupsRecord) =>
+                                                      groupsRecord.where(
+                                                          'members_id',
+                                                          whereIn: [
+                                                            [
+                                                              profilePageUsersRecord
+                                                                  .uid,
+                                                              currentUserUid
+                                                            ],
+                                                            [
+                                                              currentUserUid,
+                                                              profilePageUsersRecord
+                                                                  .uid
+                                                            ]
+                                                          ])).first)
+                                                  .first;
+                                        } else {
+                                          group = isGroupRecord.first;
+                                        }
+
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChatPageWidget(
+                                                  groupName: group.gName,
+                                                  groupRef: group.reference,
+                                                ),
+                                          ),
+                                        );
+                                      },
+                                      child: Icon(
+                                        AntDesign.message1,
+                                        color: Colors.white,
+                                        size: 26,
+                                      ),
                                     ),
                                   )
                                 ],
@@ -209,63 +327,183 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   endIndent: 20,
                                   color: Color(0x23F5F5F5),
                                 ),
-                                StreamBuilder<List<FriendsRecord>>(
-                                  stream: queryFriendsRecord(
-                                    queryBuilder: (friendsRecord) =>
-                                        friendsRecord.where('friends',
-                                            arrayContains:
-                                                currentUserReference),
-                                    singleRecord: true,
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                          child: CircularProgressIndicator());
-                                    }
-                                    List<FriendsRecord>
-                                        friendShipButtonFriendsRecordList =
-                                        snapshot.data;
-                                    // Customize what your widget looks like with no query results.
-                                    if (snapshot.data.isEmpty) {
-                                      // return Container();
-                                      // For now, we'll just include some dummy data.
-                                      friendShipButtonFriendsRecordList =
-                                          createDummyFriendsRecord(count: 1);
-                                    }
-                                    final friendShipButtonFriendsRecord =
-                                        friendShipButtonFriendsRecordList.first;
-                                    return FFButtonWidget(
-                                      onPressed: () {
-                                        print('FriendShipButton pressed ...');
-                                        setState(() {
-                                          nom= 'Request Sent';
-                                        });
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    if (nom == 'Add as friend') {
+                                      final friendshipData = {
+                                        ...createFriendsRecordData(
+                                            status: 0,
+                                            timestamp: getCurrentTimestamp),
+                                        'friends': [
+                                          currentUserReference,
+                                          profilePageUsersRecord.reference
+                                        ]
+                                      };
 
-                                      },
-                                      text: nom,
-                                      options: FFButtonOptions(
-                                        width: 130,
-                                        height: 40,
-                                        color: FlutterFlowTheme.secondaryColor,
-                                        textStyle:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1,
-                                        ),
-                                        borderRadius: 12,
-                                      ),
-                                    );
+                                      await FriendsRecord.collection
+                                          .doc()
+                                          .set(friendshipData);
+                                      setState(() {
+                                        nom = 'Request Sent';
+                                      });
+                                    } else if (nom == 'Request Sent') {
+                                      queryFriendsRecord(
+                                          queryBuilder: (friendsRecord) =>
+                                              friendsRecord
+                                                  .where('friends', whereIn: [
+                                                [
+                                                  widget.userRef,
+                                                  currentUserReference
+                                                ],
+                                                [
+                                                  currentUserReference,
+                                                  widget.userRef
+                                                ]
+                                              ])).first.then((value) async {
+                                        if (value.isEmpty) {
+                                          setState(() {
+                                            nom = 'Add as friend';
+                                          });
+                                        } else {
+                                          await value.first.reference.delete();
+                                          setState(() {
+                                            nom = 'Add as friend';
+                                          });
+                                        }
+                                      });
+                                    } else if (nom == 'Accept request') {
+                                      queryFriendsRecord(
+                                          queryBuilder: (friendsRecord) =>
+                                              friendsRecord
+                                                  .where('friends', whereIn: [
+                                                [
+                                                  widget.userRef,
+                                                  currentUserReference
+                                                ],
+                                                [
+                                                  currentUserReference,
+                                                  widget.userRef
+                                                ]
+                                              ])).first.then((value) async {
+                                        if (value.isEmpty) {
+                                          setState(() {
+                                            nom = 'Add as friend';
+                                          });
+                                        } else {
+                                          final friendshipData = {
+                                            ...createFriendsRecordData(
+                                              status: 1,
+                                            )
+                                          };
+
+                                          await value.first.reference
+                                              .update(friendshipData);
+
+                                          setState(() {
+                                            nom = "Friends";
+                                          });
+                                        }
+                                      });
+                                    } else if (nom == 'Friends') {
+
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+
+                                              borderRadius: BorderRadius.circular(10.0),
+                                            ),
+                                            title: Center(child: Text('Alert!')),
+                                            content: Text('Are you sure you want to remove this friend?'),
+                                            actions: <Widget>[
+                                              Column(
+                                                children: [
+
+                                                  Center(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.fromLTRB(0,0,21,15),
+                                                      child: Container(
+                                                        width:250,
+                                                        height:2,
+                                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey[300],),
+
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Row(
+                                                    children: [
+
+                                                      Padding(
+                                                        padding: const EdgeInsets.fromLTRB(0,0,12,0),
+                                                        child: Container(
+                                                          width:107,
+                                                          height:47,
+                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey,),
+                                                          child: TextButton(
+
+                                                            child: Text('Cancel',style: TextStyle(color: Colors.white),),
+
+
+                                                            onPressed: () {
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.fromLTRB(0,0,18,0),
+                                                        child: Container(
+                                                          width:107,
+                                                          height:47,
+                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Color(0xffff4553),),
+                                                          child: TextButton(
+
+                                                            child: Text('Yes!',style: TextStyle(color: Colors.white),),
+
+
+                                                            onPressed: () {
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+
+
+                                            ],
+                                          );
+                                        },
+                                      );
+
+                                      // TODO ici montrer dialogue pour remove friend
+                                    }
                                   },
+                                  text: nom,
+                                  options: FFButtonOptions(
+                                    width: 130,
+                                    height: 40,
+                                    color: FlutterFlowTheme.secondaryColor,
+                                    textStyle:
+                                        FlutterFlowTheme.subtitle2.override(
+                                      fontFamily: 'Poppins',
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: 12,
+                                  ),
                                 ),
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(0, 12, 0, 3),
                                       child: Text(
                                         'Games',
                                         textAlign: TextAlign.center,
@@ -301,9 +539,11 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: List.generate(
-                                                profilePageUsersRecord.selectedGames.length,
-                                                (gameIndex) {
-                                                  final game = profilePageUsersRecord
+                                                profilePageUsersRecord
+                                                    .selectedGames
+                                                    .length, (gameIndex) {
+                                              final game =
+                                                  profilePageUsersRecord
                                                       .selectedGames[gameIndex];
                                               return Padding(
                                                 padding: EdgeInsets.fromLTRB(
@@ -351,7 +591,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(0, 11, 0, 0),
                                       child: Text(
                                         'Posts',
                                         textAlign: TextAlign.center,
@@ -542,23 +782,38 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                     ),
                                                     Container(
                                                       width: double.infinity,
-                                                      height: (listViewFeedRecord.imageUrl.trim() == "") ? 0 : 200,
+                                                      height:
+                                                          (listViewFeedRecord
+                                                                      .imageUrl
+                                                                      .trim() ==
+                                                                  "")
+                                                              ? 0
+                                                              : 200,
                                                       decoration: BoxDecoration(
-                                                        color: Color(0x00EEEEEE),
+                                                        color:
+                                                            Color(0x00EEEEEE),
                                                       ),
-                                                      child: (listViewFeedRecord.imageUrl.trim() == "") ? Container()
+                                                      child: (listViewFeedRecord
+                                                                  .imageUrl
+                                                                  .trim() ==
+                                                              "")
+                                                          ? Container()
                                                           : CachedNetworkImage(
-                                                        imageUrl:
-                                                        listViewFeedRecord.imageUrl,
-                                                        width: MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                        height: MediaQuery.of(context)
-                                                            .size
-                                                            .height *
-                                                            1,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                                              imageUrl:
+                                                                  listViewFeedRecord
+                                                                      .imageUrl,
+                                                              width:
+                                                                  MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  1,
+                                                              fit: BoxFit.cover,
+                                                            ),
                                                     ),
                                                     Row(
                                                       mainAxisSize:

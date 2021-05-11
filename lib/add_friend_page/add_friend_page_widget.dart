@@ -301,7 +301,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                     .doc()
                                                     .set(friendshipData);
                                               } else {
-                                                scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("You already friends with this user, go to Friends page!")));
+                                                scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("You already have a friendship with this user, go to Friends page!")));
                                               }
                                             },
                                             icon: Icon(

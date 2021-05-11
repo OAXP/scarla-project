@@ -117,12 +117,12 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
   void _movewidget(String pos) {
     setState(() {
       if (pos == "Profile") {
-        pos_l = getPosition(_profileIconKey).dx - (getSize(_profileIconKey).width/2) + 6;
+        pos_l = getPosition(_profileIconKey).dx - (getSize(_profileIconKey).width/2) + 4;
         pos_r = 0;
         pos_t = 35;
         pos_b = 0;
       } else if (pos == "Users") {
-        pos_l = isIos ? getPosition(_chatIconKey).dx + 35 : getPosition(_friendsIconKey).dx - ((getSize(_friendsIconKey).width*2) + 6);
+        pos_l = isIos ? getPosition(_chatIconKey).dx + 35 : getPosition(_friendsIconKey).dx - ((getSize(_friendsIconKey).width*2) + 9);
         pos_r = 0;
         pos_t = 35;
         pos_b = 0;
@@ -137,7 +137,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
           pos_r = 0;
         } else {
           pos_l = 0;
-          pos_r = getPosition(_chatIconKey).dx + (getSize(_chatIconKey).width/4) + 12;
+          pos_r = getPosition(_chatIconKey).dx + (getSize(_chatIconKey).width/4) + 16;
         }
         pos_t = 35;
         pos_b = 0;

@@ -248,9 +248,9 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                         borderRadius:
                                         BorderRadius.circular(10.0),
                                       ),
-                                      title: Center(child: Text('Alert!')),
+                                      title: Center(child: Text('Error')),
                                       content: Text(
-                                          'You have not completed your username!'),
+                                          'Your username is not valid'),
                                       actions: <Widget>[
                                         Column(
                                           children: [

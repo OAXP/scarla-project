@@ -105,7 +105,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.primaryColor,
-          floatingActionButton: FloatingActionButton.extended(
+        /*  floatingActionButton: FloatingActionButton.extended(
             onPressed: () async {
               final name = usernameFieldController.text;
               final tag = tagFieldController.text;
@@ -137,7 +137,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                 fontFamily: 'Poppins',
               ),
             ),
-          ),
+          ),*/
           body: Stack(
             children: [
               Container(
@@ -1554,7 +1554,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     )
                                   ],
                                 ),
-                                Padding(
+                               /* Padding(
                                   padding: EdgeInsets.fromLTRB(35, 0, 35, 0),
                                   child: SwitchListTile(
                                     value: notificationSwitchSetting ?? true,
@@ -1569,13 +1569,13 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     ),
                                     dense: false,
                                   ),
-                                ),
+                                ),*/
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -1984,7 +1984,156 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                         ),
                       )
                     ],
-                  )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0,0,12,11),
+                    //13,13
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(width: 91,
+                        height: 57,
+                        child: Card(
+                          elevation: 8,
+                          shadowColor: Colors.black,
+                          color:  Color(0xFF4D5078),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),),
+                          child:  InkWell(
+                            borderRadius: BorderRadius.circular(30),
+                            splashColor: Colors.white.withAlpha(30),
+                            highlightColor: Colors.white.withAlpha(30),
+                            onTap: ()  async {
+
+                              if(usernameFieldController.text.isEmpty||tagFieldController.text.isEmpty){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                      ),
+                                      title: Center(child: Text('Error')),
+                                      content: Text(
+                                          'Your username is not valid!',textAlign: TextAlign.center,),
+                                      actions: <Widget>[
+                                        Column(
+                                          children: [
+                                            Center(
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.fromLTRB(
+                                                    0, 0, 7, 15),
+                                                child: Container(
+                                                  width: 250,
+                                                  height: 1,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        24),
+                                                    color: Colors.grey[300],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 0, 7, 0),
+                                                  child: Container(
+                                                    width: 107,
+                                                    height: 47,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          24),
+                                                      color: Color(0xffff4553),
+                                                    ),
+                                                    child: TextButton(
+                                                      child: Text(
+                                                        'Ok!',
+                                                        style: TextStyle(
+                                                            color:
+                                                            Colors.white,
+                                                            fontSize: 15),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                final name = usernameFieldController.text;
+                                final tag = tagFieldController.text;
+                                final photoUrl = widget.photoUrl;
+                                final bgProfile = widget.bgProfile;
+                                final about = aboutFieldController.text;
+
+                                final keys = createKeys("$name#$tag");
+
+                                final usersRecordData = {
+                                  ...createUsersRecordData(
+                                    name: name,
+                                    tag: tag,
+                                    photoUrl: photoUrl,
+                                    bgProfile: bgProfile,
+                                    about: about,
+                                  ),
+                                  'keys': keys,
+                                };
+
+                                await settingsPageUsersRecord.reference
+                                    .update(usersRecordData);
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: Center(
+                              child: Text(
+                                'Save',
+
+                                style: FlutterFlowTheme.subtitle2.override(
+                                  fontFamily: 'Poppins',
+                                    fontSize: 16,
+
+                                ).merge(TextStyle(
+                                  letterSpacing: 1.3
+                                )),
+
+                              ),
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+
+                            shape: BoxShape.rectangle,
+
+                            boxShadow: [
+                              BoxShadow(
+
+                                color: Color(0xFF373856).withOpacity(0.04),
+                                spreadRadius: 0,
+                                blurRadius: 21,
+                                offset: Offset(0, 6),
+                              )
+                            ]),
+
+                      ),
+                    ),
+                  ),
                 ],
               )
             ],

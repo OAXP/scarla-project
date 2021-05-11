@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:scarla/auth/auth_util.dart';
 import 'package:scarla/backend/backend.dart';
 import 'package:scarla/chat_page/widgets/video_player_widget.dart';
+import 'package:scarla/profile_page/profile_page_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class ChatMessageOther extends StatelessWidget {
@@ -41,24 +42,39 @@ class ChatMessageOther extends StatelessWidget {
                       final columnUsersRecord =
                           snapshot.data;
                       if (snapshot.hasData) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: CachedNetworkImageProvider(
-                                  columnUsersRecord.photoUrl),
-                              radius: 15,
-                            ),
-                            if (showAvatar)
-                              Text(
-                                columnUsersRecord.name,
-                                style: TextStyle(
-                                  color: Colors.blueGrey,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                        return InkWell(
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProfilePageWidget(
+                                      userRef:
+                                      columnUsersRecord
+                                          .reference,
+                                    ),
                               ),
-                          ],
+                            );
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: CachedNetworkImageProvider(
+                                    columnUsersRecord.photoUrl),
+                                radius: 15,
+                              ),
+                              if (showAvatar)
+                                Text(
+                                  columnUsersRecord.name,
+                                  style: TextStyle(
+                                    color: Colors.blueGrey,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                            ],
+                          ),
                         );
                       }
                       return Center(

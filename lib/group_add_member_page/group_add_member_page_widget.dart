@@ -22,6 +22,7 @@ class GroupAddMemberPageWidget extends StatefulWidget {
 
 class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<UsersRecord> selectedUsers = List.empty(growable: true);
 
   @override
   Widget build(BuildContext context) {
@@ -76,12 +77,20 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                             ),
                             IconButton(
                               onPressed: () async {
+
+                                List<String> membersId = List.empty(growable: true);
+                                for(UsersRecord user in selectedUsers) {
+                                  membersId.add(user.uid);
+                                }
+
                                 final groupsRecordData = {
                                   'members_id':
-                                      FieldValue.arrayUnion(['I am a user ID']),
+                                      FieldValue.arrayUnion(membersId),
                                 };
 
                                 await widget.groupRef.update(groupsRecordData);
+
+                                Navigator.pop(context);
                               },
                               icon: Icon(
                                 Icons.check_rounded,
@@ -94,6 +103,101 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                         ),
                       ),
                     ),
+                    if ((selectedUsers != null) ? selectedUsers.isNotEmpty : false)
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 100,
+                        decoration: BoxDecoration(),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: selectedUsers.length,
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewUsersRecord =
+                              selectedUsers[listViewIndex];
+                              return Padding(
+                                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                                child: Card(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  color: FlutterFlowTheme.tertiaryColor,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedUsers.remove(listViewUsersRecord);
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.remove_circle,
+                                          color: FlutterFlowTheme.secondaryColor,
+                                          size: 24,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                listViewUsersRecord.photoUrl,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                              EdgeInsets.fromLTRB(2, 0, 0, 0),
+                                              child: Text(
+                                                listViewUsersRecord.name,
+                                                style: FlutterFlowTheme.bodyText1
+                                                    .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              '#',
+                                              style: FlutterFlowTheme.bodyText1
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFF838383),
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                            Text(
+                                              listViewUsersRecord.tag,
+                                              style: FlutterFlowTheme.bodyText1
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFF838383),
+                                                fontSize: 10,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
                     Expanded(
                       child: StreamBuilder<List<FriendsRecord>>(
                         stream: queryFriendsRecord(
@@ -119,7 +223,7 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                             );
                           }
                           return Padding(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: ListView.builder(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,
@@ -251,13 +355,11 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                                                           if(membersId.contains(userRecord.uid)) {
                                                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("This user is already in this group.")));
                                                           } else {
-                                                            final groupsRecordData = {
-                                                              'members_id': FieldValue.arrayUnion(
-                                                                  [userRecord.uid]),
-                                                            };
-
-                                                            await widget.groupRef
-                                                                .update(groupsRecordData);
+                                                            setState(() {
+                                                              if(!selectedUsers.contains(userRecord)) {
+                                                                selectedUsers.add(userRecord);
+                                                              }
+                                                            });
                                                           }
 
                                                         },
