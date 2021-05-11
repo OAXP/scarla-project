@@ -48,8 +48,8 @@ Widget test(){
       elevation: 8,
       shadowColor: Colors.black,
       color:  Color(0xFF4D5078),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),),
+      shape: CircleBorder(
+        ),
       child:  InkWell(
         borderRadius: BorderRadius.circular(30),
         splashColor: Colors.blue.withAlpha(30),
@@ -178,12 +178,7 @@ Widget test(){
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            onichan(),
-            bouton(),
-          ],
-        ));
+
+       );
   }
 }

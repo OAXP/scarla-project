@@ -51,7 +51,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
     }
 
     if (pickedFile != null) {
-      final isValid = validateFileFormat(pickedFile.path, context);
+      final isValid = await validateFileFormat(pickedFile.path, context);
       if (isValid) {
         setState(() {
           FlutterFlowTheme.isUploading = true;

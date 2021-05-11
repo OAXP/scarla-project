@@ -41,9 +41,8 @@ class _MessageFormState extends State<MessageForm> {
     }
     Map msgMap = Map();
     if (pickedFile != null) {
-      final isValid = validateFileFormat(pickedFile.path, context);
-      int taille = (await pickedFile.readAsBytes()).length;
-      if (isValid && taille <= 20000000) {
+      final isValid = await validateFileFormat(pickedFile.path, context);
+      if (isValid) {
         msgMap['value'] = pickedFile.path;
         msgMap['type'] = isVideo ? 2 : 1;
         widget.onSubmit(msgMap);
@@ -61,10 +60,7 @@ class _MessageFormState extends State<MessageForm> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SizedBox(
-              width: 50,
-            ),
-            /*(FlutterFlowTheme.isUploading)
+            (FlutterFlowTheme.isUploading)
                   ? Material(
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 1.0),
@@ -99,7 +95,7 @@ class _MessageFormState extends State<MessageForm> {
                   ),
                 ),
                 color: Colors.transparent,
-              ),*/
+              ),
             Expanded(
                 flex: 3,
                 child: TextField(

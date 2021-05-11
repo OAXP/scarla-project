@@ -53,9 +53,8 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
     }
 
     if (pickedFile != null) {
-      final isValid = validateFileFormat(pickedFile.path, context);
-      int taille = (await pickedFile.readAsBytes()).length;
-      if(isValid && taille <= 20000000) {
+      final isValid = await validateFileFormat(pickedFile.path, context);
+      if(isValid) {
         setState(() {
           FlutterFlowTheme.isUploading = true;
         });

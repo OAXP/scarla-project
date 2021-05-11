@@ -35,14 +35,16 @@ Future<SelectedMedia> selectMedia({
   return SelectedMedia(path, mediaBytes);
 }
 
-bool validateFileFormat(String filePath, BuildContext context) {
-  if (allowedFormats.contains(mime(filePath))) {
+Future<bool> validateFileFormat(String filePath, BuildContext context) async {
+  PickedFile pickedFile = PickedFile(filePath);
+  bool tailleCorrect = (await pickedFile.readAsBytes()).length < 20000000;
+  if (allowedFormats.contains(mime(filePath)) && tailleCorrect) {
     return true;
   }
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(
-      content: Text('Invalid file format: ${mime(filePath)}'),
+      content: Text('Invalid file format or size (20MB) : ${mime(filePath)}'),
     ));
   return false;
 }

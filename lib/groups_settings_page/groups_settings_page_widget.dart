@@ -51,7 +51,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
     }
 
     if (pickedFile != null) {
-      final isValid = validateFileFormat(pickedFile.path, context);
+      final isValid = await validateFileFormat(pickedFile.path, context);
       if (isValid) {
         setState(() {
           FlutterFlowTheme.isUploading = true;
