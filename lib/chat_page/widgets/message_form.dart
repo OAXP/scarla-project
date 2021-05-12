@@ -53,8 +53,8 @@ class _MessageFormState extends State<MessageForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white54,
-      padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+      color: FlutterFlowTheme.title1Color,
+      padding: const EdgeInsets.fromLTRB(3, 5, 5, 5),
       child: SafeArea(
         top: false,
         child: Row(
@@ -62,8 +62,12 @@ class _MessageFormState extends State<MessageForm> {
           children: [
             (FlutterFlowTheme.isUploading)
                   ? Material(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 1.0),
+                      child: Ink(
+
+                        decoration: const ShapeDecoration(
+                          color: Color(0xFF25263E),
+                          shape: CircleBorder(),
+                        ),
                         child: IconButton(
                           icon: Icon(Icons.file_upload),
                           onPressed: () {},
@@ -73,40 +77,63 @@ class _MessageFormState extends State<MessageForm> {
                       color: Colors.transparent,
                     )
                   : Material(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 1.0),
+
+
+                      child: Ink(
+
+                       decoration: const ShapeDecoration(
+                         color: Color(0xFF25263E),
+                         shape: CircleBorder(),),
+
+                       /* decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white
+
+                        ),*/
                         child: IconButton(
+
+                          splashRadius: 24,
+                          highlightColor: Colors.blue,
+                          splashColor: Colors.red,
                           icon: Icon(Icons.image),
                           onPressed: getImage,
-                          color: FlutterFlowTheme.primaryColor,
+                          color: Colors.white,
                         ),
                       ),
                       color: Colors.transparent,
                     ),
+              SizedBox(width: 4,),
               Material(
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 1.0),
+                child: Ink(
+
+                  decoration: const ShapeDecoration(
+
+                    color: Color(0xFF25263E),
+                    shape: CircleBorder(),),
                   child: IconButton(
+
                     icon: Icon(Icons.video_collection),
                     onPressed: () {
                       getImage(isVideo: true);
                     },
-                    color: FlutterFlowTheme.primaryColor,
+                    color: Colors.white,
                   ),
                 ),
                 color: Colors.transparent,
               ),
+            SizedBox(width: 4,),
             Expanded(
-                flex: 3,
+                flex: 4,
+
                 child: TextField(
                   controller: _controller,
                   decoration: InputDecoration(
-                    hintText: 'Send a Chat',
+                    hintText: 'Send a Message . . .',
                     hintStyle: FlutterFlowTheme.bodyText2.override(
                       fontFamily: 'Poppins',
                     ),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: FlutterFlowTheme.primaryColor,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
                       borderSide: BorderSide.none,
@@ -115,7 +142,7 @@ class _MessageFormState extends State<MessageForm> {
                   ),
                   style: FlutterFlowTheme.bodyText2.override(
                     fontFamily: 'Poppins',
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                   minLines: 1,
                   maxLines: 4,
@@ -130,19 +157,23 @@ class _MessageFormState extends State<MessageForm> {
             ),
             Expanded(
               flex: 1,
+
               child: RawMaterialButton(
+
                 onPressed: _message == null || _message.trim().isEmpty
                     ? null
                     : _onPressed,
                 fillColor: _message == null || _message.trim().isEmpty
-                    ? Colors.blueGrey
-                    : FlutterFlowTheme.primaryColor,
+                    ? Color(0xFF8E87C1)
+                    : FlutterFlowTheme.secondaryColor,
+                //Color(0xFF5B54C2),Colors.blueGrey
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
+
                 ),
                 child: Padding(
                     padding: const EdgeInsets.all(15),
-                    child: Icon(FluentIcons.send_20_filled)
+                    child: Icon(FluentIcons.send_20_filled,color: Colors.white,)
 
                     /* Text(
                       'SEND',

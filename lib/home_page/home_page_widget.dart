@@ -415,7 +415,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 children: [
                                   Padding(
                                     padding:
-                                        EdgeInsets.fromLTRB(10, 2, 10, 2),
+                                        EdgeInsets.fromLTRB(10, 2, 3, 2),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -432,6 +432,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                 MainAxisSize.max,
                                             children: [
                                               InkWell(
+                                                highlightColor:Colors.transparent,
+                                                splashColor: Colors.transparent,
+
                                                 onTap: () async {
                                                   await Navigator.push(
                                                     context,
@@ -445,7 +448,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                     ),
                                                   );
                                                 },
-                                                child: Container(
+                                                child:
+
+                                                Container(
                                                   width: 30,
                                                   height: 30,
                                                   clipBehavior:
@@ -464,10 +469,27 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   ),
                                                 ),
                                               ),
-                                              Padding(
+                                              InkWell(
+                                              highlightColor:Colors.transparent,
+                                              splashColor: Colors.transparent,
+                                              onTap: () async {
+
+                                                    await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ProfilePageWidget(
+                                                              userRef:
+                                                              listViewFeedRecord
+                                                                  .authorRef,
+                                                            ),
+                                                      ),
+                                                    );
+                                                  },
+                                             child: Padding(
                                                 padding:
                                                     EdgeInsets.fromLTRB(
-                                                        5, 0, 0, 0),
+                                                        6, 0, 0, 0),
                                                 child: Text(
                                                   listViewFeedRecord
                                                       .authorName,
@@ -478,7 +500,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   ),
                                                 ),
                                               )
-                                            ],
+                                              ),],
                                           ),
                                         ),
                                         Align(
@@ -492,7 +514,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                             ),
                                             iconSize: 15,
                                           ),
-                                        )
+                                        ),
+
                                       ],
                                     ),
                                   ),

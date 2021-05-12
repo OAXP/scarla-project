@@ -198,8 +198,12 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                               );
                             },
                             child: Card(
+                              shape:RoundedRectangleBorder(
+
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                              ),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: Color(0x85F5F5F5),
+                              color: FlutterFlowTheme.title1Color,
                               elevation: 5,
                               child: Stack(
                                 children: [
@@ -242,7 +246,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                       textAlign:
                                                           TextAlign.justify,
                                                       style: FlutterFlowTheme
-                                                          .subtitle1
+                                                          .subtitle2
                                                           .override(
                                                         fontFamily: 'Poppins',
                                                       ),
@@ -252,9 +256,10 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                       textAlign:
                                                           TextAlign.justify,
                                                       style: FlutterFlowTheme
-                                                          .subtitle1
+                                                          .bodyText2
                                                           .override(
                                                         fontFamily: 'Poppins',
+                                                          fontSize: 16
                                                       ),
                                                     ),
                                                     Text(
@@ -262,9 +267,10 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: FlutterFlowTheme
-                                                          .subtitle1
+                                                          .bodyText2
                                                           .override(
                                                         fontFamily: 'Poppins',
+                                                          fontSize: 16
                                                       ),
                                                     )
                                                   ],
@@ -306,7 +312,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                             },
                                             icon: Icon(
                                               Icons.add_circle_outline,
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               size: 30,
                                             ),
                                             iconSize: 30,

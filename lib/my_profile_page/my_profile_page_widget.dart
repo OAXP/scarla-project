@@ -88,14 +88,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: EdgeInsets.fromLTRB(0, 45, 0, 0),
+                              padding: EdgeInsets.fromLTRB(0, 45, 1, 0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                    padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
                                     child: InkWell(
                                       onTap: () async {
                                         showDialog(

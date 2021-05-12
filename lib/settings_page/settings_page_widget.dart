@@ -475,7 +475,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 maxLines: 3,
                               ),
                             ),
-                            Divider(height: 30,thickness: 1,indent:20,endIndent: 20,color:  Color(0x23F5F5F5),),
+                            Divider(
+                              height: 25,
+                              indent: 20,
+                              endIndent: 20,
+                              color: Color(0xFF666666),
+                                thickness: 0.3,
+                            ),
+                            // Divider(height: 30,thickness: 0.5,indent:20,endIndent: 20,color:  Color(0x23F5F5F5),),
                             Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -495,7 +502,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(25,0,0,0),
+                                  padding: const EdgeInsets.fromLTRB(20,0,0,0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
@@ -548,7 +555,13 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 )
                               ],
                             ),
-                            Divider(height: 25,thickness: 1,indent:20,endIndent: 20,color:  Color(0x23F5F5F5),),
+                            Divider(
+                              height: 25,
+                              indent: 20,
+                              endIndent: 20,
+                              color: Color(0xFF666666),
+                              thickness: 0.3,
+                            ),
                             Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -573,7 +586,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(50, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(50, 3, 0, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -1717,7 +1730,13 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 )
                               ],
                             ),
-                            Divider(height: 30,thickness: 1,indent:20,endIndent: 20,color:  Color(0x23F5F5F5),),
+                            Divider(
+                              height: 23,
+                              indent: 20,
+                              endIndent: 20,
+                              color: Color(0xFF666666),
+                              thickness: 0.3,
+                            ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
                               child: Column(

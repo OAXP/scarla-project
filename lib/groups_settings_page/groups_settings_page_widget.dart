@@ -281,7 +281,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                     .length <=
                                     2)
                                 ? Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         showDialog(
@@ -385,7 +385,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                     ),
                                   )
                                 : Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                    padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
 
@@ -498,8 +498,16 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                   )
                           ],
                         ),
+                        SizedBox(height: 10,),
+                        Divider(
+                          height: 19,
+                          indent: 20,
+                          endIndent: 20,
+                          color: Color(0xFF666666),
+                          thickness: 0.3,
+                        ),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          padding: EdgeInsets.fromLTRB(23, 7, 10, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -507,15 +515,20 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                             children: [
                               Icon(
                                 Icons.people,
-                                color: Colors.black,
+                                color:  FlutterFlowTheme.title1Color,
                                 size: 30,
                               ),
-                              Text(
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(12, 0, 0, 0),
+                              child:Text(
+
                                 'Members',
-                                textAlign: TextAlign.center,
+
+                                //textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.title3.override(
                                   fontFamily: 'Poppins',
                                 ),
+                              ),
                               ),
                               IconButton(
                                 onPressed: () async {
@@ -531,7 +544,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                 },
                                 icon: Icon(
                                   Icons.add_circle,
-                                  color: Colors.black,
+                                  color:  FlutterFlowTheme.title1Color,
                                   size: 30,
                                 ),
                                 iconSize: 30,
@@ -588,9 +601,12 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                         );
                                       },
                                       child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(15))
+                                        ),
                                         clipBehavior:
                                             Clip.antiAliasWithSaveLayer,
-                                        color: Color(0x85F5F5F5),
+                                        color: FlutterFlowTheme.title1Color,
                                         child: Align(
                                           alignment: Alignment(0, 0),
                                           child: Padding(
@@ -638,7 +654,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                                 .justify,
                                                             style:
                                                                 FlutterFlowTheme
-                                                                    .subtitle1
+                                                                    .subtitle2
                                                                     .override(
                                                               fontFamily:
                                                                   'Poppins',
@@ -650,10 +666,11 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                                 .justify,
                                                             style:
                                                                 FlutterFlowTheme
-                                                                    .subtitle1
+                                                                    .bodyText2
                                                                     .override(
                                                               fontFamily:
                                                                   'Poppins',
+                                                                    fontSize: 16
                                                             ),
                                                           ),
                                                           Text(
@@ -663,10 +680,11 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                                 TextAlign.start,
                                                             style:
                                                                 FlutterFlowTheme
-                                                                    .subtitle1
+                                                                    .bodyText2
                                                                     .override(
                                                               fontFamily:
                                                                   'Poppins',
+                                                                    fontSize: 16
                                                             ),
                                                           )
                                                         ],
@@ -695,7 +713,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                     },
                                                     icon: Icon(
                                                       Icons.cancel_sharp,
-                                                      color: Colors.black,
+                                                      color: FlutterFlowTheme.subtitle2Color,
                                                       size: 30,
                                                     ),
                                                     iconSize: 30,

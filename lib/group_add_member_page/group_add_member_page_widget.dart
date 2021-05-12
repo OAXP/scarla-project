@@ -104,99 +104,112 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                       ),
                     ),
                     if ((selectedUsers != null) ? selectedUsers.isNotEmpty : false)
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 100,
-                        decoration: BoxDecoration(),
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                          child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: selectedUsers.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewUsersRecord =
-                              selectedUsers[listViewIndex];
-                              return Padding(
-                                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                                child: Card(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  color: FlutterFlowTheme.tertiaryColor,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            selectedUsers.remove(listViewUsersRecord);
-                                          });
-                                        },
-                                        child: Icon(
-                                          Icons.remove_circle,
-                                          color: FlutterFlowTheme.secondaryColor,
-                                          size: 24,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                listViewUsersRecord.photoUrl,
-                                                fit: BoxFit.cover,
-                                              ),
+                      Column(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 100,
+                            decoration: BoxDecoration(),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: selectedUsers.length,
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewUsersRecord =
+                                  selectedUsers[listViewIndex];
+                                  return Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                                    child: Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      color: FlutterFlowTheme.tertiaryColor,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedUsers.remove(listViewUsersRecord);
+                                              });
+                                            },
+                                            child: Icon(
+                                              Icons.remove_circle,
+                                              color: FlutterFlowTheme.secondaryColor,
+                                              size: 24,
                                             ),
-                                            Padding(
-                                              padding:
-                                              EdgeInsets.fromLTRB(2, 0, 0, 0),
-                                              child: Text(
-                                                listViewUsersRecord.name,
-                                                style: FlutterFlowTheme.bodyText1
-                                                    .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: Colors.white,
-                                                  fontSize: 10,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                    listViewUsersRecord.photoUrl,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
-                                              ),
+                                                Padding(
+                                                  padding:
+                                                  EdgeInsets.fromLTRB(2, 0, 0, 0),
+                                                  child: Text(
+                                                    listViewUsersRecord.name,
+                                                    style: FlutterFlowTheme.bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.white,
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '#',
+                                                  style: FlutterFlowTheme.bodyText1
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFF838383),
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  listViewUsersRecord.tag,
+                                                  style: FlutterFlowTheme.bodyText1
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFF838383),
+                                                    fontSize: 10,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                            Text(
-                                              '#',
-                                              style: FlutterFlowTheme.bodyText1
-                                                  .override(
-                                                fontFamily: 'Poppins',
-                                                color: Color(0xFF838383),
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                            Text(
-                                              listViewUsersRecord.tag,
-                                              style: FlutterFlowTheme.bodyText1
-                                                  .override(
-                                                fontFamily: 'Poppins',
-                                                color: Color(0xFF838383),
-                                                fontSize: 10,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(height: 8,),
+                          Divider(
+                            height: 20,
+                            indent: 20,
+                            endIndent: 20,
+                            color: Color(0xFF666666),
+                            thickness: 0.3,
+                          ),
+                          SizedBox(height: 6,)
+                        ],
                       ),
                     Expanded(
                       child: StreamBuilder<List<FriendsRecord>>(
@@ -257,8 +270,12 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                                           );
                                         },
                                         child: Card(
+                                          shape:RoundedRectangleBorder(
+
+                                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                                          ),
                                           clipBehavior: Clip.antiAliasWithSaveLayer,
-                                          color: Color(0x85F5F5F5),
+                                          color: FlutterFlowTheme.title1Color,
                                           elevation: 5,
                                           child: Stack(
                                             children: [
@@ -311,7 +328,7 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                                                                           .justify,
                                                                   style:
                                                                       FlutterFlowTheme
-                                                                          .subtitle1
+                                                                          .subtitle2
                                                                           .override(
                                                                     fontFamily:
                                                                         'Poppins',
@@ -324,10 +341,11 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                                                                           .justify,
                                                                   style:
                                                                       FlutterFlowTheme
-                                                                          .subtitle1
+                                                                          .bodyText2
                                                                           .override(
                                                                     fontFamily:
                                                                         'Poppins',
+                                                                          fontSize: 16
                                                                   ),
                                                                 ),
                                                                 Text(
@@ -337,10 +355,11 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                                                                           .start,
                                                                   style:
                                                                       FlutterFlowTheme
-                                                                          .subtitle1
+                                                                          .bodyText2
                                                                           .override(
                                                                     fontFamily:
                                                                         'Poppins',
+                                                                          fontSize: 16
                                                                   ),
                                                                 )
                                                               ],
@@ -365,7 +384,7 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                                                         },
                                                         icon: Icon(
                                                           Icons.add_circle_outline,
-                                                          color: Colors.black,
+                                                          color: Colors.white,
                                                           size: 30,
                                                         ),
                                                         iconSize: 30,
