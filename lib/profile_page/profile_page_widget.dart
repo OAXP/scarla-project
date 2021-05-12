@@ -41,7 +41,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
         nom = "Add as friend";
       } else {
         int status = value.first.status;
-        if(status == 0) {
+        if (status == 0) {
           isRequested = (value.first.friends.first == currentUserReference);
           if (isRequested) {
             nom = "Request Sent";
@@ -131,102 +131,102 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       ),
                                     ),
                                   ),
-                                  if(nom == 'Friends')
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 19, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        final isGroupRecord =
-                                        await queryGroupsRecord(
-                                            queryBuilder:
-                                                (groupsRecord) =>
-                                                groupsRecord.where(
-                                                    'members_id',
-                                                    whereIn: [
-                                                      [
-                                                        profilePageUsersRecord
-                                                            .uid,
-                                                        currentUserUid
-                                                      ],
-                                                      [
-                                                        currentUserUid,
-                                                        profilePageUsersRecord
-                                                            .uid
-                                                      ]
-                                                    ])).first;
+                                  if (nom == 'Friends')
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 0, 19, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          final isGroupRecord =
+                                              await queryGroupsRecord(
+                                                  queryBuilder:
+                                                      (groupsRecord) =>
+                                                          groupsRecord.where(
+                                                              'members_id',
+                                                              whereIn: [
+                                                                [
+                                                                  profilePageUsersRecord
+                                                                      .uid,
+                                                                  currentUserUid
+                                                                ],
+                                                                [
+                                                                  currentUserUid,
+                                                                  profilePageUsersRecord
+                                                                      .uid
+                                                                ]
+                                                              ])).first;
 
-                                        GroupsRecord group;
-                                        String myName = (await UsersRecord
-                                            .getDocument(
-                                            currentUserReference)
-                                            .first)
-                                            .name;
+                                          GroupsRecord group;
+                                          String myName =
+                                              (await UsersRecord.getDocument(
+                                                          currentUserReference)
+                                                      .first)
+                                                  .name;
 
-                                        if (isGroupRecord.isEmpty) {
-                                          final gName =
-                                              "${profilePageUsersRecord.name} and $myName";
-                                          final gPhotoUrl =
-                                              profilePageUsersRecord.photoUrl;
-                                          final lastMessage = '...';
+                                          if (isGroupRecord.isEmpty) {
+                                            final gName =
+                                                "${profilePageUsersRecord.name} and $myName";
+                                            final gPhotoUrl =
+                                                profilePageUsersRecord.photoUrl;
+                                            final lastMessage = '...';
 
-                                          final groupsRecordData = {
-                                            ...createGroupsRecordData(
-                                              gName: gName,
-                                              gPhotoUrl: gPhotoUrl,
-                                              lastMessage: lastMessage,
-                                              lastMessageTimestamp: getCurrentTimestamp,
+                                            final groupsRecordData = {
+                                              ...createGroupsRecordData(
+                                                gName: gName,
+                                                gPhotoUrl: gPhotoUrl,
+                                                lastMessage: lastMessage,
+                                                lastMessageTimestamp:
+                                                    getCurrentTimestamp,
+                                              ),
+                                              'members_id': [
+                                                profilePageUsersRecord.uid,
+                                                currentUserUid
+                                              ],
+                                            };
+
+                                            await GroupsRecord.collection
+                                                .doc()
+                                                .set(groupsRecordData);
+
+                                            group = (await queryGroupsRecord(
+                                                    queryBuilder:
+                                                        (groupsRecord) =>
+                                                            groupsRecord.where(
+                                                                'members_id',
+                                                                whereIn: [
+                                                                  [
+                                                                    profilePageUsersRecord
+                                                                        .uid,
+                                                                    currentUserUid
+                                                                  ],
+                                                                  [
+                                                                    currentUserUid,
+                                                                    profilePageUsersRecord
+                                                                        .uid
+                                                                  ]
+                                                                ])).first)
+                                                .first;
+                                          } else {
+                                            group = isGroupRecord.first;
+                                          }
+
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ChatPageWidget(
+                                                      groupName: group.gName,
+                                                      groupRef: group.reference,
+                                                      groupPf: group.gPhotoUrl),
                                             ),
-                                            'members_id': [
-                                              profilePageUsersRecord.uid,
-                                              currentUserUid
-                                            ],
-                                          };
-
-                                          await GroupsRecord.collection
-                                              .doc()
-                                              .set(groupsRecordData);
-
-                                          group =
-                                              (await queryGroupsRecord(
-                                                  queryBuilder: (groupsRecord) =>
-                                                      groupsRecord.where(
-                                                          'members_id',
-                                                          whereIn: [
-                                                            [
-                                                              profilePageUsersRecord
-                                                                  .uid,
-                                                              currentUserUid
-                                                            ],
-                                                            [
-                                                              currentUserUid,
-                                                              profilePageUsersRecord
-                                                                  .uid
-                                                            ]
-                                                          ])).first)
-                                                  .first;
-                                        } else {
-                                          group = isGroupRecord.first;
-                                        }
-
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ChatPageWidget(
-                                                  groupName: group.gName,
-                                                  groupRef: group.reference,
-                                                  groupPf: group.gPhotoUrl
-                                                ),
-                                          ),
-                                        );
-                                      },
-                                      child: Icon(
-                                        AntDesign.message1,
-                                        color: Colors.white,
-                                        size: 26,
+                                          );
+                                        },
+                                        child: Icon(
+                                          AntDesign.message1,
+                                          color: Colors.white,
+                                          size: 26,
+                                        ),
                                       ),
-                                    ),
-                                  )
+                                    )
                                 ],
                               ),
                             ),
@@ -406,66 +406,127 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         }
                                       });
                                     } else if (nom == 'Friends') {
-
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
                                           return AlertDialog(
                                             backgroundColor: Colors.white,
                                             shape: RoundedRectangleBorder(
-
-                                              borderRadius: BorderRadius.circular(10.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
                                             ),
-                                            title: Center(child: Text('Alert!')),
-                                            content: Text('Are you sure you want to remove this friend?'),
+                                            title:
+                                                Center(child: Text('Alert!')),
+                                            content: Text(
+                                                'Are you sure you want to remove this friend?'),
                                             actions: <Widget>[
                                               Column(
                                                 children: [
-
                                                   Center(
                                                     child: Padding(
-                                                      padding: const EdgeInsets.fromLTRB(0,0,21,15),
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          0, 0, 21, 15),
                                                       child: Container(
-                                                        width:250,
-                                                        height:2,
-                                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey[300],),
-
+                                                        width: 250,
+                                                        height: 2,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(24),
+                                                          color:
+                                                              Colors.grey[300],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                   Row(
                                                     children: [
-
                                                       Padding(
-                                                        padding: const EdgeInsets.fromLTRB(0,0,12,0),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 0, 12, 0),
                                                         child: Container(
-                                                          width:107,
-                                                          height:47,
-                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey,),
+                                                          width: 107,
+                                                          height: 47,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24),
+                                                            color: Colors.grey,
+                                                          ),
                                                           child: TextButton(
-
-                                                            child: Text('Cancel',style: TextStyle(color: Colors.white),),
-
-
+                                                            child: Text(
+                                                              'Cancel',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
                                                             onPressed: () {
-                                                              Navigator.of(context).pop();
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
                                                             },
                                                           ),
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding: const EdgeInsets.fromLTRB(0,0,18,0),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 0, 18, 0),
                                                         child: Container(
-                                                          width:107,
-                                                          height:47,
-                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Color(0xffff4553),),
+                                                          width: 107,
+                                                          height: 47,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24),
+                                                            color: Color(
+                                                                0xffff4553),
+                                                          ),
                                                           child: TextButton(
-
-                                                            child: Text('Yes!',style: TextStyle(color: Colors.white),),
-
-
-                                                            onPressed: () {
-                                                              Navigator.of(context).pop();
+                                                            child: Text(
+                                                              'Yes!',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              queryFriendsRecord(
+                                                                  queryBuilder: (friendsRecord) =>
+                                                                      friendsRecord.where(
+                                                                          'friends',
+                                                                          whereIn: [
+                                                                            [
+                                                                              widget.userRef,
+                                                                              currentUserReference
+                                                                            ],
+                                                                            [
+                                                                              currentUserReference,
+                                                                              widget.userRef
+                                                                            ]
+                                                                          ])).first.then(
+                                                                  (value) async {
+                                                                await value
+                                                                    .first
+                                                                    .reference
+                                                                    .delete();
+                                                              });
+                                                              setState(() {
+                                                                nom =
+                                                                    'Add as friend';
+                                                              });
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
                                                             },
                                                           ),
                                                         ),
@@ -474,8 +535,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                   )
                                                 ],
                                               )
-
-
                                             ],
                                           );
                                         },
@@ -644,7 +703,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             final listViewFeedRecord =
                                                 listViewFeedRecordList[
                                                     listViewIndex];
-                                            final isLastPost = (listViewIndex == listViewFeedRecordList.length - 1);
+                                            final isLastPost = (listViewIndex ==
+                                                listViewFeedRecordList.length -
+                                                    1);
                                             return PostWidget(
                                               isLastPost: isLastPost,
                                               postRecord: listViewFeedRecord,

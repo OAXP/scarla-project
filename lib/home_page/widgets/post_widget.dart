@@ -8,20 +8,15 @@ import 'package:scarla/profile_page/profile_page_widget.dart';
 import 'package:scarla/util/transparent_route.dart';
 
 class PostWidget extends StatelessWidget {
-  const PostWidget({Key key, this.isLastPost, this.postRecord}) : super(key: key);
+  const PostWidget({Key key, this.isLastPost, this.postRecord})
+      : super(key: key);
   final bool isLastPost;
   final FeedRecord postRecord;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(
-          0,
-          5,
-          0,
-          (isLastPost)
-              ? 110
-              : 0),
+      padding: EdgeInsets.fromLTRB(0, 5, 0, (isLastPost) ? 110 : 0),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         color: FlutterFlowTheme.tertiaryColor,
@@ -36,99 +31,177 @@ class PostWidget extends StatelessWidget {
           scrollDirection: Axis.vertical,
           children: [
             Padding(
-              padding:
-              EdgeInsets.fromLTRB(10, 2, 3, 2),
+              padding: EdgeInsets.fromLTRB(10, 2, 3, 2),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
-                crossAxisAlignment:
-                CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     decoration: BoxDecoration(
                       color: Color(0x00EEEEEE),
                     ),
                     child: Row(
-                      mainAxisSize:
-                      MainAxisSize.max,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
                         InkWell(
-                          highlightColor:Colors.transparent,
+                          highlightColor: Colors.transparent,
                           splashColor: Colors.transparent,
-
                           onTap: () async {
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    ProfilePageWidget(
-                                      userRef:
-                                      postRecord
-                                          .authorRef,
-                                    ),
+                                builder: (context) => ProfilePageWidget(
+                                  userRef: postRecord.authorRef,
+                                ),
                               ),
                             );
                           },
-                          child:
-
-                          Container(
+                          child: Container(
                             width: 30,
                             height: 30,
-                            clipBehavior:
-                            Clip.antiAlias,
-                            decoration:
-                            BoxDecoration(
-                              shape:
-                              BoxShape.circle,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
                             ),
-                            child:
-                            CachedNetworkImage(
-                              imageUrl:
-                              postRecord
-                                  .authorPhotoUrl,
+                            child: CachedNetworkImage(
+                              imageUrl: postRecord.authorPhotoUrl,
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                         InkWell(
-                            highlightColor:Colors.transparent,
+                            highlightColor: Colors.transparent,
                             splashColor: Colors.transparent,
                             onTap: () async {
-
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProfilePageWidget(
-                                        userRef:
-                                        postRecord
-                                            .authorRef,
-                                      ),
+                                  builder: (context) => ProfilePageWidget(
+                                    userRef: postRecord.authorRef,
+                                  ),
                                 ),
                               );
                             },
                             child: Padding(
-                              padding:
-                              EdgeInsets.fromLTRB(
-                                  6, 0, 0, 0),
+                              padding: EdgeInsets.fromLTRB(6, 0, 0, 0),
                               child: Text(
-                                postRecord
-                                    .authorName,
-                                style: FlutterFlowTheme
-                                    .bodyText1
-                                    .override(
+                                postRecord.authorName,
+                                style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Poppins',
                                 ),
                               ),
-                            )
-                        ),],
+                            )),
+                      ],
                     ),
                   ),
                   Align(
                     alignment: Alignment(0, 0),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet<void>(
+                            context: context,
+                            backgroundColor: Colors.transparent,
+                            builder: (BuildContext context) {
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Icon(
+                                    Icons.horizontal_rule_rounded,
+                                    size: 45,
+                                    color: Colors.grey,
+                                  ),
+                                  Container(
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15),
+                                            topRight: Radius.circular(15)),
+                                        color: FlutterFlowTheme.title1Color
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(15, 25, 15, 25),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.tertiaryColor,
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            if(postRecord.authorId == currentUserUid)
+                                            InkWell(
+                                              onTap: () async {
+                                                await postRecord.reference.delete();
+                                              },
+                                              child: Container(
+                                                height: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    "Delete",
+                                                    style: FlutterFlowTheme.bodyText1.override(
+                                                      color: Colors.red,
+                                                      fontFamily: 'Poppins',
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                              onTap: () async {
+                                                Navigator.pop(context);
+                                                await Navigator.push(
+                                                  context,
+                                                  TransparentRoute(
+                                                    builder: (context) => AddPostPageWidget(
+                                                      userRef: currentUserReference,
+                                                      initValue: postRecord.content,
+                                                      initImage: postRecord.imageUrl,
+                                                      chosenGame: postRecord.game,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                height: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    "Repost",
+                                                    style: FlutterFlowTheme.bodyText1.override(
+                                                      fontFamily: 'Poppins',
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Container(
+                                                height: 40,
+                                                child: Center(
+                                                  child: Text(
+                                                    "Cancel",
+                                                    style: FlutterFlowTheme.bodyText1.override(
+                                                      fontFamily: 'Poppins',
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            });
+                      },
                       icon: Icon(
                         Icons.keyboard_control,
                         color: Colors.white,
@@ -137,13 +210,11 @@ class PostWidget extends StatelessWidget {
                       iconSize: 15,
                     ),
                   ),
-
                 ],
               ),
             ),
             Padding(
-              padding:
-              EdgeInsets.fromLTRB(5, 0, 5, 3),
+              padding: EdgeInsets.fromLTRB(5, 0, 5, 3),
               child: Container(
                 constraints: BoxConstraints(
                   maxWidth: 300,
@@ -154,8 +225,7 @@ class PostWidget extends StatelessWidget {
                 ),
                 child: Text(
                   postRecord.content,
-                  style: FlutterFlowTheme.bodyText2
-                      .override(
+                  style: FlutterFlowTheme.bodyText2.override(
                     fontFamily: 'Poppins',
                   ),
                 ),
@@ -163,55 +233,34 @@ class PostWidget extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              height: (postRecord.imageUrl
-                  .trim() ==
-                  "")
-                  ? 0
-                  : 200,
+              height: (postRecord.imageUrl.trim() == "") ? 0 : 200,
               decoration: BoxDecoration(
                 color: Color(0x00EEEEEE),
               ),
-              child: (postRecord.imageUrl
-                  .trim() ==
-                  "")
+              child: (postRecord.imageUrl.trim() == "")
                   ? Container()
                   : CachedNetworkImage(
-                imageUrl: postRecord
-                    .imageUrl,
-                width: MediaQuery.of(context)
-                    .size
-                    .width,
-                height: MediaQuery.of(context)
-                    .size
-                    .height *
-                    1,
-                fit: BoxFit.cover,
-              ),
+                      imageUrl: postRecord.imageUrl,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 1,
+                      fit: BoxFit.cover,
+                    ),
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment:
-              MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
                   onPressed: () async {
                     await Navigator.push(
                       context,
                       TransparentRoute(
-                        builder: (context) =>
-                            AddPostPageWidget(
-                              userRef:
-                              currentUserReference,
-                              initValue:
-                              postRecord
-                                  .content,
-                              initImage:
-                              postRecord
-                                  .imageUrl,
-                              chosenGame:
-                              postRecord
-                                  .game,
-                            ),
+                        builder: (context) => AddPostPageWidget(
+                          userRef: currentUserReference,
+                          initValue: postRecord.content,
+                          initImage: postRecord.imageUrl,
+                          chosenGame: postRecord.game,
+                        ),
                       ),
                     );
                   },
