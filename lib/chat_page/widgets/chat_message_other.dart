@@ -101,17 +101,26 @@ class ChatMessageOther extends StatelessWidget {
                 : data.type == 1
                 ? Material(
               child: CachedNetworkImage(
-                placeholder: (context, url) => Container(
-                  width: 400.0,
-                  height: 400.0,
-                  padding: EdgeInsets.all(70.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15),
+                progressIndicatorBuilder: (context, url, downloadProgress) {
+                  return Container(
+                    width: 400.0,
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
+                      ),
                     ),
-                  ),
-                ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        LinearProgressIndicator(
+                          value: downloadProgress.progress,
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 imageUrl: data.value,
                 width: 400.0,
                 height: 200.0,

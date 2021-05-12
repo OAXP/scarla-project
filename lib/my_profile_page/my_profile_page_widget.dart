@@ -99,20 +99,25 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     child: InkWell(
                                       onTap: () async {
                                         showDialog(
+
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
                                               backgroundColor: Colors.white,
+
                                               shape: RoundedRectangleBorder(
 
                                                 borderRadius: BorderRadius.circular(10.0),
                                               ),
-                                              title: Center(child: Text('Alert!')),
-                                              content: Text('Are you sure you want to sign out?'),
+
+                                              // title: Center(child: Text('Alert!')),
+                                              content: Text('Are you sure you want \n to log out?',textAlign: TextAlign.center,
+                                              style:  TextStyle( fontFamily: 'Poppins', fontWeight: FontWeight.w600),),
+                                             // insetPadding: EdgeInsets.fromLTRB(70,0,20,0),
+                                              buttonPadding:  EdgeInsets.fromLTRB(0,30,4,0),
                                               actions: <Widget>[
                                                 Column(
                                                   children: [
-
 
                                                       Align(
                                                         alignment: Alignment.center,
@@ -155,7 +160,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Color(0xffff4553),),
                                                             child: TextButton(
 
-                                                              child: Text('Yes!',style: TextStyle(color: Colors.white),),
+                                                              child: Text('Log Out',style: TextStyle(color: Colors.white),),
 
 
                                                               onPressed: () async {
@@ -403,11 +408,15 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     // Customize what your widget looks like with no query results.
                                     if (gridViewGroupsRecordList.isEmpty) {
                                       return Center(
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                              'https://img.icons8.com/dotty/2x/nothing-found.png',
-                                          width: 100,
-                                          height: 100,
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                                          child: Text(
+                                            "No Squads yet..",
+                                            style: FlutterFlowTheme.title1.override(
+                                              fontFamily: 'Poppins',
+                                              fontSize: 20
+                                            ),
+                                          ),
                                         ),
                                       );
                                     }
@@ -444,6 +453,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                     groupRef:
                                                         gridViewGroupsRecord
                                                             .reference,
+                                                    groupPf: gridViewGroupsRecord.gPhotoUrl
                                                   ),
                                                 ),
                                               );

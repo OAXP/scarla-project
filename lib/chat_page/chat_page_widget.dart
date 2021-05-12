@@ -19,10 +19,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:imgur/imgur.dart' as imgur;
 
 class ChatPageWidget extends StatefulWidget {
-  ChatPageWidget({Key key, this.groupName, this.groupRef}) : super(key: key);
+  ChatPageWidget({Key key, this.groupName, this.groupRef, @required this.groupPf}) : super(key: key);
 
   final String groupName;
   final DocumentReference groupRef;
+  final String groupPf;
 
   @override
   _ChatPageWidgetState createState() => _ChatPageWidgetState();
@@ -109,15 +110,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.primaryColor,
-      body: StreamBuilder<UsersRecord>(
-        stream: UsersRecord.getDocument(currentUserReference),
-        builder: (context, snapshot) {
-          // Customize what your widget looks like when it's loading.
-          if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
-          }
-          final stackUsersRecord = snapshot.data;
-          return Stack(
+      body: Stack(
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -219,9 +212,52 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                             // Customize what your widget looks like with no query results.
                             if (listViewGMessagesRecordList.isEmpty) {
                               return Center(
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      'https://cdn.iconscout.com/icon/free/png-256/no-message-1442326-1218395.png',
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment(0, -45.5),
+                                          child: Container(
+                                            width: 104,
+                                            height: 104,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFEEEEEE),
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment(0, -1.3),
+                                          child: Padding(
+                                            padding:
+                                            EdgeInsets.fromLTRB(0, 2, 0, 0),
+                                            child: Container(
+                                              width: 100,
+                                              height: 100,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl: widget.groupPf,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text(
+                                      "This is the beginning of the group named ${widget.groupName}",
+                                      style: FlutterFlowTheme.title1,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
                               );
                             }
@@ -269,9 +305,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                 ],
               )
             ],
-          );
-        },
-      ),
+          ),
     );
   }
 }

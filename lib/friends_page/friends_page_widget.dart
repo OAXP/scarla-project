@@ -122,9 +122,26 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                     // Customize what your widget looks like with no query results.
                     if (listViewFriendsRecordList.isEmpty) {
                       return Center(
-                        child: CachedNetworkImage(
-                          imageUrl:
-                          'https://static.thenounproject.com/png/655186-200.png',
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 7, 0),
+                                child: Icon(
+                                  Icons.arrow_circle_up_rounded,
+                                  size: 35,
+                                  color: FlutterFlowTheme.title1Color,
+                                ),
+                              ),
+                              Text(
+                                "Click here to add new friends",
+                                style: FlutterFlowTheme.title1,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }
@@ -299,6 +316,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                                                               ChatPageWidget(
                                                                 groupName: group.gName,
                                                                 groupRef: group.reference,
+                                                                groupPf: group.gPhotoUrl
                                                               ),
                                                         ),
                                                       );

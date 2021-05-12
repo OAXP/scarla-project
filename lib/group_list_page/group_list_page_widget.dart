@@ -1,5 +1,5 @@
 import 'package:page_transition/page_transition.dart';
-
+import 'package:scarla/group_list_page/widgets/group_card_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../chat_page/chat_page_widget.dart';
@@ -92,11 +92,23 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                       // Customize what your widget looks like with no query results.
                       if (listViewGroupsRecordList.isEmpty) {
                         return Center(
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                'https://img.icons8.com/dotty/2x/nothing-found.png',
-                            width: 100,
-                            height: 100,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 120),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "You can find a new Squad by clicking on the button below",
+                                  style: FlutterFlowTheme.title1,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Icon(
+                                  Icons.arrow_circle_down_rounded,
+                                  size: 50,
+                                  color: FlutterFlowTheme.title1Color,
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       }
@@ -109,114 +121,11 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                           itemBuilder: (context, listViewIndex) {
                             final listViewGroupsRecord =
                                 listViewGroupsRecordList[listViewIndex];
-                            return Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  5,
-                                  5,
-                                  5,
-                                  (listViewIndex ==
-                                      listViewGroupsRecordList.length - 1)
-                                      ? 110
-                                      : 0),
-                              child: Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: FlutterFlowTheme.secondaryColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-
-                                            PageTransition(child:  ChatPageWidget(
-                                              groupName: listViewGroupsRecord.gName,
-                                              groupRef:
-                                              listViewGroupsRecord.reference,
-                                            ), type: PageTransitionType.rightToLeftWithFade,duration: Duration(milliseconds: 400),
-                                                reverseDuration: Duration(milliseconds: 400),)
-
-
-                                    );
-                                  },
-                                  onLongPress: () async {
-                                    await Navigator.push(
-                                      context,
-                                        PageTransition(child: GroupsSettingsPageWidget(
-                                          groupRef:
-                                          listViewGroupsRecord.reference,
-                                          groupName: listViewGroupsRecord.gName,
-                                        ), type: PageTransitionType.rightToLeftWithFade,duration: Duration(milliseconds: 400),
-                                          reverseDuration: Duration(milliseconds: 400),)
-
-                                    );
-                                  },
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                        child: Container(
-                                          width: 80,
-                                          height: 80,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: CachedNetworkImage(
-                                            imageUrl:
-                                                listViewGroupsRecord.gPhotoUrl,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: 250,
-                                              child: Text(
-                                                listViewGroupsRecord.gName,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.start,
-                                                style: FlutterFlowTheme.title2
-                                                    .override(
-                                                  fontFamily: 'Poppins',
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 200,
-                                              height: 20,
-                                              decoration: BoxDecoration(
-                                                color: Color(0x00EEEEEE),
-                                              ),
-                                              alignment: Alignment(-1, 0),
-                                              child: Text(
-                                                listViewGroupsRecord
-                                                    .lastMessage,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.start,
-                                                style: FlutterFlowTheme
-                                                    .bodyText2
-                                                    .override(
-                                                  fontFamily: 'Poppins',
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                            final isLastGroup = (listViewIndex ==
+                                listViewGroupsRecordList.length - 1);
+                            return GroupWidget(
+                              isLastGroup: isLastGroup,
+                              group: listViewGroupsRecord
                             );
                           },
                         ),

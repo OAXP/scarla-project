@@ -2,7 +2,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:scarla/chat_page/chat_page_widget.dart';
 import 'package:scarla/flutter_flow/flutter_flow_util.dart';
 import 'package:scarla/util/transparent_route.dart';
-
+import 'package:scarla/home_page/widgets/post_widget.dart';
 import '../add_post_page/add_post_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
@@ -215,6 +215,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                 ChatPageWidget(
                                                   groupName: group.gName,
                                                   groupRef: group.reference,
+                                                  groupPf: group.gPhotoUrl
                                                 ),
                                           ),
                                         );
@@ -643,219 +644,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             final listViewFeedRecord =
                                                 listViewFeedRecordList[
                                                     listViewIndex];
-                                            return Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  0, 5, 0, 0),
-                                              child: Card(
-                                                clipBehavior:
-                                                    Clip.antiAliasWithSaveLayer,
-                                                color: FlutterFlowTheme
-                                                    .tertiaryColor,
-                                                elevation: 5,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(0),
-                                                ),
-                                                child: ListView(
-                                                  padding: EdgeInsets.zero,
-                                                  primary: false,
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.fromLTRB(
-                                                              10, 2, 10, 2),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0x00EEEEEE),
-                                                            ),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Container(
-                                                                  width: 30,
-                                                                  height: 30,
-                                                                  clipBehavior:
-                                                                      Clip.antiAlias,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                  ),
-                                                                  child:
-                                                                      CachedNetworkImage(
-                                                                    imageUrl:
-                                                                        listViewFeedRecord
-                                                                            .authorPhotoUrl,
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsets
-                                                                      .fromLTRB(
-                                                                          5,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                                  child: Text(
-                                                                    listViewFeedRecord
-                                                                        .authorName,
-                                                                    style: FlutterFlowTheme
-                                                                        .bodyText1
-                                                                        .override(
-                                                                      fontFamily:
-                                                                          'Poppins',
-                                                                    ),
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          /*Align(
-                                                            alignment:
-                                                                Alignment(0, 0),
-                                                            child: IconButton(
-                                                              onPressed: () {
-                                                                print(
-                                                                    'IconButton pressed ...');
-                                                              },
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .keyboard_control,
-                                                                color: Colors
-                                                                    .white,
-                                                                size: 15,
-                                                              ),
-                                                              iconSize: 15,
-                                                            ),
-                                                          )*/
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.fromLTRB(
-                                                              5, 0, 5, 0),
-                                                      child: Container(
-                                                        constraints:
-                                                            BoxConstraints(
-                                                          maxWidth: 300,
-                                                          maxHeight: 100,
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0x00EEEEEE),
-                                                        ),
-                                                        child: Text(
-                                                          listViewFeedRecord
-                                                              .content,
-                                                          style:
-                                                              FlutterFlowTheme
-                                                                  .bodyText1
-                                                                  .override(
-                                                            fontFamily:
-                                                                'Poppins',
-                                                            color: Color(
-                                                                0xFFB2B2B2),
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width: double.infinity,
-                                                      height:
-                                                          (listViewFeedRecord
-                                                                      .imageUrl
-                                                                      .trim() ==
-                                                                  "")
-                                                              ? 0
-                                                              : 200,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0x00EEEEEE),
-                                                      ),
-                                                      child: (listViewFeedRecord
-                                                                  .imageUrl
-                                                                  .trim() ==
-                                                              "")
-                                                          ? Container()
-                                                          : CachedNetworkImage(
-                                                              imageUrl:
-                                                                  listViewFeedRecord
-                                                                      .imageUrl,
-                                                              width:
-                                                                  MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width,
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height *
-                                                                  1,
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        IconButton(
-                                                          onPressed: () async {
-                                                            await Navigator
-                                                                .push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        AddPostPageWidget(
-                                                                  userRef:
-                                                                      currentUserReference,
-                                                                  initValue:
-                                                                      listViewFeedRecord
-                                                                          .content,
-                                                                  initImage:
-                                                                      listViewFeedRecord
-                                                                          .imageUrl,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                          icon: Icon(
-                                                            Icons.repeat,
-                                                            color: Color(
-                                                                0xFF444771),
-                                                            size: 20,
-                                                          ),
-                                                          iconSize: 20,
-                                                        )
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
+                                            final isLastPost = (listViewIndex == listViewFeedRecordList.length - 1);
+                                            return PostWidget(
+                                              isLastPost: isLastPost,
+                                              postRecord: listViewFeedRecord,
                                             );
                                           },
                                         );

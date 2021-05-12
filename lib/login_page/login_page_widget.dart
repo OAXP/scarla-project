@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:scarla/backend/schema/users_record.dart';
+import 'package:scarla/su1_page/su1_page_widget.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -354,17 +356,31 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                   if (user == null) {
                                                     return;
                                                   }
-                                                  await Navigator
-                                                      .pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          NavBarPage(
-                                                              initialPage:
-                                                                  'HomePage'),
-                                                    ),
-                                                    (r) => false,
-                                                  );
+
+                                                  final userRecord = UsersRecord.collection.doc(user.uid);
+                                                  final userExists = await userRecord.get().then((u) => u.exists);
+
+                                                  if(userExists) {
+                                                    await Navigator
+                                                        .pushAndRemoveUntil(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            NavBarPage(
+                                                                initialPage:
+                                                                'HomePage'),
+                                                      ),
+                                                          (r) => false,
+                                                    );
+                                                  } else {
+                                                    await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Su1PageWidget(),
+                                                      ),
+                                                    );
+                                                  }
                                                 },
                                                 text: 'Sign in with Google',
                                                 iconData: Icons.add,

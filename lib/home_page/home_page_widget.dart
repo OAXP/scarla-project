@@ -9,6 +9,7 @@ import '../profile_page/profile_page_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scarla/home_page/widgets/post_widget.dart';
 
 class HomePageWidget extends StatefulWidget {
   HomePageWidget({Key key}) : super(key: key);
@@ -391,13 +392,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         itemBuilder: (context, listViewIndex) {
                           final listViewFeedRecord =
                               listViewFeedRecordList[listViewIndex];
-                          return Padding(
+                          final isLastPost = (listViewIndex == listViewFeedRecordList.length - 1);
+                          return PostWidget(
+                            isLastPost: isLastPost,
+                            postRecord: listViewFeedRecord,
+                          );
+                          /*return Padding(
                             padding: EdgeInsets.fromLTRB(
                                 0,
                                 5,
                                 0,
-                                (listViewIndex ==
-                                        listViewFeedRecordList.length - 1)
+                                isLastPost
                                     ? 110
                                     : 0),
                             child: Card(
@@ -605,7 +610,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 ],
                               ),
                             ),
-                          );
+                          );*/
                         },
                       );
                     },
