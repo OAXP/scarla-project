@@ -390,120 +390,123 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     ),
                                   ),
                                 ),
-                                StreamBuilder<List<GroupsRecord>>(
-                                  stream: queryGroupsRecord(
-                                    queryBuilder: (groupsRecord) =>
-                                        groupsRecord.where('members_id',
-                                            arrayContains: currentUserUid),
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                          child: CircularProgressIndicator());
-                                    }
-                                    List<GroupsRecord>
-                                        gridViewGroupsRecordList =
-                                        snapshot.data;
-                                    // Customize what your widget looks like with no query results.
-                                    if (gridViewGroupsRecordList.isEmpty) {
-                                      return Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-                                          child: Text(
-                                            "No Squads yet..",
-                                            style: FlutterFlowTheme.title1.override(
-                                              fontFamily: 'Poppins',
-                                              fontSize: 20
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 120),
+                                  child: StreamBuilder<List<GroupsRecord>>(
+                                    stream: queryGroupsRecord(
+                                      queryBuilder: (groupsRecord) =>
+                                          groupsRecord.where('members_id',
+                                              arrayContains: currentUserUid),
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                      List<GroupsRecord>
+                                          gridViewGroupsRecordList =
+                                          snapshot.data;
+                                      // Customize what your widget looks like with no query results.
+                                      if (gridViewGroupsRecordList.isEmpty) {
+                                        return Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                                            child: Text(
+                                              "No Squads yet..",
+                                              style: FlutterFlowTheme.title1.override(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 20
+                                              ),
                                             ),
                                           ),
+                                        );
+                                      }
+                                      return Padding(
+                                        padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
+                                        child: GridView.builder(
+                                          padding: EdgeInsets.zero,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            crossAxisSpacing: 0,
+                                            mainAxisSpacing: 0,
+                                            childAspectRatio: 1,
+                                          ),
+                                          primary: false,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount:
+                                              gridViewGroupsRecordList.length,
+                                          itemBuilder: (context, gridViewIndex) {
+                                            final gridViewGroupsRecord =
+                                                gridViewGroupsRecordList[
+                                                    gridViewIndex];
+                                            return InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ChatPageWidget(
+                                                      groupName:
+                                                          gridViewGroupsRecord
+                                                              .gName,
+                                                      groupRef:
+                                                          gridViewGroupsRecord
+                                                              .reference,
+                                                      groupPf: gridViewGroupsRecord.gPhotoUrl
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                width: 100,
+                                                height: 100,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0x00EEEEEE),
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.stretch,
+                                                  children: [
+                                                    Container(
+                                                      width: 100,
+                                                      height: 100,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: CachedNetworkImage(
+                                                        imageUrl:
+                                                            gridViewGroupsRecord
+                                                                .gPhotoUrl,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      gridViewGroupsRecord.gName,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      textAlign: TextAlign.center,
+                                                      style: FlutterFlowTheme
+                                                          .bodyText2
+                                                          .override(
+                                                        fontFamily: 'Poppins',
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
                                       );
-                                    }
-                                    return Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 17, 0, 0),
-                                      child: GridView.builder(
-                                        padding: EdgeInsets.zero,
-                                        gridDelegate:
-                                            SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
-                                          crossAxisSpacing: 0,
-                                          mainAxisSpacing: 0,
-                                          childAspectRatio: 1,
-                                        ),
-                                        primary: false,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount:
-                                            gridViewGroupsRecordList.length,
-                                        itemBuilder: (context, gridViewIndex) {
-                                          final gridViewGroupsRecord =
-                                              gridViewGroupsRecordList[
-                                                  gridViewIndex];
-                                          return InkWell(
-                                            onTap: () async {
-                                              await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ChatPageWidget(
-                                                    groupName:
-                                                        gridViewGroupsRecord
-                                                            .gName,
-                                                    groupRef:
-                                                        gridViewGroupsRecord
-                                                            .reference,
-                                                    groupPf: gridViewGroupsRecord.gPhotoUrl
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            child: Container(
-                                              width: 100,
-                                              height: 100,
-                                              decoration: BoxDecoration(
-                                                color: Color(0x00EEEEEE),
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.stretch,
-                                                children: [
-                                                  Container(
-                                                    width: 100,
-                                                    height: 100,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl:
-                                                          gridViewGroupsRecord
-                                                              .gPhotoUrl,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    gridViewGroupsRecord.gName,
-                                                    overflow: TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.center,
-                                                    style: FlutterFlowTheme
-                                                        .bodyText2
-                                                        .override(
-                                                      fontFamily: 'Poppins',
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
+                                    },
+                                  ),
                                 )
                               ],
                             )

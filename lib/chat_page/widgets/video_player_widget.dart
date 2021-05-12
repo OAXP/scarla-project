@@ -88,9 +88,12 @@ class _VideoPlayerWidgetState extends State<ScarlaVideoPlayer> {
 
   @override
   void dispose() {
-    super.dispose();
-
+    if(_chewieController.isPlaying) {
+      _chewieController.pause();
+      widget.videoPlayerController.pause();
+    }
     widget.videoPlayerController.dispose();
     _chewieController.dispose();
+    super.dispose();
   }
 }
