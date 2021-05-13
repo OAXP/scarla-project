@@ -188,6 +188,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
 
                                       height: 70,
                                       decoration: BoxDecoration(
+                                          border: Border.all(width: 1.0,color: FlutterFlowTheme.title1Color),
                                           color: FlutterFlowTheme.tertiaryColor,
                                         borderRadius: BorderRadius.circular(15)
                                       ),
@@ -210,6 +211,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                                                   clipBehavior: Clip.antiAlias,
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
+
                                                   ),
                                                   child: CachedNetworkImage(
                                                     imageUrl: userRecord.photoUrl,
@@ -324,7 +326,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                                                     child: Icon(
                                                       AntDesign.message1,
                                                       color: Color(0xFFF2F2F2),
-                                                      size: 23,
+                                                      size: 22,
                                                     ),
                                                   ),
                                                   SizedBox(

@@ -79,7 +79,7 @@ class _CirclesPageState extends State<CirclesPage>
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Colors.black54,
+      backgroundColor: Color(0xb4000000),
       body: SafeArea(
         child: checkSelect
             ? Column(
@@ -572,7 +572,7 @@ class _CirclesPageState extends State<CirclesPage>
             animate: true,*/
             : Scaffold(
                 /* backgroundColor:Color.fromRGBO(34, 35, 35, 10),*/
-                backgroundColor: Colors.black54,
+                backgroundColor: Color(0xb4000000),
                 body: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 130),
                   child: Center(

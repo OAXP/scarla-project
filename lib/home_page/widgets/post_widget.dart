@@ -103,91 +103,129 @@ class PostWidget extends StatelessWidget {
                             context: context,
                             backgroundColor: Colors.transparent,
                             builder: (BuildContext context) {
-                              return Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Icon(
-                                    Icons.horizontal_rule_rounded,
-                                    size: 45,
-                                    color: Colors.grey,
-                                  ),
-                                  Container(
-                                    clipBehavior: Clip.hardEdge,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(15),
-                                            topRight: Radius.circular(15)),
-                                        color: FlutterFlowTheme.title1Color
+                              return Padding(
+                                padding:  const EdgeInsets.fromLTRB(10, 0, 10, 25),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Icon(
+                                      Icons.horizontal_rule_rounded,
+                                      size: 45,
+                                      color: Colors.grey,
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(15, 25, 15, 25),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                       child: Container(
+                                        clipBehavior: Clip.hardEdge,
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.tertiaryColor,
-                                          borderRadius: BorderRadius.circular(15),
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(15),
+                                                topRight: Radius.circular(15),
+                                            bottomLeft: Radius.circular(15),
+                                              bottomRight: Radius.circular(15),
+                                            ),
+                                            color: FlutterFlowTheme.title1Color
                                         ),
                                         child: Column(
-                                          mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            if(postRecord.authorId == currentUserUid)
-                                            InkWell(
-                                              onTap: () async {
-                                                await postRecord.reference.delete();
-                                              },
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
                                               child: Container(
-                                                height: 40,
-                                                child: Center(
-                                                  child: Text(
-                                                    "Delete",
-                                                    style: FlutterFlowTheme.bodyText1.override(
-                                                      color: Colors.red,
-                                                      fontFamily: 'Poppins',
-                                                      fontSize: 16,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.tertiaryColor,
+                                                  borderRadius: BorderRadius.circular(15),
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    if(postRecord.authorId == currentUserUid)
+                                                    InkWell(
+                                                      onTap: () async {
+                                                        await postRecord.reference.delete();
+                                                      },
+                                                      child: Container(
+                                                        height: 40,
+                                                        child: Center(
+                                                          child: Text(
+                                                            "Delete",
+                                                            style: FlutterFlowTheme.bodyText1.override(
+                                                              color: Colors.red,
+                                                              fontFamily: 'Poppins',
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
+                                                    Divider(
+                                                      height: 0,
+                                                      indent: 0,
+                                                      endIndent: 0,
+                                                      color: Color(0x23F5F5F5),
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () async {
+                                                        Navigator.pop(context);
+                                                        await Navigator.push(
+                                                          context,
+                                                          TransparentRoute(
+                                                            builder: (context) => AddPostPageWidget(
+                                                              userRef: currentUserReference,
+                                                              initValue: postRecord.content,
+                                                              initImage: postRecord.imageUrl,
+                                                              chosenGame: postRecord.game,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        height: 40,
+                                                        child: Center(
+                                                          child: Text(
+                                                            "Repost",
+                                                            style: FlutterFlowTheme.bodyText1.override(
+                                                              fontFamily: 'Poppins',
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // Divider(
+                                                    //   height: 0,
+                                                    //   indent: 0,
+                                                    //   endIndent: 0,
+                                                    //   color: Color(0x23F5F5F5),
+                                                    // ),
+                                                  ],
                                                 ),
                                               ),
                                             ),
-                                            InkWell(
-                                              onTap: () async {
-                                                Navigator.pop(context);
-                                                await Navigator.push(
-                                                  context,
-                                                  TransparentRoute(
-                                                    builder: (context) => AddPostPageWidget(
-                                                      userRef: currentUserReference,
-                                                      initValue: postRecord.content,
-                                                      initImage: postRecord.imageUrl,
-                                                      chosenGame: postRecord.game,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 25),
                                               child: Container(
-                                                height: 40,
-                                                child: Center(
-                                                  child: Text(
-                                                    "Repost",
-                                                    style: FlutterFlowTheme.bodyText1.override(
-                                                      fontFamily: 'Poppins',
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      FlutterFlowTheme.tertiaryColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
                                                 ),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Container(
-                                                height: 40,
-                                                child: Center(
-                                                  child: Text(
-                                                    "Cancel",
-                                                    style: FlutterFlowTheme.bodyText1.override(
-                                                      fontFamily: 'Poppins',
-                                                      fontSize: 16,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Cancel",
+                                                        style: FlutterFlowTheme
+                                                            .bodyText1
+                                                            .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -197,8 +235,8 @@ class PostWidget extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               );
                             });
                       },

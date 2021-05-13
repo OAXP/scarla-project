@@ -69,9 +69,12 @@ class _MessageFormState extends State<MessageForm> {
                           shape: CircleBorder(),
                         ),
                         child: IconButton(
+                          splashRadius: 24,
+                          highlightColor: Colors.white.withOpacity(0.2),
+                          splashColor: Colors.white.withOpacity(0.2),
                           icon: Icon(Icons.file_upload),
                           onPressed: () {},
-                          color: FlutterFlowTheme.primaryColor,
+                          color: Colors.white,
                         ),
                       ),
                       color: Colors.transparent,
@@ -93,8 +96,8 @@ class _MessageFormState extends State<MessageForm> {
                         child: IconButton(
 
                           splashRadius: 24,
-                          highlightColor: Colors.blue,
-                          splashColor: Colors.red,
+                          highlightColor: Colors.white.withOpacity(0.2),
+                          splashColor: Colors.white.withOpacity(0.2),
                           icon: Icon(Icons.image),
                           onPressed: getImage,
                           color: Colors.white,
@@ -111,7 +114,9 @@ class _MessageFormState extends State<MessageForm> {
                     color: Color(0xFF25263E),
                     shape: CircleBorder(),),
                   child: IconButton(
-
+                    splashRadius: 24,
+                    highlightColor: Colors.white.withOpacity(0.2),
+                    splashColor: Colors.white.withOpacity(0.2),
                     icon: Icon(Icons.video_collection),
                     onPressed: () {
                       getImage(isVideo: true);

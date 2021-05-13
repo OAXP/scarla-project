@@ -22,7 +22,7 @@ class TransparentRoute extends PageRoute<void> {
   bool get maintainState => true;
 
   @override
-  Duration get transitionDuration => Duration(milliseconds: 350);
+  Duration get transitionDuration => Duration(milliseconds: 200);
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,

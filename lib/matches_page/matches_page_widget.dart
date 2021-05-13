@@ -1,3 +1,4 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:scarla/auth/firebase_user_provider.dart';
 import 'package:scarla/create_group_page/create_group_page_widget.dart';
 import 'package:scarla/flutter_flow/flutter_flow_util.dart';
@@ -98,7 +99,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                             );
                           },
                           icon: Icon(
-                            Icons.check_rounded,
+                            FluentIcons.checkmark_circle_48_regular,
                             color: Color(0xFF535480),
                             size: 30,
                           ),
@@ -110,82 +111,129 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                 ),
               ),
               if (selectedUsers.isNotEmpty)
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 100,
-                decoration: BoxDecoration(),
-                child: Padding(
-                      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: selectedUsers.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewUsersRecord =
-                          selectedUsers[listViewIndex];
-                          return Padding(
-                            padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: FlutterFlowTheme.tertiaryColor,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedUsers.remove(listViewUsersRecord);
-                                      });
-                                    },
-                                    child: Icon(
-                                      Icons.remove_circle,
-                                      color: FlutterFlowTheme.secondaryColor,
-                                      size: 24,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Container(
-                                          width: 30,
-                                          height: 30,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: CachedNetworkImage(
-                                            imageUrl:
-                                                listViewUsersRecord.photoUrl,
-                                            fit: BoxFit.cover,
-                                          ),
+              Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 100,
+                    decoration: BoxDecoration(),
+                    child: Padding(
+                          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: selectedUsers.length,
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewUsersRecord =
+                              selectedUsers[listViewIndex];
+                              return Padding(
+                                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                                child: Card(
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  color: FlutterFlowTheme.tertiaryColor,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedUsers.remove(listViewUsersRecord);
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.remove_circle,
+                                          color: FlutterFlowTheme.secondaryColor,
+                                          size: 24,
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(2, 0, 0, 0),
-                                          child: Text(
-                                            "${listViewUsersRecord.name}#${listViewUsersRecord.tag}",
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.fromLTRB(4, 0, 10, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    listViewUsersRecord.photoUrl,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            Padding(
+                                            padding:
+                                                EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                            child:
+                                            Text(
+                                              listViewUsersRecord.name,
+                                              style:
+                                              FlutterFlowTheme.bodyText1.override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+
+                                              /* Text(
+                                              "${listViewUsersRecord.name}#${listViewUsersRecord.tag}",
+                                              style: FlutterFlowTheme.bodyText1
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                              ),
+                                            ),*/
+                                          ),
+
+                                          Text(
+                                            '#',
+                                            style:
+                                                FlutterFlowTheme.bodyText1.override(
                                               fontFamily: 'Poppins',
-                                              color: Colors.white,
+                                              color: Color(0xFF838383),
                                               fontSize: 10,
                                             ),
                                           ),
+                                          Text(
+                                            listViewUsersRecord.tag,
+                                                  style: FlutterFlowTheme.bodyText1
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Color(0xFF838383),
+                                                    fontSize: 10,
+                                                  ),
+                                                )
+
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+
+                              );
+                            },
+                          ),
+                        ),
+                  ),
+                  Divider(
+                    height: 2,
+                    indent: 20,
+                    endIndent: 20,
+                    color: Color(0xFF666666),
+                    thickness: 0.3,
+                  ),
+                  SizedBox(
+                    height: 2,
+                  ),
+                ],
               ),
+
               Expanded(
                 child: StreamBuilder<List<UsersRecord>>(
                   stream: queryUsersRecord(
@@ -210,7 +258,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                       );
                     }
                     return Padding(
-                      padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                       child: ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
@@ -233,8 +281,12 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                 );
                               },
                               child: Card(
+                                shape:RoundedRectangleBorder(
+
+                                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                                ),
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: Color(0x85F5F5F5),
+                                color: FlutterFlowTheme.title1Color,
                                 elevation: 5,
                                 child: Stack(
                                   children: [
@@ -263,21 +315,51 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                            Container(
-                                              width: 100,
-                                              child: Text(
-                                                "${listViewUsersRecord.name}#${listViewUsersRecord.tag}",
-                                                textAlign: TextAlign.justify,
-                                                style: FlutterFlowTheme
-                                                    .subtitle1
-                                                    .override(
-                                                  fontFamily: 'Poppins',
+
+                                              Padding(
+                                                padding: EdgeInsets.fromLTRB(3, 0, 15, 0),
+                                                child: Row(
+                                                  children: [
+
+                                                    Text(
+                                                      listViewUsersRecord.name,
+                                                      textAlign:
+                                                      TextAlign.justify,
+                                                      style: FlutterFlowTheme
+                                                          .subtitle2
+                                                          .override(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 15
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '#',
+                                                      textAlign:
+                                                      TextAlign.justify,
+                                                      style: FlutterFlowTheme
+                                                          .bodyText2
+                                                          .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontSize: 15
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      listViewUsersRecord.tag,
+                                                      textAlign: TextAlign.start,
+                                                      style: FlutterFlowTheme
+                                                          .bodyText2
+                                                          .override(
+                                                          fontFamily: 'Poppins',
+                                                          fontSize: 15
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
                                               ),
-                                            ),
+
                                             Padding(
                                               padding: EdgeInsets.fromLTRB(
-                                                  1, 0, 0, 0),
+                                                  21, 0, 0, 0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -300,10 +382,11 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                                           'Rank : ',
                                                           style:
                                                               FlutterFlowTheme
-                                                                  .subtitle1
+                                                                  .subtitle2
                                                                   .override(
                                                             fontFamily:
                                                                 'Poppins',
+                                                                fontSize: 15
                                                           ),
                                                         ),
                                                       ),
@@ -336,9 +419,9 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                                 });
                                               },
                                               icon: Icon(
-                                                Icons.add_circle_outline,
-                                                color: Colors.black,
-                                                size: 30,
+                                                FluentIcons.person_add_20_regular,
+                                                color: Colors.white,
+                                                size: 28,
                                               ),
                                               iconSize: 30,
                                             )

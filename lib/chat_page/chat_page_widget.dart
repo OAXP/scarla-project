@@ -211,7 +211,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
 
                             // Customize what your widget looks like with no query results.
                             if (listViewGMessagesRecordList.isEmpty) {
-                              return Center(
+                              return Padding(
+                                padding: EdgeInsets.only(bottom: 70),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -250,12 +251,16 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 15,
+                                      height: 14,
                                     ),
                                     Text(
                                       "This is the beginning of the group named ${widget.groupName}",
-                                      style: FlutterFlowTheme.title1,
+                                      style: FlutterFlowTheme.title1.override(
+                                        fontFamily: 'Poppins',
+                                        fontSize: 20,
+                                      ),
                                       textAlign: TextAlign.center,
+
                                     ),
                                   ],
                                 ),

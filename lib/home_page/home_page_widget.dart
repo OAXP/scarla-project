@@ -314,7 +314,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(5, 0, 0, 8),
+                  padding: EdgeInsets.fromLTRB(5, 0, 0, 2),
                   child: Card(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     color: FlutterFlowTheme.tertiaryColor,

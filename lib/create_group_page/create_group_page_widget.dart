@@ -509,7 +509,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                       thickness: 0.3,
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(0, 4, 0, 10),
+                      padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
                       child: Align(
                         alignment: Alignment(0.02, 0),
                         child: Text(
@@ -577,7 +577,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                                 ),
                                                 Padding(
                                                   padding:
-                                                  EdgeInsets.fromLTRB(6, 0, 0, 0),
+                                                  EdgeInsets.fromLTRB(5, 0, 0, 0),
                                                   child: Text(
                                                     listViewUsersRecord.name,
                                                     style: FlutterFlowTheme.bodyText1
@@ -617,11 +617,9 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 8,
-                          ),
+
                           Divider(
-                            height: 20,
+                            height: 5,
                             indent: 20,
                             endIndent: 20,
                             color: Color(0xFF666666),
@@ -630,7 +628,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                         ],
                       ),
                     SizedBox(
-                      height: 3,
+                      height: 6,
                     ),
                     Expanded(
                       child: StreamBuilder<List<FriendsRecord>>(

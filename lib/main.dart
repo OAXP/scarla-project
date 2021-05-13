@@ -228,7 +228,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                           key: _homeIconKey,
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          icon: Icon(AntDesign.home),
+                          icon: Icon(FluentIcons.home_24_regular),
                           iconSize: 24.0,
                           color: (_currentPage == 'HomePage')
                               ? color
@@ -243,8 +243,8 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                           key: _chatIconKey,
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          icon: Icon(AntDesign.message1),
-                          iconSize: 24.0,
+                          icon: Icon(FluentIcons.chat_32_regular,),
+                          iconSize: 27.0,
                           color: (_currentPage == 'GroupListPage')
                               ? color
                               : Colors.white,

@@ -185,7 +185,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                         final listViewUsersRecord =
                             listViewUsersRecordList[listViewIndex];
                         return Padding(
-                          padding: EdgeInsets.fromLTRB(10, 3, 10, 10),
+                          padding: EdgeInsets.fromLTRB(10, 6, 10, 10),
                           child: InkWell(
                             onTap: () async {
                               await Navigator.push(
