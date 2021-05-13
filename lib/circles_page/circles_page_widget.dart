@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:scarla/assets/custom_icons_icons.dart';
+import 'package:scarla/auth/auth_util.dart';
+import 'package:scarla/backend/backend.dart';
 import 'package:selectable_circle/selectable_circle.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -30,6 +32,7 @@ class _CirclesPageState extends State<CirclesPage>
   Color color = Color(0xFF5B54C2);
   AnimationController controller;
   bool isPlaying = false;
+  List<String> selectedGames;
 
   @override
   void initState() {
@@ -44,6 +47,13 @@ class _CirclesPageState extends State<CirclesPage>
           _animationController.reset();
         }
       });
+
+    queryUsersRecord(
+      queryBuilder: (usersRecord) => usersRecord.where('uid', isEqualTo: currentUserUid),
+    ).first.then((value) {
+      selectedGames = value.first.selectedGames.toList();
+      setState(() { });
+    });
   }
 
   @override
@@ -55,9 +65,9 @@ class _CirclesPageState extends State<CirclesPage>
 
 @override
   void dispose() {
-    super.dispose();
     _animationController.dispose();
     controller.dispose();
+    super.dispose();
   }
 
   void _handleOnPressed() {
@@ -87,6 +97,7 @@ class _CirclesPageState extends State<CirclesPage>
                   Padding(
                     padding: const EdgeInsets.fromLTRB(59, 140, 0, 0),
                     child: Row(children: <Widget>[
+                      if(selectedGames.contains('valorant'))
                       SelectableCircle(
                           width: 80.0,
                           isSelected: isSelected[0],
@@ -132,6 +143,7 @@ class _CirclesPageState extends State<CirclesPage>
                       SizedBox(
                         width: 20,
                       ),
+                      if(selectedGames.contains('mw'))
                       SelectableCircle(
                           selectedColor: Colors.black,
                           width: 80.0,
@@ -191,6 +203,7 @@ class _CirclesPageState extends State<CirclesPage>
                       SizedBox(
                         width: 20,
                       ),
+                      if(selectedGames.contains('lol'))
                       SelectableCircle(
                           width: 80.0,
                           color: Color(0xff0a2f39),
@@ -262,6 +275,7 @@ class _CirclesPageState extends State<CirclesPage>
                   Padding(
                     padding: const EdgeInsets.fromLTRB(110, 0, 0, 0),
                     child: Row(children: <Widget>[
+                      if(selectedGames.contains('rl'))
                       SelectableCircle(
                         color: Color(0xff004ca3),
                         width: 80.0,
@@ -319,6 +333,7 @@ class _CirclesPageState extends State<CirclesPage>
                       SizedBox(
                         width: 20,
                       ),
+                      if(selectedGames.contains('ow'))
                       SelectableCircle(
                         color: Colors.grey[350],
                         width: 80.0,
