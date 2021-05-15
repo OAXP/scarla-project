@@ -113,6 +113,7 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                               child: ListView.builder(
+                                physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.horizontal,
                                 itemCount: selectedUsers.length,
@@ -238,6 +239,7 @@ class _GroupAddMemberPageWidgetState extends State<GroupAddMemberPageWidget> {
                           return Padding(
                             padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                             child: ListView.builder(
+                              physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,
                               itemCount: listViewFriendsRecordList.length,

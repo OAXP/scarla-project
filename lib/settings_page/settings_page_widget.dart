@@ -48,6 +48,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
   TextEditingController usernameFieldController;
   bool notificationSwitchSetting;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  Color color1 = Color(0xff0b323e);
+  Color color2 = Color(0xff010b15);
 
   @override
   void initState() {
@@ -197,6 +199,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                       ),
                       Expanded(
                         child: ListView(
+                          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
                           children: [
@@ -210,6 +213,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 ),
                                 child: Stack(
                                   children: [
+                                    (widget.bgProfile != "") ?
                                     Align(
                                       alignment: Alignment(0, 0),
                                       child: (FlutterFlowTheme.isUploading)
@@ -228,6 +232,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                             color: FlutterFlowTheme.tertiaryColor
                                         ),
                                       ),
+                                    ) : Container(
+                                        color: FlutterFlowTheme.tertiaryColor
                                     ),
                                     FFButtonWidget(
                                       onPressed: () async {
@@ -1702,7 +1708,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
 
                                             },
                                             child: Padding(
-                                              padding: const EdgeInsets.fromLTRB(0,0,30,0),
+                                              padding: const EdgeInsets.fromLTRB(0,0,26,0),
                                               child: Card(
                                                 clipBehavior:
                                                     Clip.antiAliasWithSaveLayer,
@@ -1798,8 +1804,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Image.asset(
-                                                  'assets/games/icons/valorantIcon.jpg',
-                                                  fit: BoxFit.contain,
+                                                  'assets/games/icons/valorantIcon.png',
+                                                  scale: 2,
                                                 ),
                                               ),
                                             )
@@ -1833,11 +1839,12 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                 height: 50,
                                                 clipBehavior: Clip.antiAlias,
                                                 decoration: BoxDecoration(
+                                                  color: Colors.black54,
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Image.asset(
                                                   'assets/games/icons/mwIcon.png',
-                                                  fit: BoxFit.contain,
+                                                  scale: 2.7,
                                                 ),
                                               ),
                                             )
@@ -1872,10 +1879,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                 clipBehavior: Clip.antiAlias,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
+                                                  color: Color(0xff004ca3),
                                                 ),
-                                                child: Image.asset(
-                                                  'assets/games/icons/rlIcon.png',
-                                                  fit: BoxFit.contain,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(left: 2,top:1),
+                                                  child: Image.asset(
+                                                    'assets/games/icons/rlIcon.png',
+                                                    scale:27,
+                                                  ),
                                                 ),
                                               ),
                                             )
@@ -1910,10 +1921,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                 clipBehavior: Clip.antiAlias,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
+                                                  color: Colors.grey[300],
                                                 ),
                                                 child: Image.asset(
                                                   'assets/games/icons/owIcon.png',
-                                                  fit: BoxFit.contain,
+                                                  scale: 32,
                                                 ),
                                               ),
                                             )
@@ -1948,10 +1960,21 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                 clipBehavior: Clip.antiAlias,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      color1,
+                                                      color2,
+                                                    ],
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter,
+                                                  ),
                                                 ),
-                                                child: Image.asset(
-                                                  'assets/games/icons/lolIcon.png',
-                                                  fit: BoxFit.contain,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(left: 2,bottom:1),
+                                                  child: Image.asset(
+                                                    'assets/games/icons/lolIcon.png',
+                                                    scale: 12,
+                                                  ),
                                                 ),
                                               ),
                                             )

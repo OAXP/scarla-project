@@ -120,6 +120,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                     child: Padding(
                           padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                           child: ListView.builder(
+                            physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.horizontal,
                             itemCount: selectedUsers.length,
@@ -260,6 +261,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                     return Padding(
                       padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                       child: ListView.builder(
+                        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewUsersRecordList.length,
@@ -400,9 +402,42 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                                           shape:
                                                               BoxShape.circle,
                                                         ),
-                                                        child: Image.asset(
-                                                          'assets/games/ranks/valorant/20.png',
-                                                          fit: BoxFit.cover,
+                                                        child: StreamBuilder<List<GamesRanksRecord>>(
+                                                          stream: queryGamesRanksRecord(
+                                                            queryBuilder: (gameRank) => gameRank.where('userRef', isEqualTo: listViewUsersRecord.reference),
+                                                            singleRecord: true,
+                                                          ),
+                                                          builder: (context, snapshot) {
+                                                            int rank = 1;
+
+                                                            if(snapshot.hasData) {
+                                                              if(snapshot.data.isNotEmpty){
+                                                                final rankRecord = snapshot.data.first;
+                                                                switch(widget.game) {
+                                                                  case 'valorant':
+                                                                    rank = rankRecord.valorant;
+                                                                    break;
+                                                                  case 'lol':
+                                                                    rank = rankRecord.lol;
+                                                                    break;
+                                                                  case 'ow':
+                                                                    rank = rankRecord.ow;
+                                                                    break;
+                                                                  case 'rl':
+                                                                    rank = rankRecord.rl;
+                                                                    break;
+                                                                  default:
+                                                                    rank = 1;
+                                                                    break;
+                                                                }
+                                                              }
+                                                            }
+
+                                                            return Image.asset(
+                                                              'assets/games/ranks/${widget.game}/$rank.png',
+                                                              fit: BoxFit.cover,
+                                                            );
+                                                          }
                                                         ),
                                                       )
                                                     ],

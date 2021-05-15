@@ -20,6 +20,8 @@ class MyProfilePageWidget extends StatefulWidget {
 
 class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  Color color1 = Color(0xff0b323e);
+  Color color2 = Color(0xff010b15);
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                   children: [
                     Stack(
                       children: [
+                        if (stackUsersRecord.bgProfile != "")
                         Stack(
                           children: [
                             Container(
@@ -363,17 +366,109 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                               ),
                                             );
                                           },
-                                          child: Container(
-                                            width: 30,
-                                            height: 30,
-                                            clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Image.asset(
-                                              'assets/games/icons/${game}Icon.png',
-                                              fit: BoxFit.contain,
-                                            ),
+                                          child: Stack(
+                                            children: [
+                                              // Container(
+                                              //   width: 30,
+                                              //   height: 30,
+                                              //   clipBehavior: Clip.antiAlias,
+                                              //   decoration: BoxDecoration(
+                                              //     shape: BoxShape.circle,
+                                              //   ),
+                                              //   child: Image.asset(
+                                              //     'assets/games/icons/${game}Icon.png',
+                                              //     fit: BoxFit.contain,
+                                              //   ),
+                                              // ),
+                                              if(game == "valorant")
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.black54,
+                                                      border:Border.all(color: Colors.white)
+                                                  ),
+
+
+                                                    child: Image.asset(
+                                                      'assets/games/icons/valorantIcon.png',
+                                                      scale: 10,
+
+                                                  ),
+                                                ),
+                                              if(game == "mw")
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black54,
+                                                    shape: BoxShape.circle,
+                                                      border:Border.all(color: Colors.white)
+                                                  ),
+                                                  child: Image.asset(
+                                                    'assets/games/icons/mwIcon.png',
+                                                    scale: 2.7,
+                                                  ),
+                                                ),
+                                              if(game == "lol")
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    gradient: LinearGradient(
+                                                      colors: [
+                                                        color1,
+                                                        color2,
+                                                      ],
+                                                      begin: Alignment.topCenter,
+                                                      end: Alignment.bottomCenter,
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(left: 1,bottom:1),
+                                                    child: Image.asset(
+                                                      'assets/games/icons/lolIcon.png',
+                                                      scale: 19,
+                                                    ),
+                                                  ),
+                                                ),
+                                              if(game == "ow")
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.grey[300],
+                                                  ),
+                                                  child: Image.asset(
+                                                    'assets/games/icons/owIcon.png',
+                                                    scale: 50,
+                                                  ),
+                                                ),
+                                              if(game == "rl")
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xff004ca3),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(left: 2,top:1),
+                                                    child: Image.asset(
+                                                      'assets/games/icons/rlIcon.png',
+                                                      scale:27,
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
                                           ),
                                         ),
                                       );

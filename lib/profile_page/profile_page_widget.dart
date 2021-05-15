@@ -27,32 +27,41 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String nom = 'Add as friend';
   bool isRequested;
+  Color color1 = Color(0xff0b323e);
+  Color color2 = Color(0xff010b15);
 
   @override
   void initState() {
     super.initState();
-    queryFriendsRecord(
-        queryBuilder: (friendsRecord) =>
-            friendsRecord.where('friends', whereIn: [
-              [widget.userRef, currentUserReference],
-              [currentUserReference, widget.userRef]
-            ])).first.then((value) {
-      if (value.isEmpty) {
-        nom = "Add as friend";
-      } else {
-        int status = value.first.status;
-        if (status == 0) {
-          isRequested = (value.first.friends.first == currentUserReference);
-          if (isRequested) {
-            nom = "Request Sent";
-          } else {
-            nom = "Accept request";
-          }
+    if(widget.userRef == currentUserReference) {
+      setState(() {
+        nom = "None";
+      });
+    } else {
+      queryFriendsRecord(
+          queryBuilder: (friendsRecord) =>
+              friendsRecord.where('friends', whereIn: [
+                [widget.userRef, currentUserReference],
+                [currentUserReference, widget.userRef]
+              ])).first.then((value) {
+        if (value.isEmpty) {
+          nom = "Add as friend";
         } else {
-          nom = "Friends";
+          int status = value.first.status;
+          if (status == 0) {
+            isRequested = (value.first.friends.first == currentUserReference);
+            if (isRequested) {
+              nom = "Request Sent";
+            } else {
+              nom = "Accept request";
+            }
+          } else {
+            nom = "Friends";
+          }
         }
-      }
-    });
+      });
+    }
+
   }
 
   @override
@@ -83,6 +92,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                             color: FlutterFlowTheme.primaryColor,
                           ),
                         ),
+                        if (profilePageUsersRecord.bgProfile != "")
                         Stack(
                           children: [
                             Container(
@@ -328,6 +338,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   endIndent: 20,
                                   color: Color(0x23F5F5F5),
                                 ),
+                                if (nom != 'None')
                                 FFButtonWidget(
                                   onPressed: () async {
                                     if (nom == 'Add as friend') {
@@ -625,18 +636,112 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                       ),
                                                     );
                                                   },
-                                                  child: Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Image.asset(
-                                                      'assets/games/icons/${game}Icon.png',
-                                                      fit: BoxFit.contain,
-                                                    ),
+                                                  child: Stack(
+                                                    children: [
+                                                      // Container(
+                                                      //   width: 30,
+                                                      //   height: 30,
+                                                      //   clipBehavior:
+                                                      //       Clip.antiAlias,
+                                                      //   decoration: BoxDecoration(
+                                                      //     shape: BoxShape.circle,
+                                                      //   ),
+                                                      //   child: Image.asset(
+                                                      //     'assets/games/icons/${game}Icon.png',
+                                                      //     fit: BoxFit.contain,
+                                                      //   ),
+                                                      // ),
+
+                                                      if(game == "valorant")
+                                                        Container(
+                                                          width: 30,
+                                                          height: 30,
+                                                          clipBehavior: Clip.antiAlias,
+                                                          decoration: BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              color: Colors.black54,
+                                                              border:Border.all(color: Colors.white)
+                                                          ),
+
+
+                                                          child: Image.asset(
+                                                            'assets/games/icons/valorantIcon.png',
+                                                            scale: 10,
+
+                                                          ),
+                                                        ),
+                                                      if(game == "mw")
+                                                        Container(
+                                                          width: 30,
+                                                          height: 30,
+                                                          clipBehavior: Clip.antiAlias,
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.black54,
+                                                              shape: BoxShape.circle,
+                                                              border:Border.all(color: Colors.white)
+                                                          ),
+                                                          child: Image.asset(
+                                                            'assets/games/icons/mwIcon.png',
+                                                            scale: 2.7,
+                                                          ),
+                                                        ),
+                                                      if(game == "lol")
+                                                        Container(
+                                                          width: 30,
+                                                          height: 30,
+                                                          clipBehavior: Clip.antiAlias,
+                                                          decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
+                                                            gradient: LinearGradient(
+                                                              colors: [
+                                                                color1,
+                                                                color2,
+                                                              ],
+                                                              begin: Alignment.topCenter,
+                                                              end: Alignment.bottomCenter,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.only(left: 1,bottom:1),
+                                                            child: Image.asset(
+                                                              'assets/games/icons/lolIcon.png',
+                                                              scale: 19,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      if(game == "ow")
+                                                        Container(
+                                                          width: 30,
+                                                          height: 30,
+                                                          clipBehavior: Clip.antiAlias,
+                                                          decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
+                                                            color: Colors.grey[300],
+                                                          ),
+                                                          child: Image.asset(
+                                                            'assets/games/icons/owIcon.png',
+                                                            scale: 50,
+                                                          ),
+                                                        ),
+                                                      if(game == "rl")
+                                                        Container(
+                                                          width: 30,
+                                                          height: 30,
+                                                          clipBehavior: Clip.antiAlias,
+                                                          decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
+                                                            color: Color(0xff004ca3),
+                                                          ),
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.only(left: 2,top:1),
+                                                            child: Image.asset(
+                                                              'assets/games/icons/rlIcon.png',
+                                                              scale:27,
+                                                            ),
+                                                          ),
+                                                        ),
+
+                                                    ],
                                                   ),
                                                 ),
                                               );

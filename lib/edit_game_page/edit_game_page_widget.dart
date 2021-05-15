@@ -50,7 +50,7 @@ class _EditGamePageWidgetState extends State<EditGamePageWidget> {
           rl: 1,
         );
         await GamesRanksRecord.collection
-            .doc()
+            .doc(currentUserUid)
             .set(gamesRankRecord);
       }
       if(editGamePageGamesRanksRecordList != null) {

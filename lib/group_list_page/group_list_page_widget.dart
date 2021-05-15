@@ -115,6 +115,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                       return Padding(
                         padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                         child: ListView.builder(
+                          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
                           itemCount: listViewGroupsRecordList.length,

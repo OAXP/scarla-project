@@ -65,6 +65,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                       child: ListView(
+                        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
                         children: [

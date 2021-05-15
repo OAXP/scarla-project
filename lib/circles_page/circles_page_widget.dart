@@ -87,6 +87,10 @@ class _CirclesPageState extends State<CirclesPage>
 
   @override
   Widget build(BuildContext context) {
+    if(selectedGames == null) {
+      return Container();
+    }
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xb4000000),

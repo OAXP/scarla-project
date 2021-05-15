@@ -267,6 +267,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                               );
                             }
                             return ListView.builder(
+                              physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                               controller: messageListController,
                               padding: EdgeInsets.zero,
                               reverse: true,

@@ -581,6 +581,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                               return Padding(
                                 padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                                 child: ListView.builder(
+                                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                                   padding: EdgeInsets.zero,
                                   scrollDirection: Axis.vertical,
                                   itemCount: listViewUsersRecordList.length,

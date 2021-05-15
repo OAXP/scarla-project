@@ -366,6 +366,18 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
 
                           final keys = createKeys("$name#$tag");
 
+                          final gameRankData = createGamesRanksRecordData(
+                            userRef: currentUserReference,
+                            lol: 1,
+                            valorant: 1,
+                            mw: 1,
+                            ow: 1,
+                            rl: 1,
+                          );
+
+                          final rankRef = GamesRanksRecord.collection.doc(currentUserUid);
+                          await rankRef.set(gameRankData);
+
                           final usersRecordData = {
                             ...createUsersRecordData(
                               about: about,
@@ -373,6 +385,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                               photoUrl: photoUrl,
                               bgProfile: bgProfile,
                               tag: tag,
+                              ranksRef: rankRef,
                             ),
                             'keys': keys,
                             'selected_games': selectedGames,

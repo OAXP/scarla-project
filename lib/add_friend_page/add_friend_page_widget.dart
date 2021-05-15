@@ -178,6 +178,7 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                       );
                     }
                     return ListView.builder(
+                      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
                       itemCount: listViewUsersRecordList.length,

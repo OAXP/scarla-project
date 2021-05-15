@@ -67,6 +67,7 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                           child: ListView(
+                            physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.vertical,
                             children: [
