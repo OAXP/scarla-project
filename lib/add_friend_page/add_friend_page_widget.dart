@@ -173,11 +173,9 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                     List<UsersRecord> listViewUsersRecordList = snapshot.data;
                     if (listViewUsersRecordList.isEmpty) {
                       return Center(
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              'https://img.icons8.com/dotty/2x/nothing-found.png',
-                          width: 100,
-                          height: 100,
+                        child: Text(
+                          "Look up for a friend",
+                          style: FlutterFlowTheme.title1,
                         ),
                       );
                     }
