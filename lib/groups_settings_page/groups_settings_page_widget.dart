@@ -1,22 +1,25 @@
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:scarla/flutter_flow/upload_media.dart';
+/*
+ * Copyright (c) 2021. Scarla
+ */
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:imgur/imgur.dart' as imgur;
+import 'package:scarla/flutter_flow/upload_media.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../group_add_member_page/group_add_member_page_widget.dart';
 import '../main.dart';
 import '../profile_page/profile_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:imgur/imgur.dart' as imgur;
 
+/// Widget de la page de réglages pour les groupes
 class GroupsSettingsPageWidget extends StatefulWidget {
   GroupsSettingsPageWidget({Key key, this.groupRef, this.groupName})
       : super(key: key);
@@ -40,6 +43,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
     groupNameFieldController = TextEditingController(text: widget.groupName);
   }
 
+  /// Récupère l'image téléverser par l'utilisateur pour mettre dans [groupPic]
   Future getImage({bool isVideo = false}) async {
     ImagePicker imagePicker = ImagePicker();
     PickedFile pickedFile;
@@ -57,10 +61,10 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
           FlutterFlowTheme.isUploading = true;
         });
         final client =
-        imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
+            imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
         await client.image
             .uploadImage(
-            imagePath: pickedFile.path, title: '*_*', description: '*_*')
+                imagePath: pickedFile.path, title: '*_*', description: '*_*')
             .then((image) {
           groupPic = image.link;
           setState(() {
@@ -115,6 +119,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                               children: [
                                 IconButton(
                                   onPressed: () async {
+                                    /// Ramène à la page de messages du groupe
                                     Navigator.pop(context);
                                   },
                                   icon: Icon(
@@ -132,10 +137,11 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                 ),
                                 IconButton(
                                   onPressed: () async {
+                                    /// Envoie vers la page de messages du groupe en sauvegardant les changements
                                     final gName = groupNameFieldController.text;
-                                    final gPhotoUrl =
-                                    (groupPic != null) ? groupPic :
-                                        groupsSettingsPageGroupsRecord
+                                    final gPhotoUrl = (groupPic != null)
+                                        ? groupPic
+                                        : groupsSettingsPageGroupsRecord
                                             .gPhotoUrl;
 
                                     final groupsRecordData = {
@@ -180,8 +186,10 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: CachedNetworkImage(
-                                      imageUrl: (groupPic != null) ? groupPic : groupsSettingsPageGroupsRecord
-                                          .gPhotoUrl,
+                                      imageUrl: (groupPic != null)
+                                          ? groupPic
+                                          : groupsSettingsPageGroupsRecord
+                                              .gPhotoUrl,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -273,84 +281,128 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            (groupsSettingsPageGroupsRecord
-                                .host ==
-                                currentUserReference ||
-                                groupsSettingsPageGroupsRecord
-                                    .membersId
-                                    .length <=
-                                    2)
+                            (groupsSettingsPageGroupsRecord.host ==
+                                        currentUserReference ||
+                                    groupsSettingsPageGroupsRecord
+                                            .membersId.length <=
+                                        2)
                                 ? Padding(
                                     padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
+                                        /// Ça demande si l'utilisateur est sûre d'enlever le groupe
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
                                               backgroundColor: Colors.white,
                                               shape: RoundedRectangleBorder(
-
-                                                borderRadius: BorderRadius.circular(10.0),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
                                               ),
-                                              title: Center(child: Text('Alert!')),
-                                              content: Text('Are you sure you want to delete this group?'),
+                                              title:
+                                                  Center(child: Text('Alert!')),
+                                              content: Text(
+                                                  'Are you sure you want to delete this group?'),
                                               actions: <Widget>[
                                                 Column(
                                                   children: [
-
                                                     Center(
                                                       child: Padding(
-                                                        padding: const EdgeInsets.fromLTRB(0,0,21,15),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 0, 24, 15),
                                                         child: Container(
-                                                          width:250,
-                                                          height:2,
-                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey[300],),
-
+                                                          width: 250,
+                                                          height: 2,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24),
+                                                            color: Colors
+                                                                .grey[300],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                     Row(
                                                       children: [
-
                                                         Padding(
-                                                          padding: const EdgeInsets.fromLTRB(0,0,14,0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  0, 0, 14, 0),
                                                           child: Container(
-                                                            width:107,
-                                                            height:47,
-                                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey,),
+                                                            width: 107,
+                                                            height: 47,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          24),
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
                                                             child: TextButton(
-
-                                                              child: Text('Cancel',style: TextStyle(color: Colors.white),),
-
-
+                                                              child: Text(
+                                                                'Cancel',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
                                                               onPressed: () {
-                                                                Navigator.of(context).pop();
+                                                                /// Ça annule la commande
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
                                                               },
                                                             ),
                                                           ),
                                                         ),
                                                         Padding(
-                                                          padding: const EdgeInsets.fromLTRB(0,0,23,0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  0, 0, 23, 0),
                                                           child: Container(
-                                                            width:107,
-                                                            height:47,
-                                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Color(0xffff4553),),
+                                                            width: 107,
+                                                            height: 47,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          24),
+                                                              color: Color(
+                                                                  0xffff4553),
+                                                            ),
                                                             child: TextButton(
-
-                                                              child: Text('Yes!',style: TextStyle(color: Colors.white),),
-
-
-                                                              onPressed: () async {
-
-                                                                await widget.groupRef.delete();
-                                                                await Navigator.pushAndRemoveUntil(
+                                                              child: Text(
+                                                                'Yes!',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              onPressed:
+                                                                  () async {
+                                                                /// Ça enleve le groupe de la liste de groupes de l'utilisateur
+                                                                await widget
+                                                                    .groupRef
+                                                                    .delete();
+                                                                await Navigator
+                                                                    .pushAndRemoveUntil(
                                                                   context,
                                                                   MaterialPageRoute(
-                                                                    builder: (context) => NavBarPage(
-                                                                        initialPage: 'GroupListPage'),
+                                                                    builder: (context) =>
+                                                                        NavBarPage(
+                                                                            initialPage:
+                                                                                'GroupListPage'),
                                                                   ),
-                                                                      (r) => false,
+                                                                  (r) => false,
                                                                 );
                                                               },
                                                             ),
@@ -360,8 +412,6 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                     )
                                                   ],
                                                 )
-
-
                                               ],
                                             );
                                           },
@@ -388,81 +438,130 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                     padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-
+                                        /// Ça demande si l'utilisateur veut quitter le groupe
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
                                               backgroundColor: Colors.white,
                                               shape: RoundedRectangleBorder(
-
-                                                borderRadius: BorderRadius.circular(10.0),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
                                               ),
-                                              title: Center(child: Text('Alert!')),
-                                              content: Text('Are you sure you want to leave this '
-                                                    'group?'),
-
+                                              title:
+                                                  Center(child: Text('Alert!')),
+                                              content: Text(
+                                                  'Are you sure you want to leave this '
+                                                  'group?'),
                                               actions: <Widget>[
                                                 Column(
                                                   children: [
-
                                                     Center(
                                                       child: Padding(
-                                                        padding: const EdgeInsets.fromLTRB(0,0,22,15),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 0, 22, 15),
                                                         child: Container(
-                                                          width:250,
-                                                          height:2,
-                                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey[300],),
-
+                                                          width: 250,
+                                                          height: 2,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24),
+                                                            color: Colors
+                                                                .grey[300],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                     Row(
                                                       children: [
-
                                                         Padding(
-                                                          padding: const EdgeInsets.fromLTRB(0,0,10,0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  0, 0, 10, 0),
                                                           child: Container(
-                                                            width:107,
-                                                            height:47,
-                                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey,),
+                                                            width: 107,
+                                                            height: 47,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          24),
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
                                                             child: TextButton(
-
-                                                              child: Text('Cancel',style: TextStyle(color: Colors.white),),
-
-
+                                                              child: Text(
+                                                                'Cancel',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
                                                               onPressed: () {
-                                                                Navigator.of(context).pop();
+                                                                /// Ça annule la commande
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
                                                               },
                                                             ),
                                                           ),
                                                         ),
                                                         Padding(
-                                                          padding: const EdgeInsets.fromLTRB(0,0,20,0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  0, 0, 20, 0),
                                                           child: Container(
-                                                            width:107,
-                                                            height:47,
-                                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Color(0xffff4553),),
+                                                            width: 107,
+                                                            height: 47,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          24),
+                                                              color: Color(
+                                                                  0xffff4553),
+                                                            ),
                                                             child: TextButton(
-
-                                                              child: Text('Yes!',style: TextStyle(color: Colors.white),),
-
-
-                                                              onPressed: () async {
-                                                                final groupsRecordData = {
-                                                                  'members_id': FieldValue.arrayRemove(
-                                                                      [currentUserUid]),
+                                                              child: Text(
+                                                                'Yes!',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              onPressed:
+                                                                  () async {
+                                                                /// Ça enleve l'utilisateur du groupe
+                                                                final groupsRecordData =
+                                                                    {
+                                                                  'members_id':
+                                                                      FieldValue
+                                                                          .arrayRemove([
+                                                                    currentUserUid
+                                                                  ]),
                                                                 };
 
-                                                                await widget.groupRef
-                                                                    .update(groupsRecordData);
-                                                                await Navigator.pushAndRemoveUntil(
+                                                                await widget
+                                                                    .groupRef
+                                                                    .update(
+                                                                        groupsRecordData);
+                                                                await Navigator
+                                                                    .pushAndRemoveUntil(
                                                                   context,
                                                                   MaterialPageRoute(
-                                                                    builder: (context) => NavBarPage(
-                                                                        initialPage: 'GroupListPage'),
+                                                                    builder: (context) =>
+                                                                        NavBarPage(
+                                                                            initialPage:
+                                                                                'GroupListPage'),
                                                                   ),
-                                                                      (r) => false,
+                                                                  (r) => false,
                                                                 );
                                                               },
                                                             ),
@@ -472,8 +571,6 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                     )
                                                   ],
                                                 )
-
-
                                               ],
                                             );
                                           },
@@ -498,7 +595,9 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                   )
                           ],
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Divider(
                           height: 19,
                           indent: 20,
@@ -514,24 +613,24 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(
-                                Icons.people,
-                                color:  FlutterFlowTheme.title1Color,
+                                FluentIcons.people_16_regular,
+                                color: FlutterFlowTheme.title1Color,
                                 size: 30,
                               ),
                               Padding(
                                 padding: EdgeInsets.fromLTRB(12, 0, 0, 0),
-                              child:Text(
+                                child: Text(
+                                  'Members',
 
-                                'Members',
-
-                                //textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.title3.override(
-                                  fontFamily: 'Poppins',
+                                  //textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.title3.override(
+                                    fontFamily: 'Poppins',
+                                  ),
                                 ),
-                              ),
                               ),
                               IconButton(
                                 onPressed: () async {
+                                  /// Envoie à la page d'ajout des amis dans un groupe
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -543,8 +642,9 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                   );
                                 },
                                 icon: Icon(
-                                  Icons.add_circle,
-                                  color:  FlutterFlowTheme.title1Color,
+                                  FluentIcons.people_add_16_regular,
+                                  //Icons.add_circle,
+                                  color: FlutterFlowTheme.title1Color,
                                   size: 30,
                                 ),
                                 iconSize: 30,
@@ -553,7 +653,9 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                           ),
                         ),
                         Expanded(
-                          child: StreamBuilder<List<UsersRecord>>(
+                          child:
+                          /// Fait la requête des utilisateurs dans le groupe courant
+                          StreamBuilder<List<UsersRecord>>(
                             stream: queryUsersRecord(
                               queryBuilder: (usersRecord) => usersRecord.where(
                                   'uid',
@@ -581,7 +683,8 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                               return Padding(
                                 padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                                 child: ListView.builder(
-                                  physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                                  physics: BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
                                   padding: EdgeInsets.zero,
                                   scrollDirection: Axis.vertical,
                                   itemCount: listViewUsersRecordList.length,
@@ -590,6 +693,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                         listViewUsersRecordList[listViewIndex];
                                     return InkWell(
                                       onTap: () async {
+                                        /// Envoie l'utilisateur vers la page de profile de l'utilisateur qu'il a clicker
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -603,8 +707,8 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                       },
                                       child: Card(
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(15))
-                                        ),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15))),
                                         clipBehavior:
                                             Clip.antiAliasWithSaveLayer,
                                         color: FlutterFlowTheme.title1Color,
@@ -665,28 +769,26 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                             '#',
                                                             textAlign: TextAlign
                                                                 .justify,
-                                                            style:
-                                                                FlutterFlowTheme
-                                                                    .bodyText2
-                                                                    .override(
-                                                              fontFamily:
-                                                                  'Poppins',
-                                                                    fontSize: 16
-                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                .bodyText2
+                                                                .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontSize:
+                                                                        16),
                                                           ),
                                                           Text(
                                                             listViewUsersRecord
                                                                 .tag,
                                                             textAlign:
                                                                 TextAlign.start,
-                                                            style:
-                                                                FlutterFlowTheme
-                                                                    .bodyText2
-                                                                    .override(
-                                                              fontFamily:
-                                                                  'Poppins',
-                                                                    fontSize: 16
-                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                .bodyText2
+                                                                .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontSize:
+                                                                        16),
                                                           )
                                                         ],
                                                       ),
@@ -704,17 +806,135 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                         currentUserUid)
                                                   IconButton(
                                                     onPressed: () async {
-                                                      final groupsRecordData = {
-                                                        'members_id': FieldValue.arrayRemove(
-                                                            [listViewUsersRecord.uid]),
-                                                      };
+                                                      /// Ça demande si l'utilisateur est sûre d'enlever un autre utilisateur du groupe
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext context) {
+                                                          return AlertDialog(
+                                                            backgroundColor: Colors.white,
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(10.0),
+                                                            ),
+                                                            title:
+                                                            Center(child: Text('Alert!')),
+                                                            content: Text(
+                                                                'Are you sure you want to remove '+ listViewUsersRecord.name+' from this group?', textAlign: TextAlign.center,),
+                                                            actions: <Widget>[
+                                                              Column(
+                                                                children: [
+                                                                  Center(
+                                                                    child: Padding(
+                                                                      padding:
+                                                                      const EdgeInsets
+                                                                          .fromLTRB(
+                                                                          0, 0, 24, 15),
+                                                                      child: Container(
+                                                                        width: 250,
+                                                                        height: 2,
+                                                                        decoration:
+                                                                        BoxDecoration(
+                                                                          borderRadius:
+                                                                          BorderRadius
+                                                                              .circular(
+                                                                              24),
+                                                                          color: Colors
+                                                                              .grey[300],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Row(
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding:
+                                                                        const EdgeInsets
+                                                                            .fromLTRB(
+                                                                            0, 0, 14, 0),
+                                                                        child: Container(
+                                                                          width: 107,
+                                                                          height: 47,
+                                                                          decoration:
+                                                                          BoxDecoration(
+                                                                            borderRadius:
+                                                                            BorderRadius
+                                                                                .circular(
+                                                                                24),
+                                                                            color:
+                                                                            Colors.grey,
+                                                                          ),
+                                                                          child: TextButton(
+                                                                            child: Text(
+                                                                              'Cancel',
+                                                                              style: TextStyle(
+                                                                                  color: Colors
+                                                                                      .white),
+                                                                            ),
+                                                                            onPressed: () {
+                                                                              /// Ça annule la commande
+                                                                              Navigator.of(
+                                                                                  context)
+                                                                                  .pop();
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding:
+                                                                        const EdgeInsets
+                                                                            .fromLTRB(
+                                                                            0, 0, 23, 0),
+                                                                        child: Container(
+                                                                          width: 107,
+                                                                          height: 47,
+                                                                          decoration:
+                                                                          BoxDecoration(
+                                                                            borderRadius:
+                                                                            BorderRadius
+                                                                                .circular(
+                                                                                24),
+                                                                            color: Color(
+                                                                                0xffff4553),
+                                                                          ),
+                                                                          child: TextButton(
+                                                                            child: Text(
+                                                                              'Yes!',
+                                                                              style: TextStyle(
+                                                                                  color: Colors
+                                                                                      .white),
+                                                                            ),
+                                                                            onPressed:
+                                                                                () async {
+                                                                              /// Ça enleve un utilisateur du groupe
+                                                                                  final groupsRecordData = {
+                                                                                    'members_id': FieldValue
+                                                                                        .arrayRemove([
+                                                                                      listViewUsersRecord
+                                                                                          .uid
+                                                                                    ]),
+                                                                                  };
 
-                                                      await widget.groupRef
-                                                          .update(groupsRecordData);
+                                                                                  await widget.groupRef
+                                                                                      .update(
+                                                                                      groupsRecordData);
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  )
+                                                                ],
+                                                              )
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+
                                                     },
                                                     icon: Icon(
                                                       Icons.cancel_sharp,
-                                                      color: FlutterFlowTheme.subtitle2Color,
+                                                      color: FlutterFlowTheme
+                                                          .subtitle2Color,
                                                       size: 30,
                                                     ),
                                                     iconSize: 30,

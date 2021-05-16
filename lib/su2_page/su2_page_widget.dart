@@ -1,18 +1,20 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:imgur/imgur.dart' as imgur;
 
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/upload_media.dart';
 import '../su3_page/su3_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:imgur/imgur.dart' as imgur;
 
 class Su2PageWidget extends StatefulWidget {
   Su2PageWidget({Key key, this.username, this.tag}) : super(key: key);
@@ -53,10 +55,10 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
           FlutterFlowTheme.isUploading = true;
         });
         final client =
-        imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
+            imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
         await client.image
             .uploadImage(
-            imagePath: pickedFile.path, title: '*_*', description: '*_*')
+                imagePath: pickedFile.path, title: '*_*', description: '*_*')
             .then((image) {
           widget.photoUrl = image.link;
           setState(() {
@@ -103,7 +105,9 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                     ),
                   ),
                   Expanded(
-                    child: StreamBuilder<UsersRecord>(
+                    child:
+                    /// Fait la requête de l'utilisateur connecté
+                    StreamBuilder<UsersRecord>(
                       stream: UsersRecord.getDocument(currentUserReference),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -136,17 +140,22 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                             clipBehavior: Clip.antiAlias,
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
-                                              color: FlutterFlowTheme.tertiaryColor,
+                                              color: FlutterFlowTheme
+                                                  .tertiaryColor,
                                             ),
-                                            child: (FlutterFlowTheme.isUploading)
+                                            child: (FlutterFlowTheme
+                                                    .isUploading)
                                                 ? Center(
-                                                child:
-                                                CircularProgressIndicator())
+                                                    child:
+                                                        CircularProgressIndicator())
                                                 : CachedNetworkImage(
-                                              imageUrl:
-                                              (widget.photoUrl != null) ? widget.photoUrl : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-                                              fit: BoxFit.cover,
-                                            ),
+                                                    imageUrl: (widget
+                                                                .photoUrl !=
+                                                            null)
+                                                        ? widget.photoUrl
+                                                        : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                                                    fit: BoxFit.cover,
+                                                  ),
                                           ),
                                         ),
                                         Align(
@@ -344,8 +353,9 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                   builder: (context) => Su3PageWidget(
                                     username: widget.username,
                                     tag: widget.tag,
-                                    photoUrl:
-                                    (widget.photoUrl != null) ? widget.photoUrl : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                                    photoUrl: (widget.photoUrl != null)
+                                        ? widget.photoUrl
+                                        : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                                     about: textController.text,
                                   ),
                                 ),

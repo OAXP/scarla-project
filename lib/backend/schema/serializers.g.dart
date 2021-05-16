@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'serializers.dart';

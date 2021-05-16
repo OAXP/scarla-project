@@ -1,21 +1,17 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:scarla/auth/firebase_user_provider.dart';
-import 'package:scarla/chat_page/chat_page_widget.dart';
-import 'package:scarla/flutter_flow/flutter_flow_util.dart';
-import 'package:scarla/flutter_flow/flutter_flow_widgets.dart';
-import 'package:scarla/profile_page/profile_page_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:scarla/friends_page/widgets/friend_card_widget.dart';
+
 import '../add_friend_page/add_friend_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../youtube_player_page/youtube_player_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:scarla/friends_page/widgets/friend_card_widget.dart';
 
+/// Widget de la page de liste d'amis
 class FriendsPageWidget extends StatefulWidget {
   FriendsPageWidget({Key key}) : super(key: key);
 
@@ -83,6 +79,7 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                             padding: EdgeInsets.fromLTRB(0, 0, 11, 0),
                             child: InkWell(
                               onTap: () async {
+                                /// Envoie vers la page de recherche d'amitié
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -146,22 +143,23 @@ class _FriendsPageWidgetState extends State<FriendsPageWidget> {
                       );
                     }
                     return ListView.builder(
-                      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                      physics: BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics()),
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
                       itemCount: listViewFriendsRecordList.length,
                       itemBuilder: (context, listViewIndex) {
                         final listViewFriendsRecord =
-                        listViewFriendsRecordList[listViewIndex];
-                        final refToTake =
-                        listViewFriendsRecord.friends.first ==
-                            currentUserReference
+                            listViewFriendsRecordList[listViewIndex];
+                        final refToTake = listViewFriendsRecord.friends.first ==
+                                currentUserReference
                             ? listViewFriendsRecord.friends.last
                             : listViewFriendsRecord.friends.first;
                         final isRequested =
-                        (listViewFriendsRecord.friends.first ==
-                            currentUserReference);
-                        final isLast = (listViewIndex == listViewFriendsRecordList.length - 1);
+                            (listViewFriendsRecord.friends.first ==
+                                currentUserReference);
+                        final isLast = (listViewIndex ==
+                            listViewFriendsRecordList.length - 1);
                         return FriendCardWidget(
                           refToTake: refToTake,
                           isRequested: isRequested,

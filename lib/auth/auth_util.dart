@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../backend/backend.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_user_provider.dart';
 
 export 'anonymous_auth.dart';
@@ -27,8 +31,10 @@ Future<User> signInOrCreateAccount(
   }
 }
 
+/// Déconnecte l'utilisateur
 Future signOut() => FirebaseAuth.instance.signOut();
 
+/// Envoie un email de réinitialisation de mot de passe à l'utilisateur
 Future resetPassword({String email, BuildContext context}) async {
   try {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
@@ -44,14 +50,19 @@ Future resetPassword({String email, BuildContext context}) async {
   );
 }
 
+/// Retourne l'email de l'utilisateur connecté
 String get currentUserEmail => currentUser?.user?.email ?? '';
 
+/// Retourne l'id de l'utilisateur connecté
 String get currentUserUid => currentUser?.user?.uid ?? '';
 
+/// Retourne le nom de compte de l'utilisateur connecté
 String get currentUserDisplayName => currentUser?.user?.displayName ?? '';
 
+/// Retourne la photo de profil de l'utilisateur connecté
 String get currentUserPhoto => currentUser?.user?.photoURL ?? '';
 
+/// Retourne le document de l'utilisateur connecté dans la base de données
 DocumentReference get currentUserReference => currentUser?.user != null
     ? UsersRecord.collection.doc(currentUser.user.uid)
     : null;

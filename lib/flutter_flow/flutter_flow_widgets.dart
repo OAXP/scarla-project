@@ -1,7 +1,12 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+/*
+ * Copyright (c) 2021. Scarla
+ */
 
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+/// Classe contenant les options pour le [FFButtonWidget]
 class FFButtonOptions {
   const FFButtonOptions({
     this.textStyle,
@@ -36,6 +41,7 @@ class FFButtonOptions {
   final BorderSide borderSide;
 }
 
+/// Widget de bouton spécial
 class FFButtonWidget extends StatelessWidget {
   const FFButtonWidget({
     Key key,

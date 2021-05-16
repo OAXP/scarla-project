@@ -1,15 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:scarla/auth/auth_util.dart';
 import 'package:scarla/flutter_flow/flutter_flow_util.dart';
 
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../profile_page/profile_page_widget.dart';
-import '../youtube_player_page/youtube_player_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+/// Widget pour la page d'ajout des amitiés
 class AddFriendPageWidget extends StatefulWidget {
   AddFriendPageWidget({Key key}) : super(key: key);
 
@@ -29,7 +31,6 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.primaryColor,
@@ -154,19 +155,22 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                 ),
               ),
               Expanded(
-                child: StreamBuilder<List<UsersRecord>>(
+                child:
+                /// Cherche les utilisateurs par rapport à [searchTextFieldController.text]
+                StreamBuilder<List<UsersRecord>>(
                   stream: queryUsersRecord(
                     queryBuilder: (usersRecord) => usersRecord.where('keys',
-                        arrayContainsAny: [searchTextFieldController.text.toLowerCase()]).where('uid', isNotEqualTo: currentUserUid),
+                        arrayContainsAny: [
+                          searchTextFieldController.text.toLowerCase()
+                        ]).where('uid', isNotEqualTo: currentUserUid),
                     limit: 10,
                   ),
                   builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
+
                     if (!snapshot.hasData) {
                       return Center(child: CircularProgressIndicator());
                     }
                     List<UsersRecord> listViewUsersRecordList = snapshot.data;
-                    // Customize what your widget looks like with no query results.
                     if (listViewUsersRecordList.isEmpty) {
                       return Center(
                         child: CachedNetworkImage(
@@ -178,7 +182,8 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                       );
                     }
                     return ListView.builder(
-                      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                      physics: BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics()),
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
                       itemCount: listViewUsersRecordList.length,
@@ -186,9 +191,10 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                         final listViewUsersRecord =
                             listViewUsersRecordList[listViewIndex];
                         return Padding(
-                          padding: EdgeInsets.fromLTRB(10, 6, 10, 10),
+                          padding: EdgeInsets.fromLTRB(6, 6, 6, 10),
                           child: InkWell(
                             onTap: () async {
+                              /// Dirige vers la page de profile de l'utilisateur sur la carte
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -199,9 +205,9 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                               );
                             },
                             child: Card(
-                              shape:RoundedRectangleBorder(
-
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)),
                               ),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               color: FlutterFlowTheme.title1Color,
@@ -259,9 +265,9 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                       style: FlutterFlowTheme
                                                           .bodyText2
                                                           .override(
-                                                        fontFamily: 'Poppins',
-                                                          fontSize: 16
-                                                      ),
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                              fontSize: 16),
                                                     ),
                                                     Text(
                                                       listViewUsersRecord.tag,
@@ -270,9 +276,9 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                       style: FlutterFlowTheme
                                                           .bodyText2
                                                           .override(
-                                                        fontFamily: 'Poppins',
-                                                          fontSize: 16
-                                                      ),
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                              fontSize: 16),
                                                     )
                                                   ],
                                                 ),
@@ -281,22 +287,33 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                           ),
                                           IconButton(
                                             onPressed: () async {
+                                              /// Fait une demande d'amitié à l'utilisateur si ce n'est pas déjà le cas
+                                              final isFriendRecord =
+                                                  await queryFriendsRecord(
+                                                      queryBuilder:
+                                                          (friendsRecord) =>
+                                                              friendsRecord
+                                                                  .where(
+                                                                      'friends',
+                                                                      whereIn: [
+                                                                    [
+                                                                      listViewUsersRecord
+                                                                          .reference,
+                                                                      currentUserReference
+                                                                    ],
+                                                                    [
+                                                                      currentUserReference,
+                                                                      listViewUsersRecord
+                                                                          .reference
+                                                                    ]
+                                                                  ])).first;
 
-                                              final isFriendRecord = await queryFriendsRecord(
-                                                queryBuilder: (friendsRecord) => friendsRecord
-                                                    .where('friends', whereIn:
-                                                [
-                                                  [listViewUsersRecord.reference, currentUserReference],
-                                                  [currentUserReference, listViewUsersRecord.reference]
-                                                ])
-                                              ).first;
-
-                                              if(isFriendRecord.isEmpty) {
+                                              if (isFriendRecord.isEmpty) {
                                                 final friendshipData = {
                                                   ...createFriendsRecordData(
                                                       status: 0,
-                                                      timestamp: getCurrentTimestamp
-                                                  ),
+                                                      timestamp:
+                                                          getCurrentTimestamp),
                                                   'friends': [
                                                     currentUserReference,
                                                     listViewUsersRecord
@@ -308,7 +325,10 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                                                     .doc()
                                                     .set(friendshipData);
                                               } else {
-                                                scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("You already have a friendship with this user, go to Friends page!")));
+                                                scaffoldKey.currentState
+                                                    .showSnackBar(SnackBar(
+                                                        content: Text(
+                                                            "You already have a friendship with this user, go to Friends page!")));
                                               }
                                             },
                                             icon: Icon(

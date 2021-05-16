@@ -1,25 +1,24 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:scarla/circles_page/circles_page_widget.dart';
 import 'package:scarla/flutter_flow/flutter_flow_util.dart';
+import 'package:scarla/login_page/login_page_widget.dart';
+
 import 'assets/custom_icons_icons.dart';
 import 'auth/firebase_user_provider.dart';
-import 'package:scarla/login_page/login_page_widget.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'flutter_flow/flutter_flow_theme.dart';
-import 'home_page/home_page_widget.dart';
+import 'friends_page/friends_page_widget.dart';
 import 'group_list_page/group_list_page_widget.dart';
-import 'games_select/games_select_widget.dart';
+import 'home_page/home_page_widget.dart';
 import 'login_page/login_page_widget.dart';
 import 'my_profile_page/my_profile_page_widget.dart';
-import 'friends_page/friends_page_widget.dart';
-import 'su3_page/su3_page_widget.dart';
 import 'util/transparent_route.dart';
-import 'package:frino_icons/frino_icons.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:line_icons/line_icons.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,33 +71,35 @@ class NavBarPage extends StatefulWidget {
 }
 
 /// This is the private State class that goes with NavBarPage.
-class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
+class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
   String _currentPage = 'HomePage';
   AnimationController _animationController;
-  bool isDisabled= false;
+  bool isDisabled = false;
   Color selectedColor;
   final _homeIconKey = GlobalKey();
   final _chatIconKey = GlobalKey();
   final _friendsIconKey = GlobalKey();
   final _profileIconKey = GlobalKey();
   Color color = Color(0xFFFF4553);
-  double pos_l;
-  double pos_r;
-  double pos_t;
-  double pos_b;
+  double posL;
+  double posR;
+  double posT;
+  double posB;
 
   @override
   void initState() {
     super.initState();
     _currentPage = widget.initialPage ?? _currentPage;
 
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 400),);
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 400),
+    );
 
-    pos_l = -750;
-    pos_r = 0;
-    pos_t = 35;
-    pos_b = 0;
+    posL = -750;
+    posR = 0;
+    posT = 35;
+    posB = 0;
   }
 
   Offset getPosition(GlobalKey key) {
@@ -113,38 +114,45 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
     return size;
   }
 
-
   void _movewidget(String pos) {
     setState(() {
       if (pos == "Profile") {
-        pos_l = getPosition(_profileIconKey).dx - (getSize(_profileIconKey).width/2) + 4;
-        pos_r = 0;
-        pos_t = 35;
-        pos_b = 0;
+        posL = getPosition(_profileIconKey).dx -
+            (getSize(_profileIconKey).width / 2) +
+            4;
+        posR = 0;
+        posT = 35;
+        posB = 0;
       } else if (pos == "Users") {
-        pos_l = isIos ? getPosition(_chatIconKey).dx + 35 : getPosition(_friendsIconKey).dx - ((getSize(_friendsIconKey).width*2) + 9);
-        pos_r = 0;
-        pos_t = 35;
-        pos_b = 0;
-      }else if (pos == "Home") {
-        pos_l = -getPosition(_profileIconKey).dx + (getSize(_homeIconKey).width/2) - 6;
-        pos_r = 0;
-        pos_t = 35;
-        pos_b = 0;
-      }else if (pos == "Messages") {
-        if(isIos) {
-          pos_l = -getPosition(_chatIconKey).dx - 35;
-          pos_r = 0;
+        posL = isIos
+            ? getPosition(_chatIconKey).dx + 35
+            : getPosition(_friendsIconKey).dx -
+                ((getSize(_friendsIconKey).width * 2) + 9);
+        posR = 0;
+        posT = 35;
+        posB = 0;
+      } else if (pos == "Home") {
+        posL = -getPosition(_profileIconKey).dx +
+            (getSize(_homeIconKey).width / 2) -
+            6;
+        posR = 0;
+        posT = 35;
+        posB = 0;
+      } else if (pos == "Messages") {
+        if (isIos) {
+          posL = -getPosition(_chatIconKey).dx - 35;
+          posR = 0;
         } else {
-          pos_l = 0;
-          pos_r = getPosition(_chatIconKey).dx + (getSize(_chatIconKey).width/4) + 16;
+          posL = 0;
+          posR = getPosition(_chatIconKey).dx +
+              (getSize(_chatIconKey).width / 4) +
+              16;
         }
-        pos_t = 35;
-        pos_b = 0;
+        posT = 35;
+        posB = 0;
       }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -163,8 +171,6 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
         child: AnimatedIconButton(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
-          /*animationDirection: AnimationDirection.forward(),
-          duration: Duration(milliseconds: 400),*/
           animationController: _animationController,
           icons: [
             AnimatedIconItem(
@@ -176,39 +182,32 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
               ),
               onPressed: () {
                 if (!isDisabled) {
-                  // _handleOnPressed();
                   _animationController.addStatusListener((status) async {
-                if (status == AnimationStatus.completed) {
-                   Navigator.of(context).push(
+                    if (status == AnimationStatus.completed) {
+                      Navigator.of(context).push(
                         TransparentRoute(
                           builder: (context) => CirclesPage(),
                         ),
                       );
                       await Future.delayed(Duration(milliseconds: 200));
                       _animationController.reverse();
-                      isDisabled=true;
+                      isDisabled = true;
+                    }
+                  });
                 }
-              }
-              );
-            }
-          },
+              },
+            ),
+            AnimatedIconItem(
+              icon: Icon(
+                Icons.close,
+                color: Colors.white,
+                size: 27,
+              ),
+              backgroundColor: Colors.red,
+            ),
+          ],
         ),
-        AnimatedIconItem(
-          icon: Icon(
-            Icons.close,
-            color: Colors.white,
-            size:27,
-          ),
-          backgroundColor: Colors.red,
-
-        ),
-      ],
-
-          //progress: _animationController,
-        ),
-        onPressed: (){
-
-        },
+        onPressed: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
@@ -243,7 +242,9 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                           key: _chatIconKey,
                           splashColor: Colors.transparent,
                           highlightColor: Colors.transparent,
-                          icon: Icon(FluentIcons.chat_32_regular,),
+                          icon: Icon(
+                            FluentIcons.chat_32_regular,
+                          ),
                           iconSize: 27.0,
                           color: (_currentPage == 'GroupListPage')
                               ? color
@@ -258,7 +259,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                           width: 10,
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(0,2,0,0),
+                          padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
                           child: IconButton(
                             key: _friendsIconKey,
                             splashColor: Colors.transparent,
@@ -297,10 +298,10 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                     children: <Widget>[
                       AnimatedPositioned(
                         curve: Curves.ease,
-                        left: pos_l,
-                        right: pos_r,
-                        top: pos_t,
-                        bottom: pos_b,
+                        left: posL,
+                        right: posR,
+                        top: posT,
+                        bottom: posB,
                         duration: Duration(milliseconds: 220),
                         child: Center(
                           child: Container(
@@ -318,54 +319,5 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin{
                 ],
               ))),
     );
-
-    /* BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_outlined,
-              size: 24,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.chat_outlined,
-              size: 24,
-            ),
-            label: 'Squads',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.gamepad,
-              size: 24,
-            ),
-            label: 'Games',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_outline_sharp,
-              size: 24,
-            ),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.contacts_outlined,
-              size: 24,
-            ),
-            label: 'Home',
-          )
-        ],
-        backgroundColor: Color(0xFF373856),
-        currentIndex: tabs.keys.toList().indexOf(_currentPage),
-        selectedItemColor: Color(0xFFFF4553),
-        unselectedItemColor: Color(0xFF4D5078),
-        onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-      ),
-    );*/
   }
 }

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 // Source : https://github.com/brianegan/chewie/blob/master/lib/src/material_controls.dart
 // Modifié par : Anas Barbouch
 import 'dart:async';
@@ -9,6 +13,7 @@ import 'package:chewie/src/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+/// Widget pour les contrôles de vidéo inpité de "chewie"
 class ScarlaVidControls extends StatefulWidget {
   const ScarlaVidControls({Key key}) : super(key: key);
 
@@ -34,6 +39,7 @@ class _ScarlaVidControlsState extends State<ScarlaVidControls>
 
   VideoPlayerController controller;
   ChewieController _chewieController;
+
   // We know that _chewieController is set in didChangeDependencies
   ChewieController get chewieController => _chewieController;
   AnimationController playPauseIconAnimationController;
@@ -41,22 +47,20 @@ class _ScarlaVidControlsState extends State<ScarlaVidControls>
   @override
   void initState() {
     super.initState();
-    playPauseIconAnimationController =
-        AnimationController(
-          vsync: this,
-          duration: const Duration(milliseconds: 400),
-          reverseDuration: const Duration(milliseconds: 400),
-        );
-
+    playPauseIconAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+      reverseDuration: const Duration(milliseconds: 400),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     if (_latestValue.hasError) {
       return chewieController.errorBuilder?.call(
-        context,
-        chewieController.videoPlayerController.value.errorDescription,
-      ) ??
+            context,
+            chewieController.videoPlayerController.value.errorDescription,
+          ) ??
           const Center(
             child: Icon(
               Icons.error,
@@ -120,19 +124,17 @@ class _ScarlaVidControlsState extends State<ScarlaVidControls>
   }
 
   AnimatedOpacity _buildBottomBar(
-      BuildContext context,
-      ) {
+    BuildContext context,
+  ) {
     final iconColor = Theme.of(context).textTheme.button.color;
 
-    if(chewieController.isFullScreen) {
+    if (chewieController.isFullScreen) {
       return AnimatedOpacity(
         opacity: _hideStuff ? 0.0 : 1.0,
         duration: const Duration(milliseconds: 300),
         child: Container(
           height: barHeight,
-          color: Theme
-              .of(context)
-              .dialogBackgroundColor,
+          color: Theme.of(context).dialogBackgroundColor,
           child: Row(
             children: <Widget>[
               _buildPlayPause(controller),
@@ -153,7 +155,8 @@ class _ScarlaVidControlsState extends State<ScarlaVidControls>
         ),
       );
     } else {
-      return AnimatedOpacity(opacity: 0, duration: const Duration(milliseconds: 300));
+      return AnimatedOpacity(
+          opacity: 0, duration: const Duration(milliseconds: 300));
     }
   }
 
@@ -190,7 +193,7 @@ class _ScarlaVidControlsState extends State<ScarlaVidControls>
         onTap: () {
           if (_latestValue.isPlaying) {
             if (_displayTapped) {
-              if(!_chewieController.isFullScreen) {
+              if (!_chewieController.isFullScreen) {
                 _onExpandCollapse();
               }
               setState(() {
@@ -225,10 +228,10 @@ class _ScarlaVidControlsState extends State<ScarlaVidControls>
                         icon: isFinished
                             ? const Icon(Icons.replay, size: 32.0)
                             : AnimatedIcon(
-                          icon: AnimatedIcons.play_pause,
-                          progress: playPauseIconAnimationController,
-                          size: 32.0,
-                        ),
+                                icon: AnimatedIcons.play_pause,
+                                progress: playPauseIconAnimationController,
+                                size: 32.0,
+                              ),
                         onPressed: () {
                           _playPause();
                         }),
@@ -243,8 +246,8 @@ class _ScarlaVidControlsState extends State<ScarlaVidControls>
   }
 
   Widget _buildSpeedButton(
-      VideoPlayerController controller,
-      ) {
+    VideoPlayerController controller,
+  ) {
     return GestureDetector(
       onTap: () async {
         _hideTimer?.cancel();
@@ -285,8 +288,8 @@ class _ScarlaVidControlsState extends State<ScarlaVidControls>
   }
 
   GestureDetector _buildMuteButton(
-      VideoPlayerController controller,
-      ) {
+    VideoPlayerController controller,
+  ) {
     return GestureDetector(
       onTap: () {
         _cancelAndRestartTimer();
@@ -385,10 +388,10 @@ class _ScarlaVidControlsState extends State<ScarlaVidControls>
       chewieController.toggleFullScreen();
       _showAfterExpandCollapseTimer =
           Timer(const Duration(milliseconds: 300), () {
-            setState(() {
-              _cancelAndRestartTimer();
-            });
-          });
+        setState(() {
+          _cancelAndRestartTimer();
+        });
+      });
     });
   }
 
@@ -471,7 +474,7 @@ class _PlaybackSpeedDialog extends StatelessWidget {
     Key key,
     @required List<double> speeds,
     @required double selected,
-  })   : _speeds = speeds,
+  })  : _speeds = speeds,
         _selected = selected,
         super(key: key);
 

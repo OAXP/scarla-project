@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -6,14 +10,18 @@ import 'package:mime_type/mime_type.dart';
 
 import '../auth/auth_util.dart';
 
+/// Formats de fichier acceptés
 const allowedFormats = {'image/png', 'image/jpeg', 'video/mp4', 'image/gif'};
 
+/// Classe de médias
 class SelectedMedia {
   const SelectedMedia(this.storagePath, this.bytes);
+
   final String storagePath;
   final Uint8List bytes;
 }
 
+/// Sélectionne un média
 Future<SelectedMedia> selectMedia({
   double maxWidth,
   double maxHeight,
@@ -35,6 +43,7 @@ Future<SelectedMedia> selectMedia({
   return SelectedMedia(path, mediaBytes);
 }
 
+/// Valide le format et la taille du fichier
 Future<bool> validateFileFormat(String filePath, BuildContext context) async {
   PickedFile pickedFile = PickedFile(filePath);
   bool tailleCorrect = (await pickedFile.readAsBytes()).length < 20000000;
@@ -49,6 +58,7 @@ Future<bool> validateFileFormat(String filePath, BuildContext context) async {
   return false;
 }
 
+/// Donne le lien du fichier dans Firebase
 String storagePath(String uid, String filePath, bool isVideo) {
   final timestamp = DateTime.now().microsecondsSinceEpoch;
   // Workaround fixed by https://github.com/flutter/plugins/pull/3685
@@ -57,6 +67,7 @@ String storagePath(String uid, String filePath, bool isVideo) {
   return 'users/$uid/uploads/$timestamp.$ext';
 }
 
+/// Montre un snackbarpour indiquer que ça téléverse un fichier
 void showUploadMessage(BuildContext context, String message,
     {bool showLoading = false}) {
   ScaffoldMessenger.of(context)

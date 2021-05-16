@@ -1,10 +1,13 @@
-import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_theme.dart';
 
+/// Widget pour montrer le rank de chaque utilisateur
 class RankPageWidget extends StatefulWidget {
   RankPageWidget({Key key, this.username, this.game, this.userRef})
       : super(key: key);
@@ -22,6 +25,7 @@ class _RankPageWidgetState extends State<RankPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    /// Fait la requête du rang des jeux de l'utilisateur spécifié
     return StreamBuilder<List<GamesRanksRecord>>(
       stream: queryGamesRanksRecord(
         queryBuilder: (gamesRanksRecord) =>
@@ -29,20 +33,16 @@ class _RankPageWidgetState extends State<RankPageWidget> {
         singleRecord: true,
       ),
       builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         }
         List<GamesRanksRecord> rankPageGamesRanksRecordList = snapshot.data;
         int rank;
-        // Customize what your widget looks like with no query results.
         if (snapshot.data.isEmpty) {
-          // return Container();
-          // For now, we'll just include some dummy data.
           rank = 1;
         } else {
           final rankPageGamesRanksRecord = rankPageGamesRanksRecordList.first;
-          switch (widget.game){
+          switch (widget.game) {
             case 'valorant':
               rank = rankPageGamesRanksRecord.valorant;
               break;
@@ -72,6 +72,7 @@ class _RankPageWidgetState extends State<RankPageWidget> {
                   children: [
                     InkWell(
                       onTap: () async {
+                        /// Retourne à la page précédente
                         Navigator.pop(context);
                       },
                       splashColor: Colors.transparent,
@@ -144,6 +145,7 @@ class _RankPageWidgetState extends State<RankPageWidget> {
                             children: [
                               IconButton(
                                 onPressed: () async {
+                                  /// Retourne à la page précédente
                                   Navigator.pop(context);
                                 },
                                 icon: Icon(

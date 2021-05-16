@@ -1,17 +1,21 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:lottie/lottie.dart';
 import 'package:scarla/assets/custom_icons_icons.dart';
 import 'package:scarla/auth/auth_util.dart';
 import 'package:scarla/backend/backend.dart';
 import 'package:selectable_circle/selectable_circle.dart';
-import 'package:lottie/lottie.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:flutter/painting.dart';
 
 import '../matches_page/matches_page_widget.dart';
 
+/// Widget de la page de matchmaking
 class CirclesPage extends StatefulWidget {
   @override
   _CirclesPageState createState() => _CirclesPageState();
@@ -49,31 +53,26 @@ class _CirclesPageState extends State<CirclesPage>
       });
 
     queryUsersRecord(
-      queryBuilder: (usersRecord) => usersRecord.where('uid', isEqualTo: currentUserUid),
+      queryBuilder: (usersRecord) =>
+          usersRecord.where('uid', isEqualTo: currentUserUid),
     ).first.then((value) {
       selectedGames = value.first.selectedGames.toList();
-      setState(() { });
+      setState(() {});
     });
   }
 
   @override
   void setState(fn) {
-    if(mounted) {
+    if (mounted) {
       super.setState(fn);
     }
   }
 
-@override
+  @override
   void dispose() {
     _animationController.dispose();
     controller.dispose();
     super.dispose();
-  }
-
-  void _handleOnPressed() {
-    setState(() {
-      _animationController.forward();
-    });
   }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -87,7 +86,7 @@ class _CirclesPageState extends State<CirclesPage>
 
   @override
   Widget build(BuildContext context) {
-    if(selectedGames == null) {
+    if (selectedGames == null) {
       return Container();
     }
 
@@ -99,305 +98,320 @@ class _CirclesPageState extends State<CirclesPage>
             ? Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(59, 140, 0, 0),
-                    child: Row(children: <Widget>[
-                      if(selectedGames.contains('valorant'))
-                      SelectableCircle(
-                          width: 80.0,
-                          isSelected: isSelected[0],
-                          borderColor: Colors.deepPurpleAccent,
-                          selectedBorderColor: Colors.green,
-                          color: Color(0xffff4654),
-                          onTap: () {
-                            setState(() {
-                              if (!isSelected[0]) {
-                                if (!isSelected.contains(true)) {
-                                  _animationController.forward();
-                                }
-                                isSelected.fillRange(
-                                    0, isSelected.length, false);
-                                isSelected[0] = true;
-                                game = "valorant";
-                                if (isSelected[0]) {
-                                  icon = Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                  );
-                                  color = Colors.green;
-                                }
-                              } else {
-                                _animationController.forward();
-                                isSelected.fillRange(
-                                    0, isSelected.length, false);
+                    padding: const EdgeInsets.fromLTRB(40, 140, 40, 0),
+                    child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: <Widget>[
+                          if (selectedGames.contains('valorant'))
+                            SelectableCircle(
+                              width: 80.0,
+                              isSelected: isSelected[0],
+                              borderColor: Colors.black,
+                              selectedBorderColor: Colors.green,
+                              color: Color(0xffff4654),
+                              onTap: () {
+                                /// Sélectionne le jeu
+                                setState(() {
+                                  if (!isSelected[0]) {
+                                    if (!isSelected.contains(true)) {
+                                      _animationController.forward();
+                                    }
+                                    isSelected.fillRange(
+                                        0, isSelected.length, false);
+                                    isSelected[0] = true;
+                                    game = "valorant";
+                                    if (isSelected[0]) {
+                                      icon = Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                      );
+                                      color = Colors.green;
+                                    }
+                                  } else {
+                                    _animationController.forward();
+                                    isSelected.fillRange(
+                                        0, isSelected.length, false);
 
-                                icon = Icon(
-                                  CustomIcons.controller,
-                                  color: Colors.white,
-                                  size: 25,
-                                );
-                                color = Color(0xFF5B54C2);
-                              }
-                            });
-                          },
-                          child: CircleAvatar(
-                            backgroundImage:
-                                AssetImage('assets/games/icons/valorantIcon.png'),
-                            maxRadius: 30,
-                          )),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      if(selectedGames.contains('mw'))
-                      SelectableCircle(
-                          selectedColor: Colors.black,
-                          width: 80.0,
-                          color: Colors.grey[900],
-                          isSelected: isSelected[1],
-                          borderColor: Colors.red,
-                          selectedBorderColor: Colors.green,
-                          onTap: () {
-                            setState(() {
-                              if (!isSelected[1]) {
-                                if (!isSelected.contains(true)) {
-                                  _animationController.forward();
-                                }
-                                isSelected.fillRange(
-                                    0, isSelected.length, false);
-                                isSelected[1] = true;
-                                game = "mw";
-                                if (isSelected[1]) {
-                                  icon = Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                  );
-                                  color = Colors.green;
-                                }
-                              } else {
-                                _animationController.forward();
-
-                                isSelected.fillRange(
-                                    0, isSelected.length, false);
-
-                                icon = Icon(
-                                  CustomIcons.controller,
-                                  color: Colors.white,
-                                  size: 25,
-                                );
-                                color = Color(0xFF5B54C2);
-                              }
-                            });
-                          },
-                          child: CircleAvatar(
-                            maxRadius: 30,
-                            backgroundColor: Colors.grey[900],
-                            child: Container(
-                              width: 200,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: ExactAssetImage(
-                                      'assets/games/icons/mwIcon.png'),
-                                  scale: 2.3,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            //backgroundImage:AssetImage('assets/images/mwIcon.png'),maxRadius: 26,backgroundColor: Colors.grey[900],foregroundColor: Colors.red,
-                          )),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      if(selectedGames.contains('lol'))
-                      SelectableCircle(
-                          width: 80.0,
-                          color: Color(0xff0a2f39),
-                          isSelected: isSelected[2],
-                          borderColor: Colors.red,
-                          selectedBorderColor: Colors.green,
-                          onTap: () {
-                            setState(() {
-                              if (!isSelected[2]) {
-                                if (!isSelected.contains(true)) {
-                                  _animationController.forward();
-                                }
-                                isSelected.fillRange(
-                                    0, isSelected.length, false);
-                                isSelected[2] = true;
-                                game = "lol";
-                                if (isSelected[2]) {
-                                  icon = Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                  );
-                                  color = Colors.green;
-                                }
-                              } else {
-                                _animationController.forward();
-
-                                isSelected.fillRange(
-                                    0, isSelected.length, false);
-
-                                icon = Icon(
-                                  CustomIcons.controller,
-                                  color: Colors.white,
-                                  size: 25,
-                                );
-                                color = Color(0xFF5B54C2);
-                              }
-                            });
-                          },
-                          child: CircleAvatar(
-                            maxRadius: 30,
-                            //backgroundImage:AssetImage('assets/images/lolIcon.png'),
-                            child: Container(
-                              width: 150,
-                              height: 150,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: ExactAssetImage(
-                                        'assets/games/icons/lolIcon.png'),
-                                    scale: 10),
-                                shape: BoxShape.circle,
-                                gradient: LinearGradient(
-                                  colors: [
-                                    color1,
-                                    color2,
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
+                                    icon = Icon(
+                                      CustomIcons.controller,
+                                      color: Colors.white,
+                                      size: 25,
+                                    );
+                                    color = Color(0xFF5B54C2);
+                                  }
+                                });
+                              },
+                              child: CircleAvatar(
+                                maxRadius: 29.5,
+                                backgroundColor: Color(0xffff4454),
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(1, 4, 0, 0),
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffff4454),
+                                    image: DecorationImage(
+                                      image: ExactAssetImage(
+                                          'assets/games/icons/valorantIcon.png'),
+                                      scale: 120,
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),
                                 ),
                               ),
                             ),
-                            //backgroundImage:AssetImage('assets/images/lolIcon.png'),maxRadius: 25,backgroundColor: Color(0xff0a2f39),
-                          )),
-                    ]),
-                  ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          if (selectedGames.contains('mw'))
+                            SelectableCircle(
+                                selectedColor: Colors.black,
+                                width: 80.0,
+                                color: Colors.grey[900],
+                                isSelected: isSelected[1],
+                                borderColor: Colors.black,
+                                selectedBorderColor: Colors.green,
+                                onTap: () {
+                                  /// Sélectionne le jeu
+                                  setState(() {
+                                    if (!isSelected[1]) {
+                                      if (!isSelected.contains(true)) {
+                                        _animationController.forward();
+                                      }
+                                      isSelected.fillRange(
+                                          0, isSelected.length, false);
+                                      isSelected[1] = true;
+                                      game = "mw";
+                                      if (isSelected[1]) {
+                                        icon = Icon(
+                                          Icons.check,
+                                          color: Colors.white,
+                                        );
+                                        color = Colors.green;
+                                      }
+                                    } else {
+                                      _animationController.forward();
 
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(110, 0, 0, 0),
-                    child: Row(children: <Widget>[
-                      if(selectedGames.contains('rl'))
-                      SelectableCircle(
-                        color: Color(0xff004ca3),
-                        width: 80.0,
-                        isSelected: isSelected[3],
-                        borderColor: Colors.deepPurpleAccent,
-                        selectedBorderColor: Colors.green,
-                        onTap: () {
-                          setState(() {
-                            if (!isSelected[3]) {
-                              if (!isSelected.contains(true)) {
-                                _animationController.forward();
-                              }
-                              isSelected.fillRange(0, isSelected.length, false);
-                              isSelected[3] = true;
-                              game = "rl";
-                              if (isSelected[3]) {
-                                icon = Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                );
-                                color = Colors.green;
-                              }
-                            } else {
-                              _animationController.forward();
-                              isSelected.fillRange(0, isSelected.length, false);
+                                      isSelected.fillRange(
+                                          0, isSelected.length, false);
 
-                              icon = Icon(
-                                CustomIcons.controller,
-                                color: Colors.white,
-                                size: 25,
-                              );
-                              color = Color(0xFF5B54C2);
-                            }
-                          });
-                        },
-                        child: CircleAvatar(
-                          maxRadius: 30,
-                          backgroundColor: Color(0xff004ca3),
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(2, 3, 0, 0),
-                            width: 150,
-                            height: 150,
-                            decoration: BoxDecoration(
+                                      icon = Icon(
+                                        CustomIcons.controller,
+                                        color: Colors.white,
+                                        size: 25,
+                                      );
+                                      color = Color(0xFF5B54C2);
+                                    }
+                                  });
+                                },
+                                child: CircleAvatar(
+                                  maxRadius: 30,
+                                  backgroundColor: Colors.grey[900],
+                                  child: Container(
+                                    width: 200,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: ExactAssetImage(
+                                            'assets/games/icons/mwIcon.png'),
+                                        scale: 2.3,
+                                      ),
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  //backgroundImage:AssetImage('assets/images/mwIcon.png'),maxRadius: 26,backgroundColor: Colors.grey[900],foregroundColor: Colors.red,
+                                )),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          if (selectedGames.contains('lol'))
+                            SelectableCircle(
+                                width: 80.0,
+                                color: Color(0xff0a2f39),
+                                isSelected: isSelected[2],
+                                borderColor: Colors.black,
+                                selectedBorderColor: Colors.green,
+                                onTap: () {
+                                  setState(() {
+                                    /// Sélectionne le jeu
+                                    if (!isSelected[2]) {
+                                      if (!isSelected.contains(true)) {
+                                        _animationController.forward();
+                                      }
+                                      isSelected.fillRange(
+                                          0, isSelected.length, false);
+                                      isSelected[2] = true;
+                                      game = "lol";
+                                      if (isSelected[2]) {
+                                        icon = Icon(
+                                          Icons.check,
+                                          color: Colors.white,
+                                        );
+                                        color = Colors.green;
+                                      }
+                                    } else {
+                                      _animationController.forward();
+
+                                      isSelected.fillRange(
+                                          0, isSelected.length, false);
+
+                                      icon = Icon(
+                                        CustomIcons.controller,
+                                        color: Colors.white,
+                                        size: 25,
+                                      );
+                                      color = Color(0xFF5B54C2);
+                                    }
+                                  });
+                                },
+                                child: CircleAvatar(
+                                  maxRadius: 30,
+                                  //backgroundImage:AssetImage('assets/images/lolIcon.png'),
+                                  child: Container(
+                                    width: 150,
+                                    height: 150,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: ExactAssetImage(
+                                              'assets/games/icons/lolIcon.png'),
+                                          scale: 10),
+                                      shape: BoxShape.circle,
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          color1,
+                                          color2,
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                    ),
+                                  ),
+                                  //backgroundImage:AssetImage('assets/images/lolIcon.png'),maxRadius: 25,backgroundColor: Color(0xff0a2f39),
+                                )),
+                          if (selectedGames.contains('rl'))
+                            SelectableCircle(
                               color: Color(0xff004ca3),
-                              image: DecorationImage(
-                                image:
-                                    ExactAssetImage('assets/games/icons/rlIcon.png'),
-                                scale: 23,
-                              ),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ), /* CircleAvatar(backgroundImage:AssetImage('assets/images/rlIcon.png'),radius: 20,backgroundColor: Color(0xff004ca3),)*/
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      if(selectedGames.contains('ow'))
-                      SelectableCircle(
-                        color: Colors.grey[350],
-                        width: 80.0,
-                        isSelected: isSelected[4],
-                        borderColor: Colors.red,
-                        selectedBorderColor: Colors.green,
-                        onTap: () {
-                          setState(() {
-                            if (!isSelected[4]) {
-                              if (!isSelected.contains(true)) {
-                                _animationController.forward();
-                              }
-                              isSelected.fillRange(0, isSelected.length, false);
-                              isSelected[4] = true;
-                              game = "ow";
-                              if (isSelected[4]) {
-                                icon = Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                );
-                                color = Colors.green;
-                              }
-                            } else {
-                              _animationController.forward();
+                              width: 80.0,
+                              isSelected: isSelected[3],
+                              borderColor: Colors.black,
+                              selectedBorderColor: Colors.green,
+                              onTap: () {
+                                /// Sélectionne le jeu
+                                setState(() {
+                                  if (!isSelected[3]) {
+                                    if (!isSelected.contains(true)) {
+                                      _animationController.forward();
+                                    }
+                                    isSelected.fillRange(
+                                        0, isSelected.length, false);
+                                    isSelected[3] = true;
+                                    game = "rl";
+                                    if (isSelected[3]) {
+                                      icon = Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                      );
+                                      color = Colors.green;
+                                    }
+                                  } else {
+                                    _animationController.forward();
+                                    isSelected.fillRange(
+                                        0, isSelected.length, false);
 
-                              isSelected.fillRange(0, isSelected.length, false);
-
-                              icon = Icon(
-                                CustomIcons.controller,
-                                color: Colors.white,
-                                size: 25,
-                              );
-                              color = Color(0xFF5B54C2);
-                            }
-                          });
-                        },
-                        child: CircleAvatar(
-                          radius: 30,
-                          child: Container(
-                            width: 150,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              image: DecorationImage(
-                                image:
-                                    ExactAssetImage('assets/games/icons/owIcon.png'),
-                                scale: 25,
-                              ),
-                              shape: BoxShape.circle,
+                                    icon = Icon(
+                                      CustomIcons.controller,
+                                      color: Colors.white,
+                                      size: 25,
+                                    );
+                                    color = Color(0xFF5B54C2);
+                                  }
+                                });
+                              },
+                              child: CircleAvatar(
+                                maxRadius: 30,
+                                backgroundColor: Color(0xff004ca3),
+                                child: Container(
+                                  margin: EdgeInsets.fromLTRB(2, 3, 0, 0),
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff004ca3),
+                                    image: DecorationImage(
+                                      image: ExactAssetImage(
+                                          'assets/games/icons/rlIcon.png'),
+                                      scale: 23,
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ), /* CircleAvatar(backgroundImage:AssetImage('assets/images/rlIcon.png'),radius: 20,backgroundColor: Color(0xff004ca3),)*/
                             ),
+                          SizedBox(
+                            width: 20,
                           ),
-                        ),
-                        /* CircleAvatar(backgroundImage:AssetImage('assets/images/owIcon.png'),maxRadius: 24,backgroundColor:Colors.grey[350],*/
-                      )
-                    ]),
+                          if (selectedGames.contains('ow'))
+                            SelectableCircle(
+                              color: Colors.grey[350],
+                              width: 80.0,
+                              isSelected: isSelected[4],
+                              borderColor: Colors.black,
+                              selectedBorderColor: Colors.green,
+                              onTap: () {
+                                /// Sélectionne le jeu
+                                setState(() {
+                                  if (!isSelected[4]) {
+                                    if (!isSelected.contains(true)) {
+                                      _animationController.forward();
+                                    }
+                                    isSelected.fillRange(
+                                        0, isSelected.length, false);
+                                    isSelected[4] = true;
+                                    game = "ow";
+                                    if (isSelected[4]) {
+                                      icon = Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                      );
+                                      color = Colors.green;
+                                    }
+                                  } else {
+                                    _animationController.forward();
+
+                                    isSelected.fillRange(
+                                        0, isSelected.length, false);
+
+                                    icon = Icon(
+                                      CustomIcons.controller,
+                                      color: Colors.white,
+                                      size: 25,
+                                    );
+                                    color = Color(0xFF5B54C2);
+                                  }
+                                });
+                              },
+                              child: CircleAvatar(
+                                radius: 30,
+                                child: Container(
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    image: DecorationImage(
+                                      image: ExactAssetImage(
+                                          'assets/games/icons/owIcon.png'),
+                                      scale: 25,
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                              /* CircleAvatar(backgroundImage:AssetImage('assets/images/owIcon.png'),maxRadius: 24,backgroundColor:Colors.grey[350],*/
+                            )
+                        ]),
                   ),
                   SizedBox(
                     height: 70,
                   ),
-
                   Padding(
                     padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
                     child: Text(
@@ -456,11 +470,12 @@ class _CirclesPageState extends State<CirclesPage>
                                 value: anySelected,
                                 tristate: false,
                                 onChanged: (bool isChecked) {
+                                  /// Sélectionne le type de joueur Any
                                   setState(() {
                                     anySelected = !anySelected;
                                     noSelected = false;
                                     yesSelected = false;
-                                    if(anySelected == true) {
+                                    if (anySelected == true) {
                                       yesSelected = false;
                                       anySelected = true;
                                       noSelected = false;
@@ -492,8 +507,9 @@ class _CirclesPageState extends State<CirclesPage>
                           Container(
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                  color:
-                                      (noSelected) ? Color(0xFFff4553) : Colors.blue,
+                                  color: (noSelected)
+                                      ? Color(0xFFff4553)
+                                      : Colors.blue,
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.all(
@@ -512,8 +528,9 @@ class _CirclesPageState extends State<CirclesPage>
                                 value: noSelected,
                                 tristate: false,
                                 onChanged: (bool isChecked) {
+                                  /// Sélectionne le type de joueur No
                                   setState(() {
-                                    if(noSelected == true) {
+                                    if (noSelected == true) {
                                       yesSelected = false;
                                       anySelected = false;
                                       noSelected = true;
@@ -545,8 +562,9 @@ class _CirclesPageState extends State<CirclesPage>
                           Container(
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                  color:
-                                      (yesSelected) ? Color(0xFFff4553) : Colors.blue,
+                                  color: (yesSelected)
+                                      ? Color(0xFFff4553)
+                                      : Colors.blue,
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.all(
@@ -565,8 +583,9 @@ class _CirclesPageState extends State<CirclesPage>
                                 value: yesSelected,
                                 tristate: false,
                                 onChanged: (bool isChecked) {
+                                  /// Sélectionne le type de joueur Yes
                                   setState(() {
-                                    if(yesSelected == true) {
+                                    if (yesSelected == true) {
                                       yesSelected = true;
                                       anySelected = false;
                                       noSelected = false;
@@ -586,18 +605,13 @@ class _CirclesPageState extends State<CirclesPage>
                   )
                 ],
               )
-            /*repeat: true,
-            reverse: true,
-            animate: true,*/
             : Scaffold(
-                /* backgroundColor:Color.fromRGBO(34, 35, 35, 10),*/
                 backgroundColor: Color(0xb4000000),
                 body: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 130),
                   child: Center(
                     child: Lottie.network(
                         'https://assets6.lottiefiles.com/packages/lf20_TfAnHg.json',
-                        /* 'https://assets1.lottiefiles.com/packages/lf20_32wupitr.json',*/
                         width: 200,
                         height: 200,
                         fit: BoxFit.scaleDown,
@@ -608,13 +622,14 @@ class _CirclesPageState extends State<CirclesPage>
 
                       controller.addStatusListener((status) async {
                         if (status == AnimationStatus.completed) {
-                          if(anySelected) {
+                          if (anySelected) {
                             competitive = [false, true];
                           } else if (yesSelected) {
                             competitive = [true];
                           } else if (noSelected) {
                             competitive = [false];
                           }
+                          /// Envoie vers la page avec les joueurs trouvés
                           await Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -632,17 +647,13 @@ class _CirclesPageState extends State<CirclesPage>
                 floatingActionButton: Padding(
                   padding: const EdgeInsets.all(32.0),
                   child: FloatingActionButton(
-                      backgroundColor: Color(0xFF5B54C2),
-                      child: LoadingIndicator(
-                        indicatorType: Indicator.circleStrokeSpin,
-                        color: Colors.white,
-                      ),
-                      /*Lottie.network('https://assets3.lottiefiles.com/packages/lf20_0ZPIFf.json',width: 150,height: 150,fit: BoxFit.cover,),*/
-
-                      /* Lottie.network(
-                            'https://assets2.lottiefiles.com/packages/lf20_FVqg63.json'),*/
+                    backgroundColor: Color(0xFF5B54C2),
+                    child: LoadingIndicator(
+                      indicatorType: Indicator.circleStrokeSpin,
+                      color: Colors.white,
+                    ),
                     onPressed: () {},
-                      ),
+                  ),
                 ),
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.centerDocked,
@@ -651,19 +662,10 @@ class _CirclesPageState extends State<CirclesPage>
       floatingActionButton: checkSelect
           ? Padding(
               padding: const EdgeInsets.all(32.0),
-              /*Transform.scale(
-    scale: 0.9,*/
-
-              /*Transform.scale(
-        scale: 1.1,
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),*/
               child: FloatingActionButton(
                 child: AnimatedIconButton(
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  /*animationDirection: AnimationDirection.forward(),
-          duration: Duration(milliseconds: 400),*/
                   animationController: _animationController,
                   icons: [
                     AnimatedIconItem(
@@ -674,12 +676,10 @@ class _CirclesPageState extends State<CirclesPage>
                       ),
                       backgroundColor: Colors.red,
                       onPressed: () {
+                        /// Quitte la page de matchmaking
                         _animationController.addStatusListener((status) async {
                           if (status == AnimationStatus.completed) {
                             Navigator.of(context).pop();
-
-                            /*AnimationDirection.reverse();
-                        icon= Icon(CustomIcons.controller);*/
                           }
                         });
                       },
@@ -688,17 +688,14 @@ class _CirclesPageState extends State<CirclesPage>
                         backgroundColor: color,
                         icon: icon,
                         onPressed: () {
+                          /// Changement de l'affichage si la page de matchmaking est présente
                           setState(() {
                             checkSelect = !checkSelect;
                           });
-                          //_animationController.dispose();
                         }),
                   ],
                 ),
-              onPressed: (){
-
-              },
-                //CircleAvatar(backgroundImage:NetworkImage('https://i.imgur.com/GLdqYB2.gif'),maxRadius: 25,backgroundColor: Colors.transparent,),
+                onPressed: () {},
               ))
           : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

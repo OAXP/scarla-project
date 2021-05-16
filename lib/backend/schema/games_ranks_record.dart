@@ -1,13 +1,18 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'schema_util.dart';
 import 'serializers.dart';
 
 part 'games_ranks_record.g.dart';
 
+/// Classe de la collection [GamesRanksRecord] dans la base de données Firebase
+///
+/// Contient tous les champs de la collection [GamesRanksRecord]
 abstract class GamesRanksRecord
     implements Built<GamesRanksRecord, GamesRanksRecordBuilder> {
   static Serializer<GamesRanksRecord> get serializer =>
@@ -50,6 +55,7 @@ abstract class GamesRanksRecord
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
   GamesRanksRecord._();
+
   factory GamesRanksRecord([void Function(GamesRanksRecordBuilder) updates]) =
       _$GamesRanksRecord;
 }

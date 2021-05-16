@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'schema_util.dart';
@@ -8,6 +12,9 @@ import 'serializers.dart';
 
 part 'groups_record.g.dart';
 
+/// Classe de la collection [GroupsRecord] dans la base de données Firebase
+///
+/// Contient tous les champs de la collection [GroupsRecord]
 abstract class GroupsRecord
     implements Built<GroupsRecord, GroupsRecordBuilder> {
   static Serializer<GroupsRecord> get serializer => _$groupsRecordSerializer;
@@ -58,6 +65,7 @@ abstract class GroupsRecord
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
   GroupsRecord._();
+
   factory GroupsRecord([void Function(GroupsRecordBuilder) updates]) =
       _$GroupsRecord;
 }

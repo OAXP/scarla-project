@@ -1,14 +1,17 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
-
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../login_page/login_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+/// Widget pour réinitialiser le mot de passe d'un utilisateur
 class ResetPassPageWidget extends StatefulWidget {
   ResetPassPageWidget({Key key}) : super(key: key);
 
@@ -38,13 +41,10 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
               alignment: Alignment(0, -1),
               child: Container(
                 color: Color(0xFF313150),
-              )
-          ),
+              )),
           WaveWidget(
-
             backgroundColor: Colors.deepPurpleAccent,
             config: CustomConfig(
-
               gradients: [
                 [Colors.red, Color(0xEEF44336)],
                 [Colors.red[800], Color(0x77E57373)],
@@ -57,11 +57,10 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
               gradientBegin: Alignment.bottomLeft,
               gradientEnd: Alignment.topRight,
             ),
-
             waveAmplitude: 0,
-
             size: Size(
-              double.infinity,200,
+              double.infinity,
+              200,
             ),
           ),
           Column(
@@ -165,6 +164,7 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                   padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
                                   child: FFButtonWidget(
                                     onPressed: () async {
+                                      /// Vérifie si l'utilisateur a inséré un courriel et retourne à page précédente
                                       if (emailFieldController.text.isEmpty) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -222,6 +222,7 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                       ),
                                       InkWell(
                                         onTap: () async {
+                                          /// Envoie vers la page [LoginPageWidget]
                                           await Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
@@ -255,7 +256,6 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
               )
             ],
           ),
-
         ],
       ),
     );

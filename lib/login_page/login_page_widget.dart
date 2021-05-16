@@ -1,19 +1,23 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:scarla/backend/schema/users_record.dart';
 import 'package:scarla/su1_page/su1_page_widget.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
-
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../main.dart';
 import '../reset_pass_page/reset_pass_page_widget.dart';
 import '../sign_up_page/sign_up_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+/// Widget pour que l'utilisateur se connecte
 class LoginPageWidget extends StatefulWidget {
   LoginPageWidget({Key key}) : super(key: key);
 
@@ -41,17 +45,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
-          /*Align(
-              alignment: Alignment(0, -1),
-              child: Container(
-                color: Color(0xFF313150),
-              )
-          ),*/
           WaveWidget(
-
             backgroundColor: Colors.deepPurpleAccent,
             config: CustomConfig(
-
               gradients: [
                 [Colors.red, Color(0xEEF44336)],
                 [Colors.red[800], Color(0x77E57373)],
@@ -64,11 +60,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               gradientBegin: Alignment.bottomLeft,
               gradientEnd: Alignment.topRight,
             ),
-
             waveAmplitude: 0,
-
             size: Size(
-              double.infinity,200,
+              double.infinity,
+              200,
             ),
           ),
           Column(
@@ -225,6 +220,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   padding: EdgeInsets.fromLTRB(0, 20, 0, 5),
                                   child: FFButtonWidget(
                                     onPressed: () async {
+                                      /// Si connexion réussie, envoie vers la page de [HomePgaeWidget]
                                       final user = await signInWithEmail(
                                         context,
                                         emailFieldController.text,
@@ -283,6 +279,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       ),
                                       InkWell(
                                         onTap: () async {
+                                          /// Envoie vers la page [ResetPassPageWidget]
                                           await Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -304,29 +301,38 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     ],
                                   ),
                                 ),
-
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(69,72,0,0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(69, 72, 0, 0),
                                   child: Row(
                                     children: [
                                       Container(
                                         width: 70,
                                         height: 2,
-                                        color: Color.fromRGBO(255, 255, 255, 110),
-                                      ),
-                                      SizedBox(width: 7,),
-                                      Text('OR CONNECT WITH',style:GoogleFonts.getFont(
-                                        'Open Sans',
                                         color:
-                                        Color.fromRGBO(255, 255, 255, 110),
-                                        //FlutterFlowTheme.secondaryColor,
-                                        fontSize: 11,
-                                      ), ),
-                                      SizedBox(width: 7,),
+                                            Color.fromRGBO(255, 255, 255, 110),
+                                      ),
+                                      SizedBox(
+                                        width: 7,
+                                      ),
+                                      Text(
+                                        'OR CONNECT WITH',
+                                        style: GoogleFonts.getFont(
+                                          'Open Sans',
+                                          color: Color.fromRGBO(
+                                              255, 255, 255, 110),
+                                          //FlutterFlowTheme.secondaryColor,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 7,
+                                      ),
                                       Container(
                                         width: 70,
                                         height: 2,
-                                        color: Color.fromRGBO(255, 255, 255, 110),
+                                        color:
+                                            Color.fromRGBO(255, 255, 255, 110),
                                       ),
                                     ],
                                   ),
@@ -350,6 +356,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                               alignment: Alignment(0, 0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
+                                                  /// Connexion avec Google
                                                   final user =
                                                       await signInWithGoogle(
                                                           context);
@@ -357,10 +364,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                     return;
                                                   }
 
-                                                  final userRecord = UsersRecord.collection.doc(user.uid);
-                                                  final userExists = await userRecord.get().then((u) => u.exists);
+                                                  final userRecord = UsersRecord
+                                                      .collection
+                                                      .doc(user.uid);
+                                                  final userExists =
+                                                      await userRecord
+                                                          .get()
+                                                          .then(
+                                                              (u) => u.exists);
 
-                                                  if(userExists) {
+                                                  if (userExists) {
                                                     await Navigator
                                                         .pushAndRemoveUntil(
                                                       context,
@@ -368,9 +381,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                                         builder: (context) =>
                                                             NavBarPage(
                                                                 initialPage:
-                                                                'HomePage'),
+                                                                    'HomePage'),
                                                       ),
-                                                          (r) => false,
+                                                      (r) => false,
                                                     );
                                                   } else {
                                                     await Navigator.push(
@@ -453,6 +466,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       ),
                                       InkWell(
                                         onTap: () async {
+                                          /// Envoie vers la page [SignUpPageWidget]
                                           await Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
@@ -486,7 +500,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               )
             ],
           ),
-
         ],
       ),
     );

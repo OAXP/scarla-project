@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'games_ranks_record.dart';
@@ -201,31 +205,45 @@ class GamesRanksRecordBuilder
   _$GamesRanksRecord _$v;
 
   DocumentReference _userRef;
+
   DocumentReference get userRef => _$this._userRef;
+
   set userRef(DocumentReference userRef) => _$this._userRef = userRef;
 
   int _lol;
+
   int get lol => _$this._lol;
+
   set lol(int lol) => _$this._lol = lol;
 
   int _valorant;
+
   int get valorant => _$this._valorant;
+
   set valorant(int valorant) => _$this._valorant = valorant;
 
   int _mw;
+
   int get mw => _$this._mw;
+
   set mw(int mw) => _$this._mw = mw;
 
   int _ow;
+
   int get ow => _$this._ow;
+
   set ow(int ow) => _$this._ow = ow;
 
   int _rl;
+
   int get rl => _$this._rl;
+
   set rl(int rl) => _$this._rl = rl;
 
   DocumentReference _reference;
+
   DocumentReference get reference => _$this._reference;
+
   set reference(DocumentReference reference) => _$this._reference = reference;
 
   GamesRanksRecordBuilder() {

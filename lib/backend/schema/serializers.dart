@@ -1,14 +1,18 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'users_record.dart';
-import 'groups_record.dart';
-import 'g_messages_record.dart';
 import 'feed_record.dart';
 import 'friends_record.dart';
+import 'g_messages_record.dart';
 import 'games_ranks_record.dart';
+import 'groups_record.dart';
+import 'users_record.dart';
 
 part 'serializers.g.dart';
 
@@ -28,6 +32,7 @@ final Serializers serializers = (_$serializers.toBuilder()
       ..addPlugin(StandardJsonPlugin()))
     .build();
 
+/// Classe de Serializer de DocumentReference
 class DocumentReferenceSerializer
     implements PrimitiveSerializer<DocumentReference> {
   final bool structured = false;
@@ -48,6 +53,7 @@ class DocumentReferenceSerializer
       serialized as DocumentReference;
 }
 
+/// Classe de Serializer de Timestamp
 class TimestampSerializer implements PrimitiveSerializer<Timestamp> {
   final bool structured = false;
   @override

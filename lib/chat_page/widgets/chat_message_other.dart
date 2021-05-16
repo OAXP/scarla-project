@@ -1,12 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:scarla/auth/auth_util.dart';
+import 'package:flutter/material.dart';
 import 'package:scarla/backend/backend.dart';
 import 'package:scarla/chat_page/widgets/video_player_widget.dart';
 import 'package:scarla/profile_page/profile_page_widget.dart';
 import 'package:video_player/video_player.dart';
 
+/// Widget pour un message d'un autre utilisateur
 class ChatMessageOther extends StatelessWidget {
   final int index;
   final GMessagesRecord data;
@@ -39,20 +42,17 @@ class ChatMessageOther extends StatelessWidget {
                 StreamBuilder<UsersRecord>(
                     stream: UsersRecord.getDocument(data.authorRef),
                     builder: (context, snapshot) {
-                      final columnUsersRecord =
-                          snapshot.data;
+                      final columnUsersRecord = snapshot.data;
                       if (snapshot.hasData) {
                         return InkWell(
                           onTap: () async {
+                            /// Envoie vers la page de profil de l'utilisateur
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    ProfilePageWidget(
-                                      userRef:
-                                      columnUsersRecord
-                                          .reference,
-                                    ),
+                                builder: (context) => ProfilePageWidget(
+                                  userRef: columnUsersRecord.reference,
+                                ),
                               ),
                             );
                           },
@@ -99,41 +99,43 @@ class ChatMessageOther extends StatelessWidget {
             child: data.type == 0 //0
                 ? Text(data.value)
                 : data.type == 1
-                ? Material(
-              child: CachedNetworkImage(
-                progressIndicatorBuilder: (context, url, downloadProgress) {
-                  return Container(
-                    width: 400.0,
-                    height: 200.0,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        LinearProgressIndicator(
-                          value: downloadProgress.progress,
+                    ? Material(
+                        child: CachedNetworkImage(
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) {
+                            return Container(
+                              width: 400.0,
+                              height: 200.0,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  LinearProgressIndicator(
+                                    value: downloadProgress.progress,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          imageUrl: data.value,
+                          width: 400.0,
+                          height: 200.0,
+                          fit: BoxFit.cover,
                         ),
-                      ],
-                    ),
-                  );
-                },
-                imageUrl: data.value,
-                width: 400.0,
-                height: 200.0,
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              clipBehavior: Clip.hardEdge,
-            )
-                : ScarlaVideoPlayer(
-              videoPlayerController: VideoPlayerController.network(data.value),
-              looping: true,
-              color: Colors.white,
-            ),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        clipBehavior: Clip.hardEdge,
+                      )
+                    : ScarlaVideoPlayer(
+                        videoPlayerController:
+                            VideoPlayerController.network(data.value),
+                        looping: true,
+                        color: Colors.white,
+                      ),
           ),
         ],
       ),

@@ -1,10 +1,19 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:imgur/imgur.dart' as imgur;
 import 'package:scarla/add_remove_game_page/add_remove_game_page_widget.dart';
 import 'package:scarla/flutter_flow/upload_media.dart';
 import 'package:scarla/util/transparent_route.dart';
-
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../edit_game_page/edit_game_page_widget.dart';
@@ -12,14 +21,8 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../youtube_player_page/youtube_player_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:imgur/imgur.dart' as imgur;
 
+/// Widget pour les paramètres de l'utilisateur
 class SettingsPageWidget extends StatefulWidget {
   SettingsPageWidget(
       {Key key,
@@ -59,6 +62,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
     usernameFieldController = TextEditingController(text: widget.name);
   }
 
+  /// Récupèrer l'image de profile téléverser par l'utilisateur
   Future getImage({bool isVideo = false, bool isPfp = true}) async {
     ImagePicker imagePicker = ImagePicker();
     PickedFile pickedFile;
@@ -96,10 +100,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    /// Fait la requête de l'utilisateur connecté
     return StreamBuilder<UsersRecord>(
       stream: UsersRecord.getDocument(currentUserReference),
       builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         }
@@ -107,39 +111,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.primaryColor,
-        /*  floatingActionButton: FloatingActionButton.extended(
-            onPressed: () async {
-              final name = usernameFieldController.text;
-              final tag = tagFieldController.text;
-              final photoUrl = widget.photoUrl;
-              final bgProfile = widget.bgProfile;
-              final about = aboutFieldController.text;
-
-              final keys = createKeys("$name#$tag");
-
-              final usersRecordData = {
-                ...createUsersRecordData(
-                  name: name,
-                  tag: tag,
-                  photoUrl: photoUrl,
-                  bgProfile: bgProfile,
-                  about: about,
-                ),
-                'keys': keys,
-              };
-
-              await settingsPageUsersRecord.reference.update(usersRecordData);
-              Navigator.pop(context);
-            },
-            backgroundColor: Color(0xFF4D5078),
-            elevation: 8,
-            label: Text(
-              'Save',
-              style: FlutterFlowTheme.subtitle2.override(
-                fontFamily: 'Poppins',
-              ),
-            ),
-          ),*/
           body: Stack(
             children: [
               Container(
@@ -174,6 +145,32 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
+                                        /// L'utilisateur peut changer les couleurs déjà définies
+                                        setState(() {
+                                          FlutterFlowTheme.primaryColor =
+                                              Color(0xFF25263E);
+                                          FlutterFlowTheme.secondaryColor =
+                                              Color(0xFFFF4553);
+                                          FlutterFlowTheme.tertiaryColor =
+                                              Color(0xFF252854);
+                                          FlutterFlowTheme.appBarColor =
+                                              Color(0xA2000000);
+                                          FlutterFlowTheme.title1Color =
+                                              Color(0xFF535480);
+                                          FlutterFlowTheme.title2Color =
+                                              Colors.white;
+                                          FlutterFlowTheme.title3Color =
+                                              Colors.white;
+                                          FlutterFlowTheme.subtitle1Color =
+                                              Colors.black;
+                                          FlutterFlowTheme.subtitle2Color =
+                                              Colors.white;
+                                          FlutterFlowTheme.body1Color =
+                                              Colors.white;
+                                          FlutterFlowTheme.body2Color =
+                                              Color(0xFFB2B2B2);
+                                          notificationSwitchSetting = true;
+                                        });
                                         Navigator.pop(context);
                                       },
                                       child: Icon(
@@ -199,7 +196,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                       ),
                       Expanded(
                         child: ListView(
-                          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                          physics: BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics()),
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
                           children: [
@@ -213,30 +211,39 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 ),
                                 child: Stack(
                                   children: [
-                                    (widget.bgProfile != "") ?
-                                    Align(
-                                      alignment: Alignment(0, 0),
-                                      child: (FlutterFlowTheme.isUploading)
-                                          ? Center(
-                                          child:
-                                          CircularProgressIndicator())
-                                      : CachedNetworkImage(
-                                        imageUrl: widget.bgProfile,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                1,
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) => Container(
-                                            color: FlutterFlowTheme.tertiaryColor
-                                        ),
-                                      ),
-                                    ) : Container(
-                                        color: FlutterFlowTheme.tertiaryColor
-                                    ),
+                                    (widget.bgProfile != "")
+                                        ? Align(
+                                            alignment: Alignment(0, 0),
+                                            child: (FlutterFlowTheme
+                                                    .isUploading)
+                                                ? Center(
+                                                    child:
+                                                        CircularProgressIndicator())
+                                                : CachedNetworkImage(
+                                                    imageUrl: widget.bgProfile,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            1,
+                                                    fit: BoxFit.cover,
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        Container(
+                                                            color: FlutterFlowTheme
+                                                                .tertiaryColor),
+                                                  ),
+                                          )
+                                        : Container(
+                                            color:
+                                                FlutterFlowTheme.tertiaryColor),
                                     FFButtonWidget(
                                       onPressed: () async {
+                                        /// L'utilisateur téléverse une image pour sa page de profil
                                         getImage(isPfp: false);
                                       },
                                       text: 'Modify',
@@ -266,6 +273,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   alignment: Alignment(0, 0),
                                   child: InkWell(
                                     onTap: () async {
+                                      /// Récupère image téléversée par l'utilisateur
                                       getImage();
                                     },
                                     child: Container(
@@ -282,9 +290,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           : CachedNetworkImage(
                                               imageUrl: widget.photoUrl,
                                               fit: BoxFit.cover,
-                                              placeholder: (context, url) => Container(
-                                                color: FlutterFlowTheme.tertiaryColor
-                                              ),
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                      color: FlutterFlowTheme
+                                                          .tertiaryColor),
                                             ),
                                     ),
                                   ),
@@ -481,14 +490,19 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 maxLines: 3,
                               ),
                             ),
+                            SizedBox(
+                              height: 14,
+                            ),
                             Divider(
-                              height: 25,
+                              height: 0,
                               indent: 20,
                               endIndent: 20,
-                              color: Color(0xFF666666),
-                                thickness: 0.3,
+                              color: Color(0xF7808080),
+                              thickness: 0.3,
                             ),
-                            // Divider(height: 30,thickness: 0.5,indent:20,endIndent: 20,color:  Color(0x23F5F5F5),),
+                            SizedBox(
+                              height: 14,
+                            ),
                             Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -508,7 +522,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(20,0,0,0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
@@ -528,6 +543,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           ToggleIcon(
                                             onPressed: () async {
+                                              /// Enleve ou ajoute la variable [isCompetitive] à l'utilisateur
                                               final isCompetitive =
                                                   !settingsPageUsersRecord
                                                       .isCompetitive;
@@ -562,11 +578,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                               ],
                             ),
                             Divider(
-                              height: 25,
+                              height: 5,
                               indent: 20,
                               endIndent: 20,
-                              color: Color(0xFF666666),
+                              color: Color(0xF7808080),
                               thickness: 0.3,
+                            ),
+                            SizedBox(
+                              height: 12,
                             ),
                             Column(
                               mainAxisSize: MainAxisSize.max,
@@ -578,7 +597,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height:15),
+                                SizedBox(height: 15),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -598,6 +617,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
+                                              /// Permet le changement de couleur du [primaryColor]
                                               showDialog(
                                                 context: context,
                                                 builder:
@@ -650,6 +670,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              /// Réinitialise la couleur [primaryColor] à la couleur initiale
                                               setState(() {
                                                 FlutterFlowTheme.primaryColor =
                                                     Color(0xFF25263E);
@@ -698,6 +719,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
+                                              /// Permet le changement de couleur du [secondaryColor]
                                               showDialog(
                                                 context: context,
                                                 builder:
@@ -750,6 +772,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              /// Réinitialise la couleur [secondaryColor] à la couleur initiale
                                               setState(() {
                                                 FlutterFlowTheme
                                                         .secondaryColor =
@@ -799,6 +822,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
+                                              /// Permet le changement de couleur du [tertiaryColor]
                                               showDialog(
                                                 context: context,
                                                 builder:
@@ -851,6 +875,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              /// Réinitialise la couleur [tertiaryColor] à la couleur initiale
                                               setState(() {
                                                 FlutterFlowTheme.tertiaryColor =
                                                     Color(0xFF252854);
@@ -899,6 +924,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
+                                              /// Permet le changement de couleur du [appBarColor]
                                               showDialog(
                                                 context: context,
                                                 builder:
@@ -951,6 +977,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              /// Réinitialise la couleur [appBarColor] à la couleur initiale
                                               setState(() {
                                                 FlutterFlowTheme.appBarColor =
                                                     Color(0xA2000000);
@@ -996,6 +1023,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       children: [
                                         FFButtonWidget(
                                           onPressed: () {
+                                            /// Permet le changement de couleur du [title1Color]
                                             showDialog(
                                               context: context,
                                               builder: (BuildContext context) {
@@ -1044,6 +1072,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         ),
                                         InkWell(
                                           onTap: () async {
+                                            /// Réinitialise la couleur [title1Color] à la couleur initiale
                                             setState(() {
                                               FlutterFlowTheme.title1Color =
                                                   Color(0xFF535480);
@@ -1090,6 +1119,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
+                                              /// Permet le changement de couleur du [title2Color]
                                               showDialog(
                                                 context: context,
                                                 builder:
@@ -1142,6 +1172,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              /// Réinitialise la couleur [title2Color] à la couleur initiale
                                               setState(() {
                                                 FlutterFlowTheme.title2Color =
                                                     Colors.white;
@@ -1190,6 +1221,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
+                                              /// Permet le changement de couleur du [subtitle1Color]
                                               showDialog(
                                                 context: context,
                                                 builder:
@@ -1242,6 +1274,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              /// Réinitialise la couleur [subtitle1Color] à la couleur initiale
                                               setState(() {
                                                 FlutterFlowTheme
                                                         .subtitle1Color =
@@ -1291,6 +1324,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
+                                              /// Permet le changement de couleur du [subtitle2Color]
                                               showDialog(
                                                 context: context,
                                                 builder:
@@ -1343,6 +1377,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              /// Réinitialise la couleur [subtitle2Color] à la couleur initiale
                                               setState(() {
                                                 FlutterFlowTheme
                                                         .subtitle2Color =
@@ -1392,6 +1427,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
+                                              /// Permet le changement de couleur du [body1Color]
                                               showDialog(
                                                 context: context,
                                                 builder:
@@ -1444,6 +1480,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              /// Réinitialise la couleur [body1Color] à la couleur initiale
                                               setState(() {
                                                 FlutterFlowTheme.body1Color =
                                                     Colors.white;
@@ -1492,6 +1529,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           FFButtonWidget(
                                             onPressed: () {
+                                              /// Permet le changement de couleur du [body2Color]
                                               showDialog(
                                                 context: context,
                                                 builder:
@@ -1544,6 +1582,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              /// Réinitialise la couleur [body2Color] à la couleur initiale
                                               setState(() {
                                                 FlutterFlowTheme.body2Color =
                                                     Color(0xFFB2B2B2);
@@ -1573,98 +1612,138 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     )
                                   ],
                                 ),
-                               /* Padding(
-                                  padding: EdgeInsets.fromLTRB(35, 0, 35, 0),
-                                  child: SwitchListTile(
-                                    value: notificationSwitchSetting ?? true,
-                                    onChanged: (newValue) => setState(() =>
-                                        notificationSwitchSetting = newValue),
-                                    title: Text(
-                                      'Notifications',
-                                      style:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Poppins',
-                                      ),
-                                    ),
-                                    dense: false,
-                                  ),
-                                ),*/
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(30, 15, 0, 0),
+                                      padding:
+                                          EdgeInsets.fromLTRB(30, 15, 0, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           InkWell(
                                             onTap: () async {
-
-
+                                              /// Réinitialise les paramètres de couleur
                                               showDialog(
                                                 context: context,
-                                                builder: (BuildContext context) {
+                                                builder:
+                                                    (BuildContext context) {
                                                   return AlertDialog(
-                                                    backgroundColor: Colors.white,
-                                                    shape: RoundedRectangleBorder(
-
-                                                      borderRadius: BorderRadius.circular(10.0),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
                                                     ),
-                                                    title: Center(child: Text('Alert!')),
-                                                    content: Text('Are you sure you want to reset your color settings?'),
+                                                    title: Center(
+                                                        child: Text('Alert!')),
+                                                    content: Text(
+                                                        'Are you sure you want to reset your color settings?'),
                                                     actions: <Widget>[
                                                       Column(
                                                         children: [
-
                                                           Center(
                                                             child: Padding(
-                                                              padding: const EdgeInsets.fromLTRB(0,0,22,15),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .fromLTRB(
+                                                                      0,
+                                                                      0,
+                                                                      22,
+                                                                      15),
                                                               child: Container(
-                                                                width:250,
-                                                                height:2,
-                                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey[300],),
-
+                                                                width: 250,
+                                                                height: 2,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              24),
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      300],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
                                                           Row(
                                                             children: [
-
                                                               Padding(
-                                                                padding: const EdgeInsets.fromLTRB(0,0,10,0),
-                                                                child: Container(
-                                                                  width:107,
-                                                                  height:47,
-                                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Colors.grey,),
-                                                                  child: TextButton(
-
-                                                                    child: Text('Cancel',style: TextStyle(color: Colors.white),),
-
-
-                                                                    onPressed: () {
-                                                                      Navigator.of(context).pop();
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .fromLTRB(
+                                                                        0,
+                                                                        0,
+                                                                        10,
+                                                                        0),
+                                                                child:
+                                                                    Container(
+                                                                  width: 107,
+                                                                  height: 47,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            24),
+                                                                    color: Colors
+                                                                        .grey,
+                                                                  ),
+                                                                  child:
+                                                                      TextButton(
+                                                                    child: Text(
+                                                                      'Cancel',
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
                                                                     },
                                                                   ),
                                                                 ),
                                                               ),
                                                               Padding(
-                                                                padding: const EdgeInsets.fromLTRB(0,0,20,0),
-                                                                child: Container(
-                                                                  width:107,
-                                                                  height:47,
-                                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(24),color: Color(0xffff4553),),
-                                                                  child: TextButton(
-
-                                                                    child: Text('Yes!',style: TextStyle(color: Colors.white),),
-
-
-                                                                    onPressed: () {
-                                                                      setState(() {
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .fromLTRB(
+                                                                        0,
+                                                                        0,
+                                                                        20,
+                                                                        0),
+                                                                child:
+                                                                    Container(
+                                                                  width: 107,
+                                                                  height: 47,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            24),
+                                                                    color: Color(
+                                                                        0xffff4553),
+                                                                  ),
+                                                                  child:
+                                                                      TextButton(
+                                                                    child: Text(
+                                                                      'Yes!',
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
+                                                                      setState(
+                                                                          () {
                                                                         FlutterFlowTheme.primaryColor =
                                                                             Color(0xFF25263E);
-                                                                        FlutterFlowTheme
-                                                                            .secondaryColor =
+                                                                        FlutterFlowTheme.secondaryColor =
                                                                             Color(0xFFFF4553);
                                                                         FlutterFlowTheme.tertiaryColor =
                                                                             Color(0xFF252854);
@@ -1676,19 +1755,20 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                                             Colors.white;
                                                                         FlutterFlowTheme.title3Color =
                                                                             Colors.white;
-                                                                        FlutterFlowTheme
-                                                                            .subtitle1Color =
+                                                                        FlutterFlowTheme.subtitle1Color =
                                                                             Colors.black;
-                                                                        FlutterFlowTheme
-                                                                            .subtitle2Color =
+                                                                        FlutterFlowTheme.subtitle2Color =
                                                                             Colors.white;
                                                                         FlutterFlowTheme.body1Color =
                                                                             Colors.white;
                                                                         FlutterFlowTheme.body2Color =
                                                                             Color(0xFFB2B2B2);
                                                                         notificationSwitchSetting =
-                                                                        true;
-                                                                      }); Navigator.of(context).pop();
+                                                                            true;
+                                                                      });
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
                                                                     },
                                                                   ),
                                                                 ),
@@ -1697,18 +1777,15 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                           )
                                                         ],
                                                       )
-
-
                                                     ],
                                                   );
                                                 },
                                               );
-
-
-
                                             },
                                             child: Padding(
-                                              padding: const EdgeInsets.fromLTRB(0,0,26,0),
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 0, 26, 0),
                                               child: Card(
                                                 clipBehavior:
                                                     Clip.antiAliasWithSaveLayer,
@@ -1721,7 +1798,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                     style: GoogleFonts.getFont(
                                                       'Poppins',
                                                       color: Colors.black,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 14,
                                                     ),
                                                   ),
@@ -1736,13 +1814,15 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 )
                               ],
                             ),
+                            SizedBox(height: 10),
                             Divider(
-                              height: 23,
+                              height: 4,
                               indent: 20,
                               endIndent: 20,
-                              color: Color(0xFF666666),
+                              color: Color(0xF7808080),
                               thickness: 0.3,
                             ),
+                            SizedBox(height: 8),
                             Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 40),
                               child: Column(
@@ -1775,220 +1855,249 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       children: [
-                                        if (settingsPageUsersRecord.selectedGames.contains("valorant"))
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  TransparentRoute(
-                                                    builder: (context) =>
-                                                        EditGamePageWidget(
-                                                      game: 'valorant',
-                                                      user:
-                                                          settingsPageUsersRecord
-                                                              .reference,
+                                        if (settingsPageUsersRecord
+                                            .selectedGames
+                                            .contains("valorant"))
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                onTap: () async {
+                                                  /// Envoie vers la page d'édition de jeu pour valorant
+                                                  await Navigator.push(
+                                                    context,
+                                                    TransparentRoute(
+                                                      builder: (context) =>
+                                                          EditGamePageWidget(
+                                                        game: 'valorant',
+                                                        user:
+                                                            settingsPageUsersRecord
+                                                                .reference,
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 50,
-                                                height: 50,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Image.asset(
-                                                  'assets/games/icons/valorantIcon.png',
-                                                  scale: 2,
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        if (settingsPageUsersRecord.selectedGames.contains("mw"))
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  TransparentRoute(
-                                                    builder: (context) =>
-                                                        EditGamePageWidget(
-                                                      game: 'mw',
-                                                      user:
-                                                          settingsPageUsersRecord
-                                                              .reference,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 50,
-                                                height: 50,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.black54,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Image.asset(
-                                                  'assets/games/icons/mwIcon.png',
-                                                  scale: 2.7,
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        if (settingsPageUsersRecord.selectedGames.contains("rl"))
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  TransparentRoute(
-                                                    builder: (context) =>
-                                                        EditGamePageWidget(
-                                                      game: 'rl',
-                                                      user:
-                                                          settingsPageUsersRecord
-                                                              .reference,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 50,
-                                                height: 50,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Color(0xff004ca3),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(left: 2,top:1),
+                                                  );
+                                                },
+                                                child: Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Color(0xffff4454),
+                                                      border: Border.all(
+                                                          color: Colors.white)),
                                                   child: Image.asset(
-                                                    'assets/games/icons/rlIcon.png',
-                                                    scale:27,
+                                                    'assets/games/icons/valorantIcon.png',
+                                                    scale: 150,
                                                   ),
                                                 ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        if (settingsPageUsersRecord.selectedGames.contains("ow"))
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  TransparentRoute(
-                                                    builder: (context) =>
-                                                        EditGamePageWidget(
-                                                      game: 'ow',
-                                                      user:
-                                                          settingsPageUsersRecord
-                                                              .reference,
+                                              )
+                                            ],
+                                          ),
+                                        if (settingsPageUsersRecord
+                                            .selectedGames
+                                            .contains("mw"))
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                onTap: () async {
+                                                  /// Envoie vers la page d'édition de jeu pour mw
+                                                  await Navigator.push(
+                                                    context,
+                                                    TransparentRoute(
+                                                      builder: (context) =>
+                                                          EditGamePageWidget(
+                                                        game: 'mw',
+                                                        user:
+                                                            settingsPageUsersRecord
+                                                                .reference,
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 50,
-                                                height: 50,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.grey[300],
-                                                ),
-                                                child: Image.asset(
-                                                  'assets/games/icons/owIcon.png',
-                                                  scale: 32,
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        if (settingsPageUsersRecord.selectedGames.contains("lol"))
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  TransparentRoute(
-                                                    builder: (context) =>
-                                                        EditGamePageWidget(
-                                                      game: 'lol',
-                                                      user:
-                                                          settingsPageUsersRecord
-                                                              .reference,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 50,
-                                                height: 50,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      color1,
-                                                      color2,
-                                                    ],
-                                                    begin: Alignment.topCenter,
-                                                    end: Alignment.bottomCenter,
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(left: 2,bottom:1),
+                                                  );
+                                                },
+                                                child: Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.black54,
+                                                      shape: BoxShape.circle,
+                                                      border: Border.all(
+                                                          color: Colors.white)),
                                                   child: Image.asset(
-                                                    'assets/games/icons/lolIcon.png',
-                                                    scale: 12,
+                                                    'assets/games/icons/mwIcon.png',
+                                                    scale: 2.7,
                                                   ),
                                                 ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                              )
+                                            ],
+                                          ),
+                                        if (settingsPageUsersRecord
+                                            .selectedGames
+                                            .contains("rl"))
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                onTap: () async {
+                                                  /// Envoie vers la page d'édition de jeu pour rl
+                                                  await Navigator.push(
+                                                    context,
+                                                    TransparentRoute(
+                                                      builder: (context) =>
+                                                          EditGamePageWidget(
+                                                        game: 'rl',
+                                                        user:
+                                                            settingsPageUsersRecord
+                                                                .reference,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Color(0xff004ca3),
+                                                      border: Border.all(
+                                                          color: Colors.white)),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 2, top: 1),
+                                                    child: Image.asset(
+                                                      'assets/games/icons/rlIcon.png',
+                                                      scale: 28,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        if (settingsPageUsersRecord
+                                            .selectedGames
+                                            .contains("ow"))
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                onTap: () async {
+                                                  /// Envoie vers la page d'édition de jeu pour ow
+                                                  await Navigator.push(
+                                                    context,
+                                                    TransparentRoute(
+                                                      builder: (context) =>
+                                                          EditGamePageWidget(
+                                                        game: 'ow',
+                                                        user:
+                                                            settingsPageUsersRecord
+                                                                .reference,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.grey[300],
+                                                      border: Border.all(
+                                                          color: Colors.red)),
+                                                  child: Image.asset(
+                                                    'assets/games/icons/owIcon.png',
+                                                    scale: 33,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        if (settingsPageUsersRecord
+                                            .selectedGames
+                                            .contains("lol"))
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                onTap: () async {
+                                                  /// Envoie vers la page d'édition de jeu pour lol
+                                                  await Navigator.push(
+                                                    context,
+                                                    TransparentRoute(
+                                                      builder: (context) =>
+                                                          EditGamePageWidget(
+                                                        game: 'lol',
+                                                        user:
+                                                            settingsPageUsersRecord
+                                                                .reference,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                        color: Colors.white),
+                                                    gradient: LinearGradient(
+                                                      colors: [
+                                                        color1,
+                                                        color2,
+                                                      ],
+                                                      begin:
+                                                          Alignment.topCenter,
+                                                      end: Alignment
+                                                          .bottomCenter,
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 2, bottom: 1),
+                                                    child: Image.asset(
+                                                      'assets/games/icons/lolIcon.png',
+                                                      scale: 13,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                              CrossAxisAlignment.center,
                                           children: [
                                             InkWell(
                                               onTap: () async {
+                                                /// Envoie vers la page pour ajouter ou enlever des jeux
                                                 await Navigator.push(
                                                   context,
                                                   TransparentRoute(
@@ -2003,12 +2112,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                 clipBehavior: Clip.antiAlias,
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  color: FlutterFlowTheme.secondaryColor,
+                                                  color: FlutterFlowTheme
+                                                      .secondaryColor,
                                                 ),
                                                 child: Center(
                                                   child: FaIcon(
                                                     FontAwesomeIcons.pen,
-                                                    color: FlutterFlowTheme.primaryColor,
+                                                    color: FlutterFlowTheme
+                                                        .primaryColor,
                                                     size: 25,
                                                   ),
                                                 ),
@@ -2028,25 +2139,28 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0,0,12,11),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 12, 11),
                     //13,13
                     child: Align(
                       alignment: Alignment.bottomRight,
-                      child: Container(width: 91,
+                      child: Container(
+                        width: 91,
                         height: 57,
                         child: Card(
                           elevation: 8,
                           shadowColor: Colors.black,
-                          color:  Color(0xFF4D5078),
+                          color: Color(0xFF4D5078),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),),
-                          child:  InkWell(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: InkWell(
                             borderRadius: BorderRadius.circular(30),
                             splashColor: Colors.white.withAlpha(30),
                             highlightColor: Colors.white.withAlpha(30),
-                            onTap: ()  async {
-
-                              if(usernameFieldController.text.isEmpty||tagFieldController.text.isEmpty){
+                            onTap: () async {
+                              /// Valide les entrées et les sauvegarde dans la base de données
+                              if (usernameFieldController.text.isEmpty ||
+                                  tagFieldController.text.isEmpty) {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -2054,26 +2168,28 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       backgroundColor: Colors.white,
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
-                                        BorderRadius.circular(10.0),
+                                            BorderRadius.circular(10.0),
                                       ),
                                       title: Center(child: Text('Error')),
                                       content: Text(
-                                          'Your username is not valid!',textAlign: TextAlign.center,),
+                                        'Your username is not valid!',
+                                        textAlign: TextAlign.center,
+                                      ),
                                       actions: <Widget>[
                                         Column(
                                           children: [
                                             Center(
                                               child: Padding(
                                                 padding:
-                                                const EdgeInsets.fromLTRB(
-                                                    0, 0, 7, 15),
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 0, 7, 15),
                                                 child: Container(
                                                   width: 250,
                                                   height: 1,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                    BorderRadius.circular(
-                                                        24),
+                                                        BorderRadius.circular(
+                                                            24),
                                                     color: Colors.grey[300],
                                                   ),
                                                 ),
@@ -2081,26 +2197,24 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                             ),
                                             Row(
                                               children: [
-
                                                 Padding(
                                                   padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      0, 0, 7, 0),
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 0, 7, 0),
                                                   child: Container(
                                                     width: 107,
                                                     height: 47,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                          24),
+                                                          BorderRadius.circular(
+                                                              24),
                                                       color: Color(0xffff4553),
                                                     ),
                                                     child: TextButton(
                                                       child: Text(
                                                         'Ok!',
                                                         style: TextStyle(
-                                                            color:
-                                                            Colors.white,
+                                                            color: Colors.white,
                                                             fontSize: 15),
                                                       ),
                                                       onPressed: () {
@@ -2146,33 +2260,26 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                             child: Center(
                               child: Text(
                                 'Save',
-
-                                style: FlutterFlowTheme.subtitle2.override(
-                                  fontFamily: 'Poppins',
-                                    fontSize: 16,
-
-                                ).merge(TextStyle(
-                                  letterSpacing: 1.3
-                                )),
-
+                                style: FlutterFlowTheme.subtitle2
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 16,
+                                    )
+                                    .merge(TextStyle(letterSpacing: 1.3)),
                               ),
                             ),
                           ),
                         ),
                         decoration: BoxDecoration(
-
                             shape: BoxShape.rectangle,
-
                             boxShadow: [
                               BoxShadow(
-
                                 color: Color(0xFF373856).withOpacity(0.04),
                                 spreadRadius: 0,
                                 blurRadius: 21,
                                 offset: Offset(0, 6),
                               )
                             ]),
-
                       ),
                     ),
                   ),

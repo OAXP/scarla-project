@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:flutter/material.dart';
 
 class TransparentRoute extends PageRoute<void> {

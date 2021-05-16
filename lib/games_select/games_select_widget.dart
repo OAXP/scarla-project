@@ -1,8 +1,12 @@
-import '../flutter_flow/flutter_flow_theme.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+/*
+ * Copyright (c) 2021. Scarla
+ */
 
+import 'package:flutter/material.dart';
+
+import '../flutter_flow/flutter_flow_theme.dart';
+
+/// Widget de la page de sélection de jeu, non utilisée (prise comme exemple)
 class GamesSelectWidget extends StatefulWidget {
   GamesSelectWidget({Key key}) : super(key: key);
 
@@ -67,7 +71,8 @@ class _GamesSelectWidgetState extends State<GamesSelectWidget> {
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                           child: ListView(
-                            physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                            physics: BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics()),
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.vertical,
                             children: [

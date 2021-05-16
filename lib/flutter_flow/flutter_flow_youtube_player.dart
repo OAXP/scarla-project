@@ -1,9 +1,14 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 const kYoutubeAspectRatio = 16 / 9;
 
+/// Widget qui joue des vidéos Youtube
 class FlutterFlowYoutubePlayer extends StatefulWidget {
   const FlutterFlowYoutubePlayer({
     @required this.url,

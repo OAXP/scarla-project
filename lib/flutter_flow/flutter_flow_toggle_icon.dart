@@ -1,5 +1,10 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:flutter/material.dart';
 
+/// Widget d'une icône basculable
 class ToggleIcon extends StatelessWidget {
   const ToggleIcon({
     @required this.value,

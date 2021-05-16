@@ -1,6 +1,9 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'schema_util.dart';
@@ -8,6 +11,9 @@ import 'serializers.dart';
 
 part 'feed_record.g.dart';
 
+/// Classe de la collection [FeedRecord] dans la base de données Firebase
+///
+/// Contient tous les champs de la collection [FeedRecord]
 abstract class FeedRecord implements Built<FeedRecord, FeedRecordBuilder> {
   static Serializer<FeedRecord> get serializer => _$feedRecordSerializer;
 
@@ -67,6 +73,7 @@ abstract class FeedRecord implements Built<FeedRecord, FeedRecordBuilder> {
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
   FeedRecord._();
+
   factory FeedRecord([void Function(FeedRecordBuilder) updates]) = _$FeedRecord;
 }
 

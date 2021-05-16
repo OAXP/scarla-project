@@ -1,6 +1,10 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'schema_util.dart';
@@ -8,6 +12,9 @@ import 'serializers.dart';
 
 part 'users_record.g.dart';
 
+/// Classe de la collection [UsersRecord] dans la base de données Firebase
+///
+/// Contient tous les champs de la collection [UsersRecord]
 abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   static Serializer<UsersRecord> get serializer => _$usersRecordSerializer;
 
@@ -84,6 +91,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
   UsersRecord._();
+
   factory UsersRecord([void Function(UsersRecordBuilder) updates]) =
       _$UsersRecord;
 }

@@ -1,12 +1,15 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+/// Widget du dialogue pour modifier des paramètre pour un jeu
 class EditGamePageWidget extends StatefulWidget {
   EditGamePageWidget({Key key, this.game, this.user}) : super(key: key);
 
@@ -53,7 +56,7 @@ class _EditGamePageWidgetState extends State<EditGamePageWidget> {
             .doc(currentUserUid)
             .set(gamesRankRecord);
       }
-      if(editGamePageGamesRanksRecordList != null) {
+      if (editGamePageGamesRanksRecordList != null) {
         editGamePageGamesRanksRecord = editGamePageGamesRanksRecordList.first;
         lol = editGamePageGamesRanksRecord.lol;
         valorant = editGamePageGamesRanksRecord.valorant;
@@ -61,7 +64,7 @@ class _EditGamePageWidgetState extends State<EditGamePageWidget> {
         rl = editGamePageGamesRanksRecord.rl;
       }
 
-      switch(widget.game){
+      switch (widget.game) {
         case 'lol':
           sliderValue = lol.toDouble();
           max = 37;
@@ -147,10 +150,11 @@ class _EditGamePageWidgetState extends State<EditGamePageWidget> {
                       Slider(
                         value: sliderValue,
                         onChanged: (value) {
+                          /// Change la valeur de rang du jeu à modifier
                           setState(() {
                             sliderValue = value;
                           });
-                          switch(widget.game){
+                          switch (widget.game) {
                             case 'lol':
                               lol = sliderValue.toInt();
                               break;
@@ -167,7 +171,7 @@ class _EditGamePageWidgetState extends State<EditGamePageWidget> {
                               sliderValue = 1;
                           }
                         },
-                        divisions: (max <= 1) ? 1 : (max-1).toInt(),
+                        divisions: (max <= 1) ? 1 : (max - 1).toInt(),
                         min: 1,
                         max: max,
                       ),
@@ -190,6 +194,7 @@ class _EditGamePageWidgetState extends State<EditGamePageWidget> {
                         children: [
                           IconButton(
                             onPressed: () async {
+                              /// Ferme le dialogue
                               Navigator.pop(context);
                             },
                             icon: Icon(
@@ -201,6 +206,7 @@ class _EditGamePageWidgetState extends State<EditGamePageWidget> {
                           ),
                           IconButton(
                             onPressed: () async {
+                              /// Confirme le rang choisi etle sauvegarde dans la base de données
                               final gamesRanksRecordData =
                                   createGamesRanksRecordData(
                                 lol: lol,

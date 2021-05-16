@@ -1,18 +1,21 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:imgur/imgur.dart' as imgur;
 import 'package:scarla/flutter_flow/upload_media.dart';
 
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../youtube_player_page/youtube_player_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:imgur/imgur.dart' as imgur;
 
+/// Widget pour le dialogue d'ajout de fil d'actualité
 class AddPostPageWidget extends StatefulWidget {
   AddPostPageWidget(
       {Key key, this.userRef, this.initValue, this.initImage, this.chosenGame})
@@ -42,6 +45,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
     }
   }
 
+  /// Lance la galerie de photos du téléphone pour prendre une image ou une vidéo
   Future getImage({bool isVideo = false}) async {
     ImagePicker imagePicker = ImagePicker();
     PickedFile pickedFile;
@@ -54,7 +58,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
 
     if (pickedFile != null) {
       final isValid = await validateFileFormat(pickedFile.path, context);
-      if(isValid) {
+      if (isValid) {
         setState(() {
           FlutterFlowTheme.isUploading = true;
         });
@@ -75,6 +79,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    /// Prend le document de l'utilisateur
     return StreamBuilder<UsersRecord>(
       stream: UsersRecord.getDocument(widget.userRef),
       builder: (context, snapshot) {
@@ -96,6 +101,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                   children: [
                     InkWell(
                       onTap: () async {
+                        /// Ferme le dialogue courant
                         Navigator.pop(context);
                       },
                       splashColor: Colors.transparent,
@@ -174,6 +180,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                   style: FlutterFlowTheme.bodyText1
                                       .override(fontFamily: 'Poppins'),
                                   onChanged: (newVal) {
+                                    /// Dropdown du choix du type de fil d'actualité
                                     setState(() {
                                       widget.chosenGame = newVal;
                                     });
@@ -258,6 +265,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                             EdgeInsets.fromLTRB(10, 0, 0, 0),
                                         child: IconButton(
                                           onPressed: () async {
+                                            /// Demande une image
                                             getImage();
                                           },
                                           icon: Icon(
@@ -274,6 +282,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                                             EdgeInsets.fromLTRB(10, 0, 0, 0),
                                         child: IconButton(
                                           onPressed: () async {
+                                            /// Supprime l'image du fil d'actualité choisie
                                             setState(() {
                                               postPic = null;
                                             });
@@ -299,6 +308,7 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                             children: [
                               IconButton(
                                 onPressed: () async {
+                                  /// Ferme le dialogue courant
                                   Navigator.pop(context);
                                 },
                                 icon: Icon(
@@ -310,38 +320,116 @@ class _AddPostPageWidgetState extends State<AddPostPageWidget> {
                               ),
                               IconButton(
                                 onPressed: () async {
-                                  final authorId = currentUserUid;
-                                  final authorName =
-                                      addPostPageUsersRecord.name;
-                                  final content = textController.text;
-                                  final game = widget.chosenGame;
-                                  final type = 0;
-                                  final authorPhotoUrl =
-                                      addPostPageUsersRecord.photoUrl;
-                                  final id = '';
-                                  final timestamp = getCurrentTimestamp;
-                                  final authorRef = widget.userRef;
-                                  final imageUrl = (postPic != null)
-                                      ? postPic
-                                      : widget.initImage;
+                                  /// Vérifie les entrées du fil d'actualité puis les envoie à la base de données
+                                  if (textController.text.isEmpty)
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          backgroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          title: Center(child: Text('Error')),
+                                          content: Text(
+                                            'You have not entered anything yet!',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          actions: <Widget>[
+                                            Column(
+                                              children: [
+                                                Center(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(0, 0, 15, 15),
+                                                    child: Container(
+                                                      width: 250,
+                                                      height: 1,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(24),
+                                                        color: Colors.grey[300],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          0, 0, 15, 0),
+                                                      child: Container(
+                                                        width: 107,
+                                                        height: 47,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(24),
+                                                          color:
+                                                              Color(0xffff4553),
+                                                        ),
+                                                        child: TextButton(
+                                                          child: Text(
+                                                            'Ok!',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15),
+                                                          ),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  else {
+                                    final authorId = currentUserUid;
+                                    final authorName =
+                                        addPostPageUsersRecord.name;
+                                    final content = textController.text;
+                                    final game = widget.chosenGame;
+                                    final type = 0;
+                                    final authorPhotoUrl =
+                                        addPostPageUsersRecord.photoUrl;
+                                    final id = '';
+                                    final timestamp = getCurrentTimestamp;
+                                    final authorRef = widget.userRef;
+                                    final imageUrl = (postPic != null)
+                                        ? postPic
+                                        : widget.initImage;
 
-                                  final feedRecordData = createFeedRecordData(
-                                    authorId: authorId,
-                                    authorName: authorName,
-                                    content: content,
-                                    game: game,
-                                    type: type,
-                                    authorPhotoUrl: authorPhotoUrl,
-                                    id: id,
-                                    timestamp: timestamp,
-                                    authorRef: authorRef,
-                                    imageUrl: imageUrl,
-                                  );
+                                    final feedRecordData = createFeedRecordData(
+                                      authorId: authorId,
+                                      authorName: authorName,
+                                      content: content,
+                                      game: game,
+                                      type: type,
+                                      authorPhotoUrl: authorPhotoUrl,
+                                      id: id,
+                                      timestamp: timestamp,
+                                      authorRef: authorRef,
+                                      imageUrl: imageUrl,
+                                    );
 
-                                  await FeedRecord.collection
-                                      .doc()
-                                      .set(feedRecordData);
-                                  Navigator.pop(context);
+                                    await FeedRecord.collection
+                                        .doc()
+                                        .set(feedRecordData);
+                                    Navigator.pop(context);
+                                  }
                                 },
                                 icon: Icon(
                                   Icons.send_outlined,

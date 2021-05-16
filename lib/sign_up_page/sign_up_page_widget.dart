@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -6,9 +13,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../login_page/login_page_widget.dart';
 import '../su1_page/su1_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPageWidget extends StatefulWidget {
   SignUpPageWidget({Key key}) : super(key: key);
@@ -39,17 +43,15 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
       backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
-         /* Align(
+          /* Align(
             alignment: Alignment(0, -1),
             child: Container(
               color: Color(0xFF313150),
             )
         ),*/
           WaveWidget(
-
             backgroundColor: Colors.deepPurpleAccent,
             config: CustomConfig(
-
               gradients: [
                 [Colors.red, Color(0xEEF44336)],
                 [Colors.red[800], Color(0x77E57373)],
@@ -62,14 +64,12 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
               gradientBegin: Alignment.bottomLeft,
               gradientEnd: Alignment.topRight,
             ),
-
             waveAmplitude: 0,
-
             size: Size(
-              double.infinity,200,
+              double.infinity,
+              200,
             ),
           ),
-
           Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -326,27 +326,37 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(44,40,0,20),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(44, 40, 0, 20),
                                   child: Row(
                                     children: [
                                       Container(
                                         width: 98,
                                         height: 2,
-                                        color: Color.fromRGBO(255, 255, 255, 110),
-                                      ),
-                                      SizedBox(width: 7,),
-                                      Text('OR SIGN UP WITH',style:GoogleFonts.getFont(
-                                        'Open Sans',
                                         color:
-                                        Color.fromRGBO(255, 255, 255, 110),
-                                        //FlutterFlowTheme.secondaryColor,
-                                        fontSize: 11,
-                                      ), ),
-                                      SizedBox(width: 7,),
+                                            Color.fromRGBO(255, 255, 255, 110),
+                                      ),
+                                      SizedBox(
+                                        width: 7,
+                                      ),
+                                      Text(
+                                        'OR SIGN UP WITH',
+                                        style: GoogleFonts.getFont(
+                                          'Open Sans',
+                                          color: Color.fromRGBO(
+                                              255, 255, 255, 110),
+                                          //FlutterFlowTheme.secondaryColor,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 7,
+                                      ),
                                       Container(
                                         width: 98,
                                         height: 2,
-                                        color: Color.fromRGBO(255, 255, 255, 110),
+                                        color:
+                                            Color.fromRGBO(255, 255, 255, 110),
                                       ),
                                     ],
                                   ),
@@ -483,7 +493,6 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
               )
             ],
           ),
-
         ],
       ),
     );

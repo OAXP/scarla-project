@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'dart:convert';
 import 'dart:math';
 

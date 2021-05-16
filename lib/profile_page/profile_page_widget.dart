@@ -1,19 +1,22 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:scarla/chat_page/chat_page_widget.dart';
 import 'package:scarla/flutter_flow/flutter_flow_util.dart';
-import 'package:scarla/util/transparent_route.dart';
 import 'package:scarla/home_page/widgets/post_widget.dart';
-import '../add_post_page/add_post_page_widget.dart';
+import 'package:scarla/util/transparent_route.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../rank_page/rank_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+/// Widget pour la page de profile des autres utilisateurs
 class ProfilePageWidget extends StatefulWidget {
   ProfilePageWidget({Key key, this.userRef}) : super(key: key);
 
@@ -33,7 +36,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   @override
   void initState() {
     super.initState();
-    if(widget.userRef == currentUserReference) {
+    if (widget.userRef == currentUserReference) {
       setState(() {
         nom = "None";
       });
@@ -61,15 +64,14 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
         }
       });
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
+    /// Fait la requête de l'utilisateur sélectionné
     return StreamBuilder<UsersRecord>(
       stream: UsersRecord.getDocument(widget.userRef),
       builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         }
@@ -93,30 +95,33 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                           ),
                         ),
                         if (profilePageUsersRecord.bgProfile != "")
-                        Stack(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.17,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFB7B7B7),
-                              ),
-                              child: CachedNetworkImage(
-                                imageUrl: profilePageUsersRecord.bgProfile,
+                          Stack(
+                            children: [
+                              Container(
                                 width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height * 1,
-                                fit: BoxFit.cover,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.17,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFB7B7B7),
+                                ),
+                                child: CachedNetworkImage(
+                                  imageUrl: profilePageUsersRecord.bgProfile,
+                                  width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 1,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.17,
-                              decoration: BoxDecoration(
-                                color: Color(0x81000000),
-                              ),
-                            )
-                          ],
-                        ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.17,
+                                decoration: BoxDecoration(
+                                  color: Color(0x81000000),
+                                ),
+                              )
+                            ],
+                          ),
                         Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -132,6 +137,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
+                                        /// Retourne à la page précédente
                                         Navigator.pop(context);
                                       },
                                       child: Icon(
@@ -146,6 +152,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       padding: EdgeInsets.fromLTRB(0, 0, 19, 0),
                                       child: InkWell(
                                         onTap: () async {
+                                          ///  Envoie vers une page de message avec l'utilisateur, à partir de son profile page
                                           final isGroupRecord =
                                               await queryGroupsRecord(
                                                   queryBuilder:
@@ -218,7 +225,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           } else {
                                             group = isGroupRecord.first;
                                           }
-
                                           await Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -336,245 +342,254 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 Divider(
                                   indent: 20,
                                   endIndent: 20,
-                                  color: Color(0x23F5F5F5),
+                                  color: Color(0x39F5F5F5),
+                                ),
+                                SizedBox(
+                                  height: 10,
                                 ),
                                 if (nom != 'None')
-                                FFButtonWidget(
-                                  onPressed: () async {
-                                    if (nom == 'Add as friend') {
-                                      final friendshipData = {
-                                        ...createFriendsRecordData(
-                                            status: 0,
-                                            timestamp: getCurrentTimestamp),
-                                        'friends': [
-                                          currentUserReference,
-                                          profilePageUsersRecord.reference
-                                        ]
-                                      };
+                                  FFButtonWidget(
+                                    onPressed: () async {
+                                      /// Actions pour ajouter l'ami ou l'enlever de ta liste d'amis
+                                      if (nom == 'Add as friend') {
+                                        final friendshipData = {
+                                          ...createFriendsRecordData(
+                                              status: 0,
+                                              timestamp: getCurrentTimestamp),
+                                          'friends': [
+                                            currentUserReference,
+                                            profilePageUsersRecord.reference
+                                          ]
+                                        };
 
-                                      await FriendsRecord.collection
-                                          .doc()
-                                          .set(friendshipData);
-                                      setState(() {
-                                        nom = 'Request Sent';
-                                      });
-                                    } else if (nom == 'Request Sent') {
-                                      queryFriendsRecord(
-                                          queryBuilder: (friendsRecord) =>
-                                              friendsRecord
-                                                  .where('friends', whereIn: [
-                                                [
-                                                  widget.userRef,
-                                                  currentUserReference
-                                                ],
-                                                [
-                                                  currentUserReference,
-                                                  widget.userRef
-                                                ]
-                                              ])).first.then((value) async {
-                                        if (value.isEmpty) {
-                                          setState(() {
-                                            nom = 'Add as friend';
-                                          });
-                                        } else {
-                                          await value.first.reference.delete();
-                                          setState(() {
-                                            nom = 'Add as friend';
-                                          });
-                                        }
-                                      });
-                                    } else if (nom == 'Accept request') {
-                                      queryFriendsRecord(
-                                          queryBuilder: (friendsRecord) =>
-                                              friendsRecord
-                                                  .where('friends', whereIn: [
-                                                [
-                                                  widget.userRef,
-                                                  currentUserReference
-                                                ],
-                                                [
-                                                  currentUserReference,
-                                                  widget.userRef
-                                                ]
-                                              ])).first.then((value) async {
-                                        if (value.isEmpty) {
-                                          setState(() {
-                                            nom = 'Add as friend';
-                                          });
-                                        } else {
-                                          final friendshipData = {
-                                            ...createFriendsRecordData(
-                                              status: 1,
-                                            )
-                                          };
+                                        await FriendsRecord.collection
+                                            .doc()
+                                            .set(friendshipData);
+                                        setState(() {
+                                          nom = 'Request Sent';
+                                        });
+                                      } else if (nom == 'Request Sent') {
+                                        queryFriendsRecord(
+                                            queryBuilder: (friendsRecord) =>
+                                                friendsRecord
+                                                    .where('friends', whereIn: [
+                                                  [
+                                                    widget.userRef,
+                                                    currentUserReference
+                                                  ],
+                                                  [
+                                                    currentUserReference,
+                                                    widget.userRef
+                                                  ]
+                                                ])).first.then((value) async {
+                                          if (value.isEmpty) {
+                                            setState(() {
+                                              nom = 'Add as friend';
+                                            });
+                                          } else {
+                                            await value.first.reference
+                                                .delete();
+                                            setState(() {
+                                              nom = 'Add as friend';
+                                            });
+                                          }
+                                        });
+                                      } else if (nom == 'Accept request') {
+                                        queryFriendsRecord(
+                                            queryBuilder: (friendsRecord) =>
+                                                friendsRecord
+                                                    .where('friends', whereIn: [
+                                                  [
+                                                    widget.userRef,
+                                                    currentUserReference
+                                                  ],
+                                                  [
+                                                    currentUserReference,
+                                                    widget.userRef
+                                                  ]
+                                                ])).first.then((value) async {
+                                          if (value.isEmpty) {
+                                            setState(() {
+                                              nom = 'Add as friend';
+                                            });
+                                          } else {
+                                            final friendshipData = {
+                                              ...createFriendsRecordData(
+                                                status: 1,
+                                              )
+                                            };
 
-                                          await value.first.reference
-                                              .update(friendshipData);
+                                            await value.first.reference
+                                                .update(friendshipData);
 
-                                          setState(() {
-                                            nom = "Friends";
-                                          });
-                                        }
-                                      });
-                                    } else if (nom == 'Friends') {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            backgroundColor: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            title:
-                                                Center(child: Text('Alert!')),
-                                            content: Text(
-                                                'Are you sure you want to remove this friend?'),
-                                            actions: <Widget>[
-                                              Column(
-                                                children: [
-                                                  Center(
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .fromLTRB(
-                                                          0, 0, 21, 15),
-                                                      child: Container(
-                                                        width: 250,
-                                                        height: 2,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(24),
-                                                          color:
-                                                              Colors.grey[300],
+                                            setState(() {
+                                              nom = "Friends";
+                                            });
+                                          }
+                                        });
+                                      } else if (nom == 'Friends') {
+                                        /// Montre dialogue qui demande si l'utilisateur est sûre d'enlever ce ami
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              backgroundColor: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              title:
+                                                  Center(child: Text('Alert!')),
+                                              content: Text(
+                                                  'Are you sure you want to remove this friend?'),
+                                              actions: <Widget>[
+                                                Column(
+                                                  children: [
+                                                    Center(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 0, 21, 15),
+                                                        child: Container(
+                                                          width: 250,
+                                                          height: 2,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24),
+                                                            color: Colors
+                                                                .grey[300],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .fromLTRB(
-                                                                0, 0, 12, 0),
-                                                        child: Container(
-                                                          width: 107,
-                                                          height: 47,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        24),
-                                                            color: Colors.grey,
-                                                          ),
-                                                          child: TextButton(
-                                                            child: Text(
-                                                              'Cancel',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
+                                                    Row(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  0, 0, 12, 0),
+                                                          child: Container(
+                                                            width: 107,
+                                                            height: 47,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          24),
+                                                              color:
+                                                                  Colors.grey,
                                                             ),
-                                                            onPressed: () {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            },
+                                                            child: TextButton(
+                                                              child: Text(
+                                                                'Cancel',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              onPressed: () {
+                                                                /// Annule la commande et envoie à la page précédente
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .fromLTRB(
-                                                                0, 0, 18, 0),
-                                                        child: Container(
-                                                          width: 107,
-                                                          height: 47,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        24),
-                                                            color: Color(
-                                                                0xffff4553),
-                                                          ),
-                                                          child: TextButton(
-                                                            child: Text(
-                                                              'Yes!',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  0, 0, 18, 0),
+                                                          child: Container(
+                                                            width: 107,
+                                                            height: 47,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          24),
+                                                              color: Color(
+                                                                  0xffff4553),
                                                             ),
-                                                            onPressed:
-                                                                () async {
-                                                              queryFriendsRecord(
-                                                                  queryBuilder: (friendsRecord) =>
-                                                                      friendsRecord.where(
-                                                                          'friends',
-                                                                          whereIn: [
-                                                                            [
-                                                                              widget.userRef,
-                                                                              currentUserReference
-                                                                            ],
-                                                                            [
-                                                                              currentUserReference,
-                                                                              widget.userRef
-                                                                            ]
-                                                                          ])).first.then(
-                                                                  (value) async {
-                                                                await value
-                                                                    .first
-                                                                    .reference
-                                                                    .delete();
-                                                              });
-                                                              setState(() {
-                                                                nom =
-                                                                    'Add as friend';
-                                                              });
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            },
+                                                            child: TextButton(
+                                                              child: Text(
+                                                                'Yes!',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                              onPressed:
+                                                                  () async {
+                                                                /// Enleve l'autre utilisateur de la liste d'amis et retourne à la page précédente
+                                                                queryFriendsRecord(
+                                                                    queryBuilder: (friendsRecord) =>
+                                                                        friendsRecord.where(
+                                                                            'friends',
+                                                                            whereIn: [
+                                                                              [
+                                                                                widget.userRef,
+                                                                                currentUserReference
+                                                                              ],
+                                                                              [
+                                                                                currentUserReference,
+                                                                                widget.userRef
+                                                                              ]
+                                                                            ])).first.then(
+                                                                    (value) async {
+                                                                  await value
+                                                                      .first
+                                                                      .reference
+                                                                      .delete();
+                                                                });
+                                                                setState(() {
+                                                                  nom =
+                                                                      'Add as friend';
+                                                                });
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          );
-                                        },
-                                      );
-
-                                      // TODO ici montrer dialogue pour remove friend
-                                    }
-                                  },
-                                  text: nom,
-                                  options: FFButtonOptions(
-                                    width: 130,
-                                    height: 40,
-                                    color: FlutterFlowTheme.secondaryColor,
-                                    textStyle:
-                                        FlutterFlowTheme.subtitle2.override(
-                                      fontFamily: 'Poppins',
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
+                                    text: nom,
+                                    options: FFButtonOptions(
+                                      width: 130,
+                                      height: 40,
+                                      color: FlutterFlowTheme.secondaryColor,
+                                      textStyle:
+                                          FlutterFlowTheme.subtitle2.override(
+                                        fontFamily: 'Poppins',
+                                      ),
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                      borderRadius: 12,
                                     ),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: 12,
                                   ),
-                                ),
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 12, 0, 3),
+                                      padding: EdgeInsets.fromLTRB(3, 12, 0, 3),
                                       child: Text(
                                         'Games',
                                         textAlign: TextAlign.center,
@@ -584,25 +599,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         ),
                                       ),
                                     ),
-                                    StreamBuilder<List<UsersRecord>>(
-                                      stream: queryUsersRecord(),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                              child:
-                                                  CircularProgressIndicator());
-                                        }
-                                        List<UsersRecord> rowUsersRecordList =
-                                            snapshot.data;
-                                        // Customize what your widget looks like with no query results.
-                                        if (snapshot.data.isEmpty) {
-                                          // return Container();
-                                          // For now, we'll just include some dummy data.
-                                          rowUsersRecordList =
-                                              createDummyUsersRecord(count: 4);
-                                        }
-                                        return Padding(
+                                    Padding(
                                           padding:
                                               EdgeInsets.fromLTRB(20, 2, 20, 2),
                                           child: Row(
@@ -621,6 +618,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                     10, 0, 0, 0),
                                                 child: InkWell(
                                                   onTap: () async {
+                                                    /// Envoie vers la page [RankPageWidget]
                                                     await Navigator.push(
                                                       context,
                                                       TransparentRoute(
@@ -638,125 +636,144 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                   },
                                                   child: Stack(
                                                     children: [
-                                                      // Container(
-                                                      //   width: 30,
-                                                      //   height: 30,
-                                                      //   clipBehavior:
-                                                      //       Clip.antiAlias,
-                                                      //   decoration: BoxDecoration(
-                                                      //     shape: BoxShape.circle,
-                                                      //   ),
-                                                      //   child: Image.asset(
-                                                      //     'assets/games/icons/${game}Icon.png',
-                                                      //     fit: BoxFit.contain,
-                                                      //   ),
-                                                      // ),
-
-                                                      if(game == "valorant")
+                                                      if (game == "valorant")
                                                         Container(
                                                           width: 30,
                                                           height: 30,
-                                                          clipBehavior: Clip.antiAlias,
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
                                                           decoration: BoxDecoration(
-                                                              shape: BoxShape.circle,
-                                                              color: Colors.black54,
-                                                              border:Border.all(color: Colors.white)
-                                                          ),
-
-
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color: Color(
+                                                                  0xffff4454),
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .black)),
                                                           child: Image.asset(
                                                             'assets/games/icons/valorantIcon.png',
-                                                            scale: 10,
-
+                                                            scale: 250,
                                                           ),
                                                         ),
-                                                      if(game == "mw")
+                                                      if (game == "mw")
                                                         Container(
                                                           width: 30,
                                                           height: 30,
-                                                          clipBehavior: Clip.antiAlias,
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
                                                           decoration: BoxDecoration(
-                                                              color: Colors.black54,
-                                                              shape: BoxShape.circle,
-                                                              border:Border.all(color: Colors.white)
-                                                          ),
+                                                              color: Colors
+                                                                  .black54,
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .black)),
                                                           child: Image.asset(
                                                             'assets/games/icons/mwIcon.png',
                                                             scale: 2.7,
                                                           ),
                                                         ),
-                                                      if(game == "lol")
+                                                      if (game == "lol")
                                                         Container(
                                                           width: 30,
                                                           height: 30,
-                                                          clipBehavior: Clip.antiAlias,
-                                                          decoration: BoxDecoration(
-                                                            shape: BoxShape.circle,
-                                                            gradient: LinearGradient(
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            border: Border.all(
+                                                                color: Colors
+                                                                    .black),
+                                                            gradient:
+                                                                LinearGradient(
                                                               colors: [
                                                                 color1,
                                                                 color2,
                                                               ],
-                                                              begin: Alignment.topCenter,
-                                                              end: Alignment.bottomCenter,
+                                                              begin: Alignment
+                                                                  .topCenter,
+                                                              end: Alignment
+                                                                  .bottomCenter,
                                                             ),
                                                           ),
                                                           child: Padding(
-                                                            padding: const EdgeInsets.only(left: 1,bottom:1),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 0.9,
+                                                                    bottom: 1),
                                                             child: Image.asset(
                                                               'assets/games/icons/lolIcon.png',
-                                                              scale: 19,
+                                                              scale: 21,
                                                             ),
                                                           ),
                                                         ),
-                                                      if(game == "ow")
+                                                      if (game == "ow")
                                                         Container(
                                                           width: 30,
                                                           height: 30,
-                                                          clipBehavior: Clip.antiAlias,
-                                                          decoration: BoxDecoration(
-                                                            shape: BoxShape.circle,
-                                                            color: Colors.grey[300],
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            border: Border.all(
+                                                                color: Colors
+                                                                    .black),
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            color: Colors
+                                                                .grey[300],
                                                           ),
                                                           child: Image.asset(
                                                             'assets/games/icons/owIcon.png',
                                                             scale: 50,
                                                           ),
                                                         ),
-                                                      if(game == "rl")
+                                                      if (game == "rl")
                                                         Container(
                                                           width: 30,
                                                           height: 30,
-                                                          clipBehavior: Clip.antiAlias,
-                                                          decoration: BoxDecoration(
-                                                            shape: BoxShape.circle,
-                                                            color: Color(0xff004ca3),
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            border: Border.all(
+                                                                color: Colors
+                                                                    .black),
+                                                            color: Color(
+                                                                0xff004ca3),
                                                           ),
                                                           child: Padding(
-                                                            padding: const EdgeInsets.only(left: 2,top:1),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 2,
+                                                                    top: 1),
                                                             child: Image.asset(
                                                               'assets/games/icons/rlIcon.png',
-                                                              scale:27,
+                                                              scale: 27,
                                                             ),
                                                           ),
                                                         ),
-
                                                     ],
                                                   ),
                                                 ),
                                               );
                                             }),
                                           ),
-                                        );
-                                      },
-                                    )
+                                        )
                                   ],
                                 ),
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 11, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(3, 11, 0, 4),
                                       child: Text(
                                         'Posts',
                                         textAlign: TextAlign.center,
@@ -766,6 +783,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         ),
                                       ),
                                     ),
+                                    /// Fait la requête des fils d'actualité postés par l'utilisateur sélectionné
                                     StreamBuilder<List<FeedRecord>>(
                                       stream: queryFeedRecord(
                                         queryBuilder: (feedRecord) => feedRecord
@@ -776,7 +794,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                 descending: true),
                                       ),
                                       builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
                                           return Center(
                                               child:
@@ -785,7 +802,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         List<FeedRecord>
                                             listViewFeedRecordList =
                                             snapshot.data;
-                                        // Customize what your widget looks like with no query results.
                                         if (listViewFeedRecordList.isEmpty) {
                                           return Center(
                                             child: CachedNetworkImage(

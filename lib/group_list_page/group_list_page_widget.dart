@@ -1,15 +1,15 @@
-import 'package:page_transition/page_transition.dart';
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:flutter/material.dart';
 import 'package:scarla/group_list_page/widgets/group_card_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../chat_page/chat_page_widget.dart';
 import '../create_group_page/create_group_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../groups_settings_page/groups_settings_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+/// Widget qui montre tous les groupes
 class GroupListPageWidget extends StatefulWidget {
   GroupListPageWidget({Key key}) : super(key: key);
 
@@ -44,6 +44,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                     ),
                     child: InkWell(
                       onTap: () async {
+                        /// Envoie vers la page de création d'un groupe
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -52,7 +53,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                         );
                       },
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                        padding: EdgeInsets.fromLTRB(5, 2, 6, 2),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -77,10 +78,13 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                   ),
                 ),
                 Expanded(
-                  child: StreamBuilder<List<GroupsRecord>>(
+                  child:
+                  /// Fait la requête des groupes dans lesquels se trouve l'utilisateur connecté
+                  StreamBuilder<List<GroupsRecord>>(
                     stream: queryGroupsRecord(
                       queryBuilder: (groupsRecord) => groupsRecord
-                          .where('members_id', arrayContains: currentUserUid).orderBy('last_message_timestamp', descending: true),
+                          .where('members_id', arrayContains: currentUserUid)
+                          .orderBy('last_message_timestamp', descending: true),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -115,7 +119,8 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                       return Padding(
                         padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                         child: ListView.builder(
-                          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                          physics: BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics()),
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
                           itemCount: listViewGroupsRecordList.length,
@@ -125,9 +130,8 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
                             final isLastGroup = (listViewIndex ==
                                 listViewGroupsRecordList.length - 1);
                             return GroupWidget(
-                              isLastGroup: isLastGroup,
-                              group: listViewGroupsRecord
-                            );
+                                isLastGroup: isLastGroup,
+                                group: listViewGroupsRecord);
                           },
                         ),
                       );

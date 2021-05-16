@@ -1,21 +1,25 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:imgur/imgur.dart' as imgur;
 import 'package:scarla/flutter_flow/upload_media.dart';
 
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:imgur/imgur.dart' as imgur;
 import '../main.dart';
 
+/// Widget de la page de création de groupe
 class CreateGroupPageWidget extends StatefulWidget {
   List<UsersRecord> selectedUsers;
+
   CreateGroupPageWidget({Key key, this.selectedUsers}) : super(key: key);
 
   @override
@@ -33,6 +37,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
     groupNameFieldController = TextEditingController();
   }
 
+  /// Lance la galerie de photos du téléphone pour prendre une image ou une vidéo
   Future getImage({bool isVideo = false}) async {
     ImagePicker imagePicker = ImagePicker();
     PickedFile pickedFile;
@@ -50,10 +55,10 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
           FlutterFlowTheme.isUploading = true;
         });
         final client =
-        imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
+            imgur.Imgur(imgur.Authentication.fromClientId('2a04555f27563dc'));
         await client.image
             .uploadImage(
-            imagePath: pickedFile.path, title: '*_*', description: '*_*')
+                imagePath: pickedFile.path, title: '*_*', description: '*_*')
             .then((image) {
           groupPic = image.link;
           setState(() {
@@ -66,7 +71,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget.selectedUsers == null) {
+    if (widget.selectedUsers == null) {
       widget.selectedUsers = List.empty(growable: true);
     }
 
@@ -106,7 +111,8 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                               padding: EdgeInsets.fromLTRB(12, 0, 0, 0),
                               child: InkWell(
                                 onTap: () async {
-                                  Navigator.pop(context);
+                                  /// Retourne à la page précédente en envoyant la liste des joueurs sélectionnés modifiée
+                                  Navigator.pop(context, widget.selectedUsers);
                                 },
                                 child: Icon(
                                   Icons.close,
@@ -123,80 +129,9 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                             ),
                             IconButton(
                               onPressed: () async {
-                                if(groupNameFieldController.text.isEmpty&& widget.selectedUsers.isEmpty){
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      backgroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(10.0),
-                                      ),
-                                      title: Center(child: Text('Alert!')),
-                                      content: Text(
-                                        'You have not given information yet!',),
-                                      actions: <Widget>[
-                                        Column(
-                                          children: [
-                                            Center(
-
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsets.fromLTRB(
-                                                    0, 0, 14, 15),
-                                                child: Container(
-                                                  width: 250,
-                                                  height: 1,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        24),
-                                                    color: Colors.grey[300],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .fromLTRB(0, 0, 18, 0),
-                                                  child: Container(
-                                                    width: 107,
-                                                    height: 47,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(24),
-                                                      color:
-                                                      Color(0xffff4553),
-                                                    ),
-                                                    child: TextButton(
-                                                      child: Text(
-                                                        'Ok!',
-                                                        style: TextStyle(
-                                                            color:
-                                                            Colors.white,
-                                                            fontSize: 15),
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-                                else if(groupNameFieldController.text.isEmpty){
+                                /// Vérifie les entrées et crée le groupe dans la base de données
+                                if (groupNameFieldController.text.isEmpty &&
+                                    widget.selectedUsers.isEmpty) {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -204,26 +139,28 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                         backgroundColor: Colors.white,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(10.0),
+                                              BorderRadius.circular(10.0),
                                         ),
                                         title: Center(child: Text('Alert!')),
                                         content: Text(
-                                            'You have not entered a group name yet!'),
+                                          'Invalid group.',
+                                          textAlign: TextAlign.center,
+                                        ),
                                         actions: <Widget>[
                                           Column(
                                             children: [
                                               Center(
                                                 child: Padding(
                                                   padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      0, 0, 22, 15),
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 0, 8, 15),
                                                   child: Container(
                                                     width: 250,
                                                     height: 1,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                          24),
+                                                          BorderRadius.circular(
+                                                              24),
                                                       color: Colors.grey[300],
                                                     ),
                                                   ),
@@ -231,26 +168,25 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                               ),
                                               Row(
                                                 children: [
-
                                                   Padding(
-                                                    padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        0, 0, 29, 0),
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(0, 0, 12, 0),
                                                     child: Container(
                                                       width: 107,
                                                       height: 47,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
-                                                        BorderRadius.circular(
-                                                            24),
-                                                        color: Color(0xffff4553),
+                                                            BorderRadius
+                                                                .circular(24),
+                                                        color:
+                                                            Color(0xffff4553),
                                                       ),
                                                       child: TextButton(
                                                         child: Text(
                                                           'Ok!',
                                                           style: TextStyle(
                                                               color:
-                                                              Colors.white,
+                                                                  Colors.white,
                                                               fontSize: 15),
                                                         ),
                                                         onPressed: () {
@@ -262,6 +198,73 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                                   ),
                                                 ],
                                               )
+                                            ],
+                                          )
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else if (groupNameFieldController
+                                    .text.isEmpty) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        backgroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        title: Center(child: Text('Alert!')),
+                                        content: Text(
+                                            'You have not entered a group name yet!'),
+                                        actions: <Widget>[
+                                          Column(
+                                            children: [
+                                              Center(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 0, 23, 15),
+                                                  child: Container(
+                                                    width: 250,
+                                                    height: 1,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24),
+                                                      color: Colors.grey[300],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 0, 26, 0),
+                                                child: Container(
+                                                  width: 107,
+                                                  height: 47,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            24),
+                                                    color: Color(0xffff4553),
+                                                  ),
+                                                  child: TextButton(
+                                                    child: Text(
+                                                      'Ok!',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 15),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
                                             ],
                                           )
                                         ],
@@ -280,12 +283,11 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                         ),
                                         title: Center(child: Text('Alert!')),
                                         content: Text(
-                                            'You have not added a member yet!'),
+                                            'You have not added a member yet.'),
                                         actions: <Widget>[
                                           Column(
                                             children: [
                                               Center(
-
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.fromLTRB(
@@ -340,20 +342,17 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                       );
                                     },
                                   );
-                                }
-
-                                else {
+                                } else {
                                   final gName = groupNameFieldController.text;
-                                  final gPhotoUrl =
-                                  (groupPic != null)
+                                  final gPhotoUrl = (groupPic != null)
                                       ? groupPic
                                       : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
                                   final lastMessage = '...';
 
-                                  List<String> membersId = List.empty(
-                                      growable: true);
-                                  for (UsersRecord user in widget
-                                      .selectedUsers) {
+                                  List<String> membersId =
+                                      List.empty(growable: true);
+                                  for (UsersRecord user
+                                      in widget.selectedUsers) {
                                     membersId.add(user.uid);
                                   }
                                   membersId.add(currentUserUid);
@@ -375,11 +374,10 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                   await Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          NavBarPage(
-                                              initialPage: 'GroupListPage'),
+                                      builder: (context) => NavBarPage(
+                                          initialPage: 'GroupListPage'),
                                     ),
-                                        (r) => false,
+                                    (r) => false,
                                   );
                                 }
                               },
@@ -402,6 +400,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                             alignment: Alignment(0, 0),
                             child: InkWell(
                               onTap: () {
+                                /// Demande une image
                                 getImage();
                               },
                               child: Container(
@@ -413,8 +412,9 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                   color: FlutterFlowTheme.tertiaryColor,
                                 ),
                                 child: CachedNetworkImage(
-                                  imageUrl:
-                                  (groupPic != null) ? groupPic : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                                  imageUrl: (groupPic != null)
+                                      ? groupPic
+                                      : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -460,9 +460,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                       child: TextFormField(
                         controller: groupNameFieldController,
                         obscureText: false,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(35)
-                        ],
+                        inputFormatters: [LengthLimitingTextInputFormatter(35)],
                         decoration: InputDecoration(
                           hintText: 'Group Name',
                           hintStyle: FlutterFlowTheme.bodyText2.override(
@@ -500,7 +498,10 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                    ), SizedBox(height: 8,),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
                     Divider(
                       height: 20,
                       indent: 20,
@@ -520,7 +521,9 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                         ),
                       ),
                     ),
-                    if ((widget.selectedUsers != null) ? widget.selectedUsers.isNotEmpty : false)
+                    if ((widget.selectedUsers != null)
+                        ? widget.selectedUsers.isNotEmpty
+                        : false)
                       Column(
                         children: [
                           Container(
@@ -535,7 +538,7 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                 itemCount: widget.selectedUsers.length,
                                 itemBuilder: (context, listViewIndex) {
                                   final listViewUsersRecord =
-                                  widget.selectedUsers[listViewIndex];
+                                      widget.selectedUsers[listViewIndex];
                                   return Padding(
                                     padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
                                     child: Card(
@@ -543,22 +546,27 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                       color: FlutterFlowTheme.tertiaryColor,
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           InkWell(
                                             onTap: () {
+                                              /// Enlève un utilisateur de la liste d'utilisateurs sélectionnés
                                               setState(() {
-                                                widget.selectedUsers.remove(listViewUsersRecord);
+                                                widget.selectedUsers.remove(
+                                                    listViewUsersRecord);
                                               });
                                             },
                                             child: Icon(
                                               Icons.remove_circle,
-                                              color: FlutterFlowTheme.secondaryColor,
+                                              color: FlutterFlowTheme
+                                                  .secondaryColor,
                                               size: 24,
                                             ),
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.fromLTRB(4, 0, 10, 0),
+                                            padding: EdgeInsets.fromLTRB(
+                                                4, 0, 10, 0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
@@ -571,16 +579,18 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                                   ),
                                                   child: CachedNetworkImage(
                                                     imageUrl:
-                                                    listViewUsersRecord.photoUrl,
+                                                        listViewUsersRecord
+                                                            .photoUrl,
                                                     fit: BoxFit.cover,
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding:
-                                                  EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      5, 0, 0, 0),
                                                   child: Text(
                                                     listViewUsersRecord.name,
-                                                    style: FlutterFlowTheme.bodyText1
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
                                                         .override(
                                                       fontFamily: 'Poppins',
                                                       color: Colors.white,
@@ -590,7 +600,8 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                                 ),
                                                 Text(
                                                   '#',
-                                                  style: FlutterFlowTheme.bodyText1
+                                                  style: FlutterFlowTheme
+                                                      .bodyText1
                                                       .override(
                                                     fontFamily: 'Poppins',
                                                     color: Color(0xFF838383),
@@ -599,7 +610,8 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                                 ),
                                                 Text(
                                                   listViewUsersRecord.tag,
-                                                  style: FlutterFlowTheme.bodyText1
+                                                  style: FlutterFlowTheme
+                                                      .bodyText1
                                                       .override(
                                                     fontFamily: 'Poppins',
                                                     color: Color(0xFF838383),
@@ -617,7 +629,6 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                               ),
                             ),
                           ),
-
                           Divider(
                             height: 5,
                             indent: 20,
@@ -631,7 +642,9 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                       height: 6,
                     ),
                     Expanded(
-                      child: StreamBuilder<List<FriendsRecord>>(
+                      child:
+                      /// Fait la requête des amis de l'utilisateur connecté
+                      StreamBuilder<List<FriendsRecord>>(
                         stream: queryFriendsRecord(
                           queryBuilder: (friendsRecord) => friendsRecord
                               .where('friends',
@@ -664,117 +677,134 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                 final listViewFriendsRecord =
                                     listViewFriendsRecordList[listViewIndex];
                                 final refToTake =
-                                listViewFriendsRecord.friends.first ==
-                                    currentUserReference
-                                    ? listViewFriendsRecord.friends.last
-                                    : listViewFriendsRecord.friends.first;
+                                    listViewFriendsRecord.friends.first ==
+                                            currentUserReference
+                                        ? listViewFriendsRecord.friends.last
+                                        : listViewFriendsRecord.friends.first;
+                                /// Prend le document de l'amitié dans la base de données
                                 return StreamBuilder<UsersRecord>(
-                                  stream: UsersRecord.getDocument(refToTake),
-                                  builder: (context, snapshot) {
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                          child: CircularProgressIndicator());
-                                    }
-                                    final userRecord = snapshot.data;
+                                    stream: UsersRecord.getDocument(refToTake),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                      final userRecord = snapshot.data;
 
-                                    return Card(
-                                      shape:RoundedRectangleBorder(
-
-                                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                                      ),
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: FlutterFlowTheme.title1Color,
-                                      child: Align(
-                                        alignment: Alignment(0, 0),
-                                        child: Padding(
-                                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Container(
-                                                    width: 80,
-                                                    height: 80,
-                                                    clipBehavior: Clip.antiAlias,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
+                                      return Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15)),
+                                        ),
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: FlutterFlowTheme.title1Color,
+                                        child: Align(
+                                          alignment: Alignment(0, 0),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Container(
+                                                      width: 80,
+                                                      height: 80,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: CachedNetworkImage(
+                                                        imageUrl:
+                                                            userRecord.photoUrl,
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl:
-                                                      userRecord.photoUrl,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: EdgeInsets.fromLTRB(
-                                                        10, 0, 0, 0),
-                                                    child: Row(
-                                                      mainAxisSize: MainAxisSize.min,
-                                                      children: [
-                                                        Text(
-                                                          userRecord.name,
-                                                          textAlign:
-                                                              TextAlign.justify,
-                                                          style: FlutterFlowTheme
-                                                              .subtitle2
-                                                              .override(
-                                                            fontFamily: 'Poppins',
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.fromLTRB(
+                                                              10, 0, 0, 0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Text(
+                                                            userRecord.name,
+                                                            textAlign: TextAlign
+                                                                .justify,
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .subtitle2
+                                                                    .override(
+                                                              fontFamily:
+                                                                  'Poppins',
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          '#',
-                                                          textAlign:
-                                                              TextAlign.justify,
-                                                          style: FlutterFlowTheme
-                                                              .bodyText2
-                                                              .override(
-                                                            fontFamily: 'Poppins',
-                                                            fontSize: 16
+                                                          Text(
+                                                            '#',
+                                                            textAlign: TextAlign
+                                                                .justify,
+                                                            style: FlutterFlowTheme
+                                                                .bodyText2
+                                                                .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontSize:
+                                                                        16),
                                                           ),
-                                                        ),
-                                                        Text(
-                                                          userRecord.tag,
-                                                          textAlign: TextAlign.start,
-                                                          style: FlutterFlowTheme
-                                                              .bodyText2
-                                                              .override(
-                                                            fontFamily: 'Poppins',
-                                                              fontSize: 16
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                              IconButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    if(!widget.selectedUsers.contains(userRecord)) {
-                                                      widget.selectedUsers.add(userRecord);
-                                                    }
-                                                  });
-                                                },
-                                                icon: Icon(
-                                                  Icons.add_circle_outline,
-                                                  color: FlutterFlowTheme.subtitle2Color,
-                                                  size: 30,
+                                                          Text(
+                                                            userRecord.tag,
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            style: FlutterFlowTheme
+                                                                .bodyText2
+                                                                .override(
+                                                                    fontFamily:
+                                                                        'Poppins',
+                                                                    fontSize:
+                                                                        16),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
-                                                iconSize: 30,
-                                              )
-                                            ],
+                                                IconButton(
+                                                  onPressed: () {
+                                                    /// Ajoute l'amitié à la liste des utilisateurs sélectionnés
+                                                    setState(() {
+                                                      if (!widget.selectedUsers
+                                                          .contains(
+                                                              userRecord)) {
+                                                        widget.selectedUsers
+                                                            .add(userRecord);
+                                                      }
+                                                    });
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.add_circle_outline,
+                                                    color: FlutterFlowTheme
+                                                        .subtitle2Color,
+                                                    size: 30,
+                                                  ),
+                                                  iconSize: 30,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  }
-                                );
+                                      );
+                                    });
                               },
                             ),
                           );

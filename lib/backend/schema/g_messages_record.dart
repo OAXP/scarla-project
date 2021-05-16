@@ -1,6 +1,9 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'schema_util.dart';
@@ -8,6 +11,9 @@ import 'serializers.dart';
 
 part 'g_messages_record.g.dart';
 
+/// Classe de la collection [GMessagesRecord] dans la base de données Firebase
+///
+/// Contient tous les champs de la collection [GMessagesRecord]
 abstract class GMessagesRecord
     implements Built<GMessagesRecord, GMessagesRecordBuilder> {
   static Serializer<GMessagesRecord> get serializer =>
@@ -51,6 +57,7 @@ abstract class GMessagesRecord
       .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
   GMessagesRecord._();
+
   factory GMessagesRecord([void Function(GMessagesRecordBuilder) updates]) =
       _$GMessagesRecord;
 }

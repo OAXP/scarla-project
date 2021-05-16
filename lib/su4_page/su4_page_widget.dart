@@ -1,4 +1,13 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:imgur/imgur.dart' as imgur;
 import 'package:scarla/flutter_flow/upload_media.dart';
 import 'package:scarla/rank_page/rank_page_widget.dart';
 import 'package:scarla/util/transparent_route.dart';
@@ -8,13 +17,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
-import '../youtube_player_page/youtube_player_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:imgur/imgur.dart' as imgur;
 
 class Su4PageWidget extends StatefulWidget {
   Su4PageWidget(
@@ -375,7 +377,8 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                             rl: 1,
                           );
 
-                          final rankRef = GamesRanksRecord.collection.doc(currentUserUid);
+                          final rankRef =
+                              GamesRanksRecord.collection.doc(currentUserUid);
                           await rankRef.set(gameRankData);
 
                           final usersRecordData = {

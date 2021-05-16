@@ -1,5 +1,10 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:scarla/add_post_page/add_post_page_widget.dart';
 import 'package:scarla/auth/auth_util.dart';
 import 'package:scarla/backend/backend.dart';
@@ -7,6 +12,7 @@ import 'package:scarla/flutter_flow/flutter_flow_theme.dart';
 import 'package:scarla/profile_page/profile_page_widget.dart';
 import 'package:scarla/util/transparent_route.dart';
 
+/// Widget pour faire une publication
 class PostWidget extends StatelessWidget {
   const PostWidget({Key key, this.isLastPost, this.postRecord})
       : super(key: key);
@@ -48,6 +54,7 @@ class PostWidget extends StatelessWidget {
                           highlightColor: Colors.transparent,
                           splashColor: Colors.transparent,
                           onTap: () async {
+                            /// Envoie vers la page de profile de l'utilisateur
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -74,6 +81,7 @@ class PostWidget extends StatelessWidget {
                             highlightColor: Colors.transparent,
                             splashColor: Colors.transparent,
                             onTap: () async {
+                              /// Envoie vers la page de profile de l'utilisateur
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -91,7 +99,8 @@ class PostWidget extends StatelessWidget {
                                   fontFamily: 'Poppins',
                                 ),
                               ),
-                            )),
+                            )
+                        ),
                       ],
                     ),
                   ),
@@ -104,7 +113,8 @@ class PostWidget extends StatelessWidget {
                             backgroundColor: Colors.transparent,
                             builder: (BuildContext context) {
                               return Padding(
-                                padding:  const EdgeInsets.fromLTRB(10, 0, 10, 25),
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 0, 10, 25),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -114,49 +124,66 @@ class PostWidget extends StatelessWidget {
                                       color: Colors.grey,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 0, 15, 0),
                                       child: Container(
                                         clipBehavior: Clip.hardEdge,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                            bottomLeft: Radius.circular(15),
+                                              topLeft: Radius.circular(15),
+                                              topRight: Radius.circular(15),
+                                              bottomLeft: Radius.circular(15),
                                               bottomRight: Radius.circular(15),
                                             ),
-                                            color: FlutterFlowTheme.title1Color
-                                        ),
+                                            color:
+                                                FlutterFlowTheme.title1Color),
                                         child: Column(
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      10, 15, 10, 15),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.tertiaryColor,
-                                                  borderRadius: BorderRadius.circular(15),
+                                                  color: FlutterFlowTheme
+                                                      .tertiaryColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
                                                 ),
                                                 child: Column(
-                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   children: [
-                                                    if(postRecord.authorId == currentUserUid)
-                                                    InkWell(
-                                                      onTap: () async {
-                                                        await postRecord.reference.delete();
-                                                      },
-                                                      child: Container(
-                                                        height: 40,
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Delete",
-                                                            style: FlutterFlowTheme.bodyText1.override(
-                                                              color: Colors.red,
-                                                              fontFamily: 'Poppins',
-                                                              fontSize: 16,
+                                                    if (postRecord.authorId ==
+                                                        currentUserUid)
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          /// Ça enlève le post si c'est celui de l'utilisateur
+                                                          Navigator.pop(
+                                                              context);
+                                                          await postRecord
+                                                              .reference
+                                                              .delete();
+                                                        },
+                                                        child: Container(
+                                                          height: 40,
+                                                          child: Center(
+                                                            child: Text(
+                                                              "Delete",
+                                                              style:
+                                                                  FlutterFlowTheme
+                                                                      .bodyText1
+                                                                      .override(
+                                                                color:
+                                                                    Colors.red,
+                                                                fontFamily:
+                                                                    'Poppins',
+                                                                fontSize: 16,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
                                                     Divider(
                                                       height: 0,
                                                       indent: 0,
@@ -165,15 +192,24 @@ class PostWidget extends StatelessWidget {
                                                     ),
                                                     InkWell(
                                                       onTap: () async {
+                                                        /// Envoie vers la page de [AddPostPageWidget] pour repost
                                                         Navigator.pop(context);
                                                         await Navigator.push(
                                                           context,
                                                           TransparentRoute(
-                                                            builder: (context) => AddPostPageWidget(
-                                                              userRef: currentUserReference,
-                                                              initValue: postRecord.content,
-                                                              initImage: postRecord.imageUrl,
-                                                              chosenGame: postRecord.game,
+                                                            builder: (context) =>
+                                                                AddPostPageWidget(
+                                                              userRef:
+                                                                  currentUserReference,
+                                                              initValue:
+                                                                  postRecord
+                                                                      .content,
+                                                              initImage:
+                                                                  postRecord
+                                                                      .imageUrl,
+                                                              chosenGame:
+                                                                  postRecord
+                                                                      .game,
                                                             ),
                                                           ),
                                                         );
@@ -183,35 +219,35 @@ class PostWidget extends StatelessWidget {
                                                         child: Center(
                                                           child: Text(
                                                             "Repost",
-                                                            style: FlutterFlowTheme.bodyText1.override(
-                                                              fontFamily: 'Poppins',
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .bodyText1
+                                                                    .override(
+                                                              fontFamily:
+                                                                  'Poppins',
                                                               fontSize: 16,
                                                             ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                    // Divider(
-                                                    //   height: 0,
-                                                    //   indent: 0,
-                                                    //   endIndent: 0,
-                                                    //   color: Color(0x23F5F5F5),
-                                                    // ),
                                                   ],
                                                 ),
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 25),
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(10, 5, 10, 25),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color:
-                                                      FlutterFlowTheme.tertiaryColor,
+                                                  color: FlutterFlowTheme
+                                                      .tertiaryColor,
                                                   borderRadius:
                                                       BorderRadius.circular(15),
                                                 ),
                                                 child: InkWell(
                                                   onTap: () {
+                                                    /// Envoie à la page précédente
                                                     Navigator.pop(context);
                                                   },
                                                   child: Container(
@@ -290,6 +326,7 @@ class PostWidget extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () async {
+                    /// Envoie vers la page [AddPostPageWidget] pour repost
                     await Navigator.push(
                       context,
                       TransparentRoute(
@@ -303,9 +340,9 @@ class PostWidget extends StatelessWidget {
                     );
                   },
                   icon: Icon(
-                    Icons.repeat,
+                    MaterialCommunityIcons.twitter_retweet,
                     color: Color(0xFF444771),
-                    size: 20,
+                    size: 24,
                   ),
                   iconSize: 20,
                 )

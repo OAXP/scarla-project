@@ -1,9 +1,14 @@
-import 'package:flutter/material.dart';
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
 import 'package:chewie/chewie.dart';
+import 'package:flutter/material.dart';
 import 'package:scarla/chat_page/widgets/scarla_video_controls.dart';
 import 'package:scarla/flutter_flow/flutter_flow_theme.dart';
 import 'package:video_player/video_player.dart';
 
+/// Widget pour les vidéos
 class ScarlaVideoPlayer extends StatefulWidget {
   final VideoPlayerController videoPlayerController;
   final bool looping;
@@ -47,8 +52,8 @@ class _VideoPlayerWidgetState extends State<ScarlaVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-
-    if(widget.videoPlayerController.value.isInitialized || _chewieController != null) {
+    if (widget.videoPlayerController.value.isInitialized ||
+        _chewieController != null) {
       final vidControl = _chewieController.videoPlayerController;
       double h = vidControl.value.size.height;
       double w = vidControl.value.size.width;
@@ -88,7 +93,7 @@ class _VideoPlayerWidgetState extends State<ScarlaVideoPlayer> {
 
   @override
   void dispose() {
-    if(_chewieController.isPlaying) {
+    if (_chewieController.isPlaying) {
       _chewieController.pause();
       widget.videoPlayerController.pause();
     }

@@ -1,16 +1,18 @@
+/*
+ * Copyright (c) 2021. Scarla
+ */
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:scarla/home_page/widgets/post_widget.dart';
 import 'package:scarla/util/transparent_route.dart';
 import 'package:selectable_circle/selectable_circle.dart';
-
 import '../add_post_page/add_post_page_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../profile_page/profile_page_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:scarla/home_page/widgets/post_widget.dart';
 
+/// Widget pour voir la page home avec tous les publications
 class HomePageWidget extends StatefulWidget {
   HomePageWidget({Key key}) : super(key: key);
 
@@ -58,14 +60,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
               children: <Widget>[
                 SizedBox(height: 20),
                 SelectableCircle(
-                  color: Colors.white12,
-                  selectedColor: Colors.red,
+                  color: Color(0xFF5B54C2),
+                  selectedColor: Color(0xFF5B54C2),
                   width: 80.0,
                   isSelected: isSelected[5],
-                  borderColor: Colors.deepPurpleAccent,
+                  borderColor: Colors.black,
                   selectedBorderColor: Colors.green,
                   selectMode: SelectMode.simple,
                   onTap: () {
+                    /// Ça te montre les publications de tous les jeux
                     setState(() {
                       if (!isSelected[5]) {
                         if (!isSelected.contains(true)) {}
@@ -73,45 +76,55 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         isSelected[5] = true;
                         games = ['valorant', 'lol', 'ow', 'rl', 'mw'];
                       }
-                      /*else{
-
-                        isSelected.fillRange(0, isSelected.length, false);
-
-
-                      }*/
                     });
                   },
-                  child: Text('All'),
+                  child: Text(
+                    'All',
+                    style: FlutterFlowTheme.subtitle2.override(
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
                 ),
                 SizedBox(height: 30),
                 SelectableCircle(
-                    width: 80.0,
-                    isSelected: isSelected[0],
-                    borderColor: Colors.deepPurpleAccent,
-                    selectedBorderColor: Colors.green,
-                    color: Color(0xffff4654),
-                    selectedColor: Colors.green,
-                    selectMode: SelectMode.simple,
-                    onTap: () {
-                      setState(() {
-                        if (!isSelected[0]) {
-                          if (!isSelected.contains(true)) {}
-                          isSelected.fillRange(0, isSelected.length, false);
-                          isSelected[0] = true;
-                          games = ['valorant'];
-                        }
-                        /*else{
-
-                          isSelected.fillRange(0, isSelected.length, false);
-
-
-                        }*/
-                      });
-                    },
-                    child: CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/games/icons/valorantIcon.png'),
-                        maxRadius: 28.5)),
+                  width: 80.0,
+                  isSelected: isSelected[0],
+                  borderColor: Colors.black,
+                  selectedBorderColor: Colors.green,
+                  color: Color(0xffff4654),
+                  selectedColor: Colors.green,
+                  selectMode: SelectMode.simple,
+                  onTap: () {
+                    /// Ça te montre seulement les publications du jeu Valorant
+                    setState(() {
+                      if (!isSelected[0]) {
+                        if (!isSelected.contains(true)) {}
+                        isSelected.fillRange(0, isSelected.length, false);
+                        isSelected[0] = true;
+                        games = ['valorant'];
+                      }
+                    });
+                  },
+                  child: CircleAvatar(
+                    maxRadius: 28.5,
+                    backgroundColor: Color(0xffff4454),
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(1, 4, 0, 0),
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: Color(0xffff4454),
+                        image: DecorationImage(
+                          image: ExactAssetImage(
+                              'assets/games/icons/valorantIcon.png'
+                          ),
+                          scale: 120,
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 30),
                 SelectableCircle(
                     selectMode: SelectMode.simple,
@@ -119,9 +132,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     width: 80.0,
                     color: Colors.grey[900],
                     isSelected: isSelected[1],
-                    borderColor: Colors.red,
+                    borderColor: Colors.black,
                     selectedBorderColor: Colors.green,
                     onTap: () {
+                      /// Ça te montre seulement les publications du jeu Modern Warfare
                       setState(() {
                         if (!isSelected[1]) {
                           if (!isSelected.contains(true)) {}
@@ -129,15 +143,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           isSelected[1] = true;
                           games = ['mw'];
                         }
-                        /*else{
-
-
-
-                          isSelected.fillRange(0, isSelected.length, false);
-
-
-
-                        }*/
                       });
                     },
                     child: CircleAvatar(
@@ -149,13 +154,13 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: ExactAssetImage(
-                                'assets/games/icons/mwIcon.png'),
+                                'assets/games/icons/mwIcon.png'
+                            ),
                             scale: 2.5,
                           ),
                           shape: BoxShape.circle,
                         ),
                       ),
-                      //backgroundImage:AssetImage('assets/images/mwIcon.png'),maxRadius: 26,backgroundColor: Colors.grey[900],foregroundColor: Colors.red,
                     )),
                 SizedBox(height: 30),
                 SelectableCircle(
@@ -163,9 +168,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     selectMode: SelectMode.simple,
                     color: Color(0xff0a2f39),
                     isSelected: isSelected[2],
-                    borderColor: Colors.red,
+                    borderColor: Colors.black,
                     selectedBorderColor: Colors.green,
                     onTap: () {
+                      /// Ça te montre seulement les publications du jeu League of Legends
                       setState(() {
                         if (!isSelected[2]) {
                           if (!isSelected.contains(true)) {}
@@ -173,26 +179,19 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           isSelected[2] = true;
                           games = ['lol'];
                         }
-                        /*else{
-
-
-
-                          isSelected.fillRange(0, isSelected.length, false);
-
-
-                        }*/
                       });
                     },
                     child: CircleAvatar(
                       maxRadius: 28.5,
-                      //backgroundImage:AssetImage('assets/images/lolIcon.png'),
                       child: Container(
                         width: 150,
                         height: 150,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: ExactAssetImage(
-                                  'assets/games/icons/lolIcon.png'),
+                                  'assets/games/icons/lolIcon.png'
+                              ),
+                              alignment: Alignment(0.2, -0.18),
                               scale: 11),
                           shape: BoxShape.circle,
                           gradient: LinearGradient(
@@ -205,17 +204,17 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           ),
                         ),
                       ),
-                      //backgroundImage:AssetImage('assets/images/lolIcon.png'),maxRadius: 25,backgroundColor: Color(0xff0a2f39),
                     )),
                 SizedBox(height: 30),
                 SelectableCircle(
                   color: Color(0xff004ca3),
                   width: 80.0,
                   isSelected: isSelected[3],
-                  borderColor: Colors.deepPurpleAccent,
+                  borderColor: Colors.black,
                   selectedBorderColor: Colors.green,
                   selectMode: SelectMode.simple,
                   onTap: () {
+                    /// Ça te montre seulement les publications du jeu Rocket League
                     setState(() {
                       if (!isSelected[3]) {
                         if (!isSelected.contains(true)) {}
@@ -223,12 +222,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         isSelected[3] = true;
                         games = ['rl'];
                       }
-                      /*else{
-
-                        isSelected.fillRange(0, isSelected.length, false);
-
-
-                      }*/
                     });
                   },
                   child: CircleAvatar(
@@ -248,17 +241,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         shape: BoxShape.circle,
                       ),
                     ),
-                  ), /* CircleAvatar(backgroundImage:AssetImage('assets/images/rlIcon.png'),radius: 20,backgroundColor: Color(0xff004ca3),)*/
+                  ),
                 ),
                 SizedBox(height: 30),
                 SelectableCircle(
                   color: Colors.grey[350],
                   width: 80.0,
                   isSelected: isSelected[4],
-                  borderColor: Colors.red,
+                  borderColor: Colors.black,
                   selectMode: SelectMode.simple,
                   selectedBorderColor: Colors.green,
                   onTap: () {
+                    /// Ça te montre seulement les publications du jeu Overwatch
                     setState(() {
                       if (!isSelected[4]) {
                         if (!isSelected.contains(true)) {}
@@ -266,13 +260,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         isSelected[4] = true;
                         games = ['ow'];
                       }
-                      /*else{
-
-
-
-                        isSelected.fillRange(0, isSelected.length, false);
-
-                      }*/
                     });
                   },
                   child: CircleAvatar(
@@ -324,6 +311,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                     ),
                     child: InkWell(
                       onTap: () async {
+                        /// Envoie vers la page de [AddPostPageWidget] pour faire une publication
                         await Navigator.push(
                           context,
                           TransparentRoute(
@@ -336,7 +324,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         );
                       },
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                        padding: EdgeInsets.fromLTRB(5, 2, 8, 2),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -361,7 +349,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   ),
                 ),
                 Expanded(
-                  child: StreamBuilder<List<FeedRecord>>(
+                  child:
+                  /// Fait la requête des fils d'actualité du jeu demandé
+                  StreamBuilder<List<FeedRecord>>(
                     stream: queryFeedRecord(
                       queryBuilder: (feedRecord) => feedRecord
                           .orderBy('timestamp', descending: true)
@@ -372,8 +362,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       if (!snapshot.hasData) {
                         return Center(child: CircularProgressIndicator());
                       }
-                      List<FeedRecord> listViewFeedRecordList =
-                          snapshot.data;
+                      List<FeedRecord> listViewFeedRecordList = snapshot.data;
                       // Customize what your widget looks like with no query results.
                       if (listViewFeedRecordList.isEmpty) {
                         return Center(
@@ -386,232 +375,20 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         );
                       }
                       return ListView.builder(
-                        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                        physics: BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewFeedRecordList.length,
                         itemBuilder: (context, listViewIndex) {
                           final listViewFeedRecord =
                               listViewFeedRecordList[listViewIndex];
-                          final isLastPost = (listViewIndex == listViewFeedRecordList.length - 1);
+                          final isLastPost = (listViewIndex ==
+                              listViewFeedRecordList.length - 1);
                           return PostWidget(
                             isLastPost: isLastPost,
                             postRecord: listViewFeedRecord,
                           );
-                          /*return Padding(
-                            padding: EdgeInsets.fromLTRB(
-                                0,
-                                5,
-                                0,
-                                isLastPost
-                                    ? 110
-                                    : 0),
-                            child: Card(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: FlutterFlowTheme.tertiaryColor,
-                              elevation: 5,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0),
-                              ),
-                              child: ListView(
-                                padding: EdgeInsets.zero,
-                                primary: false,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(10, 2, 3, 2),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(0x00EEEEEE),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize:
-                                                MainAxisSize.max,
-                                            children: [
-                                              InkWell(
-                                                highlightColor:Colors.transparent,
-                                                splashColor: Colors.transparent,
-
-                                                onTap: () async {
-                                                  await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ProfilePageWidget(
-                                                        userRef:
-                                                            listViewFeedRecord
-                                                                .authorRef,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                                child:
-
-                                                Container(
-                                                  width: 30,
-                                                  height: 30,
-                                                  clipBehavior:
-                                                      Clip.antiAlias,
-                                                  decoration:
-                                                      BoxDecoration(
-                                                    shape:
-                                                        BoxShape.circle,
-                                                  ),
-                                                  child:
-                                                      CachedNetworkImage(
-                                                    imageUrl:
-                                                        listViewFeedRecord
-                                                            .authorPhotoUrl,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              InkWell(
-                                              highlightColor:Colors.transparent,
-                                              splashColor: Colors.transparent,
-                                              onTap: () async {
-
-                                                    await Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ProfilePageWidget(
-                                                              userRef:
-                                                              listViewFeedRecord
-                                                                  .authorRef,
-                                                            ),
-                                                      ),
-                                                    );
-                                                  },
-                                             child: Padding(
-                                                padding:
-                                                    EdgeInsets.fromLTRB(
-                                                        6, 0, 0, 0),
-                                                child: Text(
-                                                  listViewFeedRecord
-                                                      .authorName,
-                                                  style: FlutterFlowTheme
-                                                      .bodyText1
-                                                      .override(
-                                                    fontFamily: 'Poppins',
-                                                  ),
-                                                ),
-                                              )
-                                              ),],
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(0, 0),
-                                          child: IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.keyboard_control,
-                                              color: Colors.white,
-                                              size: 15,
-                                            ),
-                                            iconSize: 15,
-                                          ),
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(5, 0, 5, 3),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                        maxWidth: 300,
-                                        maxHeight: 100,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Color(0x00EEEEEE),
-                                      ),
-                                      child: Text(
-                                        listViewFeedRecord.content,
-                                        style: FlutterFlowTheme.bodyText2
-                                            .override(
-                                          fontFamily: 'Poppins',
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: double.infinity,
-                                    height: (listViewFeedRecord.imageUrl
-                                                .trim() ==
-                                            "")
-                                        ? 0
-                                        : 200,
-                                    decoration: BoxDecoration(
-                                      color: Color(0x00EEEEEE),
-                                    ),
-                                    child: (listViewFeedRecord.imageUrl
-                                                .trim() ==
-                                            "")
-                                        ? Container()
-                                        : CachedNetworkImage(
-                                            imageUrl: listViewFeedRecord
-                                                .imageUrl,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                1,
-                                            fit: BoxFit.cover,
-                                          ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () async {
-                                          await Navigator.push(
-                                            context,
-                                            TransparentRoute(
-                                              builder: (context) =>
-                                                  AddPostPageWidget(
-                                                userRef:
-                                                    currentUserReference,
-                                                initValue:
-                                                    listViewFeedRecord
-                                                        .content,
-                                                initImage:
-                                                    listViewFeedRecord
-                                                        .imageUrl,
-                                                chosenGame:
-                                                    listViewFeedRecord
-                                                        .game,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        icon: Icon(
-                                          Icons.repeat,
-                                          color: Color(0xFF444771),
-                                          size: 20,
-                                        ),
-                                        iconSize: 20,
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          );*/
                         },
                       );
                     },
