@@ -9,12 +9,21 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:scarla/chat_page/chat_page_widget.dart';
 import 'package:scarla/flutter_flow/flutter_flow_util.dart';
 import 'package:scarla/home_page/widgets/post_widget.dart';
+<<<<<<< HEAD
+
+=======
 import 'package:scarla/util/transparent_route.dart';
+>>>>>>> origin/flutterflow
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+<<<<<<< HEAD
+import '../my_profile_page/widgets/games_list_profile_widget.dart';
+
+=======
 import '../rank_page/rank_page_widget.dart';
+>>>>>>> origin/flutterflow
 
 /// Widget pour la page de profile des autres utilisateurs
 class ProfilePageWidget extends StatefulWidget {
@@ -30,8 +39,6 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String nom = 'Add as friend';
   bool isRequested;
-  Color color1 = Color(0xff0b323e);
-  Color color2 = Color(0xff010b15);
 
   @override
   void initState() {
@@ -193,7 +200,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                 lastMessage: lastMessage,
                                                 lastMessageTimestamp:
                                                     getCurrentTimestamp,
-                                              ),
+                                                host: currentUserReference,
+                                            ),
                                               'members_id': [
                                                 profilePageUsersRecord.uid,
                                                 currentUserUid
@@ -602,6 +610,12 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     Padding(
                                           padding:
                                               EdgeInsets.fromLTRB(20, 2, 20, 2),
+<<<<<<< HEAD
+                                          child: GamesListProfileWidget(
+                                            selectedGames: profilePageUsersRecord.selectedGames.asList(),
+                                            userName: profilePageUsersRecord.name,
+                                            userRef: widget.userRef,
+=======
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -765,6 +779,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                 ),
                                               );
                                             }),
+>>>>>>> origin/flutterflow
                                           ),
                                         )
                                   ],

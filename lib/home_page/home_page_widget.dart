@@ -294,14 +294,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(5, 0, 0, 2),
+                  padding: EdgeInsets.fromLTRB(5, 0, 0, 4),
                   child: Card(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     color: FlutterFlowTheme.tertiaryColor,

@@ -4,6 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+<<<<<<< HEAD
+import 'package:page_transition/page_transition.dart';
+=======
+>>>>>>> origin/flutterflow
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 import '../auth/auth_util.dart';
@@ -43,17 +47,21 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                 color: Color(0xFF313150),
               )),
           WaveWidget(
+<<<<<<< HEAD
+            backgroundColor: Color(0xD3F44336),
+=======
             backgroundColor: Colors.deepPurpleAccent,
+>>>>>>> origin/flutterflow
             config: CustomConfig(
               gradients: [
-                [Colors.red, Color(0xEEF44336)],
-                [Colors.red[800], Color(0x77E57373)],
-                [Colors.orange, Color(0x66FF9800)],
-                [Color(0xFF313150), Color(0xFF313150)]
+                [Color(0xffFF7C4DFF), Color(0xEEF44336)],
+                [Color(0x99644FA1),Color(0xffFF7C4DFF)],
+                [Color(0xE85A27B6),Color(0xffFF7C4DFF)],
+                [Color(0xFF313150), Color(0xFF313150)],
               ],
               durations: [35000, 19440, 10800, 6000],
-              heightPercentages: [0.30, 0.40, 0.56, 0.70],
-              blur: MaskFilter.blur(BlurStyle.solid, 0),
+              heightPercentages: [0.20, 0.40, 0.56, 0.70],
+              blur: MaskFilter.blur(BlurStyle.solid, 5),
               gradientBegin: Alignment.bottomLeft,
               gradientEnd: Alignment.topRight,
             ),
@@ -225,11 +233,11 @@ class _ResetPassPageWidgetState extends State<ResetPassPageWidget> {
                                           /// Envoie vers la page [LoginPageWidget]
                                           await Navigator.pushAndRemoveUntil(
                                             context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  LoginPageWidget(),
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: LoginPageWidget(),
                                             ),
-                                            (r) => false,
+                                                (r) => false,
                                           );
                                         },
                                         child: Text(

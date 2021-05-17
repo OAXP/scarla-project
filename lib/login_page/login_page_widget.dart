@@ -6,6 +6,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+<<<<<<< HEAD
+import 'package:page_transition/page_transition.dart';
+=======
+>>>>>>> origin/flutterflow
 import 'package:scarla/backend/schema/users_record.dart';
 import 'package:scarla/su1_page/su1_page_widget.dart';
 import 'package:wave/config.dart';
@@ -46,17 +50,21 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       body: Stack(
         children: [
           WaveWidget(
+<<<<<<< HEAD
+            backgroundColor: Color(0xD3F44336),
+=======
             backgroundColor: Colors.deepPurpleAccent,
+>>>>>>> origin/flutterflow
             config: CustomConfig(
               gradients: [
-                [Colors.red, Color(0xEEF44336)],
-                [Colors.red[800], Color(0x77E57373)],
-                [Colors.orange, Color(0x66FF9800)],
-                [Color(0xFF313150), Color(0xFF313150)]
+                [Color(0xffFF7C4DFF), Color(0xEEF44336)],
+                [Color(0x99644FA1),Color(0xffFF7C4DFF)],
+                [Color(0xE85A27B6),Color(0xffFF7C4DFF)],
+                [Color(0xFF313150), Color(0xFF313150)],
               ],
               durations: [35000, 19440, 10800, 6000],
-              heightPercentages: [0.30, 0.40, 0.56, 0.70],
-              blur: MaskFilter.blur(BlurStyle.solid, 0),
+              heightPercentages: [0.20, 0.40, 0.56, 0.70],
+              blur: MaskFilter.blur(BlurStyle.solid, 5),
               gradientBegin: Alignment.bottomLeft,
               gradientEnd: Alignment.topRight,
             ),
@@ -232,8 +240,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
 
                                       await Navigator.pushAndRemoveUntil(
                                         context,
-                                        MaterialPageRoute(
-                                          builder: (context) => NavBarPage(
+                                        PageTransition(
+                                          type: PageTransitionType.fade,
+                                          child: NavBarPage(
                                               initialPage: 'HomePage'),
                                         ),
                                         (r) => false,
@@ -280,12 +289,17 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       InkWell(
                                         onTap: () async {
                                           /// Envoie vers la page [ResetPassPageWidget]
+<<<<<<< HEAD
+                                          await Navigator.pushAndRemoveUntil(
+=======
                                           await Navigator.push(
+>>>>>>> origin/flutterflow
                                             context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ResetPassPageWidget(),
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: ResetPassPageWidget(),
                                             ),
+                                            (r) => false,
                                           );
                                         },
                                         child: Text(
@@ -469,9 +483,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           /// Envoie vers la page [SignUpPageWidget]
                                           await Navigator.pushAndRemoveUntil(
                                             context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SignUpPageWidget(),
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: SignUpPageWidget(),
                                             ),
                                             (r) => false,
                                           );

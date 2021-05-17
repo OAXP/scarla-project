@@ -141,10 +141,17 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
-                                        title: Center(child: Text('Alert!')),
                                         content: Text(
+<<<<<<< HEAD
+                                          'Invalid group',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500
+                                          ),
+=======
                                           'Invalid group.',
                                           textAlign: TextAlign.center,
+>>>>>>> origin/flutterflow
                                         ),
                                         actions: <Widget>[
                                           Column(
@@ -215,9 +222,15 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
+<<<<<<< HEAD
+
+                                        content: Text(
+                                            'You have not entered a group name yet.',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600)),
+=======
                                         title: Center(child: Text('Alert!')),
                                         content: Text(
                                             'You have not entered a group name yet!'),
+>>>>>>> origin/flutterflow
                                         actions: <Widget>[
                                           Column(
                                             children: [
@@ -281,9 +294,12 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
-                                        title: Center(child: Text('Alert!')),
                                         content: Text(
+<<<<<<< HEAD
+                                            'You have not added a member yet.',textAlign: TextAlign.center,style:TextStyle(fontWeight: FontWeight.w600)),
+=======
                                             'You have not added a member yet.'),
+>>>>>>> origin/flutterflow
                                         actions: <Widget>[
                                           Column(
                                             children: [

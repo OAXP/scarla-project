@@ -28,7 +28,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
       body: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,

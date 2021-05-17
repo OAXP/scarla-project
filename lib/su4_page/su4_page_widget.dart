@@ -3,7 +3,10 @@
  */
 
 import 'package:cached_network_image/cached_network_image.dart';
+<<<<<<< HEAD
+=======
 import 'package:cloud_firestore/cloud_firestore.dart';
+>>>>>>> origin/flutterflow
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,8 +19,10 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../my_profile_page/widgets/games_list_profile_widget.dart';
 import '../main.dart';
 
+/// Widget de la quatrième page d'inscription
 class Su4PageWidget extends StatefulWidget {
   Su4PageWidget(
       {Key key,
@@ -42,6 +47,8 @@ class Su4PageWidget extends StatefulWidget {
 class _Su4PageWidgetState extends State<Su4PageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+
+  /// Récupère l'image téléversée par l'utilisateur
   Future getImage({bool isVideo = false}) async {
     ImagePicker imagePicker = ImagePicker();
     PickedFile pickedFile;
@@ -135,6 +142,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                                 padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                                 child: InkWell(
                                   onTap: () async {
+                                    /// Récupère l'image et remplace l'image profile avec [getImage()]
                                     getImage();
                                   },
                                   child: FaIcon(
@@ -251,43 +259,10 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                             ),
                             Padding(
                               padding: EdgeInsets.fromLTRB(20, 2, 20, 2),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(
-                                    widget.selectedGames.length, (gameIndex) {
-                                  final game = widget.selectedGames[gameIndex];
-                                  return Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        await Navigator.push(
-                                          context,
-                                          TransparentRoute(
-                                            builder: (context) =>
-                                                RankPageWidget(
-                                              username: widget.username,
-                                              game: game,
-                                              userRef: currentUserReference,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        width: 30,
-                                        height: 30,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.asset(
-                                          'assets/games/icons/${game}Icon.png',
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }),
+                              child: GamesListProfileWidget(
+                                selectedGames: widget.selectedGames,
+                                userName: widget.username,
+                                userRef: currentUserReference,
                               ),
                             ),
                           ],
@@ -315,6 +290,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                       padding: EdgeInsets.fromLTRB(6, 1, 0, 0),
                       child: InkWell(
                         onTap: () async {
+                          /// Retourne à la page précédente
                           Navigator.pop(context);
                         },
                         child: Card(
@@ -359,6 +335,7 @@ class _Su4PageWidgetState extends State<Su4PageWidget> {
                       padding: EdgeInsets.fromLTRB(70, 1, 6, 0),
                       child: InkWell(
                         onTap: () async {
+                          /// Récupère toutes les informations reçues par l'utilisateur et envoie vers [NavBarPage -> HomePage]
                           final about = widget.about;
                           final name = widget.username;
                           final photoUrl = widget.photoUrl;

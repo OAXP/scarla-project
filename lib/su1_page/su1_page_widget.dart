@@ -5,11 +5,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scarla/auth/firebase_user_provider.dart';
-
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../su2_page/su2_page_widget.dart';
 
+/// Widget pour la première page d'inscription
 class Su1PageWidget extends StatefulWidget {
   Su1PageWidget({Key key}) : super(key: key);
 
@@ -193,6 +193,7 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                           padding: EdgeInsets.fromLTRB(6, 1, 0, 0),
                           child: InkWell(
                             onTap: () async {
+                              /// Retourne à la page précédente
                               Navigator.pop(context);
                               await currentUserReference.delete();
                               await currentUser.user.delete();
@@ -239,6 +240,10 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                           padding: EdgeInsets.fromLTRB(70, 1, 6, 0),
                           child: InkWell(
                             onTap: () async {
+<<<<<<< HEAD
+                              /// Vérification du nom et du tag de l'utilisateur
+=======
+>>>>>>> origin/flutterflow
                               if (usernameFieldController.text.isEmpty ||
                                   tagFieldController.text.isEmpty) {
                                 showDialog(
@@ -296,6 +301,7 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                                             fontSize: 15),
                                                       ),
                                                       onPressed: () {
+                                                        /// Retourne à la page précédente
                                                         Navigator.of(context)
                                                             .pop();
                                                       },
@@ -311,6 +317,10 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                   },
                                 );
                               } else {
+<<<<<<< HEAD
+                                /// Si la vérification est bonne, envoie vers la page [Su2PageWidget]
+=======
+>>>>>>> origin/flutterflow
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(

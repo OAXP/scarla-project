@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 
+/// Widget pour une page avec un arrière-plan transparent
 class TransparentRoute extends PageRoute<void> {
   TransparentRoute({
     @required this.builder,

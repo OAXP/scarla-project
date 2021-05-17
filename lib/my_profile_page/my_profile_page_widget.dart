@@ -1,16 +1,22 @@
 /*
  * Copyright (c) 2021. Scarla
  */
+<<<<<<< HEAD
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+=======
+>>>>>>> origin/flutterflow
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:scarla/util/transparent_route.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../chat_page/chat_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../login_page/login_page_widget.dart';
-import '../rank_page/rank_page_widget.dart';
+import '../my_profile_page/widgets/games_list_profile_widget.dart';
+import '../my_profile_page/widgets/group_circle_widget.dart';
 import '../settings_page/settings_page_widget.dart';
 
 /// Widget pour la page de profile de l'utilisateur
@@ -32,8 +38,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.primaryColor,
       body:
+<<<<<<< HEAD
+
+          /// Fait la requête de l'utilisateur connecté
+          StreamBuilder<List<UsersRecord>>(
+=======
       /// Fait la requête de l'utilisateur connecté
       StreamBuilder<List<UsersRecord>>(
+>>>>>>> origin/flutterflow
         stream: queryUsersRecord(
           queryBuilder: (usersRecord) =>
               usersRecord.where('uid', isEqualTo: currentUserUid),
@@ -115,7 +127,10 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(10.0),
                                               ),
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/flutterflow
                                               content: Text(
                                                 'Are you sure you want \n to log out?',
                                                 textAlign: TextAlign.center,
@@ -125,7 +140,12 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                         FontWeight.w600),
                                               ),
                                               buttonPadding:
+<<<<<<< HEAD
+                                                  EdgeInsets.fromLTRB(
+                                                      0, 30, 4, 0),
+=======
                                                   EdgeInsets.fromLTRB(0, 30, 4, 0),
+>>>>>>> origin/flutterflow
                                               actions: <Widget>[
                                                 Column(
                                                   children: [
@@ -134,7 +154,13 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                           Alignment.center,
                                                       child: Padding(
                                                         padding:
+<<<<<<< HEAD
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 0, 13, 15),
+=======
                                                             const EdgeInsets.fromLTRB(0, 0, 13, 15),
+>>>>>>> origin/flutterflow
                                                         child: Container(
                                                           width: 250,
                                                           height: 2,
@@ -144,7 +170,12 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         24),
+<<<<<<< HEAD
+                                                            color: Colors
+                                                                .grey[300],
+=======
                                                             color: Colors.grey[300],
+>>>>>>> origin/flutterflow
                                                           ),
                                                         ),
                                                       ),
@@ -153,14 +184,26 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                       children: [
                                                         Padding(
                                                           padding:
+<<<<<<< HEAD
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  0, 0, 14, 10),
+=======
                                                               const EdgeInsets.fromLTRB(0, 0, 14, 10),
+>>>>>>> origin/flutterflow
                                                           child: Container(
                                                             width: 107,
                                                             height: 47,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
+<<<<<<< HEAD
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          24),
+=======
                                                                   BorderRadius.circular(24),
+>>>>>>> origin/flutterflow
                                                               color:
                                                                   Colors.grey,
                                                             ),
@@ -173,14 +216,26 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                               ),
                                                               onPressed: () {
                                                                 /// Annule la commande et ramène à la page précédente
+<<<<<<< HEAD
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+=======
                                                                 Navigator.of(context).pop();
+>>>>>>> origin/flutterflow
                                                               },
                                                             ),
                                                           ),
                                                         ),
                                                         Padding(
                                                           padding:
+<<<<<<< HEAD
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  0, 0, 10, 10),
+=======
                                                               const EdgeInsets.fromLTRB(0, 0, 15, 10),
+>>>>>>> origin/flutterflow
                                                           child: Container(
                                                             width: 107,
                                                             height: 47,
@@ -375,6 +430,17 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(10, 6, 20, 5),
+<<<<<<< HEAD
+                                  child: GamesListProfileWidget(
+                                    selectedGames:
+                                        stackUsersRecord.selectedGames.asList(),
+                                    userName: stackUsersRecord.name,
+                                    userRef: stackUsersRecord.reference,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(5, 8, 0, 0),
+=======
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -512,6 +578,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(6, 8, 0, 0),
+>>>>>>> origin/flutterflow
                                   child: Text(
                                     'My Squads',
                                     textAlign: TextAlign.center,
@@ -524,8 +591,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 0, 0, 120),
                                   child:
+<<<<<<< HEAD
+
+                                      /// Fait la requête des groupes dans lesquels se trouve l'utilisateur connecté
+                                      StreamBuilder<List<GroupsRecord>>(
+=======
                                   /// Fait la requête des groupes dans lesquels se trouve l'utilisateur connecté
                                   StreamBuilder<List<GroupsRecord>>(
+>>>>>>> origin/flutterflow
                                     stream: queryGroupsRecord(
                                       queryBuilder: (groupsRecord) =>
                                           groupsRecord.where('members_id',
@@ -576,6 +649,10 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                             final gridViewGroupsRecord =
                                                 gridViewGroupsRecordList[
                                                     gridViewIndex];
+<<<<<<< HEAD
+                                            return GroupCircleWidget(
+                                              group: gridViewGroupsRecord,
+=======
                                             return InkWell(
                                               onTap: () async {
                                                 /// Envoie vers la page [ChatPageWidget]
@@ -641,6 +718,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                   ],
                                                 ),
                                               ),
+>>>>>>> origin/flutterflow
                                             );
                                           },
                                         ),

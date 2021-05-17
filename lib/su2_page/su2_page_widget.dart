@@ -8,7 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:imgur/imgur.dart' as imgur;
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/flutterflow
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -16,6 +19,7 @@ import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/upload_media.dart';
 import '../su3_page/su3_page_widget.dart';
 
+/// Widget pour la deuxième page d'inscription
 class Su2PageWidget extends StatefulWidget {
   Su2PageWidget({Key key, this.username, this.tag}) : super(key: key);
 
@@ -37,7 +41,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
     super.initState();
     textController = TextEditingController();
   }
-
+  /// Récupère l'imaage téléversée par l'utilisateur
   Future getImage({bool isVideo = false}) async {
     ImagePicker imagePicker = ImagePicker();
     PickedFile pickedFile;
@@ -260,6 +264,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                                     ),
                                     ToggleIcon(
                                       onPressed: () async {
+                                        /// Ajoute ou enleve la variable [isCompetitive] de l'utilisateur
                                         final isCompetitive =
                                             !listViewUsersRecord.isCompetitive;
 
@@ -303,6 +308,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                           padding: EdgeInsets.fromLTRB(6, 1, 0, 0),
                           child: InkWell(
                             onTap: () async {
+                              /// Retourne à la page précédente
                               Navigator.pop(context);
                             },
                             child: Card(
@@ -347,6 +353,7 @@ class _Su2PageWidgetState extends State<Su2PageWidget> {
                           padding: EdgeInsets.fromLTRB(70, 1, 6, 0),
                           child: InkWell(
                             onTap: () async {
+                              /// Récupère l'information reçue et envoie vers [Su3PageWidget]
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(

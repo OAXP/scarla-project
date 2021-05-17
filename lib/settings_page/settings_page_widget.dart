@@ -1624,7 +1624,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                         children: [
                                           InkWell(
                                             onTap: () async {
+<<<<<<< HEAD
+                                              /// Demande l'utilisateur s'il veut réinitialiser les paramètres de couleur
+=======
                                               /// Réinitialise les paramètres de couleur
+>>>>>>> origin/flutterflow
                                               showDialog(
                                                 context: context,
                                                 builder:
@@ -1702,6 +1706,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                                     ),
                                                                     onPressed:
                                                                         () {
+<<<<<<< HEAD
+                                                                      /// Annule commande et retourne à page précédente
+=======
+>>>>>>> origin/flutterflow
                                                                       Navigator.of(
                                                                               context)
                                                                           .pop();
@@ -1739,6 +1747,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                                     ),
                                                                     onPressed:
                                                                         () {
+<<<<<<< HEAD
+                                                                      /// Réinitialise tous les paramètres des couleurs
+=======
+>>>>>>> origin/flutterflow
                                                                       setState(
                                                                           () {
                                                                         FlutterFlowTheme.primaryColor =
@@ -1887,7 +1899,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                       shape: BoxShape.circle,
                                                       color: Color(0xffff4454),
                                                       border: Border.all(
+<<<<<<< HEAD
+                                                          color: Colors.black)),
+=======
                                                           color: Colors.white)),
+>>>>>>> origin/flutterflow
                                                   child: Image.asset(
                                                     'assets/games/icons/valorantIcon.png',
                                                     scale: 150,
@@ -1930,7 +1946,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                       color: Colors.black54,
                                                       shape: BoxShape.circle,
                                                       border: Border.all(
+<<<<<<< HEAD
+                                                          color: Colors.black)),
+=======
                                                           color: Colors.white)),
+>>>>>>> origin/flutterflow
                                                   child: Image.asset(
                                                     'assets/games/icons/mwIcon.png',
                                                     scale: 2.7,
@@ -1973,7 +1993,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                       shape: BoxShape.circle,
                                                       color: Color(0xff004ca3),
                                                       border: Border.all(
+<<<<<<< HEAD
+                                                          color: Colors.black)),
+=======
                                                           color: Colors.white)),
+>>>>>>> origin/flutterflow
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsets.only(
@@ -2021,7 +2045,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                       shape: BoxShape.circle,
                                                       color: Colors.grey[300],
                                                       border: Border.all(
+<<<<<<< HEAD
+                                                          color: Colors.black)),
+=======
                                                           color: Colors.red)),
+>>>>>>> origin/flutterflow
                                                   child: Image.asset(
                                                     'assets/games/icons/owIcon.png',
                                                     scale: 33,
@@ -2063,7 +2091,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
                                                     border: Border.all(
+<<<<<<< HEAD
+                                                        color: Colors.black),
+=======
                                                         color: Colors.white),
+>>>>>>> origin/flutterflow
                                                     gradient: LinearGradient(
                                                       colors: [
                                                         color1,

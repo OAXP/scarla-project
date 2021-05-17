@@ -3,10 +3,14 @@
  */
 
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/flutterflow
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_youtube_player.dart';
 
+/// Widget pour permettre la lecture des vidéos
 class YoutubePlayerPageWidget extends StatefulWidget {
   YoutubePlayerPageWidget({Key key, this.url}) : super(key: key);
 
@@ -96,6 +100,7 @@ class _YoutubePlayerPageWidgetState extends State<YoutubePlayerPageWidget> {
                         children: [
                           IconButton(
                             onPressed: () async {
+                              /// Retourne à page précédente
                               Navigator.pop(context);
                             },
                             icon: Icon(

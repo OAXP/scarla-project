@@ -3,10 +3,14 @@
  */
 
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/flutterflow
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../su4_page/su4_page_widget.dart';
 
+/// Widget pour la troisième page d'inscription
 class Su3PageWidget extends StatefulWidget {
   Su3PageWidget({Key key, this.username, this.tag, this.photoUrl, this.about})
       : super(key: key);
@@ -71,6 +75,10 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                         children: [
                           InkWell(
                             onTap: () async {
+<<<<<<< HEAD
+                              /// Ajoute ou enleve le jeu lol à la liste des jeux de l'utilisateur
+=======
+>>>>>>> origin/flutterflow
                               setState(() {
                                 selected[0] = !selected[0];
                               });
@@ -135,6 +143,10 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           InkWell(
                             onTap: () async {
                               setState(() {
+<<<<<<< HEAD
+                                /// Ajoute ou enleve le jeu valorant à la liste des jeux de l'utilisateur
+=======
+>>>>>>> origin/flutterflow
                                 selected[1] = !selected[1];
                               });
 
@@ -196,6 +208,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           ),
                           InkWell(
                             onTap: () async {
+                              /// Ajoute ou enleve le jeu mw à la liste des jeux de l'utilisateur
                               setState(() {
                                 selected[2] = !selected[2];
                               });
@@ -258,6 +271,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           ),
                           InkWell(
                             onTap: () async {
+                              /// Ajoute ou enleve le jeu ow à la liste des jeux de l'utilisateur
                               setState(() {
                                 selected[3] = !selected[3];
                               });
@@ -320,6 +334,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           ),
                           InkWell(
                             onTap: () async {
+                              /// Ajoute ou enleve le jeu rl à la liste des jeux de l'utilisateur
                               setState(() {
                                 selected[4] = !selected[4];
                               });
@@ -393,6 +408,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           padding: EdgeInsets.fromLTRB(6, 1, 0, 0),
                           child: InkWell(
                             onTap: () async {
+                              /// Retourne à la page précédente
                               Navigator.pop(context);
                             },
                             child: Card(
@@ -437,6 +453,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           padding: EdgeInsets.fromLTRB(70, 1, 6, 0),
                           child: InkWell(
                             onTap: () async {
+                              /// Vérification et envoie vers la page [Su4PageWidget]
                               if (selected.contains(true)) {
                                 await Navigator.push(
                                   context,
@@ -506,6 +523,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                                                             fontSize: 15),
                                                       ),
                                                       onPressed: () {
+                                                        /// Annule commande et retourne à page précédente
                                                         Navigator.of(context)
                                                             .pop();
                                                       },

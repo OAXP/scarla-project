@@ -20,19 +20,20 @@ import 'login_page/login_page_widget.dart';
 import 'my_profile_page/my_profile_page_widget.dart';
 import 'util/transparent_route.dart';
 
+/// Méthode principale
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(ScarlaApp());
 }
 
-class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
+/// Widget principal
+class ScarlaApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _ScarlaAppState createState() => _ScarlaAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _ScarlaAppState extends State<ScarlaApp> {
   Stream<ScarlaFirebaseUser> userStream;
   ScarlaFirebaseUser initialUser;
 
@@ -61,6 +62,7 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+/// Widget pour toutes les pages contenant la barre de navigation
 class NavBarPage extends StatefulWidget {
   NavBarPage({Key key, this.initialPage}) : super(key: key);
 
@@ -70,7 +72,10 @@ class NavBarPage extends StatefulWidget {
   _NavBarPageState createState() => _NavBarPageState();
 }
 
+<<<<<<< HEAD
+=======
 /// This is the private State class that goes with NavBarPage.
+>>>>>>> origin/flutterflow
 class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
   String _currentPage = 'HomePage';
   AnimationController _animationController;
@@ -102,19 +107,26 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
     posB = 0;
   }
 
+  /// Retourne le Offset de la position du widget ayant la [key]
   Offset getPosition(GlobalKey key) {
     final RenderBox renderBox = key.currentContext.findRenderObject();
     final position = renderBox.localToGlobal(Offset.zero);
     return position;
   }
 
+  /// Retourne le Size du widget ayant la [key]
   Size getSize(GlobalKey key) {
     final RenderBox renderBox = key.currentContext.findRenderObject();
     final size = renderBox.size;
     return size;
   }
 
+<<<<<<< HEAD
+  /// Bouge le point en dessous des icône de la barre de navigation à la position [pos]
+  void _moveBottomDot(String pos) {
+=======
   void _movewidget(String pos) {
+>>>>>>> origin/flutterflow
     setState(() {
       if (pos == "Profile") {
         posL = getPosition(_profileIconKey).dx -
@@ -156,6 +168,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    /// Map des pages ayant une barre de navigation
     final tabs = {
       'HomePage': HomePageWidget(),
       'GroupListPage': GroupListPageWidget(),
@@ -181,6 +194,7 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
                 size: 25,
               ),
               onPressed: () {
+              /// Ouvre la page de matchmaking
                 if (!isDisabled) {
                   _animationController.addStatusListener((status) async {
                     if (status == AnimationStatus.completed) {
@@ -233,7 +247,8 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
                               ? color
                               : Colors.white,
                           onPressed: () {
-                            _movewidget("Home");
+                            /// Change la page à Home
+                            _moveBottomDot("Home");
                             setState(() => setState(
                                 () => _currentPage = tabs.keys.toList()[0]));
                           },
@@ -250,7 +265,8 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
                               ? color
                               : Colors.white,
                           onPressed: () {
-                            _movewidget("Messages");
+                            /// Change la page à Messages
+                            _moveBottomDot("Messages");
                             setState(() => setState(
                                 () => _currentPage = tabs.keys.toList()[1]));
                           },
@@ -270,9 +286,10 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
                                 ? color
                                 : Colors.white,
                             onPressed: () {
+                              /// Change la page à Amis
                               setState(() => setState(
                                   () => _currentPage = tabs.keys.toList()[2]));
-                              _movewidget("Users");
+                              _moveBottomDot("Users");
                             },
                           ),
                         ),
@@ -286,7 +303,8 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
                               ? color
                               : Colors.white,
                           onPressed: () {
-                            _movewidget("Profile");
+                            /// Change la page à Mon profile
+                            _moveBottomDot("Profile");
                             setState(() => setState(
                                 () => _currentPage = tabs.keys.toList()[3]));
                           },

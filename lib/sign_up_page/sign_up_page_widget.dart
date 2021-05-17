@@ -5,15 +5,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+<<<<<<< HEAD
+import 'package:page_transition/page_transition.dart';
+=======
+>>>>>>> origin/flutterflow
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
-
 import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../login_page/login_page_widget.dart';
 import '../su1_page/su1_page_widget.dart';
 
+/// Widget pour s'inscrire à l'application
 class SignUpPageWidget extends StatefulWidget {
   SignUpPageWidget({Key key}) : super(key: key);
 
@@ -43,6 +47,10 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
       backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
+<<<<<<< HEAD
+          WaveWidget(
+            backgroundColor: Color(0xD3F44336),
+=======
           /* Align(
             alignment: Alignment(0, -1),
             child: Container(
@@ -51,16 +59,17 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
         ),*/
           WaveWidget(
             backgroundColor: Colors.deepPurpleAccent,
+>>>>>>> origin/flutterflow
             config: CustomConfig(
               gradients: [
-                [Colors.red, Color(0xEEF44336)],
-                [Colors.red[800], Color(0x77E57373)],
-                [Colors.orange, Color(0x66FF9800)],
-                [Color(0xFF313150), Color(0xFF313150)]
+                [Color(0xffFF7C4DFF), Color(0xEEF44336)],
+                [Color(0x99644FA1),Color(0xffFF7C4DFF)],
+                [Color(0xE85A27B6),Color(0xffFF7C4DFF)],
+                [Color(0xFF313150), Color(0xFF313150)],
               ],
               durations: [35000, 19440, 10800, 6000],
-              heightPercentages: [0.30, 0.40, 0.56, 0.70],
-              blur: MaskFilter.blur(BlurStyle.solid, 0),
+              heightPercentages: [0.20, 0.40, 0.56, 0.70],
+              blur: MaskFilter.blur(BlurStyle.solid, 5),
               gradientBegin: Alignment.bottomLeft,
               gradientEnd: Alignment.topRight,
             ),
@@ -278,6 +287,9 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                   padding: EdgeInsets.fromLTRB(0, 5, 0, 8),
                                   child: FFButtonWidget(
                                     onPressed: () async {
+                                      /// Vérification de la similarité des mots de passes
+                                      ///
+                                      /// Envoie vers la page de [Su1PageWidget]
                                       if (passwordTextController.text !=
                                           confirmPasswordTextController.text) {
                                         ScaffoldMessenger.of(context)
@@ -380,6 +392,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                               alignment: Alignment(0, 0),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
+                                                  /// Connexion avec google, envoie vers page [Su1PageWidget]
                                                   final user =
                                                       await signInWithGoogle(
                                                           context);
@@ -461,11 +474,12 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
+                                        /// Renvoie vers la page [LoginPageWidget]
                                         await Navigator.pushAndRemoveUntil(
                                           context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginPageWidget(),
+                                          PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: LoginPageWidget(),
                                           ),
                                           (r) => false,
                                         );
