@@ -3,7 +3,7 @@
 
 C'est pour notre cours : Projet d'intégration avec Raouf Babari au semestre d'hiver 2021.
 Projet Scarla
-Le nom de notre projet d’intégration est “Projet Scarla”.  Notre l’application s’appelle ...
+Le nom de notre projet d’intégration est “Projet Scarla”.  Notre application s’appelle Scarla.
 
 # Description du projet 
 ## L’idée & L’utilité
@@ -71,6 +71,16 @@ Avec la base de données en temps réel de Google, nous pourrons fournir une exp
 
 ### Défis / difficultés 
 Comme il s'agit d'un projet ambitieux, nous sommes très désireux d'apprendre Flutter et le contenu de ce qui touche aux bases de données. Ce sera nouveau pour nous tous, et nous devrons donc relever différents défis et difficultés.
+
+#### Lors de la réalisation du projet
+Nous avons dû jouer avec Firebase et nous faire une idée de son bon fonctionnement.
+Nous avons dû trouver un algorithme qui devait faire correspondre les joueurs à leurs goûts. 
+Certaines animations étaient difficiles à réaliser mais nous avons réussi.
+Il y avait un bug qui nous empêchait de voir les photos et les images envoyées par les utilisateurs sur notre téléphone.
+
+### Perspectives
+Nous avons bien fait. L'algorithme pour faire correspondre les joueurs fonctionne bien. Le système de chat fonctionne également bien. Dans l'ensemble, nous ne semblons pas rencontrer de bogues majeurs. Si nous avions eu plus de temps, nous aurions pu travailler sur le logo et la propreté de l'application dans son ensemble. Sur différents téléphones, la sélection des jeux n'est pas tout à fait au centre et est un peu éloignée.
+
 
 # Conclusion
 En conclusion, nous sommes fiers de notre projet. Nous avons tous donné le meilleur de nous-mêmes et nous avons tous travaillé très dur. Le produit final a l'air vraiment bon. Nous sommes heureux d'avoir réalisé ce projet car nous avons beaucoup appris et nous nous sommes beaucoup amusés. Nous remercions Raouf Babari d'avoir été notre professeur pour notre dernier semestre au CEGEP.  
