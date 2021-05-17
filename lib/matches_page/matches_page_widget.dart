@@ -99,6 +99,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                                 ),
                               ),
                             );
+                            setState(() {});
                           },
                           icon: Icon(
                             Icons.check,
@@ -227,7 +228,7 @@ class _MatchesPageWidgetState extends State<MatchesPageWidget> {
                 ),
               Expanded(
                 child:
-                /// Fait la requêtes des joueurs pour le matchmaking
+                /// Fait la requête des joueurs pour le matchmaking
                 StreamBuilder<List<UsersRecord>>(
                   stream: queryUsersRecord(
                     queryBuilder: (usersRecord) => usersRecord

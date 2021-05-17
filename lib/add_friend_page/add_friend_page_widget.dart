@@ -173,9 +173,12 @@ class _AddFriendPageWidgetState extends State<AddFriendPageWidget> {
                     List<UsersRecord> listViewUsersRecordList = snapshot.data;
                     if (listViewUsersRecordList.isEmpty) {
                       return Center(
-                        child: Text(
-                          "Look up for a friend",
-                          style: FlutterFlowTheme.title1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 30),
+                          child: Text(
+                            "Look for a friend . . .",
+                            style: FlutterFlowTheme.title1,
+                          ),
                         ),
                       );
                     }

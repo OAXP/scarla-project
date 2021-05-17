@@ -530,7 +530,6 @@ class _CreateGroupPageWidgetState extends State<CreateGroupPageWidget> {
                           Container(
                             width: MediaQuery.of(context).size.width,
                             height: 100,
-                            decoration: BoxDecoration(),
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                               child: ListView.builder(

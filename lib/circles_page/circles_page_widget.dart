@@ -599,7 +599,7 @@ class _CirclesPageState extends State<CirclesPage>
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 130),
                   child: Center(
                     child: Lottie.network(
-                        'https://assets6.lottiefiles.com/packages/lf20_TfAnHg.json',
+                        'https://assets1.lottiefiles.com/datafiles/ApBHGLbGk8W9yS0/data.json',
                         width: 200,
                         height: 200,
                         fit: BoxFit.scaleDown,
@@ -636,9 +636,12 @@ class _CirclesPageState extends State<CirclesPage>
                   padding: const EdgeInsets.all(32.0),
                   child: FloatingActionButton(
                     backgroundColor: Color(0xFF5B54C2),
-                    child: LoadingIndicator(
-                      indicatorType: Indicator.circleStrokeSpin,
-                      color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.circleStrokeSpin,
+                        color: Colors.white,
+                      ),
                     ),
                     onPressed: () {},
                   ),

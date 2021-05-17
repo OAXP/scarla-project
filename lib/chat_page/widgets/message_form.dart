@@ -5,6 +5,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:scarla/flutter_flow/flutter_flow_theme.dart';
 import 'package:scarla/flutter_flow/upload_media.dart';
 
@@ -79,6 +80,7 @@ class _MessageFormState extends State<MessageForm> {
                         icon: Icon(Icons.file_upload),
                         onPressed: () {},
                         color: Colors.white,
+
                       ),
                     ),
                     color: Colors.transparent,

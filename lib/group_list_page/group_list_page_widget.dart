@@ -34,7 +34,7 @@ class _GroupListPageWidgetState extends State<GroupListPageWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                  padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
                   child: Card(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     color: FlutterFlowTheme.secondaryColor,

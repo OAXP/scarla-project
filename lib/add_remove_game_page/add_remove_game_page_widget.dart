@@ -74,7 +74,7 @@ class _AddRemoveGamePageWidgetState extends State<AddRemoveGamePageWidget> {
                           scrollDirection: Axis.vertical,
                           children: [
                             Padding(
-                              padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
+                              padding: EdgeInsets.fromLTRB(14, 2, 10, 2),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment:
@@ -82,7 +82,7 @@ class _AddRemoveGamePageWidgetState extends State<AddRemoveGamePageWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Add and remove games',
+                                    'Add or remove games',
                                     style: FlutterFlowTheme.bodyText1.override(
                                       fontFamily: 'Poppins',
                                     ),
@@ -148,7 +148,7 @@ class _AddRemoveGamePageWidgetState extends State<AddRemoveGamePageWidget> {
                                                       ),
                                                       child: Image.asset(
                                                         'assets/games/icons/valorantIcon.png',
-                                                        fit: BoxFit.contain,
+                                                        scale:110
                                                       ),
                                                     )
                                                   ],
@@ -222,7 +222,7 @@ class _AddRemoveGamePageWidgetState extends State<AddRemoveGamePageWidget> {
                                                       ),
                                                       child: Image.asset(
                                                         'assets/games/icons/mwIcon.png',
-                                                        fit: BoxFit.contain,
+                                                        scale: 1,
                                                       ),
                                                     )
                                                   ],
@@ -296,7 +296,7 @@ class _AddRemoveGamePageWidgetState extends State<AddRemoveGamePageWidget> {
                                                       ),
                                                       child: Image.asset(
                                                         'assets/games/icons/rlIcon.png',
-                                                        fit: BoxFit.contain,
+                                                        scale: 25,
                                                       ),
                                                     )
                                                   ],
@@ -370,7 +370,7 @@ class _AddRemoveGamePageWidgetState extends State<AddRemoveGamePageWidget> {
                                                       ),
                                                       child: Image.asset(
                                                         'assets/games/icons/owIcon.png',
-                                                        fit: BoxFit.contain,
+                                                        scale: 29,
                                                       ),
                                                     )
                                                   ],
