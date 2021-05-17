@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2021. Scarla
- */
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'friends_record.dart';
@@ -166,35 +162,25 @@ class FriendsRecordBuilder
   _$FriendsRecord _$v;
 
   String _id;
-
   String get id => _$this._id;
-
   set id(String id) => _$this._id = id;
 
   int _status;
-
   int get status => _$this._status;
-
   set status(int status) => _$this._status = status;
 
   ListBuilder<DocumentReference> _friends;
-
   ListBuilder<DocumentReference> get friends =>
       _$this._friends ??= new ListBuilder<DocumentReference>();
-
   set friends(ListBuilder<DocumentReference> friends) =>
       _$this._friends = friends;
 
   Timestamp _timestamp;
-
   Timestamp get timestamp => _$this._timestamp;
-
   set timestamp(Timestamp timestamp) => _$this._timestamp = timestamp;
 
   DocumentReference _reference;
-
   DocumentReference get reference => _$this._reference;
-
   set reference(DocumentReference reference) => _$this._reference = reference;
 
   FriendsRecordBuilder() {

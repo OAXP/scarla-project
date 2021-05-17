@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2021. Scarla
- */
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'feed_record.dart';
@@ -277,70 +273,48 @@ class FeedRecordBuilder implements Builder<FeedRecord, FeedRecordBuilder> {
   _$FeedRecord _$v;
 
   String _authorId;
-
   String get authorId => _$this._authorId;
-
   set authorId(String authorId) => _$this._authorId = authorId;
 
   String _authorName;
-
   String get authorName => _$this._authorName;
-
   set authorName(String authorName) => _$this._authorName = authorName;
 
   String _content;
-
   String get content => _$this._content;
-
   set content(String content) => _$this._content = content;
 
   String _game;
-
   String get game => _$this._game;
-
   set game(String game) => _$this._game = game;
 
   String _id;
-
   String get id => _$this._id;
-
   set id(String id) => _$this._id = id;
 
   int _type;
-
   int get type => _$this._type;
-
   set type(int type) => _$this._type = type;
 
   String _authorPhotoUrl;
-
   String get authorPhotoUrl => _$this._authorPhotoUrl;
-
   set authorPhotoUrl(String authorPhotoUrl) =>
       _$this._authorPhotoUrl = authorPhotoUrl;
 
   Timestamp _timestamp;
-
   Timestamp get timestamp => _$this._timestamp;
-
   set timestamp(Timestamp timestamp) => _$this._timestamp = timestamp;
 
   DocumentReference _authorRef;
-
   DocumentReference get authorRef => _$this._authorRef;
-
   set authorRef(DocumentReference authorRef) => _$this._authorRef = authorRef;
 
   String _imageUrl;
-
   String get imageUrl => _$this._imageUrl;
-
   set imageUrl(String imageUrl) => _$this._imageUrl = imageUrl;
 
   DocumentReference _reference;
-
   DocumentReference get reference => _$this._reference;
-
   set reference(DocumentReference reference) => _$this._reference = reference;
 
   FeedRecordBuilder() {

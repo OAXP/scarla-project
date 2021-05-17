@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2021. Scarla
- */
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'users_record.dart';
@@ -358,96 +354,66 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   _$UsersRecord _$v;
 
   String _about;
-
   String get about => _$this._about;
-
   set about(String about) => _$this._about = about;
 
   String _name;
-
   String get name => _$this._name;
-
   set name(String name) => _$this._name = name;
 
   String _photoUrl;
-
   String get photoUrl => _$this._photoUrl;
-
   set photoUrl(String photoUrl) => _$this._photoUrl = photoUrl;
 
   String _bgProfile;
-
   String get bgProfile => _$this._bgProfile;
-
   set bgProfile(String bgProfile) => _$this._bgProfile = bgProfile;
 
   String _email;
-
   String get email => _$this._email;
-
   set email(String email) => _$this._email = email;
 
   String _displayName;
-
   String get displayName => _$this._displayName;
-
   set displayName(String displayName) => _$this._displayName = displayName;
 
   String _tag;
-
   String get tag => _$this._tag;
-
   set tag(String tag) => _$this._tag = tag;
 
   bool _isCompetitive;
-
   bool get isCompetitive => _$this._isCompetitive;
-
   set isCompetitive(bool isCompetitive) =>
       _$this._isCompetitive = isCompetitive;
 
   bool _isToxic;
-
   bool get isToxic => _$this._isToxic;
-
   set isToxic(bool isToxic) => _$this._isToxic = isToxic;
 
   DocumentReference _ranksRef;
-
   DocumentReference get ranksRef => _$this._ranksRef;
-
   set ranksRef(DocumentReference ranksRef) => _$this._ranksRef = ranksRef;
 
   Timestamp _createdTime;
-
   Timestamp get createdTime => _$this._createdTime;
-
   set createdTime(Timestamp createdTime) => _$this._createdTime = createdTime;
 
   String _uid;
-
   String get uid => _$this._uid;
-
   set uid(String uid) => _$this._uid = uid;
 
   ListBuilder<String> _selectedGames;
-
   ListBuilder<String> get selectedGames =>
       _$this._selectedGames ??= new ListBuilder<String>();
-
   set selectedGames(ListBuilder<String> selectedGames) =>
       _$this._selectedGames = selectedGames;
 
   ListBuilder<String> _keys;
-
   ListBuilder<String> get keys => _$this._keys ??= new ListBuilder<String>();
-
   set keys(ListBuilder<String> keys) => _$this._keys = keys;
 
   DocumentReference _reference;
-
   DocumentReference get reference => _$this._reference;
-
   set reference(DocumentReference reference) => _$this._reference = reference;
 
   UsersRecordBuilder() {

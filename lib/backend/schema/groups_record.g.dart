@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2021. Scarla
- */
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'groups_record.dart';
@@ -227,53 +223,37 @@ class GroupsRecordBuilder
   _$GroupsRecord _$v;
 
   String _gId;
-
   String get gId => _$this._gId;
-
   set gId(String gId) => _$this._gId = gId;
 
   String _gName;
-
   String get gName => _$this._gName;
-
   set gName(String gName) => _$this._gName = gName;
 
   String _gPhotoUrl;
-
   String get gPhotoUrl => _$this._gPhotoUrl;
-
   set gPhotoUrl(String gPhotoUrl) => _$this._gPhotoUrl = gPhotoUrl;
 
   String _lastMessage;
-
   String get lastMessage => _$this._lastMessage;
-
   set lastMessage(String lastMessage) => _$this._lastMessage = lastMessage;
 
   Timestamp _lastMessageTimestamp;
-
   Timestamp get lastMessageTimestamp => _$this._lastMessageTimestamp;
-
   set lastMessageTimestamp(Timestamp lastMessageTimestamp) =>
       _$this._lastMessageTimestamp = lastMessageTimestamp;
 
   ListBuilder<String> _membersId;
-
   ListBuilder<String> get membersId =>
       _$this._membersId ??= new ListBuilder<String>();
-
   set membersId(ListBuilder<String> membersId) => _$this._membersId = membersId;
 
   DocumentReference _host;
-
   DocumentReference get host => _$this._host;
-
   set host(DocumentReference host) => _$this._host = host;
 
   DocumentReference _reference;
-
   DocumentReference get reference => _$this._reference;
-
   set reference(DocumentReference reference) => _$this._reference = reference;
 
   GroupsRecordBuilder() {
