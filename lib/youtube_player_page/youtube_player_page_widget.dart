@@ -3,10 +3,6 @@
  */
 
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/flutterflow
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_youtube_player.dart';
 

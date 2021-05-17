@@ -9,21 +9,13 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:scarla/chat_page/chat_page_widget.dart';
 import 'package:scarla/flutter_flow/flutter_flow_util.dart';
 import 'package:scarla/home_page/widgets/post_widget.dart';
-<<<<<<< HEAD
 
-=======
-import 'package:scarla/util/transparent_route.dart';
->>>>>>> origin/flutterflow
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-<<<<<<< HEAD
 import '../my_profile_page/widgets/games_list_profile_widget.dart';
 
-=======
-import '../rank_page/rank_page_widget.dart';
->>>>>>> origin/flutterflow
 
 /// Widget pour la page de profile des autres utilisateurs
 class ProfilePageWidget extends StatefulWidget {
@@ -610,176 +602,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     Padding(
                                           padding:
                                               EdgeInsets.fromLTRB(20, 2, 20, 2),
-<<<<<<< HEAD
                                           child: GamesListProfileWidget(
                                             selectedGames: profilePageUsersRecord.selectedGames.asList(),
                                             userName: profilePageUsersRecord.name,
                                             userRef: widget.userRef,
-=======
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: List.generate(
-                                                profilePageUsersRecord
-                                                    .selectedGames
-                                                    .length, (gameIndex) {
-                                              final game =
-                                                  profilePageUsersRecord
-                                                      .selectedGames[gameIndex];
-                                              return Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    10, 0, 0, 0),
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    /// Envoie vers la page [RankPageWidget]
-                                                    await Navigator.push(
-                                                      context,
-                                                      TransparentRoute(
-                                                        builder: (context) =>
-                                                            RankPageWidget(
-                                                          username:
-                                                              profilePageUsersRecord
-                                                                  .name,
-                                                          game: game,
-                                                          userRef:
-                                                              widget.userRef,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Stack(
-                                                    children: [
-                                                      if (game == "valorant")
-                                                        Container(
-                                                          width: 30,
-                                                          height: 30,
-                                                          clipBehavior:
-                                                              Clip.antiAlias,
-                                                          decoration: BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              color: Color(
-                                                                  0xffff4454),
-                                                              border: Border.all(
-                                                                  color: Colors
-                                                                      .black)),
-                                                          child: Image.asset(
-                                                            'assets/games/icons/valorantIcon.png',
-                                                            scale: 250,
-                                                          ),
-                                                        ),
-                                                      if (game == "mw")
-                                                        Container(
-                                                          width: 30,
-                                                          height: 30,
-                                                          clipBehavior:
-                                                              Clip.antiAlias,
-                                                          decoration: BoxDecoration(
-                                                              color: Colors
-                                                                  .black54,
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              border: Border.all(
-                                                                  color: Colors
-                                                                      .black)),
-                                                          child: Image.asset(
-                                                            'assets/games/icons/mwIcon.png',
-                                                            scale: 2.7,
-                                                          ),
-                                                        ),
-                                                      if (game == "lol")
-                                                        Container(
-                                                          width: 30,
-                                                          height: 30,
-                                                          clipBehavior:
-                                                              Clip.antiAlias,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            border: Border.all(
-                                                                color: Colors
-                                                                    .black),
-                                                            gradient:
-                                                                LinearGradient(
-                                                              colors: [
-                                                                color1,
-                                                                color2,
-                                                              ],
-                                                              begin: Alignment
-                                                                  .topCenter,
-                                                              end: Alignment
-                                                                  .bottomCenter,
-                                                            ),
-                                                          ),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 0.9,
-                                                                    bottom: 1),
-                                                            child: Image.asset(
-                                                              'assets/games/icons/lolIcon.png',
-                                                              scale: 21,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      if (game == "ow")
-                                                        Container(
-                                                          width: 30,
-                                                          height: 30,
-                                                          clipBehavior:
-                                                              Clip.antiAlias,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                                color: Colors
-                                                                    .black),
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color: Colors
-                                                                .grey[300],
-                                                          ),
-                                                          child: Image.asset(
-                                                            'assets/games/icons/owIcon.png',
-                                                            scale: 50,
-                                                          ),
-                                                        ),
-                                                      if (game == "rl")
-                                                        Container(
-                                                          width: 30,
-                                                          height: 30,
-                                                          clipBehavior:
-                                                              Clip.antiAlias,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            border: Border.all(
-                                                                color: Colors
-                                                                    .black),
-                                                            color: Color(
-                                                                0xff004ca3),
-                                                          ),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 2,
-                                                                    top: 1),
-                                                            child: Image.asset(
-                                                              'assets/games/icons/rlIcon.png',
-                                                              scale: 27,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            }),
->>>>>>> origin/flutterflow
                                           ),
                                         )
                                   ],

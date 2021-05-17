@@ -72,10 +72,6 @@ class NavBarPage extends StatefulWidget {
   _NavBarPageState createState() => _NavBarPageState();
 }
 
-<<<<<<< HEAD
-=======
-/// This is the private State class that goes with NavBarPage.
->>>>>>> origin/flutterflow
 class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
   String _currentPage = 'HomePage';
   AnimationController _animationController;
@@ -121,12 +117,8 @@ class _NavBarPageState extends State<NavBarPage> with TickerProviderStateMixin {
     return size;
   }
 
-<<<<<<< HEAD
   /// Bouge le point en dessous des icône de la barre de navigation à la position [pos]
   void _moveBottomDot(String pos) {
-=======
-  void _movewidget(String pos) {
->>>>>>> origin/flutterflow
     setState(() {
       if (pos == "Profile") {
         posL = getPosition(_profileIconKey).dx -

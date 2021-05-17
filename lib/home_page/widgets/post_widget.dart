@@ -159,7 +159,6 @@ class PostWidget extends StatelessWidget {
                                                       InkWell(
                                                         onTap: () async {
                                                           /// Ça enlève le post si c'est celui de l'utilisateur
-<<<<<<< HEAD
                                                          Navigator.of(context).pop();
                                                           showDialog(
                                                             context: context,
@@ -276,13 +275,6 @@ class PostWidget extends StatelessWidget {
                                                               );
                                                             },
                                                           );
-=======
-                                                          Navigator.pop(
-                                                              context);
-                                                          await postRecord
-                                                              .reference
-                                                              .delete();
->>>>>>> origin/flutterflow
                                                         },
                                                         child: Container(
                                                           height: 40,

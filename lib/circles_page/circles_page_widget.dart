@@ -100,13 +100,9 @@ class _CirclesPageState extends State<CirclesPage>
                   Padding(
                     padding: const EdgeInsets.fromLTRB(40, 140, 40, 0),
                     child: Wrap(
-<<<<<<< HEAD
                       spacing: 25,
                          runSpacing: 25,
                          alignment: WrapAlignment.center,
-=======
-                        alignment: WrapAlignment.center,
->>>>>>> origin/flutterflow
                         children: <Widget>[
                           if (selectedGames.contains('valorant'))
                             SelectableCircle(
@@ -166,12 +162,6 @@ class _CirclesPageState extends State<CirclesPage>
                                 ),
                               ),
                             ),
-<<<<<<< HEAD
-=======
-                          SizedBox(
-                            width: 20,
-                          ),
->>>>>>> origin/flutterflow
                           if (selectedGames.contains('mw'))
                             SelectableCircle(
                                 selectedColor: Colors.black,
@@ -228,15 +218,7 @@ class _CirclesPageState extends State<CirclesPage>
                                       shape: BoxShape.circle,
                                     ),
                                   ),
-<<<<<<< HEAD
                                 )),
-=======
-                                  //backgroundImage:AssetImage('assets/images/mwIcon.png'),maxRadius: 26,backgroundColor: Colors.grey[900],foregroundColor: Colors.red,
-                                )),
-                          SizedBox(
-                            width: 20,
-                          ),
->>>>>>> origin/flutterflow
                           if (selectedGames.contains('lol'))
                             SelectableCircle(
                                 width: 80.0,
@@ -279,10 +261,6 @@ class _CirclesPageState extends State<CirclesPage>
                                 },
                                 child: CircleAvatar(
                                   maxRadius: 30,
-<<<<<<< HEAD
-=======
-                                  //backgroundImage:AssetImage('assets/images/lolIcon.png'),
->>>>>>> origin/flutterflow
                                   child: Container(
                                     width: 150,
                                     height: 150,
@@ -302,10 +280,6 @@ class _CirclesPageState extends State<CirclesPage>
                                       ),
                                     ),
                                   ),
-<<<<<<< HEAD
-=======
-                                  //backgroundImage:AssetImage('assets/images/lolIcon.png'),maxRadius: 25,backgroundColor: Color(0xff0a2f39),
->>>>>>> origin/flutterflow
                                 )),
                           if (selectedGames.contains('rl'))
                             SelectableCircle(
@@ -363,16 +337,8 @@ class _CirclesPageState extends State<CirclesPage>
                                     shape: BoxShape.circle,
                                   ),
                                 ),
-<<<<<<< HEAD
                               ),
                             ),
-=======
-                              ), /* CircleAvatar(backgroundImage:AssetImage('assets/images/rlIcon.png'),radius: 20,backgroundColor: Color(0xff004ca3),)*/
-                            ),
-                          SizedBox(
-                            width: 20,
-                          ),
->>>>>>> origin/flutterflow
                           if (selectedGames.contains('ow'))
                             SelectableCircle(
                               color: Colors.grey[350],
@@ -429,12 +395,7 @@ class _CirclesPageState extends State<CirclesPage>
                                   ),
                                 ),
                               ),
-<<<<<<< HEAD
                              )
-=======
-                              /* CircleAvatar(backgroundImage:AssetImage('assets/images/owIcon.png'),maxRadius: 24,backgroundColor:Colors.grey[350],*/
-                            )
->>>>>>> origin/flutterflow
                         ]),
                   ),
                   SizedBox(
@@ -633,11 +594,7 @@ class _CirclesPageState extends State<CirclesPage>
                 ],
               )
             : Scaffold(
-<<<<<<< HEAD
                 backgroundColor: Color(0xBA000000),
-=======
-                backgroundColor: Color(0xb4000000),
->>>>>>> origin/flutterflow
                 body: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 130),
                   child: Center(

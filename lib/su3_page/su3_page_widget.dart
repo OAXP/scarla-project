@@ -3,10 +3,6 @@
  */
 
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/flutterflow
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../su4_page/su4_page_widget.dart';
 
@@ -75,10 +71,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                         children: [
                           InkWell(
                             onTap: () async {
-<<<<<<< HEAD
                               /// Ajoute ou enleve le jeu lol à la liste des jeux de l'utilisateur
-=======
->>>>>>> origin/flutterflow
                               setState(() {
                                 selected[0] = !selected[0];
                               });
@@ -143,10 +136,7 @@ class _Su3PageWidgetState extends State<Su3PageWidget> {
                           InkWell(
                             onTap: () async {
                               setState(() {
-<<<<<<< HEAD
                                 /// Ajoute ou enleve le jeu valorant à la liste des jeux de l'utilisateur
-=======
->>>>>>> origin/flutterflow
                                 selected[1] = !selected[1];
                               });
 

@@ -240,10 +240,7 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                           padding: EdgeInsets.fromLTRB(70, 1, 6, 0),
                           child: InkWell(
                             onTap: () async {
-<<<<<<< HEAD
                               /// Vérification du nom et du tag de l'utilisateur
-=======
->>>>>>> origin/flutterflow
                               if (usernameFieldController.text.isEmpty ||
                                   tagFieldController.text.isEmpty) {
                                 showDialog(
@@ -317,10 +314,7 @@ class _Su1PageWidgetState extends State<Su1PageWidget> {
                                   },
                                 );
                               } else {
-<<<<<<< HEAD
                                 /// Si la vérification est bonne, envoie vers la page [Su2PageWidget]
-=======
->>>>>>> origin/flutterflow
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(

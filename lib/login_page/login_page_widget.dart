@@ -6,10 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-<<<<<<< HEAD
 import 'package:page_transition/page_transition.dart';
-=======
->>>>>>> origin/flutterflow
 import 'package:scarla/backend/schema/users_record.dart';
 import 'package:scarla/su1_page/su1_page_widget.dart';
 import 'package:wave/config.dart';
@@ -50,11 +47,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       body: Stack(
         children: [
           WaveWidget(
-<<<<<<< HEAD
             backgroundColor: Color(0xD3F44336),
-=======
-            backgroundColor: Colors.deepPurpleAccent,
->>>>>>> origin/flutterflow
             config: CustomConfig(
               gradients: [
                 [Color(0xffFF7C4DFF), Color(0xEEF44336)],
@@ -289,11 +282,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       InkWell(
                                         onTap: () async {
                                           /// Envoie vers la page [ResetPassPageWidget]
-<<<<<<< HEAD
                                           await Navigator.pushAndRemoveUntil(
-=======
-                                          await Navigator.push(
->>>>>>> origin/flutterflow
                                             context,
                                             PageTransition(
                                               type: PageTransitionType.fade,

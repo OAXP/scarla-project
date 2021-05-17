@@ -8,10 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:imgur/imgur.dart' as imgur;
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/flutterflow
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';

@@ -59,11 +59,7 @@ class GroupWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-<<<<<<< HEAD
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-=======
-                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
->>>>>>> origin/flutterflow
                 child: Container(
                   width: 80,
                   height: 80,

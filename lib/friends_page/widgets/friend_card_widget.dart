@@ -131,10 +131,7 @@ class FriendCardWidget extends StatelessWidget {
                                         lastMessage: lastMessage,
                                         lastMessageTimestamp:
                                             getCurrentTimestamp,
-<<<<<<< HEAD
                                         host: currentUserReference,
-=======
->>>>>>> origin/flutterflow
                                       ),
                                       'members_id': [
                                         userRecord.uid,
@@ -198,7 +195,6 @@ class FriendCardWidget extends StatelessWidget {
                                         ),
 
                                         // title: Center(child: Text('Alert!')),
-<<<<<<< HEAD
                                         content: Text.rich(
                                           TextSpan(text: 'Are you sure you want \n to delete ',
                                            children: [
@@ -210,16 +206,6 @@ class FriendCardWidget extends StatelessWidget {
                                           style: TextStyle(
                                               fontFamily: 'Poppins',
                                               fontWeight: FontWeight.w500),
-=======
-                                        content: Text(
-                                          'Are you sure you want \n to delete ' +
-                                              userRecord.name +
-                                              '?',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.w600),
->>>>>>> origin/flutterflow
                                         ),
                                         // insetPadding: EdgeInsets.fromLTRB(70,0,20,0),
                                         buttonPadding:

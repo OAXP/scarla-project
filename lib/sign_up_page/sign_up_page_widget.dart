@@ -5,10 +5,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-<<<<<<< HEAD
 import 'package:page_transition/page_transition.dart';
-=======
->>>>>>> origin/flutterflow
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 import '../auth/auth_util.dart';
@@ -47,19 +44,8 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
       backgroundColor: FlutterFlowTheme.primaryColor,
       body: Stack(
         children: [
-<<<<<<< HEAD
           WaveWidget(
             backgroundColor: Color(0xD3F44336),
-=======
-          /* Align(
-            alignment: Alignment(0, -1),
-            child: Container(
-              color: Color(0xFF313150),
-            )
-        ),*/
-          WaveWidget(
-            backgroundColor: Colors.deepPurpleAccent,
->>>>>>> origin/flutterflow
             config: CustomConfig(
               gradients: [
                 [Color(0xffFF7C4DFF), Color(0xEEF44336)],

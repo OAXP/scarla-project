@@ -300,16 +300,9 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(10.0),
                                               ),
-<<<<<<< HEAD
 
                                               content: Text(
                                                   'Are you sure you want to delete this group?',textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600),),
-=======
-                                              title:
-                                                  Center(child: Text('Alert!')),
-                                              content: Text(
-                                                  'Are you sure you want to delete this group?'),
->>>>>>> origin/flutterflow
                                               actions: <Widget>[
                                                 Column(
                                                   children: [
@@ -454,18 +447,10 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(10.0),
                                               ),
-<<<<<<< HEAD
 
                                               content: Text(
                                                   'Are you sure you want to leave this '
                                                   'group?',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w600),),
-=======
-                                              title:
-                                                  Center(child: Text('Alert!')),
-                                              content: Text(
-                                                  'Are you sure you want to leave this '
-                                                  'group?'),
->>>>>>> origin/flutterflow
                                               actions: <Widget>[
                                                 Column(
                                                   children: [
@@ -474,11 +459,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                         padding:
                                                             const EdgeInsets
                                                                     .fromLTRB(
-<<<<<<< HEAD
                                                                 0, 0, 23, 15),
-=======
-                                                                0, 0, 22, 15),
->>>>>>> origin/flutterflow
                                                         child: Container(
                                                           width: 250,
                                                           height: 2,
@@ -533,11 +514,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                           padding:
                                                               const EdgeInsets
                                                                       .fromLTRB(
-<<<<<<< HEAD
                                                                   0, 0, 25, 0),
-=======
-                                                                  0, 0, 20, 0),
->>>>>>> origin/flutterflow
                                                           child: Container(
                                                             width: 107,
                                                             height: 47,
@@ -837,7 +814,6 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                               borderRadius:
                                                               BorderRadius.circular(10.0),
                                                             ),
-<<<<<<< HEAD
                                                             content:
                                                             Text.rich(
                                                               TextSpan(text: 'Are you sure you want \n to remove',
@@ -851,12 +827,6 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                                   fontFamily: 'Poppins',
                                                                   fontWeight: FontWeight.w600),
                                                             ),
-=======
-                                                            title:
-                                                            Center(child: Text('Alert!')),
-                                                            content: Text(
-                                                                'Are you sure you want to remove '+ listViewUsersRecord.name+' from this group?', textAlign: TextAlign.center,),
->>>>>>> origin/flutterflow
                                                             actions: <Widget>[
                                                               Column(
                                                                 children: [
@@ -865,11 +835,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                                       padding:
                                                                       const EdgeInsets
                                                                           .fromLTRB(
-<<<<<<< HEAD
                                                                           0, 0, 7, 15),
-=======
-                                                                          0, 0, 24, 15),
->>>>>>> origin/flutterflow
                                                                       child: Container(
                                                                         width: 250,
                                                                         height: 2,
@@ -887,19 +853,12 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                                   ),
                                                                   Row(
                                                                     children: [
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/flutterflow
                                                                       Padding(
                                                                         padding:
                                                                         const EdgeInsets
                                                                             .fromLTRB(
-<<<<<<< HEAD
                                                                             0, 0, 13, 0),
-=======
-                                                                            0, 0, 14, 0),
->>>>>>> origin/flutterflow
                                                                         child: Container(
                                                                           width: 107,
                                                                           height: 47,
@@ -932,11 +891,7 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                                         padding:
                                                                         const EdgeInsets
                                                                             .fromLTRB(
-<<<<<<< HEAD
                                                                             0, 0, 7, 0),
-=======
-                                                                            0, 0, 23, 0),
->>>>>>> origin/flutterflow
                                                                         child: Container(
                                                                           width: 107,
                                                                           height: 47,
@@ -959,12 +914,8 @@ class _GroupsSettingsPageWidgetState extends State<GroupsSettingsPageWidget> {
                                                                             onPressed:
                                                                                 () async {
                                                                               /// Ça enleve un utilisateur du groupe
-<<<<<<< HEAD
                                                                                 Navigator.of(context).pop();
                                                                                 final groupsRecordData = {
-=======
-                                                                                  final groupsRecordData = {
->>>>>>> origin/flutterflow
                                                                                     'members_id': FieldValue
                                                                                         .arrayRemove([
                                                                                       listViewUsersRecord
