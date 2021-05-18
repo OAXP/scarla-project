@@ -170,7 +170,6 @@ class _MessageFormState extends State<MessageForm> {
                 fillColor: _message == null || _message.trim().isEmpty
                     ? Color(0xFF8E87C1)
                     : FlutterFlowTheme.secondaryColor,
-                //Color(0xFF5B54C2),Colors.blueGrey
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),

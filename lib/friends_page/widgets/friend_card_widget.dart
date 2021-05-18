@@ -193,8 +193,6 @@ class FriendCardWidget extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
-
-                                        // title: Center(child: Text('Alert!')),
                                         content: Text.rich(
                                           TextSpan(text: 'Are you sure you want \n to delete ',
                                            children: [
@@ -207,7 +205,6 @@ class FriendCardWidget extends StatelessWidget {
                                               fontFamily: 'Poppins',
                                               fontWeight: FontWeight.w500),
                                         ),
-                                        // insetPadding: EdgeInsets.fromLTRB(70,0,20,0),
                                         buttonPadding:
                                             EdgeInsets.fromLTRB(0, 30, 4, 0),
                                         actions: <Widget>[
@@ -284,6 +281,7 @@ class FriendCardWidget extends StatelessWidget {
                                                           await friendsRecord
                                                               .reference
                                                               .delete();
+                                                          Navigator.pop(context);
                                                         },
                                                       ),
                                                     ),
